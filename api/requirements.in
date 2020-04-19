@@ -10,6 +10,7 @@ watchdog[watchmedo]
 django
 django-extensions
 django-celery-results
+django-celery-beat
 djangorestframework
 
 pytest

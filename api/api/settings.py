@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "rest_framework",
     "django_celery_results",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
