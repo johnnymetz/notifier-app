@@ -1,0 +1,56 @@
+version: '3'
+services:
+  # db:
+  #   image: postgres
+  #   ports:
+  #     - '5432:5432'
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data/
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=notifierdb
+
+  rabbit:
+    hostname: rabbit
+    image: rabbitmq:latest
+    ports:
+      - '5672:5672'
+
+  celery:
+    build: ./api
+    command: watchmedo auto-restart -d ./ -p '*.py' -R -- celery worker -A api -l info
+    volumes:
+      - ./api:/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings
+      - CELERY_BROKER_URL=amqp://rabbit/
+      # - DB_HOST=db
+      # - DB_PORT=5432
+      # - DB_USERNAME=postgres
+      # - DB_PASSWORD=postgres
+      # - DB_NAME=notifierdb
+    depends_on:
+      # - db
+      - rabbit
+
+  api:
+    build: ./api
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./api:/app
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings
+      - CELERY_BROKER_URL=amqp://rabbit/
+      # - DB_HOST=db
+      # - DB_PORT=5432
+      # - DB_USERNAME=postgres
+      # - DB_PASSWORD=postgres
+      # - DB_NAME=notifierdb
+    depends_on:
+      # - db
+      - rabbit
+# volumes:
+#   postgres_data:

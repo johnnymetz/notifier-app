@@ -1,0 +1,34 @@
+default_stages: [commit]
+repos:
+  - repo: https://github.com/prettier/prettier
+    rev: 2.0.4
+    hooks:
+      - id: prettier
+  - repo: https://github.com/psf/black
+    rev: 19.10b0
+    hooks:
+      - id: black
+  - repo: https://github.com/timothycrosley/isort
+    rev: 4.3.21
+    hooks:
+      - id: isort
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.770
+    hooks:
+      - id: mypy
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+      - id: check-ast # validate python
+      - id: check-merge-conflict # validate no files contain merge conflict strings
+      - id: check-json # validate json
+      - id: check-yaml # validate yaml
+      - id: check-docstring-first # validate no code is placed before docstring
+      - id: check-added-large-files # prevent giant files from being commited (default=500kB)
+      - id: check-byte-order-marker # reject files which have a UTF-8 byte-order marker
+      - id: check-symlinks # check for broken symlinks
+      - id: debug-statements # validate no breakpoint() calls in python source
+      - id: detect-private-key # keep those keys safe
+      - id: end-of-file-fixer # add newline at end of files
+      - id: trailing-whitespace # trim trailing whitespace
+        exclude: \.snap # ignore snapshot test files

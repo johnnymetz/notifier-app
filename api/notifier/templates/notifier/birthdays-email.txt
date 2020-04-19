@@ -1,0 +1,5 @@
+Today's Birthdays
+
+{% for friend in friends %}
+- {{ friend.name_display }}{% if friend.age %} ({{ friend.age }}){% endif %}
+{% endfor %}
