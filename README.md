@@ -10,7 +10,9 @@ pre-commit install
 
 ## Todo
 
+- Unit test emails
 - Modularize settings (base, dev, prod)
+- Deploy to prod
 
 ## Notes
 
