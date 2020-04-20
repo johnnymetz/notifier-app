@@ -6,4 +6,4 @@ class NotifierConfig(AppConfig):
 
     def ready(self):
         # register signals
-        import notifier.signals
+        import notifier.signals  # noqa
