@@ -22,7 +22,7 @@ class Friend(models.Model):
     def age(self):
         if not self.date_of_birth:
             return None
-        today = timezone.now().date()
+        today = timezone.localdate()
         return (
             today.year
             - self.date_of_birth.year

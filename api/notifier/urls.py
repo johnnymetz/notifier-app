@@ -8,5 +8,5 @@ router.register("friends", FriendViewset)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("testing/", email_testing),
+    path("testing/<username>", email_testing),
 ]

@@ -4,6 +4,24 @@ from django.contrib.auth.models import User
 from notifier.models import Friend
 
 
+@admin.register(Friend)
+class FriendAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "__str__",
+        "date_of_birth",
+        "month",
+        "day",
+    )
+    list_filter = [
+        "date_of_birth",
+        "month",
+        "day",
+    ]
+    search_fields = ["date_of_birth__month", "date_of_birth__day", "month", "day"]
+    date_hierarchy = "date_of_birth"
+
+
 class FriendInline(admin.TabularInline):
     model = Friend
     extra = 1

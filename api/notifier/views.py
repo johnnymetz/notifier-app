@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from notifier.helpers import get_birthday_email_context
 from notifier.models import Friend
 from notifier.serializers import FriendSerializer, UserSerializer
 from rest_framework import viewsets
@@ -15,7 +16,7 @@ class FriendViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = FriendSerializer
 
 
-def email_testing(request):
-    friends = Friend.objects.all()[:5]
-    context = {"friends": friends}
+def email_testing(request, username):
+    user = User.objects.get(username=username)
+    context = get_birthday_email_context(user)
     return render(request, "notifier/birthdays-email.html", context)

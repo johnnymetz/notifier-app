@@ -6,13 +6,30 @@
     <title>Birthdays</title>
   </head>
   <body>
-    <h2>Today's Birthdays</h2>
+    <h2>Today's Birthdays ({{ today_display }})</h2>
     <ul>
-      {% for friend in friends %}
-      <li>
-        {{ friend.name_display }}{% if friend.age %} ({{ friend.age }}){% endif %}
-      </li>
-      {% endfor %}
+      {% if friends_with_bday_today %}
+        {% for friend in friends_with_bday_today %}
+        <li>
+          {{ friend.name_display }}{% if friend.age != None %} ({{ friend.age }}){% endif %}
+        </li>
+        {% endfor %}
+      {% else %}
+        <p>No birthday's today :(</p>
+      {% endif %}
+    </ul>
+
+    <h3>Upcoming Birthdays</h3>
+    <ul>
+      {% if friends_with_bday_upcoming %}
+        {% for friend in friends_with_bday_upcoming %}
+        <li>
+          {{ friend.name_display }} ({{ friend.birthday_display }})
+        </li>
+        {% endfor %}
+      {% else %}
+        <p>No birthday's upcoming</p>
+      {% endif %}
     </ul>
   </body>
 </html>

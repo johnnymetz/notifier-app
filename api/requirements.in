@@ -16,3 +16,4 @@ djangorestframework
 pytest
 pytest-django
 factory-boy
+freezegun

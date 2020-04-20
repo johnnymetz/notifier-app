@@ -1,5 +1,18 @@
-Today's Birthdays
+Today's Birthdays ({{ today_display }})
 
-{% for friend in friends %}
-- {{ friend.name_display }}{% if friend.age %} ({{ friend.age }}){% endif %}
-{% endfor %}
+{% if friends_with_bday_today %}
+  {% for friend in friends_with_bday_today %}
+- {{ friend.name_display }}{% if friend.age != None %} ({{ friend.age }}){% endif %}
+  {% endfor %}
+{% else %}
+No birthday's today :(
+{% endif %}
+
+<h3>Upcoming Birthdays</h3>
+{% if friends_with_bday_upcoming %}
+  {% for friend in friends_with_bday_upcoming %}
+- {{ friend.name_display }} ({{ friend.birthday_display }})
+  {% endfor %}
+{% else %}
+No birthday's upcoming
+{% endif %}

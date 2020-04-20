@@ -1,18 +1,33 @@
 import datetime
 
 import pytest
+import pytz
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from freezegun import freeze_time
 from notifier.models import Friend
 from notifier.tests.factories import FriendFactory, UserFactory
+
+
+@freeze_time("2020-01-01")
+def test_freeze_time_functionality():
+    # print(timezone.now())  # UTC time
+    # print(timezone.localdate())  # Local date
+    # print(timezone.localtime())  # Local datetime
+    assert datetime.datetime.now(tz=pytz.timezone("UTC")) == timezone.now()
+    assert (
+        datetime.datetime.now(tz=pytz.timezone("America/Los_Angeles"))
+        == timezone.localtime()
+    )
+    assert datetime.datetime.now().date() == timezone.localdate(
+        timezone=pytz.timezone("UTC")
+    )
+    assert datetime.datetime.now() == datetime.datetime.today()
 
 
 @pytest.mark.django_db
 def test_create_friend():
     user = UserFactory()
-    # print(timezone.now())  # UTC time
-    # print(timezone.localdate())  # Local date
-    # print(timezone.localtime())  # Local datetime
     today = timezone.localdate()
     friend = Friend.objects.create(user=user, first_name="First", date_of_birth=today)
     assert friend in Friend.objects.all()
@@ -31,17 +46,10 @@ def test_friend_birthday_display():
     assert friend_no_year.birthday_display == "03/03"
 
 
+@freeze_time("2020-01-01")
 @pytest.mark.django_db
-def test_friend_age():
-    # https://stackoverflow.com/questions/4481954/trying-to-mock-datetime-date-today-but-not-working
-    class MockDate(timezone.now):
-        @classmethod
-        def today(cls):
-            return cls(2020, 1, 1)
-
-    datetime.date = MockDate
-
-    # born later == younger
+def test_friend_age(settings):
+    settings.TIME_ZONE = "UTC"
     assert FriendFactory(date_of_birth=datetime.datetime(2000, 1, 2)).age == 19
     assert FriendFactory(date_of_birth=datetime.datetime(2000, 2, 1)).age == 19
     assert FriendFactory(date_of_birth=datetime.datetime(2000, 1, 1)).age == 20
