@@ -3,10 +3,16 @@ import datetime
 import pytest
 from freezegun import freeze_time
 from notifier.helpers import (
+    get_birthday_display,
     get_friends_with_birthday_today,
     get_friends_with_birthday_within,
 )
 from notifier.tests.factories import FriendFactory, UserFactory
+
+
+def test_get_birthday_display():
+    assert get_birthday_display(datetime.date(2000, 2, 2)) == "02/02"
+    assert get_birthday_display(None, month=3, day=3) == "03/03"
 
 
 @freeze_time("2020-01-01")

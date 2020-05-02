@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+from notifier.helpers import get_birthday_display
 
 
 class Friend(models.Model):
@@ -34,10 +35,8 @@ class Friend(models.Model):
 
     @property
     def birthday_display(self):
-        return (
-            self.date_of_birth.strftime("%m/%d")
-            if self.date_of_birth
-            else f"{self.month:02d}/{self.day:02d}"
+        return get_birthday_display(
+            dt=self.date_of_birth, month=self.month, day=self.day
         )
 
     def clean(self):

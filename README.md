@@ -1,10 +1,20 @@
 # Notifier App
 
+## Development
+
 ```
 pip-compile
 pip-sync
 pre-commit install
 ./manage createsuperuser
+./manage.py addfriends USERNAME
+```
+
+```
+docker-compose up -d
+docker container exec -it notifier-app_api_1 bash
+./manage.py migrate
+./manage.py createsuperuser
 ./manage.py addfriends USERNAME
 ```
 

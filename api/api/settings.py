@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -136,4 +138,12 @@ if not EMAIL_HOST_USER:
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_TASK_TRACK_STARTED = True
+CELERY_TIMEZONE = TIME_ZONE
 # CELERY_WORKER_CONCURRENCY = 1
+CELERY_BEAT_SCHEDULE = {
+    "send_birthday_notifier_email_to_user_task": {
+        "task": "notifier.tasks.send_birthday_notifier_email_to_user_task",
+        "schedule": crontab(minute="0", hour="7"),
+        "kwargs": {"username": "jmetz"},
+    },
+}
