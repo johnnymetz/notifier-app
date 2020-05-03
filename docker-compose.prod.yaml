@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    command: gunicorn --bind=0.0.0.0:8000 --log-level=debug --reload api.wsgi:application
+    command: gunicorn api.wsgi:application --bind=0.0.0.0:8000 --reload
     environment:
       - DJANGO_SETTINGS_MODULE=api.settings.production
       - SECRET_KEY

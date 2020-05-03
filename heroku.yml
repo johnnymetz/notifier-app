@@ -1,0 +1,21 @@
+setup:
+  addons:
+    - plan: cloudamqp:lemur
+build:
+  docker:
+    api: Dockerfile
+    celeryworker: Dockerfile
+    celerybeat: Dockerfile
+run:
+  api:
+    command:
+      - gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
+    image: api
+  celeryworker:
+    command:
+      - celery worker -A api -l info
+    image: celeryworker
+  celerybeat:
+    command:
+      - celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    image: celerybeat
