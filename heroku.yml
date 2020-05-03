@@ -20,8 +20,8 @@ run:
   #   command:
   #     - celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
   #   image: celerybeat
-# release:
-#   image: web
-#   command:
-#     - python manage.py migrate
+release:
+  image: api
+  command:
+    - python manage.py migrate
 #     - python manage.py collectstatic --noinput --clear
