@@ -8,6 +8,7 @@ services:
 
   api:
     build: ./api
+    image: notifier-app_api
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - '8000:8000'
@@ -20,7 +21,7 @@ services:
       - rabbit
 
   celeryworker:
-    build: ./api
+    image: notifier-app_api
     command: watchmedo auto-restart -d ./ -p '*.py' -R -- celery worker -A api -l info
     volumes:
       - ./api:/app
@@ -28,10 +29,10 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
-      - rabbit
+      - api
 
   celerybeat:
-    build: ./api
+    image: notifier-app_api
     command: watchmedo auto-restart -d ./ -p '*.py' -R -- celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - ./api:/app
@@ -39,4 +40,4 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
-      - rabbit
+      - api

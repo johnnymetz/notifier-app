@@ -4,19 +4,23 @@ setup:
 build:
   docker:
     api: api/Dockerfile
-    celeryworker: api/Dockerfile
+    # worker: api/Dockerfile
     # celerybeat: api/Dockerfile
 run:
   # https://devcenter.heroku.com/articles/process-model
   web:
     command:
       - gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
-    image: api
+    image: web
   worker:
     command:
       - celery worker -A api -l info
-    image: celeryworker
-  # celerybeat:
+    image: api
+  # beat:
   #   command:
   #     - celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
   #   image: celerybeat
+# release:
+#   image: web
+#   command:
+#     - python manage.py migrate
