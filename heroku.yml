@@ -3,9 +3,9 @@ setup:
     - plan: cloudamqp:lemur
 build:
   docker:
-    api: Dockerfile
-    celeryworker: Dockerfile
-    celerybeat: Dockerfile
+    api: api/Dockerfile
+    celeryworker: api/Dockerfile
+    celerybeat: api/Dockerfile
 run:
   api:
     command:
