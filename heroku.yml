@@ -11,7 +11,7 @@ run:
   web:
     command:
       - gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
-    image: web
+    image: api
   worker:
     command:
       - celery worker -A api -l info
