@@ -62,6 +62,7 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+api/static/
 
 # Flask stuff:
 instance/
@@ -139,7 +140,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-## Custom
+## Others
 
 # PyCharm
 .idea
@@ -149,3 +150,6 @@ cython_debug/
 
 # Local dev
 debugger.py
+
+# Django static files
+api/static/

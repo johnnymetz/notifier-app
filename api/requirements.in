@@ -6,6 +6,7 @@ pre-commit
 
 celery
 watchdog[watchmedo]
+whitenoise
 
 django
 django-extensions
