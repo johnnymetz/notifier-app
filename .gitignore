@@ -153,4 +153,3 @@ debugger.py
 
 # Django static files
 api/static/
-api/staticfiles/
