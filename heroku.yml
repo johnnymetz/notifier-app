@@ -7,11 +7,12 @@ build:
     celeryworker: api/Dockerfile
     # celerybeat: api/Dockerfile
 run:
-  api:
+  # https://devcenter.heroku.com/articles/process-model
+  web:
     command:
       - gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
     image: api
-  celeryworker:
+  worker:
     command:
       - celery worker -A api -l info
     image: celeryworker
