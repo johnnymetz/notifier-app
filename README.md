@@ -3,25 +3,35 @@
 ## Development
 
 ```
+# initial setup (only needs to be done once)
 pip-compile
 pip-sync
 pre-commit install
-./manage createsuperuser
-./manage.py addfriends USERNAME
-```
 
-```
+# development using local settings
 docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
 ./manage.py migrate
 ./manage.py createsuperuser
 ./manage.py addfriends USERNAME
+./manage.py sendbirthdayemail USERNAME
+
+# development using prod settings
+docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml config
+docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
+
+# setup db
+./manage.py migrate
+./manage.py createsuperuser
+./manage.py addfriends USERNAME
+
+# send test email
+./manage.py sendbirthdayemail USERNAME
 ```
 
 ## Todo
 
 - Unit test emails
-- Modularize settings (base, dev, prod)
 - Deploy to prod
 
 ## Notes

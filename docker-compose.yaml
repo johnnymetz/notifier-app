@@ -14,7 +14,7 @@ services:
     volumes:
       - ./api:/app
     environment:
-      - DJANGO_SETTINGS_MODULE=api.settings
+      - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - rabbit
@@ -25,7 +25,7 @@ services:
     volumes:
       - ./api:/app
     environment:
-      - DJANGO_SETTINGS_MODULE=api.settings
+      - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - rabbit
@@ -36,7 +36,7 @@ services:
     volumes:
       - ./api:/app
     environment:
-      - DJANGO_SETTINGS_MODULE=api.settings
+      - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - rabbit

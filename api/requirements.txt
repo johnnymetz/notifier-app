@@ -30,6 +30,7 @@ factory-boy==2.12.0       # via -r requirements.in
 faker==4.0.3              # via factory-boy
 filelock==3.0.12          # via virtualenv
 freezegun==0.3.15         # via -r requirements.in
+gunicorn==20.0.4          # via -r requirements.in
 identify==1.4.14          # via pre-commit
 isort==4.3.21             # via pylint
 kombu==4.6.8              # via celery
@@ -69,3 +70,4 @@ wrapt==1.11.2             # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
+# setuptools
