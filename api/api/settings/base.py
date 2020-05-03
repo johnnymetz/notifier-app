@@ -100,8 +100,6 @@ STATIC_URL = "/staticfiles/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-
 
 # Celery
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
