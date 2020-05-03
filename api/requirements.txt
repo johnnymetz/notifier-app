@@ -4,10 +4,6 @@
 #
 #    pip-compile
 #
---index-url http://build.locusdev.net:10001/simple/
---extra-index-url https://pypi.python.org/simple/
---trusted-host build.locusdev.net
-
 amqp==2.5.2               # via kombu
 appdirs==1.4.3            # via black, virtualenv
 argh==0.26.2              # via watchdog
