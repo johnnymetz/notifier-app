@@ -20,8 +20,7 @@ run:
   #   command:
   #     - celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
   #   image: celerybeat
-release:
-  image: web
-  command:
-    - python manage.py collectstatic --noinput
-#     - python manage.py collectstatic --noinput --clear
+# release:
+#   image: web
+#   command:
+#     - python manage.py collectstatic --noinput

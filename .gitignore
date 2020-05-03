@@ -62,7 +62,6 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-api/static/
 
 # Flask stuff:
 instance/
@@ -150,6 +149,3 @@ cython_debug/
 
 # Local dev
 debugger.py
-
-# Django static files
-api/static/
