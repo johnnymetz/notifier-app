@@ -31,8 +31,10 @@ docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
 
 ## Todo
 
+- Add django debug toolbar
 - Unit test emails
-- Deploy to prod
+- [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
+- Optimize/secure admin
 
 ## Notes
 

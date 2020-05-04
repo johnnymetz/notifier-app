@@ -1,12 +1,8 @@
 import datetime
-import logging
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from notifier.models import Friend
-
-logger = logging.getLogger("django")
-
 
 FRIENDS = [
     ("Dad", None, datetime.date(1959, 3, 28)),
@@ -19,6 +15,7 @@ FRIENDS = [
     ("Uncle", "Paco", datetime.date(1964, 6, 12)),
     ("Aunt", "Rebecca", (4, 14)),
     ("Chris", "Fiore", (2, 19)),
+    ("Uncle", "Stan", (5, 4)),
     ("Elliot", "Yaghoobia", (8, 7)),
     ("James", "Theo", datetime.date(1994, 6, 13)),
     ("Zack", "Haiman", datetime.date(1993, 9, 7)),
@@ -65,8 +62,7 @@ def import_friend(friend_data, user):
         month=month,
         day=day,
     )
-    if created:
-        logger.info(f"{friend} created successfully.")
+    return friend, created
 
 
 class Command(BaseCommand):
@@ -82,4 +78,6 @@ class Command(BaseCommand):
         except User.DoesNotExist:
             raise Exception(f"User {username} does not exist.")
         for friend_data in FRIENDS:
-            import_friend(friend_data, user)
+            friend, created = import_friend(friend_data, user)
+            if created:
+                self.stdout.write(self.style.SUCCESS(f"{friend} created successfully."))
