@@ -4,7 +4,7 @@
 build:
   docker:
     web: api/Dockerfile
-    worker: api/Dockerfil
+    worker: api/Dockerfile
 run:
   # https://devcenter.heroku.com/articles/process-model
   web:
