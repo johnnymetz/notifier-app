@@ -36,6 +36,8 @@ docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
 
 ## Notes
 
+- Heroku does not support SQLITE3
+
 ```
 # local vs utc datetime
 dt_la = datetime.datetime.now(tz=pytz.timezone('America/Los_Angeles'))

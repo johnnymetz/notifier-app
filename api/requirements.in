@@ -4,6 +4,7 @@ mypy
 pylint
 pre-commit
 
+psycopg2
 celery
 watchdog[watchmedo]
 whitenoise
@@ -12,6 +13,7 @@ django
 django-extensions
 django-celery-results
 django-celery-beat
+dj-database-url
 djangorestframework
 
 pytest

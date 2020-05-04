@@ -1,5 +1,14 @@
 version: '3'
 services:
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
   rabbit:
     hostname: rabbit
     image: rabbitmq:latest
@@ -9,15 +18,19 @@ services:
   api:
     build: ./api
     image: notifier-app_api
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "
+      ./manage.py migrate &&
+      ./manage.py runserver 0.0.0.0:8000"
     ports:
       - '8000:8000'
     volumes:
       - ./api:/app
     environment:
+      - DB_HOST=db
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
+      - db
       - rabbit
 
   celeryworker:
@@ -41,3 +54,6 @@ services:
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - api
+
+volumes:
+  postgres_data:

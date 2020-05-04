@@ -1,10 +1,10 @@
-# setup:
-#   addons:
-#     - plan: cloudamqp:lemur
+setup:
+  addons:
+    - plan: cloudamqp:lemur
+    - plan: heroku-postgresql:hobby-dev
 build:
   docker:
     web: api/Dockerfile
-    # worker: api/Dockerfile
 run:
   # https://devcenter.heroku.com/articles/process-model
   web:
