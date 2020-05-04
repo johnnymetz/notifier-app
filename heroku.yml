@@ -1,26 +1,21 @@
-setup:
-  addons:
-    - plan: cloudamqp:lemur
+# setup:
+#   addons:
+#     - plan: cloudamqp:lemur
 build:
   docker:
     web: api/Dockerfile
-    worker: api/Dockerfile
-    # celerybeat: api/Dockerfile
+    worker: api/Dockerfil
 run:
   # https://devcenter.heroku.com/articles/process-model
   web:
     command:
-      - gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
+      - python manage.py collectstatic --noinput; gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
     image: web
   worker:
     command:
       - celery worker -A api -l info
     image: worker
-  # beat:
-  #   command:
-  #     - celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-  #   image: celerybeat
-release:
-  image: web
-  command:
-    - python manage.py collectstatic --noinput
+# release:
+#   image: web
+#   command:
+#     - python manage.py collectstatic --noinput
