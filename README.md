@@ -62,7 +62,10 @@ heroku addons:create heroku-postgresql:hobby-dev
 
 # set env vars
 
-#
+# scale dynos
+heroku ps:scale web=1
+
+# use paid dynaos and add ssl
 heroku ps:resize web=hobby
 heroku certs:auto:enable
 heroku certs:auto

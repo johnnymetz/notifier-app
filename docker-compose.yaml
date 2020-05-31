@@ -26,8 +26,8 @@ services:
     volumes:
       - ./api:/app
     environment:
-      - DB_HOST=db
       - DJANGO_SETTINGS_MODULE=api.settings.local
+      - DB_HOST=db
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - db
@@ -40,6 +40,7 @@ services:
       - ./api:/app
     environment:
       - DJANGO_SETTINGS_MODULE=api.settings.local
+      - DB_HOST=db
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - api
@@ -51,6 +52,7 @@ services:
       - ./api:/app
     environment:
       - DJANGO_SETTINGS_MODULE=api.settings.local
+      - DB_HOST=db
       - CELERY_BROKER_URL=amqp://rabbit/
     depends_on:
       - api
