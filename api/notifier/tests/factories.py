@@ -1,7 +1,9 @@
 import datetime
 
-import factory
 from django.contrib.auth.models import User
+
+import factory
+
 from notifier.models import Friend
 
 

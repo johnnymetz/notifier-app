@@ -1,8 +1,9 @@
-from api.celery import app
 from celery import states
 from celery.signals import after_task_publish
 from django_celery_results.backends import DatabaseBackend
 from django_celery_results.models import TaskResult
+
+from api.celery import app
 
 
 # Signal to persist PENDING tasks to db.

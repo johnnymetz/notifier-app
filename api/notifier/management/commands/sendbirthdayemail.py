@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+
 from notifier.helpers import send_birthday_notifier_email_to_user
 
 

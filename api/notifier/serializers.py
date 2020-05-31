@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
-from notifier.models import Friend
+
 from rest_framework import serializers
+
+from notifier.models import Friend
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

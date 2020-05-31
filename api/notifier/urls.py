@@ -1,6 +1,8 @@
 from django.urls import include, path
-from notifier.views import FriendViewset, UserViewset, email_testing
+
 from rest_framework.routers import DefaultRouter
+
+from notifier.views import FriendViewset, UserViewset, email_testing
 
 router = DefaultRouter()
 router.register("users", UserViewset)

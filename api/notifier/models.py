@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+
 from notifier.helpers import get_birthday_display
 
 

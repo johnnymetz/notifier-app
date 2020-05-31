@@ -7,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils import timezone
+
 from notifier.exceptions import NotifierException
 
 logger = logging.getLogger("django")

@@ -2,6 +2,7 @@ import datetime
 
 import pytest
 from freezegun import freeze_time
+
 from notifier.helpers import (
     get_birthday_display,
     get_friends_with_birthday_today,

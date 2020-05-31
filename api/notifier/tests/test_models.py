@@ -1,10 +1,12 @@
 import datetime
 
-import pytest
-import pytz
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+
+import pytest
+import pytz
 from freezegun import freeze_time
+
 from notifier.models import Friend
 from notifier.tests.factories import FriendFactory, UserFactory
 

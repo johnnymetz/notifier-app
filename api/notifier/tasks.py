@@ -1,7 +1,9 @@
 import logging
 
-from celery import shared_task
 from django.contrib.auth.models import User
+
+from celery import shared_task
+
 from notifier.helpers import send_birthday_notifier_email_to_user
 
 logger = logging.getLogger("django")
