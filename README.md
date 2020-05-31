@@ -27,21 +27,42 @@ docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
 
 # send test email
 ./manage.py sendbirthdayemail USERNAME
+
+# heroku
+heroku run bash
 ```
 
 ## Todo
 
-- Add django debug toolbar
+- Add silk or django debug toolbar
 - Unit test emails
-- [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
-- Optimize/secure admin
 
 ## Notes
 
 - Heroku does not support SQLITE3
+- [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
 
 ```
 # local vs utc datetime
 dt_la = datetime.datetime.now(tz=pytz.timezone('America/Los_Angeles'))
 dt_utc = dt_la.astimezone(pytz.utc)
+```
+
+## Deployment
+
+```
+# initial setup
+heroku stack:set container -a notifier-application
+heroku plugins:install @heroku-cli/plugin-manifest
+git add/commit/push heroku master
+heroku ps:scale web=1 worker=1
+heroku addons:create cloudamqp:lemur
+heroku addons:create heroku-postgresql:hobby-dev
+
+# set env vars
+
+#
+heroku ps:resize web=hobby
+heroku certs:auto:enable
+heroku certs:auto
 ```
