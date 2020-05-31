@@ -9,6 +9,7 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.production
       - SECRET_KEY
       - ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - ADMIN_URL=admin
       - EMAIL_HOST_USER
       - EMAIL_HOST_PASSWORD
 
@@ -17,6 +18,7 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.production
       - SECRET_KEY
       - ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - ADMIN_URL=admin
       - EMAIL_HOST_USER
       - EMAIL_HOST_PASSWORD
 
@@ -25,5 +27,6 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.production
       - SECRET_KEY
       - ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - ADMIN_URL=admin
       - EMAIL_HOST_USER
       - EMAIL_HOST_PASSWORD
