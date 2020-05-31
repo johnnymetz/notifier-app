@@ -35,6 +35,7 @@ heroku run bash
 
 ## Todo
 
+- Add cypress tests
 - Add silk or django debug toolbar
 - Unit test emails
 
