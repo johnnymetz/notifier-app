@@ -16,6 +16,10 @@ docker container exec -it notifier-app_api_1 bash
 ./manage.py addfriends USERNAME
 ./manage.py sendbirthdayemail USERNAME
 
+# development using gmail settings
+docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml config
+docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
+
 # development using prod settings
 docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml config
 docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
@@ -62,7 +66,6 @@ heroku ps:scale web=1 worker=1
 heroku addons:create cloudamqp:lemur
 heroku addons:create heroku-postgresql:hobby-dev
 heroku addons:create scheduler:standard
-heroku addons:create sendgrid:starter
 
 # set env vars
 

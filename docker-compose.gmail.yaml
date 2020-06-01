@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api:
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings.local_gmail
+      - GMAIL_HOST_USER
+      - GMAIL_HOST_PASSWORD
+
+  celeryworker:
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings.local_gmail
+      - GMAIL_HOST_USER
+      - GMAIL_HOST_PASSWORD
+
+  celerybeat:
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings.local_gmail
+      - GMAIL_HOST_USER
+      - GMAIL_HOST_PASSWORD
