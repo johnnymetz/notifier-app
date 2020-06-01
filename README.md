@@ -20,10 +20,6 @@ docker container exec -it notifier-app_api_1 bash
 docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml config
 docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
 
-# development using prod settings
-docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml config
-docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
-
 # setup db
 ./manage.py migrate
 ./manage.py createsuperuser
