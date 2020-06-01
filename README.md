@@ -31,6 +31,7 @@ docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up -d
 # heroku
 git push heroku master
 heroku run bash
+heroku run python manage.py sendbirthdayemail jmetz
 ```
 
 ## Todo
@@ -60,13 +61,15 @@ git add/commit/push heroku master
 heroku ps:scale web=1 worker=1
 heroku addons:create cloudamqp:lemur
 heroku addons:create heroku-postgresql:hobby-dev
+heroku addons:create scheduler:standard
+heroku addons:create sendgrid:starter
 
 # set env vars
 
 # scale dynos
 heroku ps:scale web=1
 
-# use paid dynaos and add ssl
+# use paid dynos and add ssl
 heroku ps:resize web=hobby
 heroku certs:auto:enable
 heroku certs:auto
