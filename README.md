@@ -32,17 +32,21 @@ docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
 git push heroku master
 heroku run bash
 heroku run python manage.py sendbirthdayemail jmetz
+
+# heroku psql
+heroku pg:psql
 ```
 
 ## Todo
 
-- Gmail mail is flakey
+- Gmail mail is flakey (try SendGrid)
 - Add cypress tests
 - Add silk or django debug toolbar
 - Unit test emails
 
 ## Notes
 
+- SendGrid: 100 free emails / day
 - Heroku does not support SQLITE3
 - [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
 
