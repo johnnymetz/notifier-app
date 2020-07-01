@@ -13,17 +13,14 @@ from notifier.exceptions import NotifierException
 logger = logging.getLogger("django")
 
 
-def get_birthday_display(
-    dt: Optional[datetime.date], month: Optional[int] = None, day: Optional[int] = None,
-):
-    return dt.strftime("%m/%d") if dt else f"{month:02d}/{day:02d}"
+def get_birthday_display(dt: datetime.date):
+    return dt.strftime("%m/%d")
 
 
 def get_friends_with_birthday_today(user: User):
     today = timezone.localdate()
     return user.friends.filter(
         Q(date_of_birth__month=today.month, date_of_birth__day=today.day)
-        | Q(month=today.month, day=today.day)
     )
 
 
@@ -41,7 +38,6 @@ def get_friends_with_birthday_within(user: User, days):
     filters = []
     for month, day in monthdays:
         filters.append(Q(date_of_birth__month=month, date_of_birth__day=day))
-        filters.append(Q(month=month, day=day))
 
     query = Q()
     for f in filters:

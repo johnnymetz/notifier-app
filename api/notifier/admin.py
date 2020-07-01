@@ -7,19 +7,9 @@ from notifier.models import Friend
 
 @admin.register(Friend)
 class FriendAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",
-        "__str__",
-        "date_of_birth",
-        "month",
-        "day",
-    )
-    list_filter = [
-        "date_of_birth",
-        "month",
-        "day",
-    ]
-    search_fields = ["date_of_birth__month", "date_of_birth__day", "month", "day"]
+    list_display = ("user", "__str__", "date_of_birth")
+    list_filter = ["date_of_birth"]
+    search_fields = ["date_of_birth__month", "date_of_birth__day"]
     date_hierarchy = "date_of_birth"
 
 

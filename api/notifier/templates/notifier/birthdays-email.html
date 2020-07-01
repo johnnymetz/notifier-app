@@ -11,7 +11,7 @@
       {% if friends_with_bday_today %}
         {% for friend in friends_with_bday_today %}
         <li>
-          {{ friend.name_display }}{% if friend.age != None %} ({{ friend.age }}){% endif %}
+          {{ friend.name_display }} - {{ friend.age | default:"unknown" }}
         </li>
         {% endfor %}
       {% else %}
@@ -24,7 +24,7 @@
       {% if friends_with_bday_upcoming %}
         {% for friend in friends_with_bday_upcoming %}
         <li>
-          {{ friend.name_display }} ({{ friend.birthday_display }})
+          {{ friend.name_display }} ({{ friend.birthday_display }}) - {{ friend.age | default:"unknown" }}
         </li>
         {% endfor %}
       {% else %}

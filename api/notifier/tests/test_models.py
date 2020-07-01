@@ -1,6 +1,5 @@
 import datetime
 
-from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 import pytest
@@ -44,8 +43,6 @@ def test_friend_factory_is_valid():
 def test_friend_birthday_display():
     friend = FriendFactory(date_of_birth=datetime.datetime(2000, 2, 2))
     assert friend.birthday_display == "02/02"
-    friend_no_year = FriendFactory(date_of_birth=None, month=3, day=3)
-    assert friend_no_year.birthday_display == "03/03"
 
 
 @freeze_time("2020-01-01")
@@ -57,31 +54,3 @@ def test_friend_age(settings):
     assert FriendFactory(date_of_birth=datetime.datetime(2000, 1, 1)).age == 20
     assert FriendFactory(date_of_birth=datetime.datetime(1999, 11, 30)).age == 20
     assert FriendFactory(date_of_birth=datetime.datetime(1999, 12, 31)).age == 20
-
-
-@pytest.mark.django_db
-def test_only_month_or_day_without_dob_raises_error():
-    msg = "Both month and day are required if date_of_birth is None"
-    with pytest.raises(ValidationError) as e:
-        FriendFactory(date_of_birth=None)
-    assert e.value.message == msg
-    with pytest.raises(ValidationError) as e:
-        FriendFactory(date_of_birth=None, month=3)
-    assert e.value.message == msg
-    with pytest.raises(ValidationError) as e:
-        FriendFactory(date_of_birth=None, day=3)
-    assert e.value.message == msg
-
-
-@pytest.mark.django_db
-def test_adding_month_or_day_with_dob_raises_error():
-    msg = "Neither month nor day can be set if date_of_birth is provided"
-    with pytest.raises(ValidationError) as e:
-        FriendFactory(month=3)
-    assert e.value.message == msg
-    with pytest.raises(ValidationError) as e:
-        FriendFactory(day=3)
-    assert e.value.message == msg
-    with pytest.raises(ValidationError) as e:
-        FriendFactory(month=3, day=3)
-    assert e.value.message == msg

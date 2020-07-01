@@ -36,6 +36,7 @@ heroku run python manage.py sendbirthdayemail jmetz
 
 ## Todo
 
+- Gmail mail is flakey
 - Add cypress tests
 - Add silk or django debug toolbar
 - Unit test emails

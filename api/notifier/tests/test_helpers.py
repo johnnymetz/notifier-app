@@ -3,6 +3,7 @@ import datetime
 import pytest
 from freezegun import freeze_time
 
+from notifier.constants import UNKNOWN_YEAR
 from notifier.helpers import (
     get_birthday_display,
     get_friends_with_birthday_today,
@@ -13,7 +14,6 @@ from notifier.tests.factories import FriendFactory, UserFactory
 
 def test_get_birthday_display():
     assert get_birthday_display(datetime.date(2000, 2, 2)) == "02/02"
-    assert get_birthday_display(None, month=3, day=3) == "03/03"
 
 
 @freeze_time("2020-01-01")
@@ -23,9 +23,11 @@ def test_get_friends_with_birthday_today(settings):
     user = UserFactory()
     user2 = UserFactory()
     friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 1))
-    friend2 = FriendFactory(user=user, date_of_birth=None, month=1, day=1)
+    friend2 = FriendFactory(
+        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 1)
+    )
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 2))
-    FriendFactory(user=user, date_of_birth=None, month=1, day=3)
+    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 3))
     FriendFactory(user=user2, date_of_birth=datetime.datetime(1990, 1, 1))
     friends = get_friends_with_birthday_today(user)
     assert friend1 in friends
@@ -41,14 +43,18 @@ def test_get_friends_with_birthday_within(settings):
     user2 = UserFactory()
     friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 2))
     friend2 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 5))
-    friend3 = FriendFactory(user=user, date_of_birth=None, month=1, day=2)
-    friend4 = FriendFactory(user=user, date_of_birth=None, month=1, day=5)
+    friend3 = FriendFactory(
+        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 2)
+    )
+    friend4 = FriendFactory(
+        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 5)
+    )
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 1))
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 6))
     FriendFactory(user=user, date_of_birth=datetime.datetime(1989, 12, 31))
-    FriendFactory(user=user, date_of_birth=None, month=1, day=1)
-    FriendFactory(user=user, date_of_birth=None, month=1, day=6)
-    FriendFactory(user=user, date_of_birth=None, month=12, day=31)
+    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 1))
+    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 6))
+    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 12, 31))
     FriendFactory(user=user2, date_of_birth=datetime.datetime(1990, 1, 2))
     friends = get_friends_with_birthday_within(user, days=5)
     assert friend1 in friends
@@ -66,12 +72,16 @@ def test_get_friends_with_birthday_within_end_of_month(settings):
     user = UserFactory()
     friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 31))
     friend2 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 1))
-    friend3 = FriendFactory(user=user, date_of_birth=None, month=1, day=31)
-    friend4 = FriendFactory(user=user, date_of_birth=None, month=2, day=2)
+    friend3 = FriendFactory(
+        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 31)
+    )
+    friend4 = FriendFactory(
+        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 2, 2)
+    )
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 30))
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 10))
-    FriendFactory(user=user, date_of_birth=None, month=1, day=30)
-    FriendFactory(user=user, date_of_birth=None, month=2, day=10)
+    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 30))
+    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 2, 10))
     friends = get_friends_with_birthday_within(user, days=5)
     assert friend1 in friends
     assert friend2 in friends
