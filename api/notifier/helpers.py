@@ -38,18 +38,6 @@ def get_friends_with_birthday_within(user: User, days):
         monthdays.append((counter.month, counter.day))
         counter += datetime.timedelta(days=1)
 
-    # # Transform each into queryset keyword args.
-    # monthdays_filters = []
-    # for month, day in monthdays:
-    #     monthdays_filters.append({"date_of_birth__month": month, "date_of_birth__day": day})
-    #     monthdays_filters.append({"month": month, "day": day})
-    #
-    # import operator
-    # import functools
-    #
-    # # Compose the Q objects together for a single query.
-    # query = functools.reduce(operator.or_, (Q(**d) for d in monthdays_filters))
-
     filters = []
     for month, day in monthdays:
         filters.append(Q(date_of_birth__month=month, date_of_birth__day=day))
