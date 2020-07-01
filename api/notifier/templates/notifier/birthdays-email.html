@@ -6,7 +6,7 @@
     <title>Birthdays</title>
   </head>
   <body>
-    <h2>Today's Birthdays ({{ today_display }})</h2>
+    <h3>Today ({{ today_display }})</h3>
     <ul>
       {% if friends_with_bday_today %}
         {% for friend in friends_with_bday_today %}
@@ -19,7 +19,7 @@
       {% endif %}
     </ul>
 
-    <h3>Upcoming Birthdays</h3>
+    <h3>Upcoming</h3>
     <ul>
       {% if friends_with_bday_upcoming %}
         {% for friend in friends_with_bday_upcoming %}

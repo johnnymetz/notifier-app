@@ -6,6 +6,14 @@ from django.core.management.base import BaseCommand
 from notifier.models import Friend
 
 FRIENDS = [
+    ###
+    ("Test", "0", (6, 30)),
+    ("Test", "1", (7, 1)),
+    ("Test", "2", (7, 2)),
+    ("Test", "3", (7, 3)),
+    ("Test", "4", (7, 4)),
+    ("Test", "5", (7, 5)),
+    ###
     ("Dad", None, datetime.date(1959, 3, 28)),
     ("Mom", None, datetime.date(1960, 11, 26)),
     ("Leah", None, datetime.date(1995, 7, 17)),
@@ -17,6 +25,8 @@ FRIENDS = [
     ("Aunt", "Rebecca", (4, 14)),
     ("Chris", "Fiore", (2, 19)),
     ("Uncle", "Stan", (5, 4)),
+    ("Sam", "Mayper", (12, 7)),
+    ("Dan", "Mayper", datetime.date(1995, 6, 28)),
     ("Elliot", "Yaghoobia", (8, 7)),
     ("James", "Theo", datetime.date(1994, 6, 13)),
     ("Zack", "Haiman", datetime.date(1993, 9, 7)),

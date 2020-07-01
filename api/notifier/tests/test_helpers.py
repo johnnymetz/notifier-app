@@ -57,3 +57,24 @@ def test_get_friends_with_birthday_within(settings):
     assert friend4 in friends
     assert len(friends) == 4
     assert [f.birthday_display for f in friends] == ["01/02", "01/02", "01/05", "01/05"]
+
+
+@freeze_time("2020-01-30")
+@pytest.mark.django_db
+def test_get_friends_with_birthday_within_end_of_month(settings):
+    settings.TIME_ZONE = "UTC"
+    user = UserFactory()
+    friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 31))
+    friend2 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 1))
+    friend3 = FriendFactory(user=user, date_of_birth=None, month=1, day=31)
+    friend4 = FriendFactory(user=user, date_of_birth=None, month=2, day=2)
+    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 30))
+    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 10))
+    FriendFactory(user=user, date_of_birth=None, month=1, day=30)
+    FriendFactory(user=user, date_of_birth=None, month=2, day=10)
+    friends = get_friends_with_birthday_within(user, days=5)
+    assert friend1 in friends
+    assert friend2 in friends
+    assert friend3 in friends
+    assert friend4 in friends
+    assert len(friends) == 4

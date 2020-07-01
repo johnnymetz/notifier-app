@@ -30,20 +30,36 @@ def get_friends_with_birthday_today(user: User):
 def get_friends_with_birthday_within(user: User, days):
     today = timezone.localdate()
     later = today + datetime.timedelta(days=days)
-    friends = user.friends.filter(
-        Q(
-            date_of_birth__month__gte=today.month,
-            date_of_birth__month__lte=later.month,
-            date_of_birth__day__gt=today.day,
-            date_of_birth__day__lt=later.day,
-        )
-        | Q(
-            month__gte=today.month,
-            month__lte=later.month,
-            day__gt=today.day,
-            day__lt=later.day,
-        )
-    )
+
+    # Build the list of month/day tuples.
+    monthdays = []
+    counter = today + datetime.timedelta(days=1)
+    while counter < later:
+        monthdays.append((counter.month, counter.day))
+        counter += datetime.timedelta(days=1)
+
+    # # Transform each into queryset keyword args.
+    # monthdays_filters = []
+    # for month, day in monthdays:
+    #     monthdays_filters.append({"date_of_birth__month": month, "date_of_birth__day": day})
+    #     monthdays_filters.append({"month": month, "day": day})
+    #
+    # import operator
+    # import functools
+    #
+    # # Compose the Q objects together for a single query.
+    # query = functools.reduce(operator.or_, (Q(**d) for d in monthdays_filters))
+
+    filters = []
+    for month, day in monthdays:
+        filters.append(Q(date_of_birth__month=month, date_of_birth__day=day))
+        filters.append(Q(month=month, day=day))
+
+    query = Q()
+    for f in filters:
+        query |= f
+
+    friends = user.friends.filter(query)
     friends_sorted = sorted(friends, key=lambda x: x.birthday_display)
     return friends_sorted
 

@@ -45,17 +45,17 @@ services:
     depends_on:
       - api
 
-  celerybeat:
-    image: notifier-app_api
-    command: watchmedo auto-restart -d ./ -p '*.py' -R -- celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    volumes:
-      - ./api:/app
-    environment:
-      - DJANGO_SETTINGS_MODULE=api.settings.local
-      - DB_HOST=db
-      - CELERY_BROKER_URL=amqp://rabbit/
-    depends_on:
-      - api
+  # celerybeat:
+  #   image: notifier-app_api
+  #   command: watchmedo auto-restart -d ./ -p '*.py' -R -- celery beat -A api -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+  #   volumes:
+  #     - ./api:/app
+  #   environment:
+  #     - DJANGO_SETTINGS_MODULE=api.settings.local
+  #     - DB_HOST=db
+  #     - CELERY_BROKER_URL=amqp://rabbit/
+  #   depends_on:
+  #     - api
 
 volumes:
   postgres_data:

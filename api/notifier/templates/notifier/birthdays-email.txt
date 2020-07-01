@@ -1,4 +1,4 @@
-Today's Birthdays ({{ today_display }})
+Today ({{ today_display }})
 
 {% if friends_with_bday_today %}
   {% for friend in friends_with_bday_today %}
@@ -8,7 +8,7 @@ Today's Birthdays ({{ today_display }})
 No birthday's today :(
 {% endif %}
 
-<h3>Upcoming Birthdays</h3>
+Upcoming
 {% if friends_with_bday_upcoming %}
   {% for friend in friends_with_bday_upcoming %}
 - {{ friend.name_display }} ({{ friend.birthday_display }})
