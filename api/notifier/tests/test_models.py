@@ -4,13 +4,12 @@ from django.utils import timezone
 
 import pytest
 import pytz
-from freezegun import freeze_time
 
 from notifier.models import Friend
 from notifier.tests.factories import FriendFactory, UserFactory
 
 
-@freeze_time("2020-01-01")
+@pytest.mark.freeze_time("2020-01-01")
 def test_freeze_time_functionality():
     # print(timezone.now())  # UTC time
     # print(timezone.localdate())  # Local date
@@ -45,7 +44,7 @@ def test_friend_birthday_display():
     assert friend.birthday_display == "02/02"
 
 
-@freeze_time("2020-01-01")
+@pytest.mark.freeze_time("2020-01-01")
 @pytest.mark.django_db
 def test_friend_age(settings):
     settings.TIME_ZONE = "UTC"

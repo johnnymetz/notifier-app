@@ -1,7 +1,6 @@
 import datetime
 
 import pytest
-from freezegun import freeze_time
 
 from notifier.constants import UNKNOWN_YEAR
 from notifier.helpers import (
@@ -16,7 +15,7 @@ def test_get_birthday_display():
     assert get_birthday_display(datetime.date(2000, 2, 2)) == "02/02"
 
 
-@freeze_time("2020-01-01")
+@pytest.mark.freeze_time("2020-01-01")
 @pytest.mark.django_db
 def test_get_friends_with_birthday_today(settings):
     settings.TIME_ZONE = "UTC"
@@ -35,7 +34,7 @@ def test_get_friends_with_birthday_today(settings):
     assert friends.count() == 2
 
 
-@freeze_time("2020-01-01")
+@pytest.mark.freeze_time("2020-01-01")
 @pytest.mark.django_db
 def test_get_friends_with_birthday_within(settings):
     settings.TIME_ZONE = "UTC"
@@ -65,7 +64,7 @@ def test_get_friends_with_birthday_within(settings):
     assert [f.birthday_display for f in friends] == ["01/02", "01/02", "01/05", "01/05"]
 
 
-@freeze_time("2020-01-30")
+@pytest.mark.freeze_time("2020-01-30")
 @pytest.mark.django_db
 def test_get_friends_with_birthday_within_end_of_month(settings):
     settings.TIME_ZONE = "UTC"

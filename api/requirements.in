@@ -18,7 +18,9 @@ djangorestframework
 
 pytest
 pytest-django
+pytest-randomly
+pytest-timeout
+pytest-freezegun
 factory-boy
-freezegun
 
 gunicorn
