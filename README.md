@@ -39,6 +39,8 @@ heroku pg:psql
 
 ## Todo
 
+- Build frontend
+- Add Authentication + Authorization
 - Gmail mail is flakey (try SendGrid)
 - Add cypress tests
 - Add silk or django debug toolbar
@@ -49,6 +51,7 @@ heroku pg:psql
 - SendGrid: 100 free emails / day
 - Heroku does not support SQLITE3
 - [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
+- PUT = full update; PATCH = partial update
 
 ```
 # local vs utc datetime

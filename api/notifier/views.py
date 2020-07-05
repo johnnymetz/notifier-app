@@ -13,8 +13,8 @@ class UserViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
 
 
-class FriendViewset(viewsets.ReadOnlyModelViewSet):
-    queryset = Friend.objects.order_by("date_of_birth")
+class FriendViewset(viewsets.ModelViewSet):
+    queryset = Friend.objects.all()
     serializer_class = FriendSerializer
 
 

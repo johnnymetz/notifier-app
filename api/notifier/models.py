@@ -12,11 +12,8 @@ class Friend(models.Model):
     last_name = models.CharField("last name", max_length=150, null=True, blank=True)
     date_of_birth = models.DateField()
 
-    @property
-    def name_display(self):
-        return (
-            f"{self.first_name} {self.last_name}" if self.last_name else self.first_name
-        )
+    class Meta:
+        ordering = ["date_of_birth__month", "date_of_birth__day"]
 
     @property
     def age(self):
@@ -37,4 +34,6 @@ class Friend(models.Model):
         return get_birthday_display(dt=self.date_of_birth)
 
     def __str__(self):
-        return self.name_display
+        return (
+            f"{self.first_name} {self.last_name}" if self.last_name else self.first_name
+        )
