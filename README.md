@@ -40,6 +40,7 @@ heroku pg:psql
 ## Todo
 
 - Build frontend
+- Try nprogress in frontend
 - Add Authentication + Authorization
 - Gmail mail is flakey (try SendGrid)
 - Add cypress tests

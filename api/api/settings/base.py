@@ -122,5 +122,5 @@ CELERY_WORKER_CONCURRENCY = 1
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "api.pagination.CustomPageNumberPagination",
-    "PAGE_SIZE": 3,
+    "PAGE_SIZE": 5,
 }

@@ -1,0 +1,13 @@
+FROM node:14
+WORKDIR /app
+
+# install dependencies
+COPY package*.json ./
+RUN npm install --silent
+
+# copy source code
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
