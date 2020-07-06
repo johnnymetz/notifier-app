@@ -1,6 +1,8 @@
 import Head from 'next/head';
-import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
 export default ({ children, home }) => {
   return (
@@ -10,10 +12,18 @@ export default ({ children, home }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container>
-        <h2>Notifier App</h2>
-        <hr />
+      <Navbar bg="dark" variant="dark" expand="sm" className="mb-3">
+        <Container>
+          <Link href="/">
+            <Navbar.Brand href="#home">Notifier</Navbar.Brand>
+          </Link>
+          <Nav>
+            <Nav.Link>Login</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
 
+      <Container>
         {children}
         {!home && (
           <Link href="/">

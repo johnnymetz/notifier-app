@@ -17,6 +17,5 @@ export const fetchData = async url => {
   } catch (err) {
     error = err.toString();
   }
-  // console.log(data);
   return { error, data };
 };
