@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 import os
 
-from celery.schedules import crontab
+# from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -32,8 +32,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_extensions",
     "rest_framework",
-    "django_celery_results",
-    "django_celery_beat",
+    # "django_celery_results",
+    # "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -106,21 +106,25 @@ STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
-CELERY_RESULT_BACKEND = "django-db"
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_WORKER_CONCURRENCY = 1
-# CELERY_BEAT_SCHEDULE = {
-#     "send_birthday_notifier_email_to_user_task": {
-#         "task": "notifier.tasks.send_birthday_notifier_email_to_user_task",
-#         "schedule": crontab(minute="0", hour="7"),
-#         "kwargs": {"username": "jmetz"},
-#     },
-# }
+# CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+# CELERY_RESULT_BACKEND = "django-db"
+# CELERY_TASK_TRACK_STARTED = True
+# CELERY_TIMEZONE = TIME_ZONE
+# CELERY_WORKER_CONCURRENCY = 1
+# # CELERY_BEAT_SCHEDULE = {
+# #     "send_birthday_notifier_email_to_user_task": {
+# #         "task": "notifier.tasks.send_birthday_notifier_email_to_user_task",
+# #         "schedule": crontab(minute="0", hour="7"),
+# #         "kwargs": {"username": "jmetz"},
+# #     },
+# # }
 
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "api.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 5,
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
 }

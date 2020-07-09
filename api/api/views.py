@@ -1,5 +1,5 @@
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 def welcome(request):
-    return HttpResponse("<h3>Welcome to the Notifier application</h3>")
+    return JsonResponse({"ping": "pong"})

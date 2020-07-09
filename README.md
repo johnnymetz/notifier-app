@@ -12,7 +12,7 @@ pre-commit install
 docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
 # migrate run as part of startup command
-./manage.py createsuperuser
+./manage.py createsuperuser  # fill out email
 ./manage.py addfriends USERNAME
 ./manage.py sendbirthdayemail USERNAME
 
