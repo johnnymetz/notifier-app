@@ -15,6 +15,14 @@ services:
   #   ports:
   #     - '5672:5672'
 
+  # flower:
+  #   image: mher/flower:latest
+  #   command: flower --port=5555 --broker=amqp://rabbit/
+  #   ports:
+  #     - '5555:5555'
+  #   depends_on:
+  #     - rabbit
+
   api:
     build: ./api
     image: notifier-app_api
