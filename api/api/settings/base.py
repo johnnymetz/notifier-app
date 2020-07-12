@@ -134,5 +134,4 @@ REST_FRAMEWORK = {
 }
 
 
-# DRF SIMPLE JWT
-ACCESS_TOKEN_LIFETIME = timedelta(minutes=20)
+SIMPLE_JWT = {"ACCESS_TOKEN_LIFETIME": timedelta(minutes=20)}

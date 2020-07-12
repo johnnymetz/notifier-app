@@ -27,7 +27,8 @@ def test_user_fields():
     assert data["username"] == u.username
     assert "password" not in data
     assert data["email"] == u.email
-    assert len(data["friends"]) == 3
-    assert sorted([f["id"] for f in data["friends"]]) == sorted(
+    assert len(data["all_friends"]) == 3
+    assert sorted([f["id"] for f in data["all_friends"]]) == sorted(
         [friend1.id, friend2.id, friend3.id]
     )
+    assert "upcoming_friends" in data

@@ -24,7 +24,7 @@ def get_friends_with_birthday_today(user: User):
     )
 
 
-def get_friends_with_birthday_within(user: User, days):
+def get_friends_with_birthday_within(user: User, days: int):
     today = timezone.localdate()
     later = today + datetime.timedelta(days=days)
 

@@ -62,4 +62,16 @@ def test_user_view(client, access_token):
     assert r.status_code == status.HTTP_200_OK
     assert "username" in r.data
     assert "email" in r.data
-    assert "friends" in r.data
+    assert "all_friends" in r.data
+    assert "upcoming_friends" in r.data
+
+
+# test reading friends
+# test creating friend
+# test updating friend
+# test deleting friend
+# test user1 can't read/create/update/delete friend for user2
+
+# test creating new user (post)
+# test updating user (patch)
+# test deactivating user (is_active=False)
