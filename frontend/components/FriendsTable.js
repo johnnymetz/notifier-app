@@ -20,7 +20,7 @@ const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
   );
 };
 
-export default ({ data }) => {
+export default ({ friendData }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -65,7 +65,7 @@ export default ({ data }) => {
   } = useTable(
     {
       columns,
-      data,
+      data: friendData,
       initialState: { pageSize: 5 },
     },
     useGlobalFilter,
