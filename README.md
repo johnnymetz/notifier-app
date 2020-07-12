@@ -44,7 +44,7 @@ heroku pg:psql
 - Add Authentication + Authorization
 - Gmail mail is flakey (try SendGrid)
 - Add cypress tests
-- Add silk or django debug toolbar
+- Add silk and/or django debug toolbar
 - Unit test emails
 
 ## Notes

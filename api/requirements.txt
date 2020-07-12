@@ -13,8 +13,9 @@ cfgv==3.1.0               # via pre-commit
 click==7.1.1              # via black, pip-tools
 distlib==0.3.0            # via virtualenv
 dj-database-url==0.5.0    # via -r requirements.in
+django-cors-headers==3.4.0  # via -r requirements.in
 django-extensions==2.2.9  # via -r requirements.in
-django==3.0.5             # via -r requirements.in, djangorestframework, djangorestframework-simplejwt
+django==3.0.5             # via -r requirements.in, django-cors-headers, djangorestframework, djangorestframework-simplejwt
 djangorestframework-simplejwt==4.4.0  # via -r requirements.in
 djangorestframework==3.11.0  # via -r requirements.in, djangorestframework-simplejwt
 factory-boy==2.12.0       # via -r requirements.in

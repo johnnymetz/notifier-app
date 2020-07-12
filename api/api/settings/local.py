@@ -8,3 +8,6 @@ ALLOWED_HOSTS = ["*"]
 # Email
 # https://github.com/anymail/django-anymail (try this?)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 """
 
 import os
+from datetime import timedelta
 
 # from celery.schedules import crontab
 
@@ -31,15 +32,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "rest_framework",
     # "django_celery_results",
     # "django_celery_beat",
+    "corsheaders",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -123,8 +126,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "api.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 5,
-    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
+
+
+# DRF SIMPLE JWT
+ACCESS_TOKEN_LIFETIME = timedelta(minutes=20)

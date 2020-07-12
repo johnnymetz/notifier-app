@@ -11,9 +11,10 @@ whitenoise
 
 django
 django-extensions
+dj-database-url
 # django-celery-results
 # django-celery-beat
-dj-database-url
+django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
 
