@@ -1,18 +1,23 @@
+import datetime
+
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 import pytest
 from rest_framework import status
 
-from notifier.tests.factories import UserFactory
+from notifier.tests.factories import FriendFactory, UserFactory
 
 
 @pytest.fixture
-def access_token(client):
+def token_headers(client):
     url = reverse("token_obtain_pair")
     pw = "pass"
     u = UserFactory(password=pw)
     r = client.post(url, {"username": u.username, "password": pw})
-    return r.data["access"]
+    access_token = r.data["access"]
+    headers = {"HTTP_AUTHORIZATION": f"Bearer {access_token}"}
+    return headers
 
 
 @pytest.mark.django_db
@@ -52,25 +57,94 @@ def test_client_login(client):
 
 
 @pytest.mark.django_db
-def test_user_view(client, access_token):
-    user_url = reverse("user-detail")
-    headers = {"HTTP_AUTHORIZATION": "Bearer abc"}
-    r = client.get(user_url, **headers)
+def test_unauthenticated_read_friend_view(client):
+    u = UserFactory()
+    friend = FriendFactory(user=u)
+    url = reverse("friend-detail", args=[friend.id])
+    r = client.get(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    headers = {"HTTP_AUTHORIZATION": f"Bearer {access_token}"}
-    r = client.get(user_url, **headers)
+
+
+@pytest.mark.django_db
+def test_read_friend_view(client, token_headers):
+    u = User.objects.get()
+    friend = FriendFactory(user=u)
+    url = reverse("friend-detail", args=[friend.id])
+    r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
-    assert "username" in r.data
-    assert "email" in r.data
-    assert "all_friends" in r.data
-    assert "upcoming_friends" in r.data
+    assert r.data["id"] == friend.id
 
 
-# test reading friends
-# test creating friend
-# test updating friend
-# test deleting friend
-# test user1 can't read/create/update/delete friend for user2
+@pytest.mark.django_db
+def test_create_friend_view(client, token_headers):
+    u = User.objects.get()
+    url = reverse("friend-list")
+    date = datetime.date(1994, 1, 24)
+    data = {
+        "first_name": "First",
+        "last_name": "Last",
+        "birthday": date.strftime("%Y-%m-%d"),
+    }
+    r = client.post(url, data=data, **token_headers)
+    assert r.status_code == status.HTTP_201_CREATED
+    assert r.data["first_name"] == data["first_name"]
+    assert r.data["user"] == u.id
+
+
+@pytest.mark.django_db
+def test_update_friend_view(client, token_headers):
+    u = User.objects.get()
+    friend = FriendFactory(user=u)
+    url = reverse("friend-detail", args=[friend.id])
+    date = datetime.date(1994, 1, 24)
+    data = {
+        "first_name": "First",
+        "last_name": "Last",
+        "birthday": date.strftime("%Y-%m-%d"),
+    }
+    r = client.patch(url, data=data, **token_headers, content_type="application/json")
+    assert r.status_code == status.HTTP_200_OK
+    assert r.data["first_name"] == data["first_name"]
+    assert r.data["user"] == u.id
+
+
+@pytest.mark.django_db
+def test_delete_friend_view(client, token_headers):
+    u = User.objects.get()
+    friend = FriendFactory(user=u)
+    url = reverse("friend-detail", args=[friend.id])
+    r = client.delete(url, **token_headers, content_type="application/json")
+    assert r.status_code == status.HTTP_204_NO_CONTENT
+    assert not u.friends.exists()
+
+
+@pytest.mark.django_db
+def test_user_cant_read_or_delete_friend_of_another_user(client, token_headers):
+    _ = User.objects.get()
+    u2 = UserFactory()
+    u2_friend = FriendFactory(user=u2)
+    url = reverse("friend-detail", args=[u2_friend.id])
+    r = client.get(url, **token_headers)  # token belongs to _
+    assert r.status_code == status.HTTP_403_FORBIDDEN
+    r = client.delete(url, **token_headers)  # token belongs to _
+    assert r.status_code == status.HTTP_403_FORBIDDEN
+
+
+@pytest.mark.django_db
+def test_unauthenticated_read_user_detail_view(client):
+    url = reverse("user-detail")
+    r = client.get(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+@pytest.mark.django_db
+def test_read_user_detail_view(client, token_headers):
+    u = User.objects.get()
+    url = reverse("user-detail")
+    r = client.get(url, **token_headers)
+    assert r.status_code == status.HTTP_200_OK
+    assert r.data["id"] == u.id
+
 
 # test creating new user (post)
 # test updating user (patch)

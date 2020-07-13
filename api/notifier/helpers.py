@@ -8,13 +8,10 @@ from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils import timezone
 
+from notifier.constants import BIRTHDAY_FORMAT
 from notifier.exceptions import NotifierException
 
 logger = logging.getLogger("django")
-
-
-def get_birthday_display(dt: datetime.date):
-    return dt.strftime("%m/%d")
 
 
 def get_friends_with_birthday_today(user: User):
@@ -55,7 +52,7 @@ def get_birthday_email_context(user: User):
     friends_with_bday_today = get_friends_with_birthday_today(user)
     friends_with_bday_upcoming = get_friends_with_birthday_within(user, days=5)
     context = {
-        "today_display": get_birthday_display(timezone.localdate()),
+        "today_display": timezone.localdate().strftime(BIRTHDAY_FORMAT),
         "friends_with_bday_today": friends_with_bday_today,
         "friends_with_bday_upcoming": friends_with_bday_upcoming,
     }

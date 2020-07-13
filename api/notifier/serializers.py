@@ -1,13 +1,21 @@
+import datetime
+
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
+from notifier.constants import BIRTHDAY_FORMAT, UNKNOWN_YEAR
 from notifier.helpers import get_friends_with_birthday_within
 from notifier.models import Friend
 
 
 class FriendSerializer(serializers.ModelSerializer):
-    birthday = serializers.CharField(source="birthday_display")
+    birthday = serializers.DateField(
+        source="date_of_birth",
+        format=BIRTHDAY_FORMAT,
+        input_formats=[BIRTHDAY_FORMAT, "iso-8601"],
+    )
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Friend
@@ -19,6 +27,27 @@ class FriendSerializer(serializers.ModelSerializer):
             "birthday",
             "age",
         )
+
+    def validate_birthday(self, value: datetime.date):
+        # Year defaults to 1900 if none is sent in payload;
+        # this may be a better UNKNOWN_YEAR value
+        if value.year == 1900:
+            value = value.replace(year=UNKNOWN_YEAR)
+        return value
+
+    def create(self, validated_data):
+        return self.Meta.model.objects.create(
+            **validated_data, user=self.context["request"].user
+        )
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get("first_name", instance.first_name)
+        instance.last_name = validated_data.get("last_name", instance.last_name)
+        instance.date_of_birth = validated_data.get(
+            "date_of_birth", instance.date_of_birth
+        )
+        instance.save()
+        return instance
 
 
 class UserSerializer(serializers.ModelSerializer):

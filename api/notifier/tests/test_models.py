@@ -19,7 +19,7 @@ def test_create_friend():
 @pytest.mark.django_db
 def test_friend_birthday_display():
     friend = FriendFactory(date_of_birth=datetime.datetime(2000, 2, 2))
-    assert friend.birthday_display == "02/02"
+    assert friend.birthday_display == "02-02"
 
 
 @pytest.mark.freeze_time("2020-01-01")

@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 
 from notifier.helpers import get_birthday_email_context
 from notifier.models import Friend
+from notifier.permissions import IsOwner
 from notifier.serializers import FriendSerializer, UserSerializer
 
 
@@ -25,7 +26,7 @@ class UserDetailView(RetrieveAPIView):
 class FriendViewset(viewsets.ModelViewSet):
     queryset = Friend.objects.all()
     serializer_class = FriendSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsOwner,)
 
 
 class EmailMock(APIView):

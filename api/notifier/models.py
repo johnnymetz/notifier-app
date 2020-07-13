@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
-from notifier.constants import UNKNOWN_YEAR
-from notifier.helpers import get_birthday_display
+from notifier.constants import BIRTHDAY_FORMAT, UNKNOWN_YEAR
 
 
 class Friend(models.Model):
@@ -31,7 +30,7 @@ class Friend(models.Model):
 
     @property
     def birthday_display(self):
-        return get_birthday_display(dt=self.date_of_birth)
+        return self.date_of_birth.strftime(BIRTHDAY_FORMAT)
 
     def __str__(self):
         return (

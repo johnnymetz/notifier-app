@@ -4,15 +4,10 @@ import pytest
 
 from notifier.constants import UNKNOWN_YEAR
 from notifier.helpers import (
-    get_birthday_display,
     get_friends_with_birthday_today,
     get_friends_with_birthday_within,
 )
 from notifier.tests.factories import FriendFactory, UserFactory
-
-
-def test_get_birthday_display():
-    assert get_birthday_display(datetime.date(2000, 2, 2)) == "02/02"
 
 
 @pytest.mark.freeze_time("2020-01-01")
@@ -61,7 +56,7 @@ def test_get_friends_with_birthday_within(settings):
     assert friend3 in friends
     assert friend4 in friends
     assert len(friends) == 4
-    assert [f.birthday_display for f in friends] == ["01/02", "01/02", "01/05", "01/05"]
+    assert [f.birthday_display for f in friends] == ["01-02", "01-02", "01-05", "01-05"]
 
 
 @pytest.mark.freeze_time("2020-01-30")
