@@ -7,14 +7,6 @@ from notifier.constants import UNKNOWN_YEAR
 from notifier.models import Friend
 
 FRIENDS = [
-    ###
-    ("Test", "0", (UNKNOWN_YEAR, 6, 30)),
-    ("Test", "1", (UNKNOWN_YEAR, 7, 1)),
-    ("Test", "2", (2000, 7, 2)),
-    ("Test", "3", (1990, 7, 3)),
-    ("Test", "4", (UNKNOWN_YEAR, 7, 4)),
-    ("Test", "5", (UNKNOWN_YEAR, 7, 5)),
-    ###
     ("Dad", None, (1959, 3, 28)),
     ("Mom", None, (1960, 11, 26)),
     ("Leah", None, (1995, 7, 17)),
