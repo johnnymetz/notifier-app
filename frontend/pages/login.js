@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Layout from 'components/Layout';
-import SubmitButton from 'components/SubmitButton';
+import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
 
 export default () => {

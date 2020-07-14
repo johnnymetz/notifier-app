@@ -74,6 +74,7 @@ export default ({ friends }) => {
 
   return (
     <>
+      <h4>Friends</h4>
       <Row className="justify-content-between">
         <Col>
           <Form.Control
