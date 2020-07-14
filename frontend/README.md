@@ -12,7 +12,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Todo
 
+- Use formik for forms
 - Add ability to add/update/delete friends
-- Try nprogress
-- Improve route protection [source](https://www.mikealche.com/software-development/how-to-implement-authentication-in-next-js-without-third-party-libraries)
-- Better error handling with axios [source](https://gist.github.com/fgilio/230ccd514e9381fafa51608fcf137253)
+- Add tests
+
+## Resources
+
+- [Route protection](https://www.mikealche.com/software-development/how-to-implement-authentication-in-next-js-without-third-party-libraries)
+- [Axios error handling](https://gist.github.com/fgilio/230ccd514e9381fafa51608fcf137253)
