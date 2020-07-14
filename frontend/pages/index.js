@@ -1,18 +1,13 @@
-import { useRouter } from 'next/router';
 import Layout from 'components/Layout';
 import UserDetail from 'components/UserDetail';
-import { protectRoute } from 'helpers';
+import { PrivateRoute } from 'contexts/auth';
 
-export default () => {
-  const router = useRouter();
-
-  React.useEffect(() => {
-    protectRoute(router);
-  }, []);
-
+const Home = () => {
   return (
     <Layout>
       <UserDetail />
     </Layout>
   );
 };
+
+export default PrivateRoute(Home);

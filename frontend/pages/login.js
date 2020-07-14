@@ -1,26 +1,26 @@
 import { useRouter } from 'next/router';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Layout from 'components/Layout';
-import { loginUser } from 'api';
+import SubmitButton from 'components/SubmitButton';
+import useAuth from 'contexts/auth';
 
 export default () => {
   const [username, setUsername] = React.useState(null);
   const [password, setPassword] = React.useState(null);
-  const [error, setError] = React.useState(null);
   const router = useRouter();
+  const { isAuthenticated, login, loading, error } = useAuth();
 
-  const login = async e => {
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated]);
+
+  const loginWithCreds = async e => {
     e.preventDefault();
-    setError(null);
     if (username && password) {
-      const { loggedIn, error } = await loginUser(username, password);
-      if (loggedIn) {
-        router.push('/');
-      } else {
-        setError(error);
-      }
+      await login(username, password);
     }
   };
 
@@ -47,9 +47,13 @@ export default () => {
 
         {error && <Alert variant={'danger'}>{error}</Alert>}
 
-        <Button variant="primary" type="submit" onClick={login}>
+        <SubmitButton
+          onClick={loginWithCreds}
+          isSubmitting={loading}
+          variant="primary"
+        >
           Submit
-        </Button>
+        </SubmitButton>
       </Form>
     </Layout>
   );

@@ -1,11 +1,11 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 
-export default ({ friendData }) => {
+export default ({ friends }) => {
   return (
     <div>
       <h4>Upcoming</h4>
       <ListGroup>
-        {friendData.map(friend => {
+        {friends.map(friend => {
           const currentYear = new Date().getFullYear();
           const date = new Date(`${friend.birthday}/${currentYear}`);
           const dateString = date.toLocaleDateString(undefined, {
