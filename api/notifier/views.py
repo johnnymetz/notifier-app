@@ -19,6 +19,8 @@ class UserDetailView(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
 
     def retrieve(self, request, *args, **kwargs):
+        # import time
+        # time.sleep(3)
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 

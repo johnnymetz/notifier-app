@@ -81,6 +81,9 @@ class ApiClient {
         const refreshed = await this.refreshToken();
         if (refreshed) {
           verified = true;
+        } else {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
         }
       } else {
         console.log(`Unable to verify token: ${error}`);

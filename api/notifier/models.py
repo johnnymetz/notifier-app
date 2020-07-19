@@ -8,6 +8,8 @@ from notifier.constants import BIRTHDAY_FORMAT, UNKNOWN_YEAR
 class Friend(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friends")
     first_name = models.CharField("first name", max_length=30)
+    # CharField's are set to an empty string if not provided;
+    # never null (unless it is manually set)
     last_name = models.CharField("last name", max_length=150, null=True, blank=True)
     date_of_birth = models.DateField()
 

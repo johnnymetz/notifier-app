@@ -6,10 +6,11 @@ import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
 
 export default () => {
+  const { isAuthenticated, login, error } = useAuth();
   const [username, setUsername] = React.useState(null);
   const [password, setPassword] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
-  const { isAuthenticated, login, loading, error } = useAuth();
 
   React.useEffect(() => {
     if (isAuthenticated) {
@@ -17,10 +18,12 @@ export default () => {
     }
   }, [isAuthenticated]);
 
-  const loginWithCreds = async e => {
+  const loginWrapper = async e => {
     e.preventDefault();
     if (username && password) {
+      setLoading(true);
       await login(username, password);
+      setLoading(false);
     }
   };
 
@@ -48,7 +51,7 @@ export default () => {
         {error && <Alert variant={'danger'}>{error}</Alert>}
 
         <SubmitButton
-          onClick={loginWithCreds}
+          onClick={loginWrapper}
           isSubmitting={loading}
           variant="primary"
         >

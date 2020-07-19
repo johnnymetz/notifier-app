@@ -13,9 +13,14 @@ export default () => {
 
   if (error) {
     return <Alert variant={'danger'}>{error}</Alert>;
-  } else if (loading || !isAuthenticated) {
+  } else if (loading) {
     return <LoadingIcon />;
+  } else if (!isAuthenticated) {
+    return <div>Not authenticated</div>;
   }
+  // } else if (loading || !isAuthenticated) {
+  //   return <LoadingIcon />;
+  // }
 
   return (
     <div>

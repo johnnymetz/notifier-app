@@ -65,14 +65,12 @@ def test_update_friend_with_no_bday_year():
     date = datetime.date(1994, 1, 24)
     data = {
         "first_name": "First",
-        "last_name": "Last",
         "birthday": date.strftime(BIRTHDAY_FORMAT),
     }
     serializer = FriendSerializer(friend, data=data)
     assert serializer.is_valid(raise_exception=True)
     friend = serializer.save()
     assert friend.first_name == data["first_name"]
-    assert friend.last_name == data["last_name"]
     assert friend.date_of_birth == datetime.date(UNKNOWN_YEAR, date.month, date.day)
     assert friend.user == u
 

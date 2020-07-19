@@ -82,7 +82,6 @@ def test_create_friend_view(client, token_headers):
     date = datetime.date(1994, 1, 24)
     data = {
         "first_name": "First",
-        "last_name": "Last",
         "birthday": date.strftime("%Y-%m-%d"),
     }
     r = client.post(url, data=data, **token_headers)
@@ -99,7 +98,6 @@ def test_update_friend_view(client, token_headers):
     date = datetime.date(1994, 1, 24)
     data = {
         "first_name": "First",
-        "last_name": "Last",
         "birthday": date.strftime("%Y-%m-%d"),
     }
     r = client.patch(url, data=data, **token_headers, content_type="application/json")

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import apiClient from 'services/api';
 
-const AuthContext = React.createContext({});
+const AuthContext = React.createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
@@ -10,23 +10,17 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   React.useEffect(() => {
-    const verifyTokenAndLoadUser = async () => {
+    const verifyTokenAndFetchUser = async () => {
       const verified = await apiClient.verifyToken();
       if (verified) {
-        const { data, error } = await apiClient.authenticatedGet('user/');
-        if (data) {
-          setUser(data);
-        } else {
-          setError(error);
-        }
+        await fetchUser();
       }
       setLoading(false);
     };
-    verifyTokenAndLoadUser();
+    verifyTokenAndFetchUser();
   }, []);
 
   const login = async (username, password) => {
-    setLoading(true);
     setError(null);
     let { data, error } = await apiClient.login(username, password);
     if (data) {
@@ -35,30 +29,41 @@ export const AuthProvider = ({ children }) => {
       setError(error);
     }
     router.push('/');
-    setLoading(false);
   };
 
   const logout = () => {
-    setLoading(true);
     apiClient.logout();
     setUser(null);
     router.push('/login');
-    setLoading(false);
+  };
+
+  const fetchUser = async () => {
+    const { data, error } = await apiClient.authenticatedGet('user/');
+    if (data) {
+      setUser(data);
+    } else {
+      setError(error);
+    }
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, login, logout, loading, error }}
+      value={{
+        isAuthenticated: !!user,
+        user,
+        fetchUser,
+        login,
+        logout,
+        loading,
+        error,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = React.useContext(AuthContext);
-  return context;
-};
+export const useAuth = () => React.useContext(AuthContext);
 
 export const PrivateRoute = Component => {
   return () => {
