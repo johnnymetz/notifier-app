@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
+import Alert from 'react-bootstrap/Alert';
 import apiClient from 'services/api';
+import LoadingIcon from 'components/widgets/LoadingIcon';
 
 const AuthContext = React.createContext(null);
 
@@ -67,7 +69,7 @@ export const useAuth = () => React.useContext(AuthContext);
 
 export const PrivateRoute = Component => {
   return () => {
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading, error } = useAuth();
     const router = useRouter();
 
     React.useEffect(() => {
@@ -75,6 +77,14 @@ export const PrivateRoute = Component => {
         router.push('/login');
       }
     }, [isAuthenticated, loading]);
+
+    if (error) {
+      return <Alert variant={'danger'}>{error}</Alert>;
+    } else if (loading) {
+      return <LoadingIcon />;
+    } else if (!isAuthenticated) {
+      return <div>Not authenticated</div>;
+    }
 
     return <Component />;
   };

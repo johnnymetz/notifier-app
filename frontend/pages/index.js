@@ -1,13 +1,8 @@
-import Layout from 'components/Layout';
 import UserDetail from 'components/UserDetail';
 import { PrivateRoute } from 'contexts/auth';
 
 const Home = () => {
-  return (
-    <Layout>
-      <UserDetail />
-    </Layout>
-  );
+  return <UserDetail />;
 };
 
 export default PrivateRoute(Home);

@@ -19,7 +19,6 @@ const MONTHS = [
   'November',
   'December',
 ];
-// UNKOWN_YEAR = 1000;
 
 export default () => {
   const { fetchUser } = useAuth();
@@ -39,7 +38,6 @@ export default () => {
     if (firstName && month && day) {
       const payload = {
         first_name: firstName,
-        // 'birthday': `${year || UNKOWN_YEAR}-${month}-${day}`
         birthday: year
           ? `${year}-${month
               .toString()
