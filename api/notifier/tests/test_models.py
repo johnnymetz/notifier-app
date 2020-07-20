@@ -1,5 +1,6 @@
 import datetime
 
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 import pytest
@@ -12,7 +13,7 @@ from notifier.tests.factories import FriendFactory, UserFactory
 def test_create_friend():
     user = UserFactory()
     today = timezone.localdate()
-    friend = Friend.objects.create(user=user, first_name="First", date_of_birth=today)
+    friend = Friend.objects.create(user=user, name="JJ Reddick", date_of_birth=today)
     assert friend in Friend.objects.all()
 
 
@@ -31,3 +32,18 @@ def test_friend_age(settings):
     assert FriendFactory(date_of_birth=datetime.datetime(2000, 1, 1)).age == 20
     assert FriendFactory(date_of_birth=datetime.datetime(1999, 11, 30)).age == 20
     assert FriendFactory(date_of_birth=datetime.datetime(1999, 12, 31)).age == 20
+
+
+@pytest.mark.django_db
+def test_friend_name_validation():
+    friend = FriendFactory()
+    with pytest.raises(ValidationError):
+        FriendFactory(name=friend.name)
+
+
+@pytest.mark.django_db
+def test_friend_date_of_birth_validation():
+    with pytest.raises(ValidationError):
+        FriendFactory(date_of_birth=datetime.date(1890, 1, 1))
+    with pytest.raises(ValidationError):
+        FriendFactory(date_of_birth=datetime.date(2030, 1, 1))

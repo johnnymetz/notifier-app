@@ -26,8 +26,7 @@ class FriendSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "user",
-            "first_name",
-            "last_name",
+            "name",
             "birthday_year",
             "birthday_month",
             "birthday_day",
@@ -49,8 +48,7 @@ class FriendSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        instance.first_name = validated_data.get("first_name", instance.first_name)
-        instance.last_name = validated_data.get("last_name", instance.last_name)
+        instance.name = validated_data.get("name", instance.name)
         instance.date_of_birth = validated_data.get(
             "date_of_birth", instance.date_of_birth
         )

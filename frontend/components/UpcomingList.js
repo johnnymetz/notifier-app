@@ -8,7 +8,9 @@ export default ({ friends }) => {
         <ListGroup>
           {friends.map(friend => {
             const currentYear = new Date().getFullYear();
-            const date = new Date(`${friend.birthday}/${currentYear}`);
+            const date = new Date(
+              `${friend.birthday_month}/${friend.birthday_day}/${currentYear}`
+            );
             const dateString = date.toLocaleDateString(undefined, {
               weekday: 'long',
               month: 'long',
@@ -16,8 +18,7 @@ export default ({ friends }) => {
             });
             return (
               <ListGroup.Item key={friend.id}>
-                {friend.first_name} {friend.last_name} is turning {friend.age}{' '}
-                on {dateString}
+                {friend.name} is turning {friend.age} on {dateString}
               </ListGroup.Item>
             );
           })}

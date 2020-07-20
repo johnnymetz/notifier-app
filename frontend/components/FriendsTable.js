@@ -51,8 +51,7 @@ export default ({ friends }) => {
     () => [
       {
         Header: 'Name',
-        accessor: d =>
-          d.last_name ? `${d.first_name} ${d.last_name}` : d.first_name,
+        accessor: 'name',
       },
       {
         Header: 'Birthday',
@@ -73,8 +72,7 @@ export default ({ friends }) => {
         Cell: ({ row: { original } }) => {
           const friend = {
             id: original.id,
-            firstName: original.first_name,
-            lastName: original.last_name,
+            name: original.name,
             day: original.birthday_day,
             month: original.birthday_month,
             year: original.birthday_year,

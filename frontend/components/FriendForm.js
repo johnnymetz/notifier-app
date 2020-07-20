@@ -23,8 +23,7 @@ const MONTHS = [
 
 export default ({ requestMethod, friendValues = {} }) => {
   const { fetchUser } = useAuth();
-  const [firstName, setFirstName] = useState(friendValues.firstName || '');
-  const [lastName, setLastName] = useState(friendValues.lastName || '');
+  const [name, setName] = useState(friendValues.name || '');
   const [month, setMonth] = useState(friendValues.month || 1);
   const [day, setDay] = useState(friendValues.day || '');
   const [year, setYear] = useState(friendValues.year || '');
@@ -36,15 +35,12 @@ export default ({ requestMethod, friendValues = {} }) => {
     e.preventDefault();
     setAlertMessage(null);
     setAlertVariant(null);
-    if (firstName && month && day) {
+    if (name && month && day) {
       const payload = {
-        first_name: firstName,
+        name: name,
         birthday_month: month,
         birthday_day: day,
       };
-      if (lastName) {
-        payload.last_name = lastName;
-      }
       if (year) {
         payload.birthday_year = year;
       }
@@ -66,7 +62,7 @@ export default ({ requestMethod, friendValues = {} }) => {
       }
       if (data) {
         setAlertMessage(
-          `${firstName} ${lastName} successfully ${
+          `${name} successfully ${
             requestMethod === 'POST' ? 'added' : 'updated'
           }`
         );
@@ -74,8 +70,7 @@ export default ({ requestMethod, friendValues = {} }) => {
         fetchUser();
         setLoading(false);
         // TODO: uncomment eventually
-        // setFirstName('');
-        // setLastName('');
+        // setName('');
         // setMonth(1);
         // setDay('');
         // setYear('');
@@ -92,20 +87,11 @@ export default ({ requestMethod, friendValues = {} }) => {
   return (
     <Form>
       <Form.Group>
-        <Form.Label>First Name *</Form.Label>
+        <Form.Label>Name *</Form.Label>
         <Form.Control
-          // placeholder="Joe"
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-        />
-      </Form.Group>
-
-      <Form.Group>
-        <Form.Label>Last Name</Form.Label>
-        <Form.Control
-          // placeholder="Maddon"
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
+          // placeholder="Joe Maddon"
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
       </Form.Group>
 

@@ -81,14 +81,14 @@ def test_create_friend_view(client, token_headers):
     url = reverse("friend-list")
     date = datetime.date(1994, 1, 24)
     data = {
-        "first_name": "First",
+        "name": "JJ Reddick",
         "birthday_year": date.year,
         "birthday_month": date.month,
         "birthday_day": date.day,
     }
     r = client.post(url, data=data, **token_headers)
     assert r.status_code == status.HTTP_201_CREATED
-    assert r.data["first_name"] == data["first_name"]
+    assert r.data["name"] == data["name"]
     assert r.data["user"] == u.id
 
 
@@ -99,14 +99,14 @@ def test_update_friend_view(client, token_headers):
     url = reverse("friend-detail", args=[friend.id])
     date = datetime.date(1994, 1, 24)
     data = {
-        "first_name": "First",
+        "name": "JJ Reddick",
         "birthday_year": date.year,
         "birthday_month": date.month,
         "birthday_day": date.day,
     }
     r = client.patch(url, data=data, **token_headers, content_type="application/json")
     assert r.status_code == status.HTTP_200_OK
-    assert r.data["first_name"] == data["first_name"]
+    assert r.data["name"] == data["name"]
     assert r.data["user"] == u.id
 
 
