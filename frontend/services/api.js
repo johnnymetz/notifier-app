@@ -162,9 +162,6 @@ class ApiClient {
   }
 }
 
-const apiClient = new ApiClient(
-  'http://0.0.0.0:8000/api/'
-  // process.env.REACT_APP_BACKEND_URL
-);
+const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_HOST);
 
 export default apiClient;
