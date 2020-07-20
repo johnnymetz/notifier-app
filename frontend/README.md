@@ -28,3 +28,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [next-redux-wrapper](https://github.com/kirill-konshin/next-redux-wrapper)
 - [More cool loading icons](https://youtu.be/AW0eFKDhAFg)
 - [Another cool loading icon](https://youtu.be/xSNlsSfvwac)
+- [Deploy next app to heroku](https://github.com/mars/heroku-nextjs)
