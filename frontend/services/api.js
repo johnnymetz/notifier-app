@@ -5,6 +5,9 @@ class ApiClient {
     this.axiosInstance = axios.create({ baseURL });
   }
 
+  /////////////////////////
+  // Methods
+  /////////////////////////
   async get(url, config) {
     let data, error, status;
     try {
@@ -31,6 +34,34 @@ class ApiClient {
     return { data, error, status };
   }
 
+  async patch(url, payload, config) {
+    let data, error, status;
+    try {
+      const res = await this.axiosInstance.patch(url, payload, config);
+      data = res.data;
+      status = res.status;
+    } catch (err) {
+      error = err.response?.data.detail || err.toString();
+      status = err.response.status;
+    }
+    return { data, error, status };
+  }
+
+  async delete(url, config) {
+    let error, status;
+    try {
+      const res = await this.axiosInstance.delete(url, config);
+      status = res.status;
+    } catch (err) {
+      error = err.response?.data.detail || err.toString();
+      status = err.response.status;
+    }
+    return { error, status };
+  }
+
+  /////////////////////////
+  // Authenticated Methods
+  /////////////////////////
   async authenticatedGet(url) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
@@ -43,6 +74,20 @@ class ApiClient {
     const headers = { Authorization: `Bearer ${accessToken}` };
     const { data, error } = await this.post(url, payload, { headers });
     return { data, error };
+  }
+
+  async authenticatedPatch(url, payload) {
+    const accessToken = localStorage.getItem('accessToken');
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    const { data, error } = await this.patch(url, payload, { headers });
+    return { data, error };
+  }
+
+  async authenticatedDelete(url) {
+    const accessToken = localStorage.getItem('accessToken');
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    const { error } = await this.delete(url, { headers });
+    return { error };
   }
 
   /////////////////////////

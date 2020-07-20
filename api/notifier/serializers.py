@@ -4,18 +4,22 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from notifier.constants import BIRTHDAY_FORMAT, UNKNOWN_YEAR
+from notifier.constants import UNKNOWN_YEAR
 from notifier.helpers import get_friends_with_birthday_within
 from notifier.models import Friend
 
 
+class YearField(serializers.IntegerField):
+    def to_representation(self, value):
+        year = int(value)
+        return None if year == UNKNOWN_YEAR else year
+
+
 class FriendSerializer(serializers.ModelSerializer):
-    birthday = serializers.DateField(
-        source="date_of_birth",
-        format=BIRTHDAY_FORMAT,
-        input_formats=[BIRTHDAY_FORMAT, "iso-8601"],
-    )
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    birthday_year = YearField(source="date_of_birth.year", required=False)
+    birthday_month = serializers.IntegerField(source="date_of_birth.month")
+    birthday_day = serializers.IntegerField(source="date_of_birth.day")
 
     class Meta:
         model = Friend
@@ -24,16 +28,20 @@ class FriendSerializer(serializers.ModelSerializer):
             "user",
             "first_name",
             "last_name",
-            "birthday",
+            "birthday_year",
+            "birthday_month",
+            "birthday_day",
             "age",
         )
 
-    def validate_birthday(self, value: datetime.date):
-        # Year defaults to 1900 if none is sent in payload;
-        # this may be a better UNKNOWN_YEAR value
-        if value.year == 1900:
-            value = value.replace(year=UNKNOWN_YEAR)
-        return value
+    def validate(self, data):
+        date_or_birth = data.pop("date_of_birth")
+        data["date_of_birth"] = datetime.date(
+            date_or_birth.get("year", UNKNOWN_YEAR),
+            date_or_birth["month"],
+            date_or_birth["day"],
+        )
+        return data
 
     def create(self, validated_data):
         return self.Meta.model.objects.create(

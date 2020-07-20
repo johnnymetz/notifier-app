@@ -2,20 +2,37 @@ import datetime
 
 import pytest
 
-from notifier.constants import BIRTHDAY_FORMAT, UNKNOWN_YEAR
+from notifier.constants import UNKNOWN_YEAR
 from notifier.serializers import FriendSerializer, UserSerializer
 from notifier.tests.factories import FriendFactory, UserFactory
 
 
 @pytest.mark.django_db
-def test_friend_fields():
+def test_read_friend_fields():
     friend = FriendFactory()
     data = FriendSerializer(friend).data
     assert data["id"] == friend.id
     assert data["user"] == friend.user.id
     assert data["first_name"] == friend.first_name
     assert data["last_name"] == friend.last_name
-    assert data["birthday"] == friend.date_of_birth.strftime(BIRTHDAY_FORMAT)
+    assert data["birthday_year"] == friend.date_of_birth.year
+    assert data["birthday_month"] == friend.date_of_birth.month
+    assert data["birthday_day"] == friend.date_of_birth.day
+    assert data["age"] == friend.age
+
+
+@pytest.mark.django_db
+def test_read_friend_fields_without_bday_year():
+    friend = FriendFactory()
+    friend.date_of_birth = friend.date_of_birth.replace(year=UNKNOWN_YEAR)
+    data = FriendSerializer(friend).data
+    assert data["id"] == friend.id
+    assert data["user"] == friend.user.id
+    assert data["first_name"] == friend.first_name
+    assert data["last_name"] == friend.last_name
+    assert data["birthday_year"] is None
+    assert data["birthday_month"] == friend.date_of_birth.month
+    assert data["birthday_day"] == friend.date_of_birth.day
     assert data["age"] == friend.age
 
 
@@ -26,7 +43,9 @@ def test_create_friend(rf):
     data = {
         "first_name": "First",
         "last_name": "Last",
-        "birthday": date.strftime("%Y-%m-%d"),
+        "birthday_year": date.year,
+        "birthday_month": date.month,
+        "birthday_day": date.day,
     }
     request = rf.post("/whatever")
     request.user = u
@@ -47,7 +66,9 @@ def test_update_friend():
     data = {
         "first_name": "First",
         "last_name": "Last",
-        "birthday": date.strftime("%Y-%m-%d"),
+        "birthday_year": date.year,
+        "birthday_month": date.month,
+        "birthday_day": date.day,
     }
     serializer = FriendSerializer(friend, data=data)
     assert serializer.is_valid(raise_exception=True)
@@ -59,13 +80,14 @@ def test_update_friend():
 
 
 @pytest.mark.django_db
-def test_update_friend_with_no_bday_year():
+def test_update_friend_without_bday_year():
     u = UserFactory()
     friend = FriendFactory(user=u)
     date = datetime.date(1994, 1, 24)
     data = {
         "first_name": "First",
-        "birthday": date.strftime(BIRTHDAY_FORMAT),
+        "birthday_month": date.month,
+        "birthday_day": date.day,
     }
     serializer = FriendSerializer(friend, data=data)
     assert serializer.is_valid(raise_exception=True)
@@ -76,7 +98,7 @@ def test_update_friend_with_no_bday_year():
 
 
 @pytest.mark.django_db
-def test_user_fields():
+def test_read_user_fields():
     u = UserFactory()
     friend1 = FriendFactory(user=u)
     friend2 = FriendFactory(user=u)

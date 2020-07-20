@@ -82,7 +82,9 @@ def test_create_friend_view(client, token_headers):
     date = datetime.date(1994, 1, 24)
     data = {
         "first_name": "First",
-        "birthday": date.strftime("%Y-%m-%d"),
+        "birthday_year": date.year,
+        "birthday_month": date.month,
+        "birthday_day": date.day,
     }
     r = client.post(url, data=data, **token_headers)
     assert r.status_code == status.HTTP_201_CREATED
@@ -98,7 +100,9 @@ def test_update_friend_view(client, token_headers):
     date = datetime.date(1994, 1, 24)
     data = {
         "first_name": "First",
-        "birthday": date.strftime("%Y-%m-%d"),
+        "birthday_year": date.year,
+        "birthday_month": date.month,
+        "birthday_day": date.day,
     }
     r = client.patch(url, data=data, **token_headers, content_type="application/json")
     assert r.status_code == status.HTTP_200_OK
@@ -113,6 +117,7 @@ def test_delete_friend_view(client, token_headers):
     url = reverse("friend-detail", args=[friend.id])
     r = client.delete(url, **token_headers, content_type="application/json")
     assert r.status_code == status.HTTP_204_NO_CONTENT
+    assert r.data is None
     assert not u.friends.exists()
 
 
