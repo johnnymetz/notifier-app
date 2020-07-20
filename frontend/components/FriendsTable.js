@@ -172,7 +172,7 @@ export default ({ friends }) => {
         </Col>
       </Row>
 
-      <Table striped bordered hover responsive {...getTableProps()}>
+      <Table striped hover responsive {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

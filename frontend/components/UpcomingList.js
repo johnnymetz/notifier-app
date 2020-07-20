@@ -18,7 +18,15 @@ export default ({ friends }) => {
             });
             return (
               <ListGroup.Item key={friend.id}>
-                {friend.name} is turning {friend.age} on {dateString}
+                {friend.age ? (
+                  <span>
+                    <b>{friend.name}</b> is turning {friend.age} on {dateString}
+                  </span>
+                ) : (
+                  <span>
+                    <b>{friend.name}</b> has a birthday on {dateString}
+                  </span>
+                )}
               </ListGroup.Item>
             );
           })}
