@@ -39,10 +39,12 @@ heroku pg:psql
 
 ## Todo
 
+- Deploy to monorepo to heroku
 - Gmail mail is flakey (try SendGrid)
 - Add cypress tests
 - Add silk and/or django debug toolbar
 - Unit test emails
+- [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 
 ## Notes
 
@@ -60,7 +62,13 @@ dt_utc = dt_la.astimezone(pytz.utc)
 ## Deployment
 
 ```
-# initial setup
+# monorepo
+heroku create -a daily-notifier
+heroku buildpacks:add -a daily-notifier https://github.com/heroku/heroku-buildpack-multi-procfile
+heroku config:set -a daily-notifier PROCFILE=frontend/Procfile
+git push https://git.heroku.com/daily-notifier.git master
+
+# heroku.yaml
 heroku stack:set container -a notifier-application
 heroku plugins:install @heroku-cli/plugin-manifest
 git add/commit/push heroku master
