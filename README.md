@@ -65,8 +65,14 @@ dt_utc = dt_la.astimezone(pytz.utc)
 # monorepo
 heroku create -a daily-notifier
 heroku buildpacks:add -a daily-notifier https://github.com/heroku/heroku-buildpack-multi-procfile
+heroku buildpacks:add -a daily-notifier heroku/nodejs
 heroku config:set -a daily-notifier PROCFILE=frontend/Procfile
+git push https://git.heroku.com/notifier-app-api.git master
 git push https://git.heroku.com/daily-notifier.git master
+
+# logs
+heroku logs -a notifier-app-api --tail
+heroku logs -a daily-notifier --tail
 
 # heroku.yaml
 heroku stack:set container -a notifier-application
