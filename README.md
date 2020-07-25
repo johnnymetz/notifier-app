@@ -70,6 +70,8 @@ heroku config:set -a daily-notifier PROCFILE=frontend/Procfile
 git push https://git.heroku.com/notifier-app-api.git master
 git push https://git.heroku.com/daily-notifier.git master
 
+heroku config:set -a daily-notifier APP_BASE=frontend/Procfile
+
 # logs
 heroku logs -a notifier-app-api --tail
 heroku logs -a daily-notifier --tail
