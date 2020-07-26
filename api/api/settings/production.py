@@ -9,6 +9,7 @@ from .base import *
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = False
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
+CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST", "").split(" ")
 
 # Database
 DATABASE_URL = os.environ.get("DATABASE_URL")

@@ -16,7 +16,7 @@ class ApiClient {
       status = res.status;
     } catch (err) {
       error = err.toString();
-      status = err.response.status;
+      status = err.response?.status;
     }
     return { data, error, status };
   }
@@ -29,7 +29,7 @@ class ApiClient {
       status = res.status;
     } catch (err) {
       error = err.response?.data.detail || err.toString();
-      status = err.response.status;
+      status = err.response?.status;
     }
     return { data, error, status };
   }
@@ -42,7 +42,7 @@ class ApiClient {
       status = res.status;
     } catch (err) {
       error = err.response?.data.detail || err.toString();
-      status = err.response.status;
+      status = err.response?.status;
     }
     return { data, error, status };
   }
@@ -54,7 +54,7 @@ class ApiClient {
       status = res.status;
     } catch (err) {
       error = err.response?.data.detail || err.toString();
-      status = err.response.status;
+      status = err.response?.status;
     }
     return { error, status };
   }

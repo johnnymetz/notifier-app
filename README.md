@@ -61,7 +61,6 @@ heroku buildpacks:add -a daily-notifier https://github.com/lstoll/heroku-buildpa
 heroku buildpacks:add -a daily-notifier heroku/nodejs
 heroku config:set -a daily-notifier APP_BASE=frontend
 git push https://git.heroku.com/daily-notifier.git master
-heroku logs -a daily-notifier --tail
 
 # backend
 heroku create -a notifier-app-api
@@ -69,7 +68,12 @@ heroku buildpacks:add -a notifier-app-api https://github.com/lstoll/heroku-build
 heroku buildpacks:add -a notifier-app-api heroku/python
 heroku config:set -a notifier-app-api APP_BASE=api
 git push https://git.heroku.com/notifier-app-api.git master
+
+# debug
+heroku logs -a daily-notifier --tail
 heroku logs -a notifier-app-api --tail
+heroku ps -a daily-notifier
+heroku ps -a notifier-app-api
 
 # backend addons
 heroku addons:create -a notifier-app-api heroku-postgresql:hobby-dev
