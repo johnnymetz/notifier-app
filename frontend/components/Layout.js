@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import useAuth from 'contexts/auth';
 
 export default ({ children, home }) => {
@@ -18,7 +20,10 @@ export default ({ children, home }) => {
       <Navbar bg="dark" variant="dark" expand="sm" className="mb-3">
         <Container>
           <Link href="/">
-            <Navbar.Brand href="#home">Notifier</Navbar.Brand>
+            <Navbar.Brand>
+              <FontAwesomeIcon icon={faBell} size={'sm'} />
+              <span style={{ marginLeft: 8 }}>Notifier</span>
+            </Navbar.Brand>
           </Link>
           {isAuthenticated && (
             <Nav>
