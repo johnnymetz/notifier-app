@@ -1,5 +1,10 @@
-from django.http import JsonResponse
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-def welcome(request):
-    return JsonResponse({"ping": "pong"})
+class Welcome(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        return Response({"ping": "pong"})

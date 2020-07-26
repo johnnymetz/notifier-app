@@ -31,10 +31,15 @@ docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
 
 ## Todo
 
+- Add user management (registration, password reset, etc.)
 - Gmail mail is flakey (try SendGrid)
+- Unit test emails
+- Fix list vs object permissions
+
+## Todo (maybe later)
+
 - Add cypress tests
 - Add silk and/or django debug toolbar
-- Unit test emails
 - [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 
 ## Notes

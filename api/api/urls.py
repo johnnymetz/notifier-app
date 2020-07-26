@@ -9,12 +9,13 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
-from .views import welcome
+from .views import Welcome
 
 urlpatterns = [
     path(f"{os.environ.get('ADMIN_URL', 'admin')}/", admin.site.urls),
-    path("", welcome),
+    path("", Welcome.as_view()),
     path("api/", include("notifier.urls")),
+    # JWT token
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
