@@ -78,22 +78,8 @@ heroku config:set -a notifier-app-api APP_BASE=api
 git push https://git.heroku.com/notifier-app-api.git master
 heroku logs -a notifier-app-api --tail
 
-# heroku.yaml
-heroku stack:set container -a notifier-application
-heroku plugins:install @heroku-cli/plugin-manifest
-git add/commit/push heroku master
-heroku ps:scale web=1 worker=1
-heroku addons:create cloudamqp:lemur
-heroku addons:create heroku-postgresql:hobby-dev
-heroku addons:create scheduler:standard
-
+# backend addons
+heroku addons:create -a notifier-app-api heroku-postgresql:hobby-dev
+heroku addons:create -a notifier-app-api scheduler:standard
 # set env vars
-
-# scale dynos
-heroku ps:scale web=1
-
-# use paid dynos and add ssl
-heroku ps:resize web=hobby
-heroku certs:auto:enable
-heroku certs:auto
 ```
