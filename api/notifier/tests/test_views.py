@@ -57,6 +57,15 @@ def test_client_login(client):
 
 
 @pytest.mark.django_db
+def test_unauthenticated_read_friend_list(client):
+    u = UserFactory()
+    FriendFactory(user=u)
+    url = reverse("friend-list")
+    r = client.get(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
+
+
+@pytest.mark.django_db
 def test_unauthenticated_read_friend_view(client):
     u = UserFactory()
     friend = FriendFactory(user=u)

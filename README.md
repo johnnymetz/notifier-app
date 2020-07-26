@@ -52,6 +52,8 @@ dt_utc = dt_la.astimezone(pytz.utc)
 
 ## Heroku monorepo deployment
 
+[heroku-buildpack-monorepo](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo)
+
 ```
 # frontend
 heroku create -a daily-notifier

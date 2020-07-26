@@ -28,7 +28,7 @@ class UserDetailView(RetrieveAPIView):
 class FriendViewset(viewsets.ModelViewSet):
     queryset = Friend.objects.all()
     serializer_class = FriendSerializer
-    permission_classes = (IsOwner,)
+    permission_classes = (IsAuthenticated, IsOwner)
 
 
 class EmailMock(APIView):
