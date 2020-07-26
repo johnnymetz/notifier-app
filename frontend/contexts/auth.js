@@ -11,14 +11,15 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = React.useState(true);
   const router = useRouter();
 
+  const verifyTokenAndFetchUser = async () => {
+    const verified = await apiClient.verifyToken();
+    if (verified) {
+      await fetchUser();
+    }
+    setLoading(false);
+  };
+
   React.useEffect(() => {
-    const verifyTokenAndFetchUser = async () => {
-      const verified = await apiClient.verifyToken();
-      if (verified) {
-        await fetchUser();
-      }
-      setLoading(false);
-    };
     verifyTokenAndFetchUser();
   }, []);
 

@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import Favicon from 'components/widgets/Favicon';
 import useAuth from 'contexts/auth';
 
 export default ({ children, home }) => {
@@ -14,7 +15,7 @@ export default ({ children, home }) => {
     <div>
       <Head>
         <title>Notifier</title>
-        <link rel="icon" href="/favicon.ico" />
+        <Favicon />
       </Head>
 
       <Navbar bg="dark" variant="dark" expand="sm" className="mb-3">
