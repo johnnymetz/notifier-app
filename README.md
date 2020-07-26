@@ -27,19 +27,10 @@ docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
 
 # send test email
 ./manage.py sendbirthdayemail USERNAME
-
-# heroku
-git push heroku master
-heroku run bash
-heroku run python manage.py sendbirthdayemail jmetz
-
-# heroku psql
-heroku pg:psql
 ```
 
 ## Todo
 
-- Deploy to monorepo to heroku
 - Gmail mail is flakey (try SendGrid)
 - Add cypress tests
 - Add silk and/or django debug toolbar
@@ -59,7 +50,7 @@ dt_la = datetime.datetime.now(tz=pytz.timezone('America/Los_Angeles'))
 dt_utc = dt_la.astimezone(pytz.utc)
 ```
 
-## Monorepo deployment
+## Heroku monorepo deployment
 
 ```
 # frontend
@@ -82,4 +73,11 @@ heroku logs -a notifier-app-api --tail
 heroku addons:create -a notifier-app-api heroku-postgresql:hobby-dev
 heroku addons:create -a notifier-app-api scheduler:standard
 # set env vars
+
+# backend exec
+heroku run -a notifier-app-api bash
+heroku run -a notifier-app-api python manage.py sendbirthdayemail jmetz
+
+# psql
+heroku pg:psql
 ```
