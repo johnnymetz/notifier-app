@@ -59,18 +59,17 @@ dt_la = datetime.datetime.now(tz=pytz.timezone('America/Los_Angeles'))
 dt_utc = dt_la.astimezone(pytz.utc)
 ```
 
-## Deployment
+## Monorepo deployment
 
 ```
-# monorepo
+# frontend
 heroku create -a daily-notifier
-heroku buildpacks:add -a daily-notifier https://github.com/heroku/heroku-buildpack-multi-procfile
+heroku buildpacks:add -a daily-notifier https://github.com/lstoll/heroku-buildpack-monorepo
 heroku buildpacks:add -a daily-notifier heroku/nodejs
-heroku config:set -a daily-notifier PROCFILE=frontend/Procfile
-git push https://git.heroku.com/notifier-app-api.git master
+heroku config:set -a daily-notifier APP_BASE=frontend
 git push https://git.heroku.com/daily-notifier.git master
 
-heroku config:set -a daily-notifier APP_BASE=frontend/Procfile
+git push https://git.heroku.com/notifier-app-api.git master
 
 # logs
 heroku logs -a notifier-app-api --tail
