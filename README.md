@@ -53,9 +53,30 @@ dt_la = datetime.datetime.now(tz=pytz.timezone('America/Los_Angeles'))
 dt_utc = dt_la.astimezone(pytz.utc)
 ```
 
-## Heroku monorepo deployment
+## Heroku workflow
 
 [heroku-buildpack-monorepo](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo)
+
+```
+# deploy
+git push frontend master
+git push api master
+
+# debug
+heroku logs -a daily-notifier --tail
+heroku logs -a notifier-app-api --tail
+heroku ps -a daily-notifier
+heroku ps -a notifier-app-api
+
+# backend exec
+heroku run -a notifier-app-api bash
+heroku run -a notifier-app-api python manage.py sendbirthdayemail jmetz
+
+# psql
+heroku pg:psql
+```
+
+## Heroku monorepo setup
 
 ```
 # frontend
@@ -64,6 +85,7 @@ heroku buildpacks:add -a daily-notifier https://github.com/lstoll/heroku-buildpa
 heroku buildpacks:add -a daily-notifier heroku/nodejs
 heroku config:set -a daily-notifier APP_BASE=frontend
 git push https://git.heroku.com/daily-notifier.git master
+git remote add frontend https://git.heroku.com/daily-notifier.git
 
 # backend
 heroku create -a notifier-app-api
@@ -71,24 +93,12 @@ heroku buildpacks:add -a notifier-app-api https://github.com/lstoll/heroku-build
 heroku buildpacks:add -a notifier-app-api heroku/python
 heroku config:set -a notifier-app-api APP_BASE=api
 git push https://git.heroku.com/notifier-app-api.git master
-
-# debug
-heroku logs -a daily-notifier --tail
-heroku logs -a notifier-app-api --tail
-heroku ps -a daily-notifier
-heroku ps -a notifier-app-api
+git remote add api https://git.heroku.com/notifier-app-api.git
 
 # backend addons
 heroku addons:create -a notifier-app-api heroku-postgresql:hobby-dev
 heroku addons:create -a notifier-app-api scheduler:standard
 # set env vars
-
-# backend exec
-heroku run -a notifier-app-api bash
-heroku run -a notifier-app-api python manage.py sendbirthdayemail jmetz
-
-# psql
-heroku pg:psql
 ```
 
 ## Resources
