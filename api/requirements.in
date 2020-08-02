@@ -15,6 +15,7 @@ dj-database-url
 # django-celery-results
 # django-celery-beat
 django-cors-headers
+django-anymail
 djangorestframework
 djangorestframework-simplejwt
 

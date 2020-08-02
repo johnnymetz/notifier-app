@@ -7,10 +7,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from notifier.helpers import get_birthday_email_context
 from notifier.models import Friend
 from notifier.permissions import IsOwner
 from notifier.serializers import FriendSerializer, UserSerializer
+from notifier.user_helpers import get_birthday_email_context
 
 
 class UserDetailView(RetrieveAPIView):

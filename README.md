@@ -16,9 +16,9 @@ docker container exec -it notifier-app_api_1 bash
 ./manage.py addfriends USERNAME
 ./manage.py sendbirthdayemail USERNAME
 
-# development using gmail settings
-docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml config
-docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
+# development using email settings
+docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
+docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 # setup db
 ./manage.py migrate
@@ -32,7 +32,6 @@ docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
 ## Todo
 
 - Add user management (registration, password reset, etc.)
-- Gmail mail is flakey (try SendGrid)
 - Unit test emails
 - Fix list vs object permissions
 
@@ -46,7 +45,6 @@ docker-compose -f docker-compose.yaml -f docker-compose.gmail.yaml up -d
 
 - SendGrid: 100 free emails / day
 - Heroku does not support SQLITE3
-- [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
 - PUT = full update; PATCH = partial update
 
 ```
@@ -92,3 +90,10 @@ heroku run -a notifier-app-api python manage.py sendbirthdayemail jmetz
 # psql
 heroku pg:psql
 ```
+
+## Resources
+
+- [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
+- [SendGrid web api vs. SMTP](https://sendgrid.com/blog/web-api-or-smtp-relay-how-should-you-send-your-mail/)
+  - Web api: [django-sendgrid-v5](https://github.com/sklarsa/django-sendgrid-v5) or [sendgrid-django](https://github.com/elbuo8/sendgrid-django)
+  - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)

@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from notifier.constants import UNKNOWN_YEAR
-from notifier.helpers import get_friends_with_birthday_within
 from notifier.models import Friend
+from notifier.user_helpers import get_friends_with_birthday_within
 
 
 class YearField(serializers.IntegerField):

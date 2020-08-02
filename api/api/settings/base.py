@@ -122,20 +122,6 @@ STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
-# CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
-# CELERY_RESULT_BACKEND = "django-db"
-# CELERY_TASK_TRACK_STARTED = True
-# CELERY_TIMEZONE = TIME_ZONE
-# CELERY_WORKER_CONCURRENCY = 1
-# # CELERY_BEAT_SCHEDULE = {
-# #     "send_birthday_notifier_email_to_user_task": {
-# #         "task": "notifier.tasks.send_birthday_notifier_email_to_user_task",
-# #         "schedule": crontab(minute="0", hour="7"),
-# #         "kwargs": {"username": "jmetz"},
-# #     },
-# # }
-
-
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "api.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 5,

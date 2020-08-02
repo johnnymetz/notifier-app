@@ -3,11 +3,11 @@ import datetime
 import pytest
 
 from notifier.constants import UNKNOWN_YEAR
-from notifier.helpers import (
+from notifier.tests.factories import FriendFactory, UserFactory
+from notifier.user_helpers import (
     get_friends_with_birthday_today,
     get_friends_with_birthday_within,
 )
-from notifier.tests.factories import FriendFactory, UserFactory
 
 
 @pytest.mark.freeze_time("2020-01-01")

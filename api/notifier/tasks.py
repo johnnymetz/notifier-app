@@ -4,7 +4,7 @@
 #
 # from celery import shared_task
 #
-# from notifier.helpers import send_birthday_notifier_email_to_user
+# from notifier.user_helpers import send_birthday_notifier_email_to_user
 #
 # logger = logging.getLogger("django")
 #
