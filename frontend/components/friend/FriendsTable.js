@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPencilAlt,
+  faTrashAlt,
+  faEllipsisV,
+} from '@fortawesome/free-solid-svg-icons';
 import { useTable, usePagination, useGlobalFilter } from 'react-table';
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
 import { wait } from 'services/helpers';
-import SubmitButton from 'components/widgets/SubmitButton';
-import EditFriend from 'components/EditFriend';
+import EditFriend from 'components/friend/EditFriend';
+import ConfirmModal from 'components/widgets/ConfirmModal';
 
 const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
   const [value, setValue] = React.useState(globalFilter);
@@ -29,22 +34,41 @@ const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
   );
 };
 
+const CustomDropdownToggle = forwardRef(({ children, onClick }, ref) => (
+  <div
+    ref={ref}
+    onClick={e => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    <Button variant="light" className="ellipsis-dropdown-toggle">
+      {children}
+    </Button>
+  </div>
+));
+
 export default ({ friends }) => {
   const { fetchUser } = useAuth();
-  const [idDeleting, setIdDeleting] = useState(null);
-  const [showEditForm, setShowEditForm] = useState(false);
+  const [showEditFormModal, setShowEditFormModal] = useState(false);
   const [friendValues, setFriendValues] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  const deleteFriend = async id => {
-    setIdDeleting(id);
+  const deleteFriend = async () => {
+    setIsDeleting(true);
     await wait(2000); // TODO: remove this
-    const { error } = await apiClient.authenticatedDelete(`friends/${id}`);
+    const { error } = await apiClient.authenticatedDelete(
+      `friends/${deleteId}`
+    );
     if (error) {
       console.log(error);
     } else {
       await fetchUser();
     }
-    setIdDeleting(null);
+    setIsDeleting(false);
+    setShowDeleteModal(false);
   };
 
   const columns = React.useMemo(
@@ -66,9 +90,10 @@ export default ({ friends }) => {
         accessor: 'age',
       },
       {
-        id: 'actions',
-        width: 115, // just large enough for 2 buttons with loading icon
-        Header: '',
+        // TODO: align this to the right
+        Header: 'Actions',
+        width: 70, // just large enough for 2 buttons with loading icon
+        className: 'text-right',
         Cell: ({ row: { original } }) => {
           const friend = {
             id: original.id,
@@ -78,33 +103,47 @@ export default ({ friends }) => {
             year: original.birthday_year,
           };
           return (
-            <div>
-              <Button
-                onClick={() => {
-                  setFriendValues(friend);
-                  setShowEditForm(true);
-                }}
-                variant={'outline-secondary'}
-                size={'sm'}
-                title="Edit"
-                style={{ marginRight: 10 }}
-              >
-                <FontAwesomeIcon icon={faPen} size={'sm'} />
-              </Button>
-              <SubmitButton
-                onClick={() => deleteFriend(original.id)}
-                isSubmitting={idDeleting === original.id}
-                text={<FontAwesomeIcon icon={faTrash} size={'sm'} />}
-                variant={'outline-danger'}
-                size={'sm'}
-                title="Delete"
-              />
+            <div className="text-right">
+              <Dropdown>
+                <Dropdown.Toggle as={CustomDropdownToggle} alignRight>
+                  <FontAwesomeIcon icon={faEllipsisV} size={'sm'} />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setFriendValues(friend);
+                      setShowEditFormModal(true);
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faPencilAlt}
+                      size={'sm'}
+                      style={{ marginRight: 8 }}
+                    />{' '}
+                    Edit
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      setDeleteId(original.id);
+                      setShowDeleteModal(true);
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      size={'sm'}
+                      style={{ marginRight: 10 }}
+                    />{' '}
+                    Delete
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           );
         },
       },
     ],
-    [idDeleting]
+    []
   );
 
   const {
@@ -144,9 +183,19 @@ export default ({ friends }) => {
       <h4>Friends</h4>
 
       <EditFriend
-        show={showEditForm}
-        setShow={setShowEditForm}
+        showModal={showEditFormModal}
+        setShowModal={setShowEditFormModal}
         friendValues={friendValues}
+      />
+
+      <ConfirmModal
+        showModal={showDeleteModal}
+        setShowModal={setShowDeleteModal}
+        onConfirm={deleteFriend}
+        title={'Delete Friend?'}
+        body={'Please confirm that you want to delete this friend.'}
+        confirmButtonText={'Delete'}
+        isSubmitting={isDeleting}
       />
 
       <Row className="justify-content-between">
@@ -176,14 +225,17 @@ export default ({ friends }) => {
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th
-                  {...column.getHeaderProps()}
-                  width={column.width !== 150 ? column.width : null}
-                >
-                  {column.render('Header')}
-                </th>
-              ))}
+              {headerGroup.headers.map(column => {
+                return (
+                  <th
+                    {...column.getHeaderProps()}
+                    width={column.width !== 150 ? column.width : null}
+                    className=""
+                  >
+                    {column.render('Header')}
+                  </th>
+                );
+              })}
             </tr>
           ))}
         </thead>

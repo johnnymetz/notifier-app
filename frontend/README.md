@@ -6,19 +6,22 @@ First, run the development server:
 
 ```bash
 npm run dev
+
+# cypress
+npm run cypress:open
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Todo
 
-- Add tests
+- Add cypress tests
 - Some alerts as toasts ?
+- Use formik for forms
 - Move Add friend form into a modal ?
 
 ## Later
 
-- Use formik for forms
 - Look into Next Redux (store exists on both client and server)
 
 ## Resources

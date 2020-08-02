@@ -34,13 +34,16 @@ class FriendSerializer(serializers.ModelSerializer):
         )
 
     def validate(self, data):
-        date_or_birth = data.pop("date_of_birth")
-        data["date_of_birth"] = datetime.date(
-            date_or_birth.get("year", UNKNOWN_YEAR),
-            date_or_birth["month"],
-            date_or_birth["day"],
-        )
-        return data
+        try:
+            date_or_birth = data.pop("date_of_birth")
+            data["date_of_birth"] = datetime.date(
+                date_or_birth.get("year", UNKNOWN_YEAR),
+                date_or_birth["month"],
+                date_or_birth["day"],
+            )
+            return data
+        except ValueError as e:
+            raise serializers.ValidationError(e)
 
     def create(self, validated_data):
         return self.Meta.model.objects.create(
@@ -48,12 +51,15 @@ class FriendSerializer(serializers.ModelSerializer):
         )
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get("name", instance.name)
-        instance.date_of_birth = validated_data.get(
-            "date_of_birth", instance.date_of_birth
-        )
-        instance.save()
-        return instance
+        try:
+            instance.name = validated_data.get("name", instance.name)
+            instance.date_of_birth = validated_data.get(
+                "date_of_birth", instance.date_of_birth
+            )
+            instance.save()
+            return instance
+        except ValueError as e:
+            raise serializers.ValidationError(e)
 
 
 class UserSerializer(serializers.ModelSerializer):

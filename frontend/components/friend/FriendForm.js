@@ -21,7 +21,7 @@ const MONTHS = [
   'December',
 ];
 
-export default ({ requestMethod, friendValues = {} }) => {
+export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
   const { fetchUser } = useAuth();
   const [name, setName] = useState(friendValues.name || '');
   const [month, setMonth] = useState(friendValues.month || 1);
@@ -68,7 +68,6 @@ export default ({ requestMethod, friendValues = {} }) => {
         );
         setAlertVariant('success');
         fetchUser();
-        setLoading(false);
         // TODO: uncomment eventually
         // setName('');
         // setMonth(1);
@@ -77,6 +76,10 @@ export default ({ requestMethod, friendValues = {} }) => {
       } else {
         setAlertMessage(error);
         setAlertVariant('danger');
+      }
+      setLoading(false);
+      if (setShowModal) {
+        setShowModal(false);
       }
     } else {
       setAlertMessage('Must fill out all required fields');

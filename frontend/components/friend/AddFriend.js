@@ -1,4 +1,4 @@
-import FriendForm from 'components/FriendForm';
+import FriendForm from 'components/friend/FriendForm';
 
 export default () => {
   return (

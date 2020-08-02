@@ -23,7 +23,8 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 # setup db
 ./manage.py migrate
 ./manage.py createsuperuser
-./manage.py addfriends USERNAME
+./manage.py import_friends USERNAME
+./manage.py export_friends USERNAME
 
 # send test email
 ./manage.py sendbirthdayemail USERNAME
@@ -40,6 +41,8 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 - Add silk and/or django debug toolbar
 - Remove cold starts ?
+- Papertrail heroku plugin
+- Sendgrid batch api
 - [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 
 ## Notes

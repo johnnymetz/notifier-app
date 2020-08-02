@@ -2,3 +2,8 @@ table.table td,
 table.table th {
   vertical-align: middle;
 }
+
+.ellipsis-dropdown-toggle {
+  background-color: transparent;
+  border-color: transparent;
+}
