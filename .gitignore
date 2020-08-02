@@ -144,3 +144,4 @@ cython_debug/
 .DS_Store
 debugger.py
 api/static/
+*_friends.csv
