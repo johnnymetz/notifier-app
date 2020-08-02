@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import Alert from 'react-bootstrap/Alert';
+import { toast } from 'react-toastify';
 import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
@@ -28,13 +28,9 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
   const [day, setDay] = useState(friendValues.day || '');
   const [year, setYear] = useState(friendValues.year || '');
   const [loading, setLoading] = useState(false);
-  const [alertMessage, setAlertMessage] = useState(null);
-  const [alertVariant, setAlertVariant] = useState(null);
 
   const onSubmit = async e => {
     e.preventDefault();
-    setAlertMessage(null);
-    setAlertVariant(null);
     if (name && month && day) {
       const payload = {
         name: name,
@@ -61,12 +57,11 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
         throw Error(`Invalid request method: ${requestMethod}`);
       }
       if (data) {
-        setAlertMessage(
+        toast.success(
           `${name} successfully ${
             requestMethod === 'POST' ? 'added' : 'updated'
           }`
         );
-        setAlertVariant('success');
         fetchUser();
         // TODO: uncomment eventually
         // setName('');
@@ -74,16 +69,14 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
         // setDay('');
         // setYear('');
       } else {
-        setAlertMessage(error);
-        setAlertVariant('danger');
+        toast.error('Must fill out all required fields');
       }
       setLoading(false);
       if (setShowModal) {
         setShowModal(false);
       }
     } else {
-      setAlertMessage('Must fill out all required fields');
-      setAlertVariant('danger');
+      toast.error('Must fill out all required fields');
     }
   };
 
@@ -134,8 +127,6 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
           />
         </Form.Group>
       </Form.Row>
-
-      {alertMessage && <Alert variant={alertVariant}>{alertMessage}</Alert>}
 
       <SubmitButton variant="primary" onClick={onSubmit} isSubmitting={loading}>
         Submit

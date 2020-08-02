@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
 import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
 import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
 
 export default () => {
-  const { isAuthenticated, login, error } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const [username, setUsername] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
@@ -46,8 +45,6 @@ export default () => {
             onChange={e => setPassword(e.target.value)}
           />
         </Form.Group>
-
-        {error && <Alert variant={'danger'}>{error}</Alert>}
 
         <SubmitButton
           onClick={loginWrapper}

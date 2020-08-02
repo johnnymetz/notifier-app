@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Alert from 'react-bootstrap/Alert';
+import { toast } from 'react-toastify';
 import apiClient from 'services/api';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 
@@ -24,12 +25,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (username, password) => {
-    setError(null);
     let { data, error } = await apiClient.login(username, password);
     if (data) {
       setUser(data);
     } else {
-      setError(error);
+      toast.error(error);
     }
     router.push('/');
   };
