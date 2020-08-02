@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
-from notifier.constants import BIRTHDAY_FORMAT, UNKNOWN_YEAR
+from notifier.constants import BIRTHDAY_FORMAT, MAX_FRIENDS_PER_USER, UNKNOWN_YEAR
+from notifier.exceptions import NotifierException
 from notifier.validators import validate_date_of_birth
 
 
@@ -31,6 +32,10 @@ class Friend(models.Model):
     @property
     def birthday_display(self):
         return self.date_of_birth.strftime(BIRTHDAY_FORMAT)
+
+    def clean(self):
+        if self.user_id and self.user.friends.count() > MAX_FRIENDS_PER_USER:
+            raise NotifierException(f"{self.user} has reached the friend limit")
 
     def save(self, *args, **kwargs):
         self.full_clean()

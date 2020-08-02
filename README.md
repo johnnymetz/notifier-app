@@ -31,14 +31,15 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ## Todo
 
-- Add user management (registration, password reset, etc.)
+- Friends to / from csv
+- Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
 - Unit test emails
 - Fix list vs object permissions
 
 ## Todo (maybe later)
 
-- Add cypress tests
 - Add silk and/or django debug toolbar
+- Remove cold starts ?
 - [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 
 ## Notes

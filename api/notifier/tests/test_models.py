@@ -5,6 +5,8 @@ from django.utils import timezone
 
 import pytest
 
+from notifier.constants import MAX_FRIENDS_PER_USER
+from notifier.exceptions import NotifierException
 from notifier.models import Friend
 from notifier.tests.factories import FriendFactory, UserFactory
 
@@ -47,3 +49,14 @@ def test_friend_date_of_birth_validation():
         FriendFactory(date_of_birth=datetime.date(1890, 1, 1))
     with pytest.raises(ValidationError):
         FriendFactory(date_of_birth=datetime.date(2030, 1, 1))
+
+
+@pytest.mark.django_db
+def test_user_friends_limit_validation():
+    user = UserFactory()
+    for _ in range(MAX_FRIENDS_PER_USER):
+        FriendFactory(user=user)
+    assert user.friends.count() == MAX_FRIENDS_PER_USER
+    msg = f"{user} has reached the friend limit"
+    with pytest.raises(NotifierException, match=msg):
+        FriendFactory(user=user)
