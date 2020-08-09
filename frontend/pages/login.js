@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
 import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
@@ -22,6 +23,8 @@ export default () => {
       setLoading(true);
       await login(username, password);
       setLoading(false);
+    } else {
+      toast.error('Username and password fields required');
     }
   };
 
@@ -34,6 +37,7 @@ export default () => {
           <Form.Control
             placeholder="Enter username"
             onChange={e => setUsername(e.target.value)}
+            data-test="username"
           />
         </Form.Group>
 
@@ -43,6 +47,7 @@ export default () => {
             type="password"
             placeholder="Enter password"
             onChange={e => setPassword(e.target.value)}
+            data-test="password"
           />
         </Form.Group>
 

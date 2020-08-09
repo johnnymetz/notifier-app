@@ -11,8 +11,6 @@ npm run dev
 npm run cypress:open
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## Todo
 
 - Add cypress tests

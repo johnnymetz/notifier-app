@@ -31,6 +31,7 @@ const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
         setValue(e.target.value);
         onChange(e.target.value);
       }}
+      data-test="search"
     />
   );
 };
