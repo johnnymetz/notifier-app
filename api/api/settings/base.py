@@ -128,7 +128,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    # Only works with rest_framework.test.APIClient + rest_framework.test.APIRequestFactory
+    # "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
 
 

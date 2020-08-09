@@ -15,7 +15,7 @@ class ApiClient {
       data = res.data;
       status = res.status;
     } catch (err) {
-      error = err.toString();
+      error = err.message;
       status = err.response?.status;
     }
     return { data, error, status };
@@ -28,7 +28,8 @@ class ApiClient {
       data = res.data;
       status = res.status;
     } catch (err) {
-      error = err.response?.data.detail || err.toString();
+      // error = err.response?.data.detail || err.response?.data || err.message;
+      error = err.response?.data.detail || err.message;
       status = err.response?.status;
     }
     return { data, error, status };
@@ -41,7 +42,7 @@ class ApiClient {
       data = res.data;
       status = res.status;
     } catch (err) {
-      error = err.response?.data.detail || err.toString();
+      error = err.response?.data.detail || err.message;
       status = err.response?.status;
     }
     return { data, error, status };
@@ -53,7 +54,7 @@ class ApiClient {
       const res = await this.axiosInstance.delete(url, config);
       status = res.status;
     } catch (err) {
-      error = err.response?.data.detail || err.toString();
+      error = err.response?.data.detail || err.message;
       status = err.response?.status;
     }
     return { error, status };

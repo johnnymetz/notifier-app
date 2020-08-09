@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { toast } from 'react-toastify';
 import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
@@ -34,11 +34,10 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
     if (name && month && day) {
       const payload = {
         name: name,
-        birthday_month: month,
-        birthday_day: day,
+        date_of_birth: { month: parseInt(month), day: parseInt(day) },
       };
       if (year) {
-        payload.birthday_year = year;
+        payload.date_of_birth.year = parseInt(year);
       }
       console.log(payload);
       setLoading(true);
@@ -58,7 +57,7 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
       }
       if (data) {
         toast.success(
-          `${name} successfully ${
+          `"${name}" successfully ${
             requestMethod === 'POST' ? 'added' : 'updated'
           }`
         );
@@ -69,7 +68,8 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
         // setDay('');
         // setYear('');
       } else {
-        toast.error('Must fill out all required fields');
+        // TODO: handle field errors, e.g. { name: ["friend with this name already exists."] }
+        toast.error(error);
       }
       setLoading(false);
       if (setShowModal) {

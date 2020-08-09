@@ -14,9 +14,9 @@ def test_read_friend_fields():
     assert data["id"] == friend.id
     assert data["user"] == friend.user.id
     assert data["name"] == friend.name
-    assert data["birthday_year"] == friend.date_of_birth.year
-    assert data["birthday_month"] == friend.date_of_birth.month
-    assert data["birthday_day"] == friend.date_of_birth.day
+    assert data["date_of_birth"]["year"] == friend.date_of_birth.year
+    assert data["date_of_birth"]["month"] == friend.date_of_birth.month
+    assert data["date_of_birth"]["day"] == friend.date_of_birth.day
     assert data["age"] == friend.age
 
 
@@ -28,9 +28,9 @@ def test_read_friend_fields_without_bday_year():
     assert data["id"] == friend.id
     assert data["user"] == friend.user.id
     assert data["name"] == friend.name
-    assert data["birthday_year"] is None
-    assert data["birthday_month"] == friend.date_of_birth.month
-    assert data["birthday_day"] == friend.date_of_birth.day
+    assert data["date_of_birth"]["year"] is None
+    assert data["date_of_birth"]["month"] == friend.date_of_birth.month
+    assert data["date_of_birth"]["day"] == friend.date_of_birth.day
     assert data["age"] == friend.age
 
 
@@ -40,9 +40,7 @@ def test_create_friend(rf):
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "birthday_year": date.year,
-        "birthday_month": date.month,
-        "birthday_day": date.day,
+        "date_of_birth": {"year": date.year, "month": date.month, "day": date.day},
     }
     request = rf.post("/whatever")
     request.user = u
@@ -61,9 +59,7 @@ def test_update_friend():
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "birthday_year": date.year,
-        "birthday_month": date.month,
-        "birthday_day": date.day,
+        "date_of_birth": {"year": date.year, "month": date.month, "day": date.day},
     }
     serializer = FriendSerializer(friend, data=data)
     assert serializer.is_valid(raise_exception=True)
@@ -80,8 +76,7 @@ def test_update_friend_without_bday_year():
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "birthday_month": date.month,
-        "birthday_day": date.day,
+        "date_of_birth": {"month": date.month, "day": date.day},
     }
     serializer = FriendSerializer(friend, data=data)
     assert serializer.is_valid(raise_exception=True)

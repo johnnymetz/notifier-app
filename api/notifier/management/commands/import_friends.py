@@ -28,7 +28,11 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("username", help="Username to import friends to")
-        parser.add_argument("-f", "--filename", help="Friends file")
+        parser.add_argument(
+            "-f",
+            "--filename",
+            help="Friends file (defaults to '{username}_friends.csv')",
+        )
 
     def handle(self, *args, **options):
         username = options["username"]

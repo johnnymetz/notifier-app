@@ -1,4 +1,5 @@
 import { useState, forwardRef } from 'react';
+import { toast } from 'react-toastify';
 import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
 import Form from 'react-bootstrap/Form';
@@ -50,21 +51,21 @@ const CustomDropdownToggle = forwardRef(({ children, onClick }, ref) => (
 
 export default ({ friends }) => {
   const { fetchUser } = useAuth();
+  const [selectedFriend, setSelectedFriend] = useState(null);
   const [showEditFormModal, setShowEditFormModal] = useState(false);
-  const [friendValues, setFriendValues] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteFriend = async () => {
     setIsDeleting(true);
     await wait(2000); // TODO: remove this
     const { error } = await apiClient.authenticatedDelete(
-      `friends/${deleteId}`
+      `friends/${selectedFriend.id}`
     );
     if (error) {
       console.log(error);
     } else {
+      toast.success(`"${selectedFriend.name}" successfully deleted`);
       await fetchUser();
     }
     setIsDeleting(false);
@@ -80,8 +81,8 @@ export default ({ friends }) => {
       {
         Header: 'Birthday',
         accessor: d => {
-          const monthStr = d.birthday_month.toString().padStart(2, 0);
-          const dayStr = d.birthday_day.toString().padStart(2, 0);
+          const monthStr = d.date_of_birth.month.toString().padStart(2, 0);
+          const dayStr = d.date_of_birth.day.toString().padStart(2, 0);
           return `${monthStr}-${dayStr}`;
         },
       },
@@ -90,7 +91,6 @@ export default ({ friends }) => {
         accessor: 'age',
       },
       {
-        // TODO: align this to the right
         Header: 'Actions',
         width: 70, // just large enough for 2 buttons with loading icon
         className: 'text-right',
@@ -98,9 +98,9 @@ export default ({ friends }) => {
           const friend = {
             id: original.id,
             name: original.name,
-            day: original.birthday_day,
-            month: original.birthday_month,
-            year: original.birthday_year,
+            day: original.date_of_birth.day,
+            month: original.date_of_birth.month,
+            year: original.date_of_birth.year,
           };
           return (
             <div className="text-right">
@@ -112,7 +112,7 @@ export default ({ friends }) => {
                 <Dropdown.Menu>
                   <Dropdown.Item
                     onClick={() => {
-                      setFriendValues(friend);
+                      setSelectedFriend(friend);
                       setShowEditFormModal(true);
                     }}
                   >
@@ -125,7 +125,7 @@ export default ({ friends }) => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
-                      setDeleteId(original.id);
+                      setSelectedFriend(friend);
                       setShowDeleteModal(true);
                     }}
                   >
@@ -166,6 +166,7 @@ export default ({ friends }) => {
     nextPage,
     previousPage,
     setPageSize,
+
     // state variables
     state: { pageIndex, pageSize, globalFilter },
   } = useTable(
@@ -185,7 +186,7 @@ export default ({ friends }) => {
       <EditFriend
         showModal={showEditFormModal}
         setShowModal={setShowEditFormModal}
-        friendValues={friendValues}
+        friendValues={selectedFriend}
       />
 
       <ConfirmModal
@@ -193,7 +194,7 @@ export default ({ friends }) => {
         setShowModal={setShowDeleteModal}
         onConfirm={deleteFriend}
         title={'Delete Friend?'}
-        body={'Please confirm that you want to delete this friend.'}
+        body={`Please confirm that you want to delete ${selectedFriend?.name}.`}
         confirmButtonText={'Delete'}
         isSubmitting={isDeleting}
       />

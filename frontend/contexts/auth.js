@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import Alert from 'react-bootstrap/Alert';
 import { toast } from 'react-toastify';
+import Alert from 'react-bootstrap/Alert';
 import apiClient from 'services/api';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 

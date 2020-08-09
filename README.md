@@ -32,10 +32,8 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ## Todo
 
-- Friends to / from csv
 - Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
 - Unit test emails
-- Fix list vs object permissions
 
 ## Todo (maybe later)
 

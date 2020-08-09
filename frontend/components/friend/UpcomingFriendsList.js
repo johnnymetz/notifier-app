@@ -9,7 +9,7 @@ export default ({ friends }) => {
           {friends.map(friend => {
             const currentYear = new Date().getFullYear();
             const date = new Date(
-              `${friend.birthday_month}/${friend.birthday_day}/${currentYear}`
+              `${friend.date_of_birth.month}/${friend.date_of_birth.day}/${currentYear}`
             );
             const dateString = date.toLocaleDateString(undefined, {
               weekday: 'long',

@@ -8,42 +8,53 @@ from notifier.constants import UNKNOWN_YEAR
 from notifier.models import Friend
 from notifier.user_helpers import get_friends_with_birthday_within
 
+# class YearField(serializers.IntegerField):
+#     def to_representation(self, value):
+#         year = int(value)
+#         return None if year == UNKNOWN_YEAR else year
 
-class YearField(serializers.IntegerField):
+
+# class DateSerializer(serializers.Serializer):
+#     year = YearField(required=False)
+#     month = serializers.IntegerField()
+#     day = serializers.IntegerField()
+#
+#     def validate(self, data):
+#         try:
+#             return datetime.date(
+#                 data.get("year", UNKNOWN_YEAR), data["month"], data["day"]
+#             )
+#         except ValueError as e:
+#             raise serializers.ValidationError(e)
+
+
+class DateField(serializers.Field):
     def to_representation(self, value):
-        year = int(value)
-        return None if year == UNKNOWN_YEAR else year
+        return {
+            "year": None if value.year == UNKNOWN_YEAR else value.year,
+            "month": value.month,
+            "day": value.day,
+        }
+
+    def to_internal_value(self, data):
+        try:
+            return datetime.date(
+                int(data.get("year", UNKNOWN_YEAR)),
+                int(data["month"]),
+                int(data["day"]),
+            )
+        except Exception:
+            raise serializers.ValidationError("Error parsing birth date")
 
 
 class FriendSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
-    birthday_year = YearField(source="date_of_birth.year", required=False)
-    birthday_month = serializers.IntegerField(source="date_of_birth.month")
-    birthday_day = serializers.IntegerField(source="date_of_birth.day")
+    # date_of_birth = DateSerializer()
+    date_of_birth = DateField()
 
     class Meta:
         model = Friend
-        fields = (
-            "id",
-            "user",
-            "name",
-            "birthday_year",
-            "birthday_month",
-            "birthday_day",
-            "age",
-        )
-
-    def validate(self, data):
-        try:
-            date_or_birth = data.pop("date_of_birth")
-            data["date_of_birth"] = datetime.date(
-                date_or_birth.get("year", UNKNOWN_YEAR),
-                date_or_birth["month"],
-                date_or_birth["day"],
-            )
-            return data
-        except ValueError as e:
-            raise serializers.ValidationError(e)
+        fields = ("id", "user", "name", "date_of_birth", "age")
 
     def create(self, validated_data):
         return self.Meta.model.objects.create(

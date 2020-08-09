@@ -17,7 +17,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - Add cypress tests
 - Use formik for forms
-- Move Add friend form into a modal ?
 
 ## Later
 
