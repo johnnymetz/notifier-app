@@ -33,6 +33,7 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 ## Todo
 
 - Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
+- Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Unit test emails
 
 ## Todo (maybe later)
