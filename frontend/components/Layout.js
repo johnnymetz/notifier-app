@@ -12,7 +12,7 @@ export default ({ children, home }) => {
   return (
     <div>
       <Head>
-        <title>Notifier</title>
+        <title>Notifire</title>
         <Favicon />
       </Head>
 
@@ -20,7 +20,7 @@ export default ({ children, home }) => {
         <Container>
           <Link href="/">
             <Navbar.Brand style={{ cursor: 'pointer' }}>
-              <img src="/logo.png" alt="Notifier" height="40" />
+              <img src="/logo.png" alt="Notifire" height="40" />
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle />
