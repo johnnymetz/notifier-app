@@ -39,8 +39,8 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 ## Todo (maybe later)
 
 - Add silk and/or django debug toolbar
-- Remove cold starts ?
 - Papertrail heroku plugin
+- Remove cold starts ?
 - Sendgrid batch api
 - [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 

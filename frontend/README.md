@@ -13,7 +13,6 @@ npm run cypress:open
 
 ## Todo
 
-- Add cypress tests
 - Use formik for forms
 
 ## Later
