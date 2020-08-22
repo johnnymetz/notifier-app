@@ -3,8 +3,6 @@ import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Favicon from 'components/widgets/Favicon';
 import useAuth from 'contexts/auth';
 
@@ -22,9 +20,7 @@ export default ({ children, home }) => {
         <Container>
           <Link href="/">
             <Navbar.Brand style={{ cursor: 'pointer' }}>
-              <FontAwesomeIcon icon={faPaperPlane} size={'sm'} />
-              <span style={{ marginLeft: 8 }}>Notifier</span>
-              {/* <img src="/logo.png" alt="Notifier" height="40" /> */}
+              <img src="/logo.png" alt="Notifier" height="40" />
             </Navbar.Brand>
           </Link>
           <Navbar.Toggle />
