@@ -28,6 +28,7 @@ export default ({
           isSubmitting={isSubmitting}
           variant={'danger'}
           text={confirmButtonText}
+          data-test="confirm-btn"
         />
       </Modal.Footer>
     </Modal>

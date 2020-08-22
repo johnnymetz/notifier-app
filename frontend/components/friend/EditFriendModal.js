@@ -9,7 +9,7 @@ export default ({ showModal, setShowModal, friendValues }) => {
       </Modal.Header>
       <Modal.Body>
         <FriendForm
-          requestMethod={'PATCH'}
+          action={'update'}
           friendValues={friendValues}
           setShowModal={setShowModal}
         />

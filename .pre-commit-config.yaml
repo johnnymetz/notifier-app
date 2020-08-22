@@ -29,6 +29,7 @@ repos:
       - id: check-yaml # validate yaml
       - id: check-docstring-first # validate no code is placed before docstring
       - id: check-added-large-files # prevent giant files from being commited (default=500kB)
+        args: ['--maxkb=1500'] # bump from 500 kb default for images
       - id: check-byte-order-marker # reject files which have a UTF-8 byte-order marker
       - id: check-symlinks # check for broken symlinks
       - id: debug-statements # validate no breakpoint() calls in python source

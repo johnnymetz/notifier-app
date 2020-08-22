@@ -17,7 +17,7 @@ import { useTable, usePagination, useGlobalFilter } from 'react-table';
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
 import { wait } from 'services/helpers';
-import EditFriend from 'components/friend/EditFriend';
+import EditFriendModal from 'components/friend/EditFriendModal';
 import ConfirmModal from 'components/widgets/ConfirmModal';
 
 const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
@@ -59,7 +59,7 @@ export default ({ friends }) => {
 
   const deleteFriend = async () => {
     setIsDeleting(true);
-    await wait(2000); // TODO: remove this
+    // await wait(2000);
     const { error } = await apiClient.authenticatedDelete(
       `friends/${selectedFriend.id}`
     );
@@ -184,7 +184,7 @@ export default ({ friends }) => {
     <>
       <h4>Friends</h4>
 
-      <EditFriend
+      <EditFriendModal
         showModal={showEditFormModal}
         setShowModal={setShowEditFormModal}
         friendValues={selectedFriend}
@@ -223,7 +223,13 @@ export default ({ friends }) => {
         </Col>
       </Row>
 
-      <Table striped hover responsive {...getTableProps()}>
+      <Table
+        striped
+        hover
+        responsive
+        {...getTableProps()}
+        data-test="friends-table"
+      >
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

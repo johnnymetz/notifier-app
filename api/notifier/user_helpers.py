@@ -1,3 +1,4 @@
+import csv
 import datetime
 import logging
 
@@ -6,6 +7,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from notifier.constants import BIRTHDAY_FORMAT
+from notifier.models import Friend
 
 logger = logging.getLogger("django")
 
@@ -53,3 +55,22 @@ def get_birthday_email_context(user: User):
         "friends_with_bday_upcoming": friends_with_bday_upcoming,
     }
     return context
+
+
+def add_friends_from_csv(user: User, filename: str):
+    if not filename:
+        filename = f"{user.username}_friends.csv"
+
+    created_friends = []
+    with open(filename) as f:
+        csv_reader = csv.reader(f)
+        for row in csv_reader:
+            friend, created = Friend.objects.get_or_create(
+                user=user,
+                name=row[0],
+                date_of_birth=datetime.datetime.strptime(row[1], "%Y-%m-%d"),
+            )
+            if created:
+                created_friends.append(friend)
+
+    return created_friends

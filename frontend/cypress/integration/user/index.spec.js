@@ -2,39 +2,98 @@ const serverUrl = Cypress.env('serverUrl');
 
 context('Index', () => {
   beforeEach(() => {
-    cy.login('qa', 'pw');
+    cy.server();
+    cy.route('GET', '/api/user/').as('getUser');
+    cy.route('POST', '/api/friends/').as('addFriend');
+    cy.route('PATCH', '/api/friends/*').as('editFriend');
+    cy.route('DELETE', '/api/friends/*').as('deleteFriend');
+
+    cy.seedQaUser();
+    cy.login('qa', 'qa');
     cy.visit('/');
   });
 
-  it('logs out', () => {
+  it('log out', () => {
     cy.get('a').contains('Logout').click();
     cy.location('pathname').should('eq', '/login');
   });
 
-  it('displays headers', () => {
+  it('display headers', () => {
     cy.contains('h2', 'Welcome');
     cy.contains('h4', 'Upcoming');
     cy.contains('h4', 'Add Friend');
     cy.contains('h4', 'Friends');
   });
 
-  it('displays friends table', () => {
-    cy.get('tbody>tr').its('length').should('eq', 4);
-    cy.get('tbody>tr').eq(0).as('firstRow');
-    cy.get('@firstRow').find('td').should('include.text', 'Friend1');
-    cy.get('@firstRow').find('td').should('include.text', '03-28');
+  it('display friends table', () => {
+    cy.get('[data-test=friends-table]>tbody>tr').as('rows');
+    cy.get('@rows').should('have.length', 4);
+    cy.get('@rows').contains('td', 'Friend1');
+    cy.get('@rows').contains('td', '03-28');
   });
 
   it('filter friends table', () => {
     cy.get('[data-test=search]').type('Friend1');
-    cy.get('tbody>tr').its('length').should('eq', 1);
+    cy.get('[data-test=friends-table]>tbody>tr').its('length').should('eq', 1);
   });
 
-  // it('add a friend', () => {});
-  // it('requires name, month and day to add a friend', () => {});
+  it('add friend', () => {
+    cy.get('[data-test=friends-table]>tbody>tr').as('rows');
+    cy.get('@rows').should('have.length', 4);
 
-  // it('update a friend', () => {});
-  // it('requires name, month and day to update a friend', () => {});
+    cy.get('[data-test=create-name-input]').type('JJ Reddick');
+    cy.get('[data-test=create-month-input]').select('June');
+    cy.get('[data-test=create-day-input]').type('24');
+    cy.get('[data-test=create-year-input]').type('1984{enter}');
 
-  // it('delete a friend', () => {});
+    cy.wait('@addFriend').its('status').should('eq', 201);
+    cy.wait('@getUser').its('status').should('eq', 200);
+    // cy.get('@rows').should('have.length', 5); // bug: assertion hangs indefinitely
+    cy.get('[data-test=friends-table]>tbody>tr').should('have.length', 5);
+    cy.get('@rows').contains('td', 'JJ Reddick');
+  });
+
+  it('raise alert with no values on add friend', () => {
+    cy.get('[data-test=create-name-input]').type('{enter}');
+    cy.get('[role=alert]').should(
+      'have.text',
+      'Must fill out all required fields'
+    );
+  });
+
+  it('update friend', () => {
+    cy.get('[data-test=friends-table]>tbody>tr').as('rows');
+    cy.get('@rows').should('have.length', 4);
+    cy.get('@rows').first().as('firstRow');
+    cy.get('@firstRow').should('contain', 'Friend1').and('contain', '03-28');
+
+    cy.get('@firstRow').find('.ellipsis-dropdown-toggle').click();
+    cy.get('@firstRow').contains('Edit').click();
+    cy.get('[data-test=update-name-input]').clear().type('JJ Reddick');
+    cy.get('[data-test=update-month-input]').select('June');
+    cy.get('[data-test=update-day-input]').clear().type('24{enter}');
+
+    cy.wait('@editFriend').its('status').should('eq', 200);
+    cy.wait('@getUser').its('status').should('eq', 200);
+    cy.get('@rows').should('have.length', 4);
+    cy.get('@firstRow').should('contain', 'JJ Reddick').and('contain', '06-24');
+  });
+
+  it('delete friend', () => {
+    cy.get('[data-test=friends-table]>tbody>tr').as('rows');
+    cy.get('@rows').should('have.length', 4);
+    cy.get('@rows').should('contain', 'Friend1').and('contain', '03-28');
+
+    cy.get('@rows').first().as('firstRow');
+    cy.get('@firstRow').find('.ellipsis-dropdown-toggle').click();
+    cy.get('@firstRow').contains('Delete').click();
+    cy.get('[data-test=confirm-btn]').click();
+
+    cy.wait('@deleteFriend').its('status').should('eq', 204);
+    cy.wait('@getUser').its('status').should('eq', 200);
+    cy.get('@rows').should('have.length', 3);
+    cy.get('@rows')
+      .should('not.contain', 'Friend1')
+      .and('not.contain', '03-28');
+  });
 });

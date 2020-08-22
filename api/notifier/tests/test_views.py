@@ -154,6 +154,17 @@ def test_read_user_detail(client, token_headers):
     assert r.data["id"] == u.id
 
 
+@pytest.mark.django_db
+def test_seed_qa_user(client):
+    url = reverse("seed-qa-user")
+    r = client.post(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
+    r = client.post(url, {"auth": "Cypress789"})
+    assert r.status_code == status.HTTP_201_CREATED
+    assert r.data["username"] == "qa"
+    assert len(r.data["all_friends"]) == 4
+
+
 # test creating new user (post)
 # test updating user (patch)
 # test deactivating user (is_active=False)

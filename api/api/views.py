@@ -7,4 +7,4 @@ class Welcome(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
-        return Response({"ping": "pong"})
+        return Response({"message": "Welcome to the Notifier API."})

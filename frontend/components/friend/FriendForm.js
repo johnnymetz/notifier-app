@@ -21,7 +21,7 @@ const MONTHS = [
   'December',
 ];
 
-export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
+export default ({ action, friendValues = {}, setShowModal = null }) => {
   const { fetchUser } = useAuth();
   const [name, setName] = useState(friendValues.name || '');
   const [month, setMonth] = useState(friendValues.month || 1);
@@ -42,24 +42,22 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
       console.log(payload);
       setLoading(true);
       let data, error;
-      if (requestMethod === 'POST') {
+      if (action === 'create') {
         ({ data, error } = await apiClient.authenticatedPost(
           'friends/',
           payload
         ));
-      } else if (requestMethod === 'PATCH') {
+      } else if (action === 'update') {
         ({ data, error } = await apiClient.authenticatedPatch(
           `friends/${friendValues.id}/`,
           payload
         ));
       } else {
-        throw Error(`Invalid request method: ${requestMethod}`);
+        throw Error(`Invalid action: ${action}`);
       }
       if (data) {
         toast.success(
-          `"${name}" successfully ${
-            requestMethod === 'POST' ? 'added' : 'updated'
-          }`
+          `"${name}" successfully ${action === 'create' ? 'added' : 'updated'}`
         );
         fetchUser();
         // TODO: uncomment eventually
@@ -88,6 +86,7 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
           // placeholder="Joe Maddon"
           value={name}
           onChange={e => setName(e.target.value)}
+          data-test={`${action}-name-input`}
         />
       </Form.Group>
 
@@ -98,6 +97,7 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
             as="select"
             value={month}
             onChange={e => setMonth(e.target.value)}
+            data-test={`${action}-month-input`}
           >
             {MONTHS.map((m, i) => (
               <option key={i} value={i + 1}>
@@ -114,6 +114,7 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
             // placeholder="24"
             value={day}
             onChange={e => setDay(e.target.value)}
+            data-test={`${action}-day-input`}
           />
         </Form.Group>
 
@@ -124,6 +125,7 @@ export default ({ requestMethod, friendValues = {}, setShowModal = null }) => {
             // placeholder="1994"
             value={year}
             onChange={e => setYear(e.target.value)}
+            data-test={`${action}-year-input`}
           />
         </Form.Group>
       </Form.Row>
