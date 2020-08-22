@@ -21,7 +21,7 @@ class Command(BaseCommand):
         with open(filename, mode="w") as f:
             count = 0
             writer = csv.writer(f)
-            for friend in user.friends.all():
+            for friend in user.friends.order_by("name").all():
                 writer.writerow([friend.name, friend.date_of_birth])
                 count += 1
 
