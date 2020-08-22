@@ -66,9 +66,9 @@ git push frontend master
 git push api master
 
 # debug
-heroku logs -a daily-notifier --tail
+heroku logs -a notifire-app --tail
 heroku logs -a notifier-app-api --tail
-heroku ps -a daily-notifier
+heroku ps -a notifire-app
 heroku ps -a notifier-app-api
 
 # backend exec
@@ -83,12 +83,12 @@ heroku pg:psql
 
 ```
 # frontend
-heroku create -a daily-notifier
-heroku buildpacks:add -a daily-notifier https://github.com/lstoll/heroku-buildpack-monorepo
-heroku buildpacks:add -a daily-notifier heroku/nodejs
-heroku config:set -a daily-notifier APP_BASE=frontend
-git push https://git.heroku.com/daily-notifier.git master
-git remote add frontend https://git.heroku.com/daily-notifier.git
+heroku create -a notifire-app
+heroku buildpacks:add -a notifire-app https://github.com/lstoll/heroku-buildpack-monorepo
+heroku buildpacks:add -a notifire-app heroku/nodejs
+heroku config:set -a notifire-app APP_BASE=frontend
+git push https://git.heroku.com/notifire-app.git master
+git remote add frontend https://git.heroku.com/notifire-app.git
 
 # backend
 heroku create -a notifier-app-api
