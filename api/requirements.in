@@ -1,7 +1,6 @@
 pip-tools
 black
 mypy
-pylint
 pre-commit
 
 psycopg2

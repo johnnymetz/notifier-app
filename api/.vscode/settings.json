@@ -2,7 +2,6 @@
   "python.pythonPath": "venv/bin/python",
   "python.formatting.blackPath": "venv/bin/black",
   "python.linting.mypyPath": "venv/bin/mypy",
-  "python.linting.pylintPath": "venv/bin/pylint",
   "python.testing.pytestEnabled": true,
   "python.testing.pytestPath": "venv/bin/pytest"
 }
