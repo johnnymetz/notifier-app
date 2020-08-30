@@ -1,4 +1,4 @@
-import { useState, forwardRef } from 'react';
+import { useState, useMemo, forwardRef } from 'react';
 import { toast } from 'react-toastify';
 import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
@@ -21,7 +21,7 @@ import EditFriendModal from 'components/friend/EditFriendModal';
 import ConfirmModal from 'components/widgets/ConfirmModal';
 
 const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
-  const [value, setValue] = React.useState(globalFilter);
+  const [value, setValue] = useState(globalFilter);
   const onChange = async value => setGlobalFilter(value || undefined);
   return (
     <Form.Control
@@ -73,7 +73,7 @@ export default ({ friends }) => {
     setShowDeleteModal(false);
   };
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: 'Name',

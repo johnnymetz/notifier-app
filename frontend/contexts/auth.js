@@ -1,15 +1,16 @@
+import { useState, useEffect, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Alert from 'react-bootstrap/Alert';
 import apiClient from 'services/api';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 
-const AuthContext = React.createContext(null);
+const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = React.useState(null);
-  const [error, setError] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const verifyTokenAndFetchUser = async () => {
@@ -20,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     verifyTokenAndFetchUser();
   }, []);
 
@@ -66,14 +67,14 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => React.useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
 
 export const PrivateRoute = Component => {
   return () => {
     const { isAuthenticated, loading, error } = useAuth();
     const router = useRouter();
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (!isAuthenticated && !loading) {
         router.push('/login');
       }

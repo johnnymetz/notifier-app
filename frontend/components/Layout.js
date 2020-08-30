@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Favicon from 'components/widgets/Favicon';
 import useAuth from 'contexts/auth';
 
-export default ({ children, home }) => {
+export default ({ children }) => {
   const { isAuthenticated, logout } = useAuth();
 
   return (
@@ -34,16 +34,7 @@ export default ({ children, home }) => {
         </Container>
       </Navbar>
 
-      <Container>
-        {children}
-        {/* {!home && (
-          <div>
-            <Link href="/">
-              <a>← Back to home</a>
-            </Link>
-          </div>
-        )} */}
-      </Container>
+      <Container>{children}</Container>
     </div>
   );
 };

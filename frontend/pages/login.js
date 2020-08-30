@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
@@ -6,12 +7,12 @@ import useAuth from 'contexts/auth';
 
 export default () => {
   const { isAuthenticated, login } = useAuth();
-  const [email, setEmail] = React.useState(null);
-  const [password, setPassword] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAuthenticated) {
       router.push('/');
     }
