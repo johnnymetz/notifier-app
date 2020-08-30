@@ -145,3 +145,4 @@ cython_debug/
 debugger.py
 api/static/
 api/*_friends.csv
+cypress.env.json

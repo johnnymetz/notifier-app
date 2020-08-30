@@ -1,4 +1,6 @@
 const serverUrl = Cypress.env('serverUrl');
+const qaUserEmail = Cypress.env('qaUserEmail');
+const qaUserPassword = Cypress.env('qaUserPassword');
 
 context('Index', () => {
   beforeEach(() => {
@@ -9,7 +11,7 @@ context('Index', () => {
     cy.route('DELETE', '/api/friends/*').as('deleteFriend');
 
     cy.seedQaUser();
-    cy.login('qa', 'qa');
+    cy.login(qaUserEmail, qaUserPassword);
     cy.visit('/');
   });
 

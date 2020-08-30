@@ -280,7 +280,7 @@ export default ({ friends }) => {
           />
         </Pagination>
         <div>
-          Page {pageIndex + 1} of {pageOptions.length}{' '}
+          Page {pageIndex + 1} of {pageOptions.length || 1}{' '}
           <small className="text-muted">({rows.length} records)</small>
         </div>
       </div>

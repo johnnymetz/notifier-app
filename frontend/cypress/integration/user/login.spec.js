@@ -1,5 +1,9 @@
+const qaUserEmail = Cypress.env('qaUserEmail');
+const qaUserPassword = Cypress.env('qaUserPassword');
+
 context('Login', () => {
   beforeEach(() => {
+    cy.seedQaUser();
     cy.visit('/login');
   });
 
@@ -27,8 +31,8 @@ context('Login', () => {
   });
 
   it('navigate to home page with valid credentials', () => {
-    cy.get('[data-test=email]').type('qa');
-    cy.get('[data-test=password]').type('qa{enter}');
+    cy.get('[data-test=email]').type(qaUserEmail);
+    cy.get('[data-test=password]').type(`${qaUserPassword}{enter}`);
     cy.location('pathname').should('eq', '/');
   });
 });
