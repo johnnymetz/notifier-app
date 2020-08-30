@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # Application definition
 
 INSTALLED_APPS = [
+    "users.apps.UsersConfig",
     "notifier.apps.NotifierConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -120,6 +121,9 @@ USE_TZ = True
 STATIC_URL = "/staticfiles/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+
+AUTH_USER_MODEL = "users.User"
 
 
 REST_FRAMEWORK = {

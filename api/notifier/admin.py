@@ -1,8 +1,12 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.models import User
 
 from notifier.models import Friend
+
+# from django.contrib.auth import get_user_model
+# from django.contrib.auth.admin import UserAdmin
+
+
+# User = get_user_model()
 
 
 @admin.register(Friend)
@@ -18,9 +22,9 @@ class FriendInline(admin.TabularInline):
     extra = 1
 
 
-class UserAdminExtended(UserAdmin):
-    inlines = (FriendInline,)
+# class UserAdminExtended(UserAdmin):
+#     inlines = (FriendInline,)
 
 
-admin.site.unregister(User)
-admin.site.register(User, UserAdminExtended)
+# admin.site.unregister(User)
+# admin.site.register(User, UserAdminExtended)

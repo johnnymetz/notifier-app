@@ -24,8 +24,8 @@ export const AuthProvider = ({ children }) => {
     verifyTokenAndFetchUser();
   }, []);
 
-  const login = async (username, password) => {
-    let { data, error } = await apiClient.login(username, password);
+  const login = async (email, password) => {
+    let { data, error } = await apiClient.login(email, password);
     if (data) {
       setUser(data);
     } else {

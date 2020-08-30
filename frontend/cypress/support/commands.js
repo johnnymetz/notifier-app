@@ -11,9 +11,9 @@
 const serverUrl = Cypress.env('serverUrl');
 
 // -- This is a parent command --
-Cypress.Commands.add('login', (username, password) => {
+Cypress.Commands.add('login', (email, password) => {
   cy.request('POST', `${serverUrl}/token/`, {
-    username,
+    email,
     password,
   }).then(res => {
     localStorage.setItem('accessToken', res.body.access);
@@ -26,7 +26,6 @@ Cypress.Commands.add('seedQaUser', () => {
     auth: 'Cypress789',
   }).should(res => {
     expect(res.status).to.eq(201);
-    expect(res.body.username).to.eq('qa');
   });
 });
 

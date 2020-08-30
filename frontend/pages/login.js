@@ -6,7 +6,7 @@ import useAuth from 'contexts/auth';
 
 export default () => {
   const { isAuthenticated, login } = useAuth();
-  const [username, setUsername] = React.useState(null);
+  const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
@@ -19,12 +19,12 @@ export default () => {
 
   const loginWrapper = async e => {
     e.preventDefault();
-    if (username && password) {
+    if (email && password) {
       setLoading(true);
-      await login(username, password);
+      await login(email, password);
       setLoading(false);
     } else {
-      toast.error('Username and password fields required');
+      toast.error('Email and password fields required');
     }
   };
 
@@ -33,11 +33,11 @@ export default () => {
       <h2>Login</h2>
       <Form>
         <Form.Group>
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            placeholder="Enter username"
-            onChange={e => setUsername(e.target.value)}
-            data-test="username"
+            placeholder="Enter email"
+            onChange={e => setEmail(e.target.value)}
+            data-test="email"
           />
         </Form.Group>
 

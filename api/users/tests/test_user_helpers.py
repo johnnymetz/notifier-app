@@ -3,11 +3,8 @@ import datetime
 import pytest
 
 from notifier.constants import UNKNOWN_YEAR
-from notifier.tests.factories import FriendFactory, UserFactory
-from notifier.user_helpers import (
-    get_friends_with_birthday_today,
-    get_friends_with_birthday_within,
-)
+from notifier.tests.factories import FriendFactory
+from users.tests.factories import UserFactory
 
 
 @pytest.mark.freeze_time("2020-01-01")
@@ -23,7 +20,7 @@ def test_get_friends_with_birthday_today(settings):
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 2))
     FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 3))
     FriendFactory(user=user2, date_of_birth=datetime.datetime(1990, 1, 1))
-    friends = get_friends_with_birthday_today(user)
+    friends = user.get_friends_with_birthday_today()
     assert friend1 in friends
     assert friend2 in friends
     assert friends.count() == 2
@@ -50,7 +47,7 @@ def test_get_friends_with_birthday_within(settings):
     FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 6))
     FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 12, 31))
     FriendFactory(user=user2, date_of_birth=datetime.datetime(1990, 1, 2))
-    friends = get_friends_with_birthday_within(user, days=5)
+    friends = user.get_friends_with_birthday_within(days=5)
     assert friend1 in friends
     assert friend2 in friends
     assert friend3 in friends
@@ -76,7 +73,7 @@ def test_get_friends_with_birthday_within_end_of_month(settings):
     FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 10))
     FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 30))
     FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 2, 10))
-    friends = get_friends_with_birthday_within(user, days=5)
+    friends = user.get_friends_with_birthday_within(days=5)
     assert friend1 in friends
     assert friend2 in friends
     assert friend3 in friends

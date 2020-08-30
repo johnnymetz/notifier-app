@@ -26,9 +26,10 @@ services:
   api:
     build: ./api
     image: notifier-app_api
-    command: bash -c "
-      ./manage.py migrate &&
-      ./manage.py runserver 0.0.0.0:8000"
+    command: ./manage.py runserver 0.0.0.0:8000
+    # command: bash -c "
+    #   ./manage.py migrate &&
+    #   ./manage.py runserver 0.0.0.0:8000"
     ports:
       - '8000:8000'
     volumes:
@@ -37,6 +38,7 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - DB_HOST=db
       - CELERY_BROKER_URL=amqp://rabbit/
+      - QA_USER_EMAIL
     depends_on:
       - db
       # - rabbit

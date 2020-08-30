@@ -8,7 +8,8 @@ import pytest
 from notifier.constants import MAX_FRIENDS_PER_USER
 from notifier.exceptions import NotifierException
 from notifier.models import Friend
-from notifier.tests.factories import FriendFactory, UserFactory
+from notifier.tests.factories import FriendFactory
+from users.tests.factories import UserFactory
 
 
 @pytest.mark.django_db

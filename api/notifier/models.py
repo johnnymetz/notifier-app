@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
@@ -8,7 +8,9 @@ from notifier.validators import validate_date_of_birth
 
 
 class Friend(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friends")
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="friends"
+    )
     name = models.CharField(max_length=255, unique=True)
     date_of_birth = models.DateField(validators=[validate_date_of_birth])
 

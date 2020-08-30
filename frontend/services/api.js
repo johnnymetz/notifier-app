@@ -94,9 +94,9 @@ class ApiClient {
   /////////////////////////
   // JWT
   /////////////////////////
-  async login(username, password) {
+  async login(email, password) {
     let { data, error } = await apiClient.post('token/', {
-      username,
+      email,
       password,
     });
     if (data) {

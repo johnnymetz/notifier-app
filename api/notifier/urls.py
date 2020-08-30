@@ -2,7 +2,8 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from notifier.views import EmailMock, FriendViewset, SeedQaUser, UserDetailView
+from notifier.views import FriendViewset
+from users.views import EmailMock, SeedQaUser, UserDetailView
 
 router = DefaultRouter()
 router.register("friends", FriendViewset)

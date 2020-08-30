@@ -1,6 +1,6 @@
 import csv
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
 
@@ -8,16 +8,18 @@ class Command(BaseCommand):
     help = "Export friends for a user."
 
     def add_arguments(self, parser):
-        parser.add_argument("username", help="Username to export friends from")
+        parser.add_argument("email", type=str, help="User email")
 
     def handle(self, *args, **options):
-        username = options["username"]
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            raise Exception(f"User {username} does not exist.")
+        email = options["email"]
 
-        filename = f"{username}_friends.csv"
+        User = get_user_model()
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise Exception(f"User {email} does not exist.")
+
+        filename = f"{email}_friends.csv"
         with open(filename, mode="w") as f:
             count = 0
             writer = csv.writer(f)
