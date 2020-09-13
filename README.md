@@ -11,27 +11,20 @@ pre-commit install
 # development using local settings
 docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
-# migrate run as part of startup command
-./manage.py createsuperuser  # fill out email
-./manage.py addfriends USERNAME
-./manage.py sendbirthdayemail USERNAME
+./manage.py migrate
+./manage.py createsuperuser
+./manage.py addfriends EMAIL
+./manage.py export_friends EMAIL
+./manage.py sendbirthdayemail EMAIL
 
 # development using email settings
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
-
-# setup db
-./manage.py migrate
-./manage.py createsuperuser
-./manage.py import_friends USERNAME
-./manage.py export_friends USERNAME
-
-# send test email
-./manage.py sendbirthdayemail USERNAME
 ```
 
 ## Todo
 
+- Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Unit test emails
@@ -110,3 +103,4 @@ heroku addons:create -a notifier-app-api scheduler:standard
 - [SendGrid web api vs. SMTP](https://sendgrid.com/blog/web-api-or-smtp-relay-how-should-you-send-your-mail/)
   - Web api: [django-sendgrid-v5](https://github.com/sklarsa/django-sendgrid-v5) or [sendgrid-django](https://github.com/elbuo8/sendgrid-django)
   - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)
+  - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)

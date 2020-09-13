@@ -39,6 +39,7 @@ services:
       - DB_HOST=db
       - CELERY_BROKER_URL=amqp://rabbit/
       - QA_USER_EMAIL
+      - QA_USER_PASSWORD
     depends_on:
       - db
       # - rabbit

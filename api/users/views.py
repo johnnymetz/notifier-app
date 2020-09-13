@@ -33,15 +33,17 @@ class SeedQaUser(APIView):
 
     def post(self, request, *args, **kwargs):
         qa_user_email = os.environ.get("QA_USER_EMAIL")
-        if not qa_user_email:
-            return Response("No email set", status=status.HTTP_201_CREATED)
+        qa_user_password = os.environ.get("QA_USER_PASSWORD")
+
+        if not qa_user_email or not qa_user_password:
+            return Response("Missing qa credentials", status=status.HTTP_201_CREATED)
 
         try:
             User.objects.get(email=qa_user_email).delete()
         except User.DoesNotExist:
             pass
         qa_user = User.objects.create(email=qa_user_email)
-        qa_user.set_password("qa")
+        qa_user.set_password(qa_user_password)
         qa_user.save()
         _ = qa_user.add_friends_from_csv(
             filename=f"{settings.BASE_DIR}/notifier/data/qa_friends.csv"

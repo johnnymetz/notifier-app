@@ -44,10 +44,9 @@ def test_friend_name_validation():
         FriendFactory(name=friend.name)
 
 
+@pytest.mark.freeze_time("2020-01-01")
 @pytest.mark.django_db
 def test_friend_date_of_birth_validation():
-    with pytest.raises(ValidationError):
-        FriendFactory(date_of_birth=datetime.date(1890, 1, 1))
     with pytest.raises(ValidationError):
         FriendFactory(date_of_birth=datetime.date(2030, 1, 1))
 
