@@ -66,7 +66,7 @@ heroku ps -a notifier-app-api
 
 # backend exec
 heroku run -a notifier-app-api bash
-heroku run -a notifier-app-api python manage.py sendbirthdayemail jmetz
+heroku run -a notifier-app-api python manage.py sendbirthdayemail EMAIL
 
 # psql
 heroku pg:psql
@@ -87,6 +87,7 @@ git remote add frontend https://git.heroku.com/notifire-app.git
 heroku create -a notifier-app-api
 heroku buildpacks:add -a notifier-app-api https://github.com/lstoll/heroku-buildpack-monorepo
 heroku buildpacks:add -a notifier-app-api heroku/python
+heroku buildpacks:add https://github.com/carloluis/heroku-buildpack-vim
 heroku config:set -a notifier-app-api APP_BASE=api
 git push https://git.heroku.com/notifier-app-api.git master
 git remote add api https://git.heroku.com/notifier-app-api.git
