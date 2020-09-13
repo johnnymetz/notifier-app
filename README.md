@@ -24,13 +24,15 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ## Todo
 
-- Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
+- Update to factory-boy v3
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
+- Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Unit test emails
 
 ## Todo (maybe later)
 
+- Move config files to pyproject.toml
 - Add silk and/or django debug toolbar
 - Papertrail heroku plugin
 - Remove cold starts ?
