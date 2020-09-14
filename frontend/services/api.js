@@ -95,7 +95,7 @@ class ApiClient {
   // JWT
   /////////////////////////
   async login(email, password) {
-    let { data, error } = await apiClient.post('token/', {
+    let { data, error } = await apiClient.post('auth/jwt/create/', {
       email,
       password,
     });
@@ -117,7 +117,7 @@ class ApiClient {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       console.log('Verifying token...');
-      const { data, error, status } = await apiClient.post('token/verify/', {
+      const { data, error, status } = await apiClient.post('auth/jwt/verify/', {
         token: accessToken,
       });
       if (data) {
@@ -144,7 +144,7 @@ class ApiClient {
     let refreshed = false;
     const refreshToken = localStorage.getItem('refreshToken');
     if (refreshToken) {
-      const { data, error } = await apiClient.post('token/refresh/', {
+      const { data, error } = await apiClient.post('auth/jwt/refresh/', {
         refresh: refreshToken,
       });
       if (data) {

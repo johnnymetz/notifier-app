@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # "django_celery_beat",
     "corsheaders",
     "rest_framework",
+    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,32 @@ REST_FRAMEWORK = {
     ),
     # Only works with rest_framework.test.APIClient + rest_framework.test.APIRequestFactory
     # "TEST_REQUEST_DEFAULT_FORMAT": "json",
+}
+
+
+DJOSER = {
+    ### USER CREATION ###
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "SEND_CONFIRMATION_EMAIL": True,
+    ### USERNAME ###
+    # "USERNAME_RESET_CONFIRM_RETYPE": True,
+    # "USERNAME_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "USERNAME_RESET_CONFIRM_URL": "#/username/reset/confirm/{uid}/{token}",
+    # "SET_USERNAME_RETYPE": True,
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
+    ### PASSWORD ###
+    # "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    # "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/confirm/{uid}/{token}",
+    # "SET_PASSWORD_RETYPE": True,
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
+    "LOGOUT_ON_PASSWORD_CHANGE": True,
+    ### OTHER ###
+    # "SERIALIZERS": {},
+    "TOKEN_MODEL": None,
+    # "HIDE_USERS": False,
 }
 
 

@@ -17,6 +17,7 @@ django-cors-headers
 django-anymail
 djangorestframework
 djangorestframework-simplejwt
+djoser
 
 pytest
 pytest-django
