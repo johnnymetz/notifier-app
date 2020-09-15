@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     # "django_celery_beat",
     "corsheaders",
     "rest_framework",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -140,4 +141,11 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(weeks=1),
+}
+
+SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    },
 }

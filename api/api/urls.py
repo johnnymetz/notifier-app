@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+# from .swagger import schema_view
 from .views import Welcome
 
 urlpatterns = [
@@ -19,4 +20,6 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="jwt-create"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="jwt-refresh"),
     path("api/token/verify/", TokenVerifyView.as_view(), name="jwt-verify"),
+    # # documentation
+    # path("api/docs/", schema_view.with_ui("swagger")),
 ]
