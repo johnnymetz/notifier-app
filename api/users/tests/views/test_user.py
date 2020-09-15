@@ -4,6 +4,10 @@ from django.urls import reverse
 import pytest
 from rest_framework import status
 
+from users.tests.factories import UserFactory
+
+User = get_user_model()
+
 
 @pytest.mark.django_db
 def test_unauthenticated_read_user_detail(client):
@@ -14,7 +18,6 @@ def test_unauthenticated_read_user_detail(client):
 
 @pytest.mark.django_db
 def test_read_user_detail(client, token_headers):
-    User = get_user_model()
     u = User.objects.get()
     url = reverse("user-detail")
     r = client.get(url, **token_headers)
@@ -23,17 +26,38 @@ def test_read_user_detail(client, token_headers):
 
 
 @pytest.mark.django_db
-def test_seed_qa_user(monkeypatch, client):
-    monkeypatch.setenv("QA_USER_EMAIL", "qa@email.com")
-    url = reverse("seed-qa-user")
-    r = client.post(url)
-    assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    r = client.post(url, {"auth": "Cypress789"})
+def test_create_user(client):
+    url = reverse("user-list")
+    data = {"email": "jj@email.com", "password": "pw123", "re_password": "pw123"}
+    r = client.post(url, data=data)
     assert r.status_code == status.HTTP_201_CREATED
-    assert r.data["email"] == "qa@email.com"
-    assert len(r.data["all_friends"]) == 4
+    assert r.data["email"] == "jj@email.com"
+    assert User.objects.count() == 1
 
 
-# test creating new user (post)
+# @pytest.mark.django_db
+# def test_activate_user(client):
+#     import djoser.utils
+#     u = UserFactory()
+#     print(u.pk)
+#     print(djoser.utils.encode_uid(u.pk))
+# url = reverse("user-activation")
+# print(url)
+# data = {"uid": "jj@email.com", "token": "pw123"}
+# r = client.post(url, data=data)
+# print(r.status_code)
+# print(r.data)
+
+
 # test updating user (patch)
 # test deactivating user (is_active=False)
+
+
+@pytest.mark.django_db
+def test_reset_password(client, mailoutbox):
+    u = UserFactory()
+    url = reverse("user-reset-password")
+    data = {"email": u.email}
+    r = client.post(url, data=data)
+    assert r.status_code == status.HTTP_204_NO_CONTENT
+    assert len(mailoutbox) == 1

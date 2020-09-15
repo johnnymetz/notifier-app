@@ -106,4 +106,5 @@ heroku addons:create -a notifier-app-api scheduler:standard
 - [SendGrid web api vs. SMTP](https://sendgrid.com/blog/web-api-or-smtp-relay-how-should-you-send-your-mail/)
   - Web api: [django-sendgrid-v5](https://github.com/sklarsa/django-sendgrid-v5) or [sendgrid-django](https://github.com/elbuo8/sendgrid-django)
   - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)
-  - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
+- [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
+- [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)
