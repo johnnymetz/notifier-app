@@ -29,10 +29,10 @@ export const AuthProvider = ({ children }) => {
     let { data, error } = await apiClient.login(email, password);
     if (data) {
       setUser(data);
+      router.push('/');
     } else {
       toast.error(error);
     }
-    router.push('/');
   };
 
   const logout = () => {
