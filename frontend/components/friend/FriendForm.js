@@ -27,13 +27,20 @@ const MONTHS = [
 export default ({ action, friendValues = {}, setShowModal = null }) => {
   const { fetchUser } = useAuth();
 
+  const initialValues = {
+    name: friendValues.name || '',
+    month: friendValues.month || 1,
+    day: friendValues.day || '',
+    year: friendValues.year || '',
+  };
+
   return (
     <Formik
-      initialValues={{ name: '', month: 1, day: '', year: '' }}
+      initialValues={initialValues}
       validationSchema={FriendSchema}
       onSubmit={async (
         { name, month, day, year },
-        { setSubmitting, setFieldError }
+        { setSubmitting, setFieldError, resetForm }
       ) => {
         const payload = {
           name: name,
@@ -65,7 +72,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             }`
           );
           fetchUser();
-          // TODO: reset form fields eventually
+          // resetForm();
         } else {
           console.warn(error);
           if (error.name) {
