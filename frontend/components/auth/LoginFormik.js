@@ -32,10 +32,14 @@ export default ({ login }) => {
               as={Form.Control}
               // must have isInvalid to render invalid feedback
               // must have isValid to render valid feedback
+              // (not anymore because we're setting .invalid-feedback to block display in global css)
               isInvalid={touched.email && errors.email}
               data-test="email"
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="email-invalid-feedback"
+            >
               <ErrorMessage name="email" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -64,7 +68,10 @@ export default ({ login }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="password-invalid-feedback"
+            >
               <ErrorMessage name="password" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -79,18 +86,3 @@ export default ({ login }) => {
     </Formik>
   );
 };
-
-/* <Form.Control
-  name="email"
-  value={values.name}
-  placeholder="Enter email"
-  onChange={handleChange}
-  onBlur={handleBlur}
-  isInvalid={!!errors.email}
-  data-test="email"
-/> */
-/* {touched.email && errors.email && (
-  <Form.Control.Feedback type="invalid">
-    {errors.email}
-  </Form.Control.Feedback>
-)} */
