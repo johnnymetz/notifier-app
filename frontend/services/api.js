@@ -28,8 +28,7 @@ class ApiClient {
       data = res.data;
       status = res.status;
     } catch (err) {
-      // error = err.response?.data.detail || err.response?.data || err.message;
-      error = err.response?.data.detail || err.message;
+      error = err.response?.data.detail || err.response?.data || err.message;
       status = err.response?.status;
     }
     return { data, error, status };

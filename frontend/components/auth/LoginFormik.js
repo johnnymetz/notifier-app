@@ -5,14 +5,10 @@ import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+
+import { LoginSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
 // import Debug from 'components/auth/FormikDebug';
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string().required('Required'),
-});
 
 export default ({ login }) => {
   const [showPassword, setShowPassword] = useState(false);
