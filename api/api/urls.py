@@ -3,6 +3,7 @@ import os
 from django.contrib import admin
 from django.urls import include, path
 
+# from .swagger import schema_view
 from .views import Welcome
 
 urlpatterns = [
@@ -11,4 +12,6 @@ urlpatterns = [
     path("api/", include("notifier.urls")),
     path("api/auth/", include("djoser.urls")),
     path("api/auth/", include("djoser.urls.jwt")),
+    # # documentation
+    # path("api/docs/", schema_view.with_ui("swagger")),
 ]

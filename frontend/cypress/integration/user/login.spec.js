@@ -16,16 +16,19 @@ context('Login', () => {
     cy.contains('h2', 'Login');
   });
 
-  it('raise alert with no credentials', () => {
+  it('display feedback with no credentials', () => {
     cy.get('form').contains('Submit').click();
-    cy.get('[role=alert]').should(
-      'have.text',
-      'Email and password fields required'
-    );
+    cy.get('[data-test=email-invalid-feedback]').contains('Required');
+    cy.get('[data-test=password-invalid-feedback]').contains('Required');
+  });
+
+  it('display feedback with invalid email', () => {
+    cy.get('[data-test=email]').type('bad{enter}');
+    cy.get('[data-test=email-invalid-feedback]').contains('Invalid email');
   });
 
   it('raise alert with bad credentials', () => {
-    cy.get('[data-test=email]').type('bad');
+    cy.get('[data-test=email]').type('bad@email.com');
     cy.get('[data-test=password]').type('bad{enter}');
     cy.get('[role=alert]').should('include.text', 'No active account found');
   });

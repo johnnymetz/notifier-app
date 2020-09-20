@@ -16,7 +16,7 @@ import {
 import { useTable, usePagination, useGlobalFilter } from 'react-table';
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
-import { wait } from 'services/helpers';
+// import { wait } from 'utils/helpers';
 import EditFriendModal from 'components/friend/EditFriendModal';
 import ConfirmModal from 'components/widgets/ConfirmModal';
 

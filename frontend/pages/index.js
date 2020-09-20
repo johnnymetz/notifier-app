@@ -1,4 +1,4 @@
-import UserDetail from 'components/UserDetail';
+import UserDetail from 'components/user/UserDetail';
 import { PrivateRoute } from 'contexts/auth';
 
 const Home = () => {

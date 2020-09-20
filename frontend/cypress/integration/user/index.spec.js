@@ -55,12 +55,14 @@ context('Index', () => {
     cy.get('@rows').contains('td', 'JJ Reddick');
   });
 
-  it('raise alert with no values on add friend', () => {
+  it('display feedback with no values on add friend', () => {
     cy.get('[data-test=create-name-input]').type('{enter}');
-    cy.get('[role=alert]').should(
-      'have.text',
-      'Must fill out all required fields'
-    );
+    cy.get('[data-test=create-name-input]')
+      .siblings('.invalid-feedback')
+      .contains('Required');
+    cy.get('[data-test=create-day-input]')
+      .siblings('.invalid-feedback')
+      .contains('Required');
   });
 
   it('update friend', () => {

@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
-import Form from 'react-bootstrap/Form';
-import SubmitButton from 'components/widgets/SubmitButton';
 import useAuth from 'contexts/auth';
+// import LoginBasic from 'components/auth/LoginBasic';
+import LoginFormik from 'components/auth/LoginFormik';
 
 export default () => {
   const { isAuthenticated, login } = useAuth();
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,48 +14,11 @@ export default () => {
     }
   }, [isAuthenticated]);
 
-  const loginWrapper = async e => {
-    e.preventDefault();
-    if (email && password) {
-      setLoading(true);
-      await login(email, password);
-      setLoading(false);
-    } else {
-      toast.error('Email and password fields required');
-    }
-  };
-
   return (
     <>
       <h2>Login</h2>
-      <Form>
-        <Form.Group>
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            placeholder="Enter email"
-            onChange={e => setEmail(e.target.value)}
-            data-test="email"
-          />
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            onChange={e => setPassword(e.target.value)}
-            data-test="password"
-          />
-        </Form.Group>
-
-        <SubmitButton
-          onClick={loginWrapper}
-          isSubmitting={loading}
-          variant="primary"
-        >
-          Submit
-        </SubmitButton>
-      </Form>
+      {/* <LoginBasic login={login} /> */}
+      <LoginFormik login={login} />
     </>
   );
 };
