@@ -10,7 +10,7 @@ export default ({ children }) => {
   const { isAuthenticated, logout } = useAuth();
 
   return (
-    <div>
+    <>
       <Head>
         <title>Notifire</title>
         <Favicon />
@@ -35,6 +35,6 @@ export default ({ children }) => {
       </Navbar>
 
       <Container>{children}</Container>
-    </div>
+    </>
   );
 };

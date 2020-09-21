@@ -100,6 +100,15 @@ heroku addons:create -a notifier-app-api scheduler:standard
 # set env vars
 ```
 
+## Djoser
+
+```
+./manage.py flush --noinput
+
+# create user
+http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password=pw
+```
+
 ## Resources
 
 - [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)

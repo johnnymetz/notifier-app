@@ -12,7 +12,6 @@ import SubmitButton from 'components/widgets/SubmitButton';
 
 export default ({ login }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisiblity = () => setShowPassword(!showPassword);
 
   return (
     <Formik
@@ -58,7 +57,7 @@ export default ({ login }) => {
               <InputGroup.Append>
                 <Button
                   variant="outline-secondary"
-                  onClick={togglePasswordVisiblity}
+                  onClick={() => setShowPassword(!showPassword)}
                   title={showPassword ? 'Hide password' : 'Show password'}
                 >
                   <FontAwesomeIcon

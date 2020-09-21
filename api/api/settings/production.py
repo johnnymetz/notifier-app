@@ -34,6 +34,9 @@ EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
 ANYMAIL = {"SENDGRID_API_KEY": os.environ["SENDGRID_API_KEY"]}
 
+# django-templated-mail
+DOMAIN = os.environ.get("CORS_ORIGIN_WHITELIST", "").split(" ")[0]
+
 # Security
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True

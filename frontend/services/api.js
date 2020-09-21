@@ -5,9 +5,9 @@ class ApiClient {
     this.axiosInstance = axios.create({ baseURL });
   }
 
-  /////////////////////////
-  // Methods
-  /////////////////////////
+  //////////////////////////////////
+  // Base Methods
+  //////////////////////////////////
   async get(url, config) {
     let data, error, status;
     try {
@@ -59,40 +59,36 @@ class ApiClient {
     return { error, status };
   }
 
-  /////////////////////////
-  // Authenticated Methods
-  /////////////////////////
+  //////////////////////////////////
+  // Authenticated Base Methods
+  //////////////////////////////////
   async authenticatedGet(url) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { data, error } = await this.get(url, { headers });
-    return { data, error };
+    return await this.get(url, { headers });
   }
 
   async authenticatedPost(url, payload) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { data, error } = await this.post(url, payload, { headers });
-    return { data, error };
+    return await this.post(url, payload, { headers });
   }
 
   async authenticatedPatch(url, payload) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { data, error } = await this.patch(url, payload, { headers });
-    return { data, error };
+    return await this.patch(url, payload, { headers });
   }
 
   async authenticatedDelete(url) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { error } = await this.delete(url, { headers });
-    return { error };
+    return await this.delete(url, { headers });
   }
 
-  /////////////////////////
-  // JWT
-  /////////////////////////
+  //////////////////////////////////
+  // User Management
+  //////////////////////////////////
   async login(email, password) {
     let { data, error } = await apiClient.post('auth/jwt/create/', {
       email,
@@ -159,6 +155,21 @@ class ApiClient {
       console.log('No refresh token');
     }
     return refreshed;
+  }
+
+  async createUser(email, password, re_password) {
+    return await apiClient.post(`auth/users/`, {
+      email,
+      password,
+      re_password,
+    });
+  }
+
+  async activateUser(uid, token) {
+    return await apiClient.post(`auth/users/activation/`, {
+      uid,
+      token,
+    });
   }
 }
 

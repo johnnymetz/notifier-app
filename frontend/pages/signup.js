@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import useAuth from 'contexts/auth';
-import LoginForm from 'components/auth/LoginForm';
+import SignupForm from 'components/auth/SignupForm';
 
 export default () => {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, signup } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -17,17 +17,14 @@ export default () => {
 
   return (
     <>
-      <h2>Login</h2>
-      <LoginForm login={login} />
+      <h2>Sign Up</h2>
+      <SignupForm signup={signup} />
       <p className="mt-3">
-        Don't have an account?{' '}
-        <Link href="/signup">
-          <a>Sign Up</a>
+        Already have an account?{' '}
+        <Link href="/login">
+          <a>Login</a>
         </Link>
       </p>
-      {/* <p className="mt-3">
-        Forgot your Password? <Link href="/reset_password"><a>Reset Password</a></Link>
-      </p> */}
     </>
   );
 };

@@ -184,106 +184,115 @@ export default ({ friends }) => {
     <>
       <h4>Friends</h4>
 
-      <EditFriendModal
-        showModal={showEditFormModal}
-        setShowModal={setShowEditFormModal}
-        friendValues={selectedFriend}
-      />
-
-      <ConfirmModal
-        showModal={showDeleteModal}
-        setShowModal={setShowDeleteModal}
-        onConfirm={deleteFriend}
-        title={'Delete Friend?'}
-        body={`Please confirm that you want to delete ${selectedFriend?.name}.`}
-        confirmButtonText={'Delete'}
-        isSubmitting={isDeleting}
-      />
-
-      <Row className="justify-content-between">
-        <Col>
-          <Form.Control
-            as="select"
-            value={pageSize}
-            onChange={e => setPageSize(Number(e.target.value))}
-            style={{ width: 120 }}
-          >
-            {[5, 10, 20, 40].map(size => (
-              <option key={size} value={size}>
-                Show {size}
-              </option>
-            ))}
-          </Form.Control>
-        </Col>
-        <Col xs={12} sm={6}>
-          <GlobalFilter
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
+      {rows.length === 0 ? (
+        <div>Add a friend to get started</div>
+      ) : (
+        <>
+          <EditFriendModal
+            showModal={showEditFormModal}
+            setShowModal={setShowEditFormModal}
+            friendValues={selectedFriend}
           />
-        </Col>
-      </Row>
 
-      <Table
-        striped
-        hover
-        responsive
-        {...getTableProps()}
-        data-test="friends-table"
-      >
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => {
+          <ConfirmModal
+            showModal={showDeleteModal}
+            setShowModal={setShowDeleteModal}
+            onConfirm={deleteFriend}
+            title={'Delete Friend?'}
+            body={`Please confirm that you want to delete ${selectedFriend?.name}.`}
+            confirmButtonText={'Delete'}
+            isSubmitting={isDeleting}
+          />
+
+          <Row className="justify-content-between">
+            <Col>
+              <Form.Control
+                as="select"
+                value={pageSize}
+                onChange={e => setPageSize(Number(e.target.value))}
+                style={{ width: 120 }}
+              >
+                {[5, 10, 20, 40].map(size => (
+                  <option key={size} value={size}>
+                    Show {size}
+                  </option>
+                ))}
+              </Form.Control>
+            </Col>
+            <Col xs={12} sm={6}>
+              <GlobalFilter
+                globalFilter={globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </Col>
+          </Row>
+
+          <Table
+            striped
+            hover
+            responsive
+            {...getTableProps()}
+            data-test="friends-table"
+          >
+            <thead>
+              {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map(column => {
+                    return (
+                      <th
+                        {...column.getHeaderProps()}
+                        width={column.width !== 150 ? column.width : null}
+                        className=""
+                      >
+                        {column.render('Header')}
+                      </th>
+                    );
+                  })}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                prepareRow(row);
                 return (
-                  <th
-                    {...column.getHeaderProps()}
-                    width={column.width !== 150 ? column.width : null}
-                    className=""
-                  >
-                    {column.render('Header')}
-                  </th>
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map(cell => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      );
+                    })}
+                  </tr>
                 );
               })}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+            </tbody>
+          </Table>
 
-      <div className="d-flex justify-content-between">
-        <Pagination>
-          <Pagination.First
-            onClick={() => gotoPage(0)}
-            disabled={!canPreviousPage}
-          />
-          <Pagination.Prev
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          />
-          <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
-          <Pagination.Last
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          />
-        </Pagination>
-        <div>
-          Page {pageIndex + 1} of {pageOptions.length || 1}{' '}
-          <small className="text-muted">({rows.length} records)</small>
-        </div>
-      </div>
+          <div className="d-flex justify-content-between">
+            <Pagination>
+              <Pagination.First
+                onClick={() => gotoPage(0)}
+                disabled={!canPreviousPage}
+              />
+              <Pagination.Prev
+                onClick={() => previousPage()}
+                disabled={!canPreviousPage}
+              />
+              <Pagination.Next
+                onClick={() => nextPage()}
+                disabled={!canNextPage}
+              />
+              <Pagination.Last
+                onClick={() => gotoPage(pageCount - 1)}
+                disabled={!canNextPage}
+              />
+            </Pagination>
+            <div>
+              Page {pageIndex + 1} of {pageOptions.length || 1}{' '}
+              <small className="text-muted">({rows.length} records)</small>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

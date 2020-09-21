@@ -41,6 +41,55 @@ export const AuthProvider = ({ children }) => {
     router.push('/login');
   };
 
+  const signup = async (email, password, re_password, setFieldError) => {
+    let { data, error } = await apiClient.createUser(
+      email,
+      password,
+      re_password
+    );
+    if (data) {
+      router.push('/login');
+      toast.success(
+        'Your account was successfully created! Check your email to activate it.'
+      );
+    } else {
+      console.warn(error);
+      // consolidate into a single helper that parses response and sets error appropriately
+      if (error.email) {
+        setFieldError('email', error.email[0]);
+      }
+      if (error.password) {
+        setFieldError('password', error.password[0]);
+      }
+      if (error.re_password) {
+        setFieldError('re_password', error.re_password[0]);
+      }
+      if (error.non_field_errors) {
+        toast.error(error.non_field_errors[0]);
+      }
+      if (typeof error === 'string') {
+        toast.error(error);
+      }
+    }
+  };
+
+  const activate = async (uid, token) => {
+    const { error } = await apiClient.activateUser(uid, token);
+    if (error) {
+      console.warn(error);
+      toast.error(
+        (error.uid && error.uid[0]) ||
+          (error.token && error.token[0]) ||
+          'Unable to activate user account'
+      );
+    } else {
+      router.push('/');
+      toast.success(
+        'User account successfully activated. Please login to get started.'
+      );
+    }
+  };
+
   const fetchUser = async () => {
     const { data, error } = await apiClient.authenticatedGet('user/');
     if (data) {
@@ -55,11 +104,13 @@ export const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated: !!user,
         user,
+        loading,
+        error,
         fetchUser,
         login,
         logout,
-        loading,
-        error,
+        signup,
+        activate,
       }}
     >
       {children}

@@ -27,9 +27,10 @@ export default ({
           onClick={onConfirm}
           isSubmitting={isSubmitting}
           variant={'danger'}
-          text={confirmButtonText}
           data-test="confirm-btn"
-        />
+        >
+          {confirmButtonText}
+        </SubmitButton>
       </Modal.Footer>
     </Modal>
   );
