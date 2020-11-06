@@ -13,6 +13,7 @@ npm run cypress:open
 
 ## Todo
 
+- Check out [react-notification-system](https://github.com/igorprado/react-notification-system)
 - Use formik for forms
 
 ## Later

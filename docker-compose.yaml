@@ -1,13 +1,14 @@
 version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:13
     ports:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=notifier
 
   # rabbit:
   #   hostname: rabbit
@@ -37,6 +38,7 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - DB_HOST=db
+      - DB_NAME=notifier
       - CELERY_BROKER_URL=amqp://rabbit/
       - QA_USER_EMAIL
       - QA_USER_PASSWORD

@@ -2,6 +2,7 @@ pip-tools
 black
 mypy
 pre-commit
+ipython
 
 psycopg2
 # celery

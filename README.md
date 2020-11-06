@@ -13,7 +13,7 @@ docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
 ./manage.py migrate
 ./manage.py createsuperuser
-./manage.py addfriends EMAIL
+./manage.py import_friends EMAIL
 ./manage.py export_friends EMAIL
 ./manage.py sendbirthdayemail EMAIL
 
@@ -24,11 +24,29 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ## Todo
 
+- Enable 2FA on Twilio (required Oct 31, 2020)
 - Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
+- Use [isort black profile](https://black.readthedocs.io/en/stable/compatible_configs.html#why-those-options-above)
+- Add throttling (aka rate limiting): [drf docs](https://www.django-rest-framework.org/api-guide/throttling/)
 - Update to factory-boy v3
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Unit test emails
+- Use zoneinfo instead of pytz and update local vs utc datetime snippet below: [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
+- Add granulaized logging and ability to log sql when needed:
+
+```
+LOGGING = {
+    # ...
+    'loggers': {
+        # ...
+        'django.db': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
+```
 
 ## Todo (maybe later)
 
@@ -37,7 +55,6 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 - Papertrail heroku plugin
 - Remove cold starts ?
 - Sendgrid batch api
-- [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 
 ## Notes
 
@@ -69,6 +86,9 @@ heroku ps -a notifier-app-api
 # backend exec
 heroku run -a notifier-app-api bash
 heroku run -a notifier-app-api python manage.py sendbirthdayemail EMAIL
+
+# check production settings on heroku server
+./manage.py check --deploy --settings api.settings.production
 
 # psql
 heroku pg:psql
