@@ -13,27 +13,13 @@ User = get_user_model()
 
 
 @pytest.mark.django_db
-def test_unauthenticated_read_friend_list(client):
-    FriendFactory()
-    url = reverse("friend-list")
-    r = client.get(url)
-    assert r.status_code == status.HTTP_401_UNAUTHORIZED
-
-
-@pytest.mark.django_db
-def test_unauthenticated_read_friend_detail(client):
-    friend = FriendFactory()
-    url = reverse("friend-detail", args=[friend.id])
-    r = client.get(url)
-    assert r.status_code == status.HTTP_401_UNAUTHORIZED
-
-
-@pytest.mark.django_db
 def test_read_friend_list(client, token_headers):
-    # TODO: this endpoint is not used and should probably be removed
+    # TODO: this get request is not used and should probably be removed
     FriendFactory()
     FriendFactory()
     url = reverse("friend-list")
+    r = client.get(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
     assert r.data["count"] == 2
@@ -45,6 +31,8 @@ def test_read_friend_detail(client, token_headers):
     u = User.objects.get()
     friend = FriendFactory(user=u)
     url = reverse("friend-detail", args=[friend.id])
+    r = client.get(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
     assert r.data["id"] == friend.id

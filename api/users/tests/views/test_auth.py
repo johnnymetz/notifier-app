@@ -6,24 +6,23 @@ from django.utils import timezone
 import pytest
 from rest_framework import status
 
-from notifier.tests.factories import UserFactory
+from users.tests.factories import TEST_PASSWORD, UserFactory
 
 
 @pytest.mark.django_db
 def test_create_verify_refresh_jwt(client, freezer, settings):
-    pw = "pass"
-    u = UserFactory(password=pw, is_active=False)
+    u = UserFactory(password=TEST_PASSWORD, is_active=False)
 
     create_url = reverse("jwt-create")
-    r = client.post(create_url, {"username": u.email, "password": pw})
+    r = client.post(create_url, {"username": u.email, "password": TEST_PASSWORD})
     assert r.status_code == status.HTTP_400_BAD_REQUEST
-    r = client.post(create_url, {"email": u.email, "password": pw})
+    r = client.post(create_url, {"email": u.email, "password": TEST_PASSWORD})
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
 
     # create jwt
     u.is_active = True
     u.save()
-    r = client.post(create_url, {"email": u.email, "password": pw})
+    r = client.post(create_url, {"email": u.email, "password": TEST_PASSWORD})
     assert r.status_code == status.HTTP_200_OK
     assert "access" in r.data
     access_token = r.data["access"]
@@ -53,9 +52,8 @@ def test_create_verify_refresh_jwt(client, freezer, settings):
 
 @pytest.mark.django_db
 def test_client_login(client):
-    pw = "pass"
-    u = UserFactory(password=pw)
+    u = UserFactory(password=TEST_PASSWORD)
     is_logged_in = client.login(email=u.email, password="bad")
     assert not is_logged_in
-    is_logged_in = client.login(email=u.email, password=pw)
+    is_logged_in = client.login(email=u.email, password=TEST_PASSWORD)
     assert is_logged_in

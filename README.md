@@ -27,7 +27,6 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 - Enable 2FA on Twilio (required Oct 31, 2020)
 - Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
 - Use [isort black profile](https://black.readthedocs.io/en/stable/compatible_configs.html#why-those-options-above)
-- Add throttling (aka rate limiting): [drf docs](https://www.django-rest-framework.org/api-guide/throttling/)
 - Update to factory-boy v3
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Change no year from 1000 to na or null or 0 or something else because older years are now supported
@@ -128,6 +127,23 @@ heroku addons:create -a notifier-app-api scheduler:standard
 # create user
 http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password=pw
 ```
+
+### Endpoints tested
+
+- [x] Create user
+- [x] Activate user
+- [x] Get current user
+- [ ] Update/patch user
+- [ ] Delete user
+- [x] Set username (aka email)
+- [x] Set password
+- [ ] Send reset username (aka email) email
+- [ ] Reset/forgot username (aka email)
+- [x] Send reset password email
+- [x] Reset/forgot password
+- [x] JWT create
+- [x] JWT verify
+- [x] JWT refresh
 
 ## Resources
 

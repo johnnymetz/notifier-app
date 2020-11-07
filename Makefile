@@ -13,7 +13,7 @@ dbshell:
 logs:
 	docker container logs -f notifier-app_api_1
 
-pytest:
+test:
 	@docker-compose exec api pytest
 
 dbseed:
