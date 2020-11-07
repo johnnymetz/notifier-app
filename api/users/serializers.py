@@ -2,13 +2,15 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
+User = get_user_model()
+
 
 class UserSerializer(serializers.ModelSerializer):
     all_friends = serializers.SerializerMethodField()
     upcoming_friends = serializers.SerializerMethodField()
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ("id", "email", "all_friends", "upcoming_friends")
 
     @staticmethod
