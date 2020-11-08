@@ -97,7 +97,7 @@ class ApiClient {
     if (data) {
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
-      ({ data, error } = await this.authenticatedGet('user/'));
+      ({ data, error } = await this.authenticatedGet('auth/users/me/'));
     }
     return { data, error };
   }

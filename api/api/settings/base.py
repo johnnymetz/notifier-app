@@ -138,10 +138,6 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
     ],
-    "DEFAULT_THROTTLE_RATES": {
-        "anon": "5/min",  # default = 100/day
-        "user": "100/min",  # default = 1000/day
-    }
     # Only works with rest_framework.test.APIClient + rest_framework.test.APIRequestFactory
     # "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
@@ -182,6 +178,7 @@ SIMPLE_JWT = {
 }
 
 # django-templated-mail
+DOMAIN = "localhost"
 SITE_NAME = "Notifire"
 
 SWAGGER_SETTINGS = {

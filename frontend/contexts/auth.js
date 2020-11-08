@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchUser = async () => {
-    const { data, error } = await apiClient.authenticatedGet('user/');
+    const { data, error } = await apiClient.authenticatedGet('auth/users/me/');
     if (data) {
       setUser(data);
     } else {

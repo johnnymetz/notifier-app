@@ -5,7 +5,7 @@ const qaUserPassword = Cypress.env('qaUserPassword');
 context('Index', () => {
   beforeEach(() => {
     cy.server();
-    cy.route('GET', '/api/user/').as('getUser');
+    cy.route('GET', '/api/auth/users/me/').as('getUser');
     cy.route('POST', '/api/friends/').as('addFriend');
     cy.route('PATCH', '/api/friends/*').as('editFriend');
     cy.route('DELETE', '/api/friends/*').as('deleteFriend');

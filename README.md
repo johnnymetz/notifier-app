@@ -25,7 +25,6 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 ## Todo
 
 - Enable 2FA on Twilio (required Oct 31, 2020)
-- Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
 - Use [isort black profile](https://black.readthedocs.io/en/stable/compatible_configs.html#why-those-options-above)
 - Update to factory-boy v3
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)

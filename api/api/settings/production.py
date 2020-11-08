@@ -48,7 +48,11 @@ SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
-# DRF
 REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
     "rest_framework.permissions.IsAuthenticated",
 )
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+    # rates recommended by docs
+    "anon": "100/day",
+    "user": "1000/day",
+}

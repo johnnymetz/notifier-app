@@ -145,4 +145,5 @@ cython_debug/
 debugger.py
 api/static/
 api/*_friends.csv
+*/cypress/videos/
 cypress.env.json
