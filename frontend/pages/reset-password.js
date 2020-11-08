@@ -4,12 +4,11 @@ import Link from 'next/link';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-
 import useAuth from 'contexts/auth';
-import SignupForm from 'components/auth/SignupForm';
+import SendResetPasswordEmailForm from 'components/auth/SendResetPasswordEmailForm';
 
 export default () => {
-  const { isUser, createUser } = useAuth();
+  const { isUser, sendResetPasswordEmail } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -22,12 +21,11 @@ export default () => {
     <Row className="justify-content-center">
       <Col md={8} lg={6}>
         <Card body>
-          <h4 className="text-center">Sign Up</h4>
-          <SignupForm onSubmit={createUser} />
+          <h4 className="text-center">Reset Password</h4>
+          <SendResetPasswordEmailForm onSubmit={sendResetPasswordEmail} />
           <p className="mt-3 text-center">
-            Already have an account?{' '}
             <Link href="/login">
-              <a>Login</a>
+              <a>Back to Login</a>
             </Link>
           </p>
         </Card>

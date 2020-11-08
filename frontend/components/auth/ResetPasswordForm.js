@@ -6,60 +6,48 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
-import { SignupSchema } from 'utils/formSchemas';
+import { ResetPasswordSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
-// import Debug from 'components/auth/FormikDebug';
 
-export default ({ onSubmit }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRePassword, setShowRePassword] = useState(false);
+export default ({ onSubmit, uid, token }) => {
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showReNewPassword, setShowReNewPassword] = useState(false);
 
   return (
     <Formik
-      initialValues={{ email: '', password: '', re_password: '' }}
-      validationSchema={SignupSchema}
+      initialValues={{ new_password: '', re_new_password: '' }}
+      validationSchema={ResetPasswordSchema}
       onSubmit={async (values, { setFieldError }) => {
-        await onSubmit(values, setFieldError);
+        console.log({ ...values, uid, token });
+        await onSubmit({ ...values, uid, token }, setFieldError);
       }}
     >
       {({ errors, touched, isSubmitting }) => (
         <FormikForm as={Form}>
           <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Field
-              name="email"
-              as={Form.Control}
-              isInvalid={touched.email && errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              <ErrorMessage name="email" />
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>New Password</Form.Label>
             <InputGroup>
               <Field
-                name="password"
-                type={showPassword ? 'text' : 'password'}
+                name="new_password"
+                type={showNewPassword ? 'text' : 'password'}
                 as={Form.Control}
-                isInvalid={touched.password && errors.password}
+                isInvalid={touched.new_password && errors.new_password}
               />
               <InputGroup.Append>
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setShowPassword(!showPassword)}
-                  title={showPassword ? 'Hide password' : 'Show password'}
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  title={showNewPassword ? 'Hide password' : 'Show password'}
                 >
                   <FontAwesomeIcon
-                    icon={showPassword ? faEyeSlash : faEye}
+                    icon={showNewPassword ? faEyeSlash : faEye}
                     size={'sm'}
                   />
                 </Button>
               </InputGroup.Append>
             </InputGroup>
             <Form.Control.Feedback type="invalid">
-              <ErrorMessage name="password" />
+              <ErrorMessage name="new_password" />
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -67,34 +55,32 @@ export default ({ onSubmit }) => {
             <Form.Label>Verify Password</Form.Label>
             <InputGroup>
               <Field
-                name="re_password"
-                type={showRePassword ? 'text' : 'password'}
+                name="re_new_password"
+                type={showReNewPassword ? 'text' : 'password'}
                 as={Form.Control}
-                isInvalid={touched.re_password && errors.re_password}
+                isInvalid={touched.re_new_password && errors.re_new_password}
               />
               <InputGroup.Append>
                 <Button
                   variant="outline-secondary"
-                  onClick={() => setShowRePassword(!showRePassword)}
-                  title={showRePassword ? 'Hide password' : 'Show password'}
+                  onClick={() => setShowReNewPassword(!showReNewPassword)}
+                  title={showReNewPassword ? 'Hide password' : 'Show password'}
                 >
                   <FontAwesomeIcon
-                    icon={showRePassword ? faEyeSlash : faEye}
+                    icon={showReNewPassword ? faEyeSlash : faEye}
                     size={'sm'}
                   />
                 </Button>
               </InputGroup.Append>
             </InputGroup>
             <Form.Control.Feedback type="invalid">
-              <ErrorMessage name="re_password" />
+              <ErrorMessage name="re_new_password" />
             </Form.Control.Feedback>
           </Form.Group>
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
-            Signup
+            Reset Password
           </SubmitButton>
-
-          {/* <Debug /> */}
         </FormikForm>
       )}
     </Formik>

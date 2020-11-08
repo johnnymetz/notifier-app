@@ -8,14 +8,14 @@ import useAuth from 'contexts/auth';
 import LoginForm from 'components/auth/LoginForm';
 
 export default () => {
-  const { isAuthenticated, login } = useAuth();
+  const { isUser, login } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isUser) {
       router.push('/');
     }
-  }, [isAuthenticated]);
+  }, [isUser]);
 
   return (
     <Row className="justify-content-center">
@@ -29,9 +29,12 @@ export default () => {
               <a>Sign Up</a>
             </Link>
           </p>
-          {/* <p className="mt-3 text-center">
-            Forgot your Password? <Link href="/reset_password"><a>Reset Password</a></Link>
-          </p> */}
+          <p className="mt-3 text-center">
+            Forgot your Password?{' '}
+            <Link href="/reset-password">
+              <a>Reset Password</a>
+            </Link>
+          </p>
         </Card>
       </Col>
     </Row>

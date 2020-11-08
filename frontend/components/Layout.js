@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default ({ children }) => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isUser, logout } = useAuth();
 
   return (
     <>
@@ -28,7 +28,7 @@ export default ({ children }) => {
 
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            {isAuthenticated && (
+            {isUser && (
               <Nav activeKey="">
                 <Link href="/account" passHref>
                   <Nav.Link>

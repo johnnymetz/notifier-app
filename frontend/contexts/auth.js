@@ -1,20 +1,20 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import Alert from 'react-bootstrap/Alert';
+
 import apiClient from 'services/api';
-import { handleDrfError } from 'utils/helpers';
+import { handleDrfError, wait } from 'utils/helpers';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const verifyTokenAndFetchUser = async () => {
+    setLoading(true);
     const verified = await apiClient.verifyToken();
     if (verified) {
       await fetchUser();
@@ -31,24 +31,27 @@ export const AuthProvider = ({ children }) => {
     if (data) {
       setUser(data);
     } else {
-      setError(error);
+      handleDrfError(error);
     }
   };
 
-  const login = async (email, password) => {
-    let { data, error } = await apiClient.login(email, password);
+  const login = async (payload, setFieldError) => {
+    let { data, error } = await apiClient.login(payload);
     if (data) {
       setUser(data);
       router.push('/');
     } else {
-      toast.error(error);
+      handleDrfError(error, Object.keys(payload), setFieldError);
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    setLoading(true);
     apiClient.logout();
     setUser(null);
-    router.push('/login');
+    // router.push('/login');
+    // await wait(2000);
+    setLoading(false);
   };
 
   const createUser = async (payload, setFieldError) => {
@@ -73,27 +76,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const activateUser = async (uid, token) => {
-    const { error } = await apiClient.activateUser(uid, token);
+  const activateUser = async payload => {
+    const { error } = await apiClient.activateUser(payload);
     if (error) {
-      console.warn(error);
-      toast.error(
-        (error.uid && error.uid[0]) ||
-          (error.token && error.token[0]) ||
-          'Unable to activate user account'
-      );
+      handleDrfError(error, Object.keys(payload));
     } else {
       router.push('/');
       toast.success(
-        'User account successfully activated. Please login to get started.'
+        'Account successfully activated. Please login to get started.'
       );
     }
   };
 
-  const setEmail = async (values, setFieldError, setShowModal) => {
-    const { error } = await apiClient.setEmail(values);
+  const setEmail = async (payload, setFieldError, setShowModal) => {
+    const { error } = await apiClient.setEmail(payload);
     if (error) {
-      handleDrfError(error, Object.keys(values), setFieldError);
+      handleDrfError(error, Object.keys(payload), setFieldError);
     } else {
       await fetchUser();
       setShowModal(false);
@@ -101,24 +99,43 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const setPassword = async (values, setFieldError, setShowModal) => {
-    const { error } = await apiClient.setPassword(values);
+  const setPassword = async (payload, setFieldError, setShowModal) => {
+    const { error } = await apiClient.setPassword(payload);
     if (error) {
-      handleDrfError(error, Object.keys(values), setFieldError);
+      handleDrfError(error, Object.keys(payload), setFieldError);
     } else {
       await fetchUser();
       setShowModal(false);
       toast.success('User email successfully changed');
+    }
+  };
+
+  const sendResetPasswordEmail = async (payload, setFieldError) => {
+    let { error } = await apiClient.sendResetPasswordEmail(payload);
+    if (error) {
+      handleDrfError(error, Object.keys(payload), setFieldError);
+    } else {
+      router.push('/login');
+      toast.success('Check your email to reset your password');
+    }
+  };
+
+  const resetPassword = async (payload, setFieldError) => {
+    let { error } = await apiClient.resetPassword(payload);
+    if (error) {
+      handleDrfError(error, Object.keys(payload), setFieldError);
+    } else {
+      router.push('/login');
+      toast.success('Password successfully updated. Please login to continue.');
     }
   };
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: !!user,
+        isUser: !!user,
         user,
         loading,
-        error,
         fetchUser,
         login,
         logout,
@@ -127,6 +144,8 @@ export const AuthProvider = ({ children }) => {
         activateUser,
         setEmail,
         setPassword,
+        sendResetPasswordEmail,
+        resetPassword,
       }}
     >
       {children}
@@ -138,20 +157,20 @@ export const useAuth = () => useContext(AuthContext);
 
 export const PrivateRoute = Component => {
   return () => {
-    const { isAuthenticated, loading, error } = useAuth();
+    const { loading, isUser } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-      if (!isAuthenticated && !loading) {
+      if (!loading && !isUser) {
         router.push('/login');
       }
-    }, [isAuthenticated, loading]);
+    }, [loading, isUser]);
 
-    if (error) {
-      return <Alert variant={'danger'}>{error}</Alert>;
-    } else if (loading) {
+    console.log(loading, isUser);
+
+    if (loading) {
       return <LoadingIcon />;
-    } else if (!isAuthenticated) {
+    } else if (!isUser) {
       return <div>Not authenticated</div>;
     }
 

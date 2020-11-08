@@ -119,7 +119,6 @@ def test_update(client, mailoutbox, token_headers):
     assert r.data["is_subscribed"] is False
     # TODO: this sends an ActivationEmail, which should be removed from djoser master
     assert len(mailoutbox) == 1
-    print(mailoutbox)
 
 
 @pytest.mark.django_db

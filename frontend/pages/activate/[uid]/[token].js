@@ -11,7 +11,7 @@ export default () => {
 
   const activateUserWrapper = async () => {
     setIsSubmitting(true);
-    await activateUser(router.query.uid, router.query.token);
+    await activateUser({ uid: router.query.uid, token: router.query.token });
     setIsSubmitting(false);
   };
 

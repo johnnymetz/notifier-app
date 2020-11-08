@@ -14,6 +14,7 @@ npm run cypress:open
 ## Todo
 
 - Add cypress tests for signup, set email and set password
+  - Redirect to login when logged in and trying to visit signup, activate account, reset password, etc.
 - Check out [react-notification-system](https://github.com/igorprado/react-notification-system)
 
 ## Later

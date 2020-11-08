@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -78,6 +79,9 @@ const Account = () => {
                 onChange={updateUser}
               />
             </ListGroup>
+            <div className="text-center mt-3">
+              <Link href="/">Back to Home</Link>
+            </div>
           </Card>
         </Col>
       </Row>

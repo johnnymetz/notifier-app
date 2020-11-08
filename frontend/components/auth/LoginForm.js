@@ -17,8 +17,8 @@ export default ({ onSubmit }) => {
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={LoginSchema}
-      onSubmit={async ({ email, password }) => {
-        await onSubmit(email, password);
+      onSubmit={async (values, { setFieldError }) => {
+        await onSubmit(values, setFieldError);
       }}
     >
       {({ errors, touched, isSubmitting }) => (
@@ -27,7 +27,6 @@ export default ({ onSubmit }) => {
             <Form.Label>Email</Form.Label>
             <Field
               name="email"
-              placeholder="Enter email"
               as={Form.Control}
               // must have isInvalid to render invalid feedback
               // must have isValid to render valid feedback
@@ -49,7 +48,6 @@ export default ({ onSubmit }) => {
               <Field
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter password"
                 as={Form.Control}
                 isInvalid={touched.password && errors.password}
                 data-test="password"

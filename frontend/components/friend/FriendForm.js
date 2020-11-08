@@ -71,7 +71,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             }`
           );
           fetchUser();
-          // resetForm();
+          resetForm();
         } else {
           console.warn(error);
           if (error.name) {
@@ -114,7 +114,6 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
               <Form.Control
                 name="month"
                 as="select"
-                placeholder="Monthy"
                 value={values.month}
                 onChange={handleChange}
                 onBlur={handleBlur}

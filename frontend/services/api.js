@@ -93,11 +93,8 @@ class ApiClient {
     return await apiClient.authenticatedGet('auth/users/me/');
   }
 
-  async login(email, password) {
-    let { data, error } = await apiClient.post('auth/jwt/create/', {
-      email,
-      password,
-    });
+  async login(payload) {
+    let { data, error } = await apiClient.post('auth/jwt/create/', payload);
     if (data) {
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
@@ -185,6 +182,14 @@ class ApiClient {
       `auth/users/set_password/`,
       payload
     );
+  }
+
+  async sendResetPasswordEmail(payload) {
+    return await apiClient.post(`auth/users/reset_password/`, payload);
+  }
+
+  async resetPassword(payload) {
+    return await apiClient.post(`auth/users/reset_password_confirm/`, payload);
   }
 }
 

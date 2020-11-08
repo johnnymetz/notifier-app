@@ -5,11 +5,19 @@ export const handleDrfError = (error, fields, setFieldError) => {
   console.warn(error);
   if (typeof error === 'string') {
     toast.error(error);
+  } else if (Array.isArray(error)) {
+    toast.error(error[0]);
   } else {
     for (const field of fields) {
       if (error[field]) {
         setFieldError(field, error[field][0]);
       }
+    }
+    if (error.uid) {
+      toast.error(error.uid[0]);
+    }
+    if (error.token) {
+      toast.error(error.token[0]);
     }
     if (error.non_field_errors) {
       toast.error(error.non_field_errors[0]);
