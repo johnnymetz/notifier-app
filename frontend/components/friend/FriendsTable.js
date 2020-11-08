@@ -182,7 +182,7 @@ export default ({ friends }) => {
 
   return (
     <>
-      <h4>Friends</h4>
+      <h5 className="text-center">My Friends</h5>
 
       {rows.length === 0 ? (
         <div>Add a friend to get started</div>

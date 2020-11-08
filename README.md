@@ -48,6 +48,7 @@ LOGGING = {
 
 ## Todo (maybe later)
 
+- Address TODOs in code
 - Move config files to pyproject.toml
 - Add silk and/or django debug toolbar
 - Papertrail heroku plugin

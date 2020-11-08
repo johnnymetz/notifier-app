@@ -13,11 +13,11 @@ context('Login', () => {
   });
 
   it('display header', () => {
-    cy.contains('h2', 'Login');
+    cy.contains('h4', 'Login');
   });
 
   it('display feedback with no credentials', () => {
-    cy.get('form').contains('Submit').click();
+    cy.get('form').contains('Continue').click();
     cy.get('[data-test=email-invalid-feedback]').contains('Required');
     cy.get('[data-test=password-invalid-feedback]').contains('Required');
   });

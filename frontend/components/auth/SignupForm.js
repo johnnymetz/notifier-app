@@ -93,7 +93,7 @@ export default ({ signup }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <SubmitButton isSubmitting={isSubmitting} variant="primary">
+          <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
             Submit
           </SubmitButton>
 

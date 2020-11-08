@@ -89,6 +89,10 @@ class ApiClient {
   //////////////////////////////////
   // User Management
   //////////////////////////////////
+  async getCurrentUser() {
+    return await apiClient.authenticatedGet('auth/users/me/');
+  }
+
   async login(email, password) {
     let { data, error } = await apiClient.post('auth/jwt/create/', {
       email,
@@ -97,7 +101,7 @@ class ApiClient {
     if (data) {
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
-      ({ data, error } = await this.authenticatedGet('auth/users/me/'));
+      ({ data, error } = await this.getCurrentUser());
     }
     return { data, error };
   }
@@ -170,6 +174,17 @@ class ApiClient {
       uid,
       token,
     });
+  }
+
+  async setEmail(payload) {
+    return await apiClient.authenticatedPost(`auth/users/set_email/`, payload);
+  }
+
+  async setPassword(payload) {
+    return await apiClient.authenticatedPost(
+      `auth/users/set_password/`,
+      payload
+    );
   }
 }
 

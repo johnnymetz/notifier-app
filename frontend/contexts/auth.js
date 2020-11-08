@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Alert from 'react-bootstrap/Alert';
 import apiClient from 'services/api';
+import { handleDrfErrors } from 'utils/helpers';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 
 const AuthContext = createContext(null);
@@ -24,6 +25,15 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     verifyTokenAndFetchUser();
   }, []);
+
+  const fetchUser = async () => {
+    const { data, error } = await apiClient.getCurrentUser();
+    if (data) {
+      setUser(data);
+    } else {
+      setError(error);
+    }
+  };
 
   const login = async (email, password) => {
     let { data, error } = await apiClient.login(email, password);
@@ -53,23 +63,11 @@ export const AuthProvider = ({ children }) => {
         'Your account was successfully created! Check your email to activate it.'
       );
     } else {
-      console.warn(error);
-      // consolidate into a single helper that parses response and sets error appropriately
-      if (error.email) {
-        setFieldError('email', error.email[0]);
-      }
-      if (error.password) {
-        setFieldError('password', error.password[0]);
-      }
-      if (error.re_password) {
-        setFieldError('re_password', error.re_password[0]);
-      }
-      if (error.non_field_errors) {
-        toast.error(error.non_field_errors[0]);
-      }
-      if (typeof error === 'string') {
-        toast.error(error);
-      }
+      handleDrfErrors(
+        error,
+        ['email', 'password', 're_password'],
+        setFieldError
+      );
     }
   };
 
@@ -90,12 +88,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const fetchUser = async () => {
-    const { data, error } = await apiClient.authenticatedGet('auth/users/me/');
-    if (data) {
-      setUser(data);
+  const setEmail = async (values, setFieldError, setShowModal) => {
+    const { error } = await apiClient.setEmail(values);
+    if (error) {
+      handleDrfErrors(error, Object.keys(values), setFieldError);
     } else {
-      setError(error);
+      await fetchUser();
+      setShowModal(false);
+      toast.success('User email successfully changed');
+    }
+  };
+
+  const setPassword = async (values, setFieldError, setShowModal) => {
+    const { error } = await apiClient.setPassword(values);
+    if (error) {
+      handleDrfErrors(error, Object.keys(values), setFieldError);
+    } else {
+      await fetchUser();
+      setShowModal(false);
+      toast.success('User email successfully changed');
     }
   };
 
@@ -111,6 +122,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         signup,
         activate,
+        setEmail,
+        setPassword,
       }}
     >
       {children}

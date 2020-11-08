@@ -165,7 +165,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             </Form.Group>
           </Form.Row>
 
-          <SubmitButton isSubmitting={isSubmitting} variant="primary">
+          <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
             Submit
           </SubmitButton>
 

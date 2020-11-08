@@ -13,8 +13,8 @@ npm run cypress:open
 
 ## Todo
 
+- Add cypress tests for signup, set email and set password
 - Check out [react-notification-system](https://github.com/igorprado/react-notification-system)
-- Use formik for forms
 
 ## Later
 

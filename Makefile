@@ -29,8 +29,7 @@ dbseed:
 cleandb:
 	# kill any existing sessions connected to db
 	# PGPASSWORD=postgres psql -h localhost -U postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid IN (SELECT pid FROM pg_stat_activity WHERE datname = 'notifier');"
-	# may need "WITH (FORCE)" in the drop db command (or the command above) for this to work
-	PGPASSWORD=postgres psql -h localhost -U postgres -c "DROP DATABASE notifier;"
+	PGPASSWORD=postgres psql -h localhost -U postgres -c "DROP DATABASE notifier WITH (FORCE);"
 	PGPASSWORD=postgres psql -h localhost -U postgres -c "CREATE DATABASE notifier;"
 
 pipcompile:

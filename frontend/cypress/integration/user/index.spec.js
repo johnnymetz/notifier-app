@@ -21,10 +21,9 @@ context('Index', () => {
   });
 
   it('display headers', () => {
-    cy.contains('h2', 'Welcome');
-    cy.contains('h4', 'Upcoming');
-    cy.contains('h4', 'Add Friend');
-    cy.contains('h4', 'Friends');
+    cy.contains('h5', 'Upcoming');
+    cy.contains('h5', 'Add Friend');
+    cy.contains('h5', 'My Friends');
   });
 
   it('display friends table', () => {
