@@ -10,7 +10,7 @@ import { SignupSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
 // import Debug from 'components/auth/FormikDebug';
 
-export default ({ signup }) => {
+export default ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
 
@@ -18,8 +18,8 @@ export default ({ signup }) => {
     <Formik
       initialValues={{ email: '', password: '', re_password: '' }}
       validationSchema={SignupSchema}
-      onSubmit={async ({ email, password, re_password }, { setFieldError }) => {
-        await signup(email, password, re_password, setFieldError);
+      onSubmit={async (values, { setFieldError }) => {
+        await onSubmit(values, setFieldError);
       }}
     >
       {({ errors, touched, isSubmitting }) => (

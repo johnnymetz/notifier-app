@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from notifier.models import Friend
@@ -20,9 +19,7 @@ class FriendViewset(viewsets.ModelViewSet):
 
 
 class EmailMock(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, *args, **kwargs):
-        user = User.objects.get(email=request.user.email)
+    def get(self, request, email, *args, **kwargs):
+        user = User.objects.get(email=email)
         context = user.get_birthday_email_context()
         return render(request, "notifier/birthdays-email.html", context)

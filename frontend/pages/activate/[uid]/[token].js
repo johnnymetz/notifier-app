@@ -5,13 +5,13 @@ import useAuth from 'contexts/auth';
 import SubmitButton from 'components/widgets/SubmitButton';
 
 export default () => {
-  const { activate } = useAuth();
+  const { activateUser } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const activateWrapper = async () => {
+  const activateUserWrapper = async () => {
     setIsSubmitting(true);
-    await activate(router.query.uid, router.query.token);
+    await activateUser(router.query.uid, router.query.token);
     setIsSubmitting(false);
   };
 
@@ -20,7 +20,7 @@ export default () => {
       <h2>Welcome!</h2>
       <div>Click the button below to activate your account.</div>
       <SubmitButton
-        onClick={activateWrapper}
+        onClick={activateUserWrapper}
         isSubmitting={isSubmitting}
         variant="primary"
         className="mt-4"

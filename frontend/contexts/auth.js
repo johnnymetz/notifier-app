@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Alert from 'react-bootstrap/Alert';
 import apiClient from 'services/api';
-import { handleDrfErrors } from 'utils/helpers';
+import { handleDrfError } from 'utils/helpers';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 
 const AuthContext = createContext(null);
@@ -51,27 +51,29 @@ export const AuthProvider = ({ children }) => {
     router.push('/login');
   };
 
-  const signup = async (email, password, re_password, setFieldError) => {
-    let { data, error } = await apiClient.createUser(
-      email,
-      password,
-      re_password
-    );
+  const createUser = async (payload, setFieldError) => {
+    let { data, error } = await apiClient.createUser(payload);
     if (data) {
       router.push('/login');
       toast.success(
         'Your account was successfully created! Check your email to activate it.'
       );
     } else {
-      handleDrfErrors(
-        error,
-        ['email', 'password', 're_password'],
-        setFieldError
-      );
+      handleDrfError(error, Object.keys(payload), setFieldError);
     }
   };
 
-  const activate = async (uid, token) => {
+  const updateUser = async payload => {
+    let { data, error } = await apiClient.updateUser(payload);
+    if (data) {
+      await fetchUser();
+      toast.success('Your account was successfully updated');
+    } else {
+      handleDrfError(error);
+    }
+  };
+
+  const activateUser = async (uid, token) => {
     const { error } = await apiClient.activateUser(uid, token);
     if (error) {
       console.warn(error);
@@ -91,7 +93,7 @@ export const AuthProvider = ({ children }) => {
   const setEmail = async (values, setFieldError, setShowModal) => {
     const { error } = await apiClient.setEmail(values);
     if (error) {
-      handleDrfErrors(error, Object.keys(values), setFieldError);
+      handleDrfError(error, Object.keys(values), setFieldError);
     } else {
       await fetchUser();
       setShowModal(false);
@@ -102,7 +104,7 @@ export const AuthProvider = ({ children }) => {
   const setPassword = async (values, setFieldError, setShowModal) => {
     const { error } = await apiClient.setPassword(values);
     if (error) {
-      handleDrfErrors(error, Object.keys(values), setFieldError);
+      handleDrfError(error, Object.keys(values), setFieldError);
     } else {
       await fetchUser();
       setShowModal(false);
@@ -120,8 +122,9 @@ export const AuthProvider = ({ children }) => {
         fetchUser,
         login,
         logout,
-        signup,
-        activate,
+        createUser,
+        updateUser,
+        activateUser,
         setEmail,
         setPassword,
       }}

@@ -8,7 +8,7 @@ import useAuth from 'contexts/auth';
 import SignupForm from 'components/auth/SignupForm';
 
 export default () => {
-  const { isAuthenticated, signup } = useAuth();
+  const { isAuthenticated, createUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default () => {
       <Col md={8} lg={6}>
         <Card body>
           <h4 className="text-center">Sign Up</h4>
-          <SignupForm signup={signup} />
+          <SignupForm onSubmit={createUser} />
           <p className="mt-3 text-center">
             Already have an account?{' '}
             <Link href="/login">

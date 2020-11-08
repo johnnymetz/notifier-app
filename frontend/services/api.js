@@ -161,12 +161,12 @@ class ApiClient {
     return refreshed;
   }
 
-  async createUser(email, password, re_password) {
-    return await apiClient.post(`auth/users/`, {
-      email,
-      password,
-      re_password,
-    });
+  async createUser(payload) {
+    return await apiClient.post(`auth/users/`, payload);
+  }
+
+  async updateUser(payload) {
+    return await apiClient.authenticatedPatch(`auth/users/me/`, payload);
   }
 
   async activateUser(uid, token) {

@@ -19,7 +19,7 @@ logger = logging.getLogger("django")
 class User(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
-    email = models.BooleanField(default=True)
+    is_subscribed = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS: List[str] = []

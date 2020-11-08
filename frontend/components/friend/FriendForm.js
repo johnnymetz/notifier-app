@@ -49,7 +49,6 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
         if (year) {
           payload.date_of_birth.year = parseInt(year);
         }
-        // console.log(payload);
         setSubmitting(true);
         let data, error;
         if (action === 'create') {

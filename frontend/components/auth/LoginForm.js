@@ -10,7 +10,7 @@ import { LoginSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
 // import Debug from 'components/auth/FormikDebug';
 
-export default ({ login }) => {
+export default ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export default ({ login }) => {
       initialValues={{ email: '', password: '' }}
       validationSchema={LoginSchema}
       onSubmit={async ({ email, password }) => {
-        await login(email, password);
+        await onSubmit(email, password);
       }}
     >
       {({ errors, touched, isSubmitting }) => (

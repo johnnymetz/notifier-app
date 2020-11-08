@@ -14,6 +14,7 @@ def test_read_user_fields():
     data = UserSerializer(u).data
     assert data["id"] == u.id
     assert data["email"] == u.email
+    assert data["is_subscribed"] == u.is_subscribed
     assert "password" not in data
     assert len(data["all_friends"]) == 3
     assert sorted([f["id"] for f in data["all_friends"]]) == sorted(

@@ -108,7 +108,18 @@ def test_set_password(client, mailoutbox, token_headers):
     assert u.check_password(new_pw)
 
 
-# test updating user (patch) - maybe update send email toggle (once this field exists)?
+@pytest.mark.django_db
+def test_update(client, mailoutbox, token_headers):
+    u = User.objects.get()
+    assert u.is_subscribed is True
+    url = reverse("user-me")
+    data = {"is_subscribed": False}
+    r = client.patch(url, data=data, content_type="application/json", **token_headers)
+    assert r.status_code == status.HTTP_200_OK
+    assert r.data["is_subscribed"] is False
+    # TODO: this sends an ActivationEmail, which should be removed from djoser master
+    assert len(mailoutbox) == 1
+    print(mailoutbox)
 
 
 @pytest.mark.django_db

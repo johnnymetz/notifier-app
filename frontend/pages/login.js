@@ -22,7 +22,7 @@ export default () => {
       <Col md={8} lg={6}>
         <Card body>
           <h4 className="text-center">Login</h4>
-          <LoginForm login={login} />
+          <LoginForm onSubmit={login} />
           <p className="mt-3 text-center">
             Don't have an account?{' '}
             <Link href="/signup">

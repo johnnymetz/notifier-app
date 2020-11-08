@@ -64,7 +64,7 @@ export default ({ friends }) => {
       `friends/${selectedFriend.id}`
     );
     if (error) {
-      console.log(error);
+      console.error(error);
     } else {
       toast.success(`"${selectedFriend.name}" successfully deleted`);
       await fetchUser();

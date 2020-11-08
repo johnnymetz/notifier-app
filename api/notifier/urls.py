@@ -10,6 +10,6 @@ router.register("friends", FriendViewset)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("user/email-mock/", EmailMock.as_view()),
     path("seed/qa-user/", SeedQaUser.as_view(), name="seed-qa-user"),
+    path("user/email-mock/<email>/", EmailMock.as_view()),
 ]

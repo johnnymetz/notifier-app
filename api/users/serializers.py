@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "all_friends", "upcoming_friends")
+        fields = ("id", "email", "is_subscribed", "all_friends", "upcoming_friends")
 
     @staticmethod
     def get_all_friends(obj):

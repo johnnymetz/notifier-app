@@ -23,7 +23,6 @@ export default ({ onSubmit, setShowModal }) => {
       }}
       validationSchema={SetPasswordSchema}
       onSubmit={async (values, { setFieldError }) => {
-        console.log(values);
         await onSubmit(values, setFieldError, setShowModal);
       }}
     >

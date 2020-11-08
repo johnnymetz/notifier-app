@@ -1,5 +1,7 @@
+import { toast } from 'react-toastify';
+
 // TODO: add unit test (cypress should work)
-export const handleDrfErrors = (error, fields, setFieldError) => {
+export const handleDrfError = (error, fields, setFieldError) => {
   console.warn(error);
   if (typeof error === 'string') {
     toast.error(error);
@@ -15,8 +17,8 @@ export const handleDrfErrors = (error, fields, setFieldError) => {
   }
 };
 
-// // needs to be awaited
-// export const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+// needs to be awaited
+export const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 // export const isObjectEmpty = obj =>
 //   Object.entries(obj).length === 0 && obj.constructor === Object;
