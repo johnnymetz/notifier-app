@@ -8,14 +8,14 @@ import useAuth from 'contexts/auth';
 import LoginForm from 'components/auth/LoginForm';
 
 export default () => {
-  const { isUser, login } = useAuth();
+  const { user, login } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (isUser) {
+    if (!!user) {
       router.push('/');
     }
-  }, [isUser]);
+  }, [user]);
 
   return (
     <Row className="justify-content-center">

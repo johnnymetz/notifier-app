@@ -8,14 +8,14 @@ import useAuth from 'contexts/auth';
 import SendResetPasswordEmailForm from 'components/auth/SendResetPasswordEmailForm';
 
 export default () => {
-  const { isUser, sendResetPasswordEmail } = useAuth();
+  const { user, sendResetPasswordEmail } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (isUser) {
+    if (!!user) {
       router.push('/');
     }
-  }, [isUser]);
+  }, [user]);
 
   return (
     <Row className="justify-content-center">

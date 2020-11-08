@@ -8,16 +8,13 @@ export const handleDrfError = (error, fields, setFieldError) => {
   } else if (Array.isArray(error)) {
     toast.error(error[0]);
   } else {
-    for (const field of fields) {
+    for (const field of fields || []) {
       if (error[field]) {
         setFieldError(field, error[field][0]);
       }
     }
-    if (error.uid) {
-      toast.error(error.uid[0]);
-    }
-    if (error.token) {
-      toast.error(error.token[0]);
+    if (error.uid || error.token) {
+      toast.error('Unable to authenticate user');
     }
     if (error.non_field_errors) {
       toast.error(error.non_field_errors[0]);

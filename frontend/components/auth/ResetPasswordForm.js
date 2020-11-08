@@ -18,7 +18,6 @@ export default ({ onSubmit, uid, token }) => {
       initialValues={{ new_password: '', re_new_password: '' }}
       validationSchema={ResetPasswordSchema}
       onSubmit={async (values, { setFieldError }) => {
-        console.log({ ...values, uid, token });
         await onSubmit({ ...values, uid, token }, setFieldError);
       }}
     >

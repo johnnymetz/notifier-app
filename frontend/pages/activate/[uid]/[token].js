@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 
 import useAuth from 'contexts/auth';
 import SubmitButton from 'components/widgets/SubmitButton';
@@ -16,17 +19,21 @@ export default () => {
   };
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center">
-      <h2>Welcome!</h2>
-      <div>Click the button below to activate your account.</div>
-      <SubmitButton
-        onClick={activateUserWrapper}
-        isSubmitting={isSubmitting}
-        variant="primary"
-        className="mt-4"
-      >
-        Activate your account
-      </SubmitButton>
-    </div>
+    <Row className="justify-content-center">
+      <Col md={8} lg={6}>
+        <Card body className="text-center">
+          <h3>Welcome!</h3>
+          <div>Click the button below to activate your account.</div>
+          <SubmitButton
+            onClick={activateUserWrapper}
+            isSubmitting={isSubmitting}
+            variant="primary"
+            className="mt-4"
+          >
+            Activate your account
+          </SubmitButton>
+        </Card>
+      </Col>
+    </Row>
   );
 };

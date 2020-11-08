@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import apiClient from 'services/api';
-import { handleDrfError, wait } from 'utils/helpers';
+import { handleDrfError } from 'utils/helpers';
 import LoadingIcon from 'components/widgets/LoadingIcon';
 
 const AuthContext = createContext(null);
@@ -45,12 +45,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
     setLoading(true);
     apiClient.logout();
     setUser(null);
-    // router.push('/login');
-    // await wait(2000);
+    router.push('/login');
     setLoading(false);
   };
 
@@ -79,7 +78,7 @@ export const AuthProvider = ({ children }) => {
   const activateUser = async payload => {
     const { error } = await apiClient.activateUser(payload);
     if (error) {
-      handleDrfError(error, Object.keys(payload));
+      handleDrfError(error);
     } else {
       router.push('/');
       toast.success(
@@ -133,7 +132,6 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        isUser: !!user,
         user,
         loading,
         fetchUser,
@@ -157,20 +155,18 @@ export const useAuth = () => useContext(AuthContext);
 
 export const PrivateRoute = Component => {
   return () => {
-    const { loading, isUser } = useAuth();
+    const { loading, user } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-      if (!loading && !isUser) {
+      if (!loading && !user) {
         router.push('/login');
       }
-    }, [loading, isUser]);
-
-    console.log(loading, isUser);
+    }, [loading, user]);
 
     if (loading) {
       return <LoadingIcon />;
-    } else if (!isUser) {
+    } else if (!user) {
       return <div>Not authenticated</div>;
     }
 
