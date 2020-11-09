@@ -35,7 +35,7 @@ DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
 ANYMAIL = {"SENDGRID_API_KEY": os.environ["SENDGRID_API_KEY"]}
 
 # django-templated-mail
-DOMAIN = os.environ.get("CORS_ORIGIN_WHITELIST", "").split(" ")[0]
+DOMAIN = os.environ["DOMAIN"]
 
 # Security
 CSRF_COOKIE_SECURE = True
