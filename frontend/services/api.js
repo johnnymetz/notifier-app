@@ -5,9 +5,9 @@ class ApiClient {
     this.axiosInstance = axios.create({ baseURL });
   }
 
-  /////////////////////////
-  // Methods
-  /////////////////////////
+  //////////////////////////////////
+  // Base Methods
+  //////////////////////////////////
   async get(url, config) {
     let data, error, status;
     try {
@@ -59,49 +59,46 @@ class ApiClient {
     return { error, status };
   }
 
-  /////////////////////////
-  // Authenticated Methods
-  /////////////////////////
+  //////////////////////////////////
+  // Authenticated Base Methods
+  //////////////////////////////////
   async authenticatedGet(url) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { data, error } = await this.get(url, { headers });
-    return { data, error };
+    return await this.get(url, { headers });
   }
 
   async authenticatedPost(url, payload) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { data, error } = await this.post(url, payload, { headers });
-    return { data, error };
+    return await this.post(url, payload, { headers });
   }
 
   async authenticatedPatch(url, payload) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { data, error } = await this.patch(url, payload, { headers });
-    return { data, error };
+    return await this.patch(url, payload, { headers });
   }
 
   async authenticatedDelete(url) {
     const accessToken = localStorage.getItem('accessToken');
     const headers = { Authorization: `Bearer ${accessToken}` };
-    const { error } = await this.delete(url, { headers });
-    return { error };
+    return await this.delete(url, { headers });
   }
 
-  /////////////////////////
-  // JWT
-  /////////////////////////
-  async login(email, password) {
-    let { data, error } = await apiClient.post('token/', {
-      email,
-      password,
-    });
+  //////////////////////////////////
+  // User Management
+  //////////////////////////////////
+  async getCurrentUser() {
+    return await apiClient.authenticatedGet('auth/users/me/');
+  }
+
+  async login(payload) {
+    let { data, error } = await apiClient.post('auth/jwt/create/', payload);
     if (data) {
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
-      ({ data, error } = await this.authenticatedGet('user/'));
+      ({ data, error } = await this.getCurrentUser());
     }
     return { data, error };
   }
@@ -116,7 +113,7 @@ class ApiClient {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       console.log('Verifying token...');
-      const { data, error, status } = await apiClient.post('token/verify/', {
+      const { data, error, status } = await apiClient.post('auth/jwt/verify/', {
         token: accessToken,
       });
       if (data) {
@@ -143,7 +140,7 @@ class ApiClient {
     let refreshed = false;
     const refreshToken = localStorage.getItem('refreshToken');
     if (refreshToken) {
-      const { data, error } = await apiClient.post('token/refresh/', {
+      const { data, error } = await apiClient.post('auth/jwt/refresh/', {
         refresh: refreshToken,
       });
       if (data) {
@@ -159,6 +156,40 @@ class ApiClient {
       console.log('No refresh token');
     }
     return refreshed;
+  }
+
+  async createUser(payload) {
+    return await apiClient.post(`auth/users/`, payload);
+  }
+
+  async updateUser(payload) {
+    return await apiClient.authenticatedPatch(`auth/users/me/`, payload);
+  }
+
+  async activateUser(uid, token) {
+    return await apiClient.post(`auth/users/activation/`, {
+      uid,
+      token,
+    });
+  }
+
+  async setEmail(payload) {
+    return await apiClient.authenticatedPost(`auth/users/set_email/`, payload);
+  }
+
+  async setPassword(payload) {
+    return await apiClient.authenticatedPost(
+      `auth/users/set_password/`,
+      payload
+    );
+  }
+
+  async sendResetPasswordEmail(payload) {
+    return await apiClient.post(`auth/users/reset_password/`, payload);
+  }
+
+  async resetPassword(payload) {
+    return await apiClient.post(`auth/users/reset_password_confirm/`, payload);
   }
 }
 

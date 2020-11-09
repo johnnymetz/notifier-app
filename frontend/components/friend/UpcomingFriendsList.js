@@ -2,8 +2,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 export default ({ friends }) => {
   return (
-    <div>
-      <h4>Upcoming</h4>
+    <>
+      <h5 className="text-center">Upcoming</h5>
       {friends && friends.length > 0 ? (
         <ListGroup>
           {friends.map(friend => {
@@ -34,6 +34,6 @@ export default ({ friends }) => {
       ) : (
         <div>No upcoming birthdays</div>
       )}
-    </div>
+    </>
   );
 };

@@ -34,6 +34,9 @@ EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 DEFAULT_FROM_EMAIL = os.environ["DEFAULT_FROM_EMAIL"]
 ANYMAIL = {"SENDGRID_API_KEY": os.environ["SENDGRID_API_KEY"]}
 
+# django-templated-mail
+DOMAIN = os.environ.get("CORS_ORIGIN_WHITELIST", "").split(" ")[0]
+
 # Security
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
@@ -45,7 +48,11 @@ SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
-# DRF
 REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = (
     "rest_framework.permissions.IsAuthenticated",
 )
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+    # rates recommended by docs
+    "anon": "100/day",
+    "user": "1000/day",
+}

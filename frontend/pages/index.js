@@ -1,8 +1,8 @@
-import UserDetail from 'components/user/UserDetail';
+import Dashboard from 'components/user/Dashboard';
 import { PrivateRoute } from 'contexts/auth';
 
 const Home = () => {
-  return <UserDetail />;
+  return <Dashboard />;
 };
 
 export default PrivateRoute(Home);

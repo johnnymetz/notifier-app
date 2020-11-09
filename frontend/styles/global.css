@@ -1,3 +1,7 @@
+body {
+  background-color: #f3f3f3;
+}
+
 table.table td,
 table.table th {
   vertical-align: middle;

@@ -9,29 +9,17 @@ from rest_framework import status
 from notifier.tests.factories import FriendFactory
 from users.tests.factories import UserFactory
 
-
-@pytest.mark.django_db
-def test_unauthenticated_read_friend_list(client):
-    FriendFactory()
-    url = reverse("friend-list")
-    r = client.get(url)
-    assert r.status_code == status.HTTP_401_UNAUTHORIZED
-
-
-@pytest.mark.django_db
-def test_unauthenticated_read_friend_detail(client):
-    friend = FriendFactory()
-    url = reverse("friend-detail", args=[friend.id])
-    r = client.get(url)
-    assert r.status_code == status.HTTP_401_UNAUTHORIZED
+User = get_user_model()
 
 
 @pytest.mark.django_db
 def test_read_friend_list(client, token_headers):
-    # TODO: this endpoint is not used and should probably be removed
+    # TODO: this get request is not used and should probably be removed
     FriendFactory()
     FriendFactory()
     url = reverse("friend-list")
+    r = client.get(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
     assert r.data["count"] == 2
@@ -40,10 +28,11 @@ def test_read_friend_list(client, token_headers):
 
 @pytest.mark.django_db
 def test_read_friend_detail(client, token_headers):
-    User = get_user_model()
     u = User.objects.get()
     friend = FriendFactory(user=u)
     url = reverse("friend-detail", args=[friend.id])
+    r = client.get(url)
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
     assert r.data["id"] == friend.id
@@ -51,7 +40,6 @@ def test_read_friend_detail(client, token_headers):
 
 @pytest.mark.django_db
 def test_create_friend(client, token_headers):
-    User = get_user_model()
     u = User.objects.get()
     url = reverse("friend-list")
     date = datetime.date(1994, 1, 24)
@@ -67,7 +55,6 @@ def test_create_friend(client, token_headers):
 
 @pytest.mark.django_db
 def test_update_friend(client, token_headers):
-    User = get_user_model()
     u = User.objects.get()
     friend = FriendFactory(user=u)
     url = reverse("friend-detail", args=[friend.id])
@@ -84,7 +71,6 @@ def test_update_friend(client, token_headers):
 
 @pytest.mark.django_db
 def test_delete_friend(client, token_headers):
-    User = get_user_model()
     u = User.objects.get()
     friend = FriendFactory(user=u)
     url = reverse("friend-detail", args=[friend.id])
@@ -96,7 +82,6 @@ def test_delete_friend(client, token_headers):
 
 @pytest.mark.django_db
 def test_user_cant_read_or_delete_friend_of_another_user(client, token_headers):
-    User = get_user_model()
     _ = User.objects.get()
     u = UserFactory()
     u_friend = FriendFactory(user=u)

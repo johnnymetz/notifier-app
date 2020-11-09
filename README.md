@@ -13,9 +13,9 @@ docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
 ./manage.py migrate
 ./manage.py createsuperuser
-./manage.py addfriends EMAIL
+./manage.py import_friends EMAIL
 ./manage.py export_friends EMAIL
-./manage.py sendbirthdayemail EMAIL
+./manage.py send_birthday_emails EMAIL
 
 # development using email settings
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
@@ -24,20 +24,36 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ## Todo
 
-- Add user management (registration, password reset, etc.) via [djoser](https://github.com/sunscrapers/djoser)
+- Enable 2FA on Twilio (required Oct 31, 2020)
+- Use [isort black profile](https://black.readthedocs.io/en/stable/compatible_configs.html#why-those-options-above)
 - Update to factory-boy v3
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Unit test emails
+- Use zoneinfo instead of pytz and update local vs utc datetime snippet below: [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
+- Add granulaized logging and ability to log sql when needed:
+
+```
+LOGGING = {
+    # ...
+    'loggers': {
+        # ...
+        'django.db': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
+```
 
 ## Todo (maybe later)
 
+- Address TODOs in code
 - Move config files to pyproject.toml
 - Add silk and/or django debug toolbar
 - Papertrail heroku plugin
 - Remove cold starts ?
 - Sendgrid batch api
-- [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
 
 ## Notes
 
@@ -68,7 +84,10 @@ heroku ps -a notifier-app-api
 
 # backend exec
 heroku run -a notifier-app-api bash
-heroku run -a notifier-app-api python manage.py sendbirthdayemail EMAIL
+heroku run -a notifier-app-api python manage.py send_birthday_emails EMAIL
+
+# check production settings on heroku server
+./manage.py check --deploy --settings api.settings.production
 
 # psql
 heroku pg:psql
@@ -100,10 +119,37 @@ heroku addons:create -a notifier-app-api scheduler:standard
 # set env vars
 ```
 
+## Djoser
+
+```
+./manage.py flush --noinput
+
+# create user
+http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password=pw
+```
+
+### Endpoints tested / implemeneted in UI
+
+- [x] Create user
+- [x] Activate user
+- [x] Get current user
+- [x] Update/patch user
+- [ ] Delete user
+- [x] Set username (aka email)
+- [x] Set password
+- [ ] Send reset username (aka email) email
+- [ ] Reset forgotten username (aka email)
+- [x] Send reset password email
+- [x] Reset forgotten password
+- [x] JWT create
+- [x] JWT verify
+- [x] JWT refresh
+
 ## Resources
 
 - [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
 - [SendGrid web api vs. SMTP](https://sendgrid.com/blog/web-api-or-smtp-relay-how-should-you-send-your-mail/)
   - Web api: [django-sendgrid-v5](https://github.com/sklarsa/django-sendgrid-v5) or [sendgrid-django](https://github.com/elbuo8/sendgrid-django)
   - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)
-  - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
+- [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
+- [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)

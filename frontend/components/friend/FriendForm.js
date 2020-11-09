@@ -7,7 +7,6 @@ import apiClient from 'services/api';
 import useAuth from 'contexts/auth';
 import { FriendSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
-// import Debug from 'components/auth/FormikDebug';
 
 const MONTHS = [
   'January',
@@ -49,7 +48,6 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
         if (year) {
           payload.date_of_birth.year = parseInt(year);
         }
-        // console.log(payload);
         setSubmitting(true);
         let data, error;
         if (action === 'create') {
@@ -72,7 +70,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             }`
           );
           fetchUser();
-          // resetForm();
+          resetForm();
         } else {
           console.warn(error);
           if (error.name) {
@@ -102,7 +100,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
               name="name"
               as={Form.Control}
               isInvalid={touched.name && errors.name}
-              data-test={`${action}-name-input`}
+              data-test={`${action}-friend-name-input`}
             />
             <Form.Control.Feedback type="invalid">
               <ErrorMessage name="name" />
@@ -115,12 +113,11 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
               <Form.Control
                 name="month"
                 as="select"
-                placeholder="Monthy"
                 value={values.month}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 isInvalid={touched.month && errors.month}
-                data-test={`${action}-month-input`}
+                data-test={`${action}-friend-month-input`}
               >
                 {/* <option value="" disabled selected hidden>
                   Month
@@ -143,7 +140,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 name="day"
                 as={Form.Control}
                 isInvalid={touched.day && errors.day}
-                data-test={`${action}-day-input`}
+                data-test={`${action}-friend-day-input`}
               />
               <Form.Control.Feedback type="invalid">
                 <ErrorMessage name="day" />
@@ -157,7 +154,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 name="year"
                 as={Form.Control}
                 isInvalid={touched.year && errors.year}
-                data-test={`${action}-year-input`}
+                data-test={`${action}-friend-year-input`}
               />
               <Form.Control.Feedback type="invalid">
                 <ErrorMessage name="year" />
@@ -165,11 +162,9 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             </Form.Group>
           </Form.Row>
 
-          <SubmitButton isSubmitting={isSubmitting} variant="primary">
+          <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
             Submit
           </SubmitButton>
-
-          {/* <Debug /> */}
         </FormikForm>
       )}
     </Formik>

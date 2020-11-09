@@ -6,20 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
-import { LoginSchema } from 'utils/formSchemas';
+import { SetEmailSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
-// import Debug from 'components/auth/FormikDebug';
 
-export default ({ login }) => {
+export default ({ onSubmit, setShowModal }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisiblity = () => setShowPassword(!showPassword);
 
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={LoginSchema}
-      onSubmit={async ({ email, password }) => {
-        await login(email, password);
+      initialValues={{ new_email: '', re_new_email: '', current_password: '' }}
+      validationSchema={SetEmailSchema}
+      onSubmit={async (values, { setFieldError }) => {
+        await onSubmit(values, setFieldError, setShowModal);
       }}
     >
       {({ errors, touched, isSubmitting }) => (
@@ -27,20 +25,32 @@ export default ({ login }) => {
           <Form.Group>
             <Form.Label>Email</Form.Label>
             <Field
-              name="email"
-              placeholder="Enter email"
+              name="new_email"
               as={Form.Control}
-              // must have isInvalid to render invalid feedback
-              // must have isValid to render valid feedback
-              // (not anymore because we're setting .invalid-feedback to block display in global css)
-              isInvalid={touched.email && errors.email}
-              data-test="email"
+              isInvalid={touched.new_email && errors.new_email}
+              data-test="set-email-new-email"
             />
             <Form.Control.Feedback
               type="invalid"
-              data-test="email-invalid-feedback"
+              data-test="set-email-new-email-invalid-feedback"
             >
-              <ErrorMessage name="email" />
+              <ErrorMessage name="new_email" />
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label>Verify Email</Form.Label>
+            <Field
+              name="re_new_email"
+              as={Form.Control}
+              isInvalid={touched.re_new_email && errors.re_new_email}
+              data-test="set-email-re-new-email"
+            />
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-email-re-new-email-invalid-feedback"
+            >
+              <ErrorMessage name="re_new_email" />
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -48,17 +58,16 @@ export default ({ login }) => {
             <Form.Label>Password</Form.Label>
             <InputGroup>
               <Field
-                name="password"
+                name="current_password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter password"
                 as={Form.Control}
-                isInvalid={touched.password && errors.password}
-                data-test="password"
+                isInvalid={touched.current_password && errors.current_password}
+                data-test="set-email-current-password"
               />
               <InputGroup.Append>
                 <Button
                   variant="outline-secondary"
-                  onClick={togglePasswordVisiblity}
+                  onClick={() => setShowPassword(!showPassword)}
                   title={showPassword ? 'Hide password' : 'Show password'}
                 >
                   <FontAwesomeIcon
@@ -70,17 +79,18 @@ export default ({ login }) => {
             </InputGroup>
             <Form.Control.Feedback
               type="invalid"
-              data-test="password-invalid-feedback"
+              data-test="set-email-current-password-invalid-feedback"
             >
-              <ErrorMessage name="password" />
+              <ErrorMessage name="current_password" />
             </Form.Control.Feedback>
           </Form.Group>
 
-          <SubmitButton isSubmitting={isSubmitting} variant="primary">
-            Submit
+          <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
+            Save Changes
           </SubmitButton>
-
-          {/* <Debug /> */}
+          <Button onClick={() => setShowModal(false)} variant="light" block>
+            Close
+          </Button>
         </FormikForm>
       )}
     </Formik>

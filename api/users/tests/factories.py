@@ -2,13 +2,17 @@ from django.contrib.auth import get_user_model
 
 import factory
 
+User = get_user_model()
+
+TEST_PASSWORD = "pw123"
+
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = get_user_model()
+        model = User
 
     email = factory.Sequence(lambda n: f"user{n + 1}@email.com")
-    password = "pw123"
+    password = TEST_PASSWORD
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):

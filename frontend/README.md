@@ -13,7 +13,10 @@ npm run cypress:open
 
 ## Todo
 
-- Use formik for forms
+- Add cypress tests for signup, set email and set password
+  - Redirect to login when logged in and trying to visit signup, activate account, reset password, etc.
+- Dry up formik code with generic form fields
+- Check out [react-notification-system](https://github.com/igorprado/react-notification-system)
 
 ## Later
 

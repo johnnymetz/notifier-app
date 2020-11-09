@@ -2,10 +2,11 @@ from django.contrib.auth import get_user_model
 
 import pytest
 
+User = get_user_model()
+
 
 @pytest.mark.django_db
 def test_create_user():
-    User = get_user_model()
     user = User.objects.create_user(email="normal@user.com", password="foo")
     assert user.email == "normal@user.com"
     assert user.is_active
@@ -18,11 +19,11 @@ def test_create_user():
         User.objects.create_user(email="")
     with pytest.raises(ValueError):
         User.objects.create_user(email="", password="foo")
+    assert user.is_subscribed
 
 
 @pytest.mark.django_db
 def test_create_superuser():
-    User = get_user_model()
     admin_user = User.objects.create_superuser("super@user.com", "foo")
     assert admin_user.email == "super@user.com"
     assert admin_user.is_active
@@ -33,3 +34,4 @@ def test_create_superuser():
         User.objects.create_superuser(
             email="super@user.com", password="foo", is_superuser=False
         )
+    assert admin_user.is_subscribed
