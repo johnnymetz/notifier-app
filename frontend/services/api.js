@@ -166,11 +166,8 @@ class ApiClient {
     return await apiClient.authenticatedPatch(`auth/users/me/`, payload);
   }
 
-  async activateUser(uid, token) {
-    return await apiClient.post(`auth/users/activation/`, {
-      uid,
-      token,
-    });
+  async activateUser(payload) {
+    return await apiClient.post(`auth/users/activation/`, payload);
   }
 
   async setEmail(payload) {

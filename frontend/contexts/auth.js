@@ -164,10 +164,8 @@ export const PrivateRoute = Component => {
       }
     }, [loading, user]);
 
-    if (loading) {
+    if (loading || !user) {
       return <LoadingIcon />;
-    } else if (!user) {
-      return <div>Not authenticated</div>;
     }
 
     return <Component />;

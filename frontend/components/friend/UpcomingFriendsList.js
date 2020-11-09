@@ -32,7 +32,7 @@ export default ({ friends }) => {
           })}
         </ListGroup>
       ) : (
-        <div>No upcoming birthdays</div>
+        <div className="text-center">No upcoming birthdays</div>
       )}
     </>
   );

@@ -186,7 +186,7 @@ export default ({ friends }) => {
       <h5 className="text-center">My Friends</h5>
 
       {rows.length === 0 ? (
-        <div>Add a friend to get started</div>
+        <div className="text-center">Add a friend above to get started</div>
       ) : (
         <>
           <EditFriendModal
