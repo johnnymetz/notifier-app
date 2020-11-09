@@ -7,13 +7,13 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "emails", nargs="+", help="User emails. Use '*' for all users."
+            "emails", nargs="+", help="User emails. Use 'all' for all users."
         )
 
     def handle(self, emails, *args, **kwargs):
         User = get_user_model()
 
-        if "*" in emails:
+        if "all" in emails:
             users = User.objects.filter(is_active=True, is_subscribed=True)
         else:
             users = []

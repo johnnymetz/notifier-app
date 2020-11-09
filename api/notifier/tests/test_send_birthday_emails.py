@@ -30,5 +30,5 @@ def test_email_all_users(mailoutbox):
     UserFactory(is_subscribed=False)
     UserFactory(is_active=False, is_subscribed=False)
     UserFactory()
-    call_command("send_birthday_emails", "*")
+    call_command("send_birthday_emails", "all")
     assert len(mailoutbox) == 2

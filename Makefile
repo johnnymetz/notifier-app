@@ -35,6 +35,12 @@ cleandb:
 pipcompile:
 	@docker-compose exec api pip-compile
 
+heroku-shell:
+	heroku run -a notifier-app-api bash
+
+heroku-logs:
+	heroku logs -a notifier-app-api --tail
+
 # FRONTEND
 
 cypress-open:
