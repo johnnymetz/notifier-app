@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
+
 import SetEmailModal from 'components/user/SetEmailModal';
 import SetPasswordModal from 'components/user/SetPasswordModal';
 import { PrivateRoute, useAuth } from 'contexts/auth';
@@ -15,9 +16,18 @@ const AccountSetting = ({ label, value, onChange }) => (
     <div className="d-flex justify-content-between align-items-center">
       <div>
         <b>{label}</b>
-        <div style={{ fontSize: '0.8rem' }}>{value}</div>
+        <div
+          style={{ fontSize: '0.8rem' }}
+          data-test={`account-${label.toLowerCase()}`}
+        >
+          {value}
+        </div>
       </div>
-      <a href="#" onClick={() => onChange(true)}>
+      <a
+        href="#"
+        onClick={() => onChange(true)}
+        data-test={`account-change-${label.toLowerCase()}`}
+      >
         Change
       </a>
     </div>

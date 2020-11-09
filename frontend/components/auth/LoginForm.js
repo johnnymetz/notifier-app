@@ -32,11 +32,11 @@ export default ({ onSubmit }) => {
               // must have isValid to render valid feedback
               // (not anymore because we're setting .invalid-feedback to block display in global css)
               isInvalid={touched.email && errors.email}
-              data-test="email"
+              data-test="login-email"
             />
             <Form.Control.Feedback
               type="invalid"
-              data-test="email-invalid-feedback"
+              data-test="login-email-invalid-feedback"
             >
               <ErrorMessage name="email" />
             </Form.Control.Feedback>
@@ -50,7 +50,7 @@ export default ({ onSubmit }) => {
                 type={showPassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.password && errors.password}
-                data-test="password"
+                data-test="login-password"
               />
               <InputGroup.Append>
                 <Button
@@ -67,7 +67,7 @@ export default ({ onSubmit }) => {
             </InputGroup>
             <Form.Control.Feedback
               type="invalid"
-              data-test="password-invalid-feedback"
+              data-test="login-password-invalid-feedback"
             >
               <ErrorMessage name="password" />
             </Form.Control.Feedback>

@@ -26,7 +26,7 @@ export default () => {
           <p className="mt-3 text-center">
             Don't have an account?{' '}
             <Link href="/signup">
-              <a>Sign Up</a>
+              <a data-test="login-to-signup-link">Sign Up</a>
             </Link>
           </p>
           <p className="mt-3 text-center">

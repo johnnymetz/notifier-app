@@ -3,10 +3,11 @@ import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Favicon from 'components/widgets/Favicon';
-import useAuth from 'contexts/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
+import Favicon from 'components/widgets/Favicon';
+import useAuth from 'contexts/auth';
 
 export default ({ children }) => {
   const { user, logout } = useAuth();
@@ -31,7 +32,7 @@ export default ({ children }) => {
             {!!user && (
               <Nav activeKey="">
                 <Link href="/account" passHref>
-                  <Nav.Link>
+                  <Nav.Link data-test="navbar-account-link">
                     <FontAwesomeIcon
                       icon={faUser}
                       size={'sm'}

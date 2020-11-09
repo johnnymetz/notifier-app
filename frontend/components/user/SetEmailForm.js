@@ -28,8 +28,12 @@ export default ({ onSubmit, setShowModal }) => {
               name="new_email"
               as={Form.Control}
               isInvalid={touched.new_email && errors.new_email}
+              data-test="set-email-new-email"
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-email-new-email-invalid-feedback"
+            >
               <ErrorMessage name="new_email" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -40,8 +44,12 @@ export default ({ onSubmit, setShowModal }) => {
               name="re_new_email"
               as={Form.Control}
               isInvalid={touched.re_new_email && errors.re_new_email}
+              data-test="set-email-re-new-email"
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-email-re-new-email-invalid-feedback"
+            >
               <ErrorMessage name="re_new_email" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -54,6 +62,7 @@ export default ({ onSubmit, setShowModal }) => {
                 type={showPassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.current_password && errors.current_password}
+                data-test="set-email-current-password"
               />
               <InputGroup.Append>
                 <Button
@@ -68,14 +77,20 @@ export default ({ onSubmit, setShowModal }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-email-current-password-invalid-feedback"
+            >
               <ErrorMessage name="current_password" />
             </Form.Control.Feedback>
           </Form.Group>
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
-            Submit
+            Save Changes
           </SubmitButton>
+          <Button onClick={() => setShowModal(false)} variant="light" block>
+            Close
+          </Button>
         </FormikForm>
       )}
     </Formik>

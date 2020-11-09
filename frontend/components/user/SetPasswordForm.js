@@ -36,6 +36,7 @@ export default ({ onSubmit, setShowModal }) => {
                 type={showNewPassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.new_password && errors.new_password}
+                data-test="set-password-new-password"
               />
               <InputGroup.Append>
                 <Button
@@ -50,7 +51,10 @@ export default ({ onSubmit, setShowModal }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-password-new-password-invalid-feedback"
+            >
               <ErrorMessage name="new_password" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -63,6 +67,7 @@ export default ({ onSubmit, setShowModal }) => {
                 type={showReNewPassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.re_new_password && errors.re_new_password}
+                data-test="set-password-re-new-password"
               />
               <InputGroup.Append>
                 <Button
@@ -77,7 +82,10 @@ export default ({ onSubmit, setShowModal }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-password-re-new-password-invalid-feedback"
+            >
               <ErrorMessage name="re_new_password" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -90,6 +98,7 @@ export default ({ onSubmit, setShowModal }) => {
                 type={showCurrentPassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.current_password && errors.current_password}
+                data-test="set-password-current-password"
               />
               <InputGroup.Append>
                 <Button
@@ -106,14 +115,20 @@ export default ({ onSubmit, setShowModal }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="set-password-current-password-invalid-feedback"
+            >
               <ErrorMessage name="current_password" />
             </Form.Control.Feedback>
           </Form.Group>
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
-            Submit
+            Save Changes
           </SubmitButton>
+          <Button onClick={() => setShowModal(false)} variant="light" block>
+            Close
+          </Button>
         </FormikForm>
       )}
     </Formik>

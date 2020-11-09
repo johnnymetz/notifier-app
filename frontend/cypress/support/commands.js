@@ -31,6 +31,14 @@ Cypress.Commands.add('seedQaUser', () => {
   });
 });
 
+Cypress.Commands.add('deleteQaUser', () => {
+  cy.request('DELETE', `${serverUrl}/seed/qa-user/`, {
+    auth: 'Cypress789',
+  }).should(res => {
+    expect(res.status).to.eq(204);
+  });
+});
+
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
 //

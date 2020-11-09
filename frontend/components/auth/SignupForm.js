@@ -8,7 +8,6 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 import { SignupSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
-// import Debug from 'components/auth/FormikDebug';
 
 export default ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,8 +29,12 @@ export default ({ onSubmit }) => {
               name="email"
               as={Form.Control}
               isInvalid={touched.email && errors.email}
+              data-test="signup-email"
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="signup-email-invalid-feedback"
+            >
               <ErrorMessage name="email" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -44,6 +47,7 @@ export default ({ onSubmit }) => {
                 type={showPassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.password && errors.password}
+                data-test="signup-password"
               />
               <InputGroup.Append>
                 <Button
@@ -58,7 +62,10 @@ export default ({ onSubmit }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="signup-password-invalid-feedback"
+            >
               <ErrorMessage name="password" />
             </Form.Control.Feedback>
           </Form.Group>
@@ -71,6 +78,7 @@ export default ({ onSubmit }) => {
                 type={showRePassword ? 'text' : 'password'}
                 as={Form.Control}
                 isInvalid={touched.re_password && errors.re_password}
+                data-test="signup-re-password"
               />
               <InputGroup.Append>
                 <Button
@@ -85,16 +93,17 @@ export default ({ onSubmit }) => {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback
+              type="invalid"
+              data-test="signup-re-password-invalid-feedback"
+            >
               <ErrorMessage name="re_password" />
             </Form.Control.Feedback>
           </Form.Group>
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
-            Signup
+            Sign Up
           </SubmitButton>
-
-          {/* <Debug /> */}
         </FormikForm>
       )}
     </Formik>

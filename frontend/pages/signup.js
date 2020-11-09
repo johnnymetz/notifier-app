@@ -9,7 +9,7 @@ import useAuth from 'contexts/auth';
 import SignupForm from 'components/auth/SignupForm';
 
 export default () => {
-  const { createUser } = useAuth();
+  const { user, createUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

@@ -27,7 +27,7 @@ export default ({
           onClick={onConfirm}
           isSubmitting={isSubmitting}
           variant={'danger'}
-          data-test="confirm-btn"
+          data-test="confirm-modal-btn"
         >
           {confirmButtonText}
         </SubmitButton>

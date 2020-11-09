@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       await fetchUser();
       setShowModal(false);
-      toast.success('User email successfully changed');
+      toast.success('Email successfully changed');
     }
   };
 
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       await fetchUser();
       setShowModal(false);
-      toast.success('User email successfully changed');
+      toast.success('Password successfully changed');
     }
   };
 

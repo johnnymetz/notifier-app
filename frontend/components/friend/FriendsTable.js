@@ -14,6 +14,7 @@ import {
   faEllipsisV,
 } from '@fortawesome/free-solid-svg-icons';
 import { useTable, usePagination, useGlobalFilter } from 'react-table';
+
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
 // import { wait } from 'utils/helpers';
@@ -31,7 +32,7 @@ const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
         setValue(e.target.value);
         onChange(e.target.value);
       }}
-      data-test="search"
+      data-test="friends-list-search"
     />
   );
 };
@@ -232,7 +233,7 @@ export default ({ friends }) => {
             hover
             responsive
             {...getTableProps()}
-            data-test="friends-table"
+            data-test="friends-list"
           >
             <thead>
               {headerGroups.map(headerGroup => (

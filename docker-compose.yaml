@@ -40,7 +40,8 @@ services:
       - DB_HOST=db
       - DB_NAME=notifier
       - CELERY_BROKER_URL=amqp://rabbit/
-      - QA_USER_EMAIL
+      - QA_USER_EMAIL1
+      - QA_USER_EMAIL2
       - QA_USER_PASSWORD
     depends_on:
       - db
