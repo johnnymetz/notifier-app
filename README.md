@@ -128,19 +128,19 @@ heroku addons:create -a notifier-app-api scheduler:standard
 http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password=pw
 ```
 
-### Endpoints tested
+### Endpoints tested / implemeneted in UI
 
 - [x] Create user
 - [x] Activate user
 - [x] Get current user
-- [ ] Update/patch user
+- [x] Update/patch user
 - [ ] Delete user
 - [x] Set username (aka email)
 - [x] Set password
 - [ ] Send reset username (aka email) email
-- [ ] Reset/forgot username (aka email)
+- [ ] Reset forgotten username (aka email)
 - [x] Send reset password email
-- [x] Reset/forgot password
+- [x] Reset forgotten password
 - [x] JWT create
 - [x] JWT verify
 - [x] JWT refresh
