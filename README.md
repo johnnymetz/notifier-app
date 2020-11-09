@@ -130,9 +130,10 @@ http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password
 
 ### Endpoints tested / implemeneted in UI
 
+- [x] Get current user
 - [x] Create user
 - [x] Activate user
-- [x] Get current user
+- [ ] Resend activation email
 - [x] Update/patch user
 - [ ] Delete user
 - [x] Set username (aka email)

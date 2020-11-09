@@ -5,8 +5,6 @@ import Pagination from 'react-bootstrap/Pagination';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPencilAlt,
@@ -185,48 +183,16 @@ export default ({ friends }) => {
     <>
       <h5 className="text-center">My Friends</h5>
 
-      {rows.length === 0 ? (
-        <div className="text-center">Add a friend above to get started</div>
+      {friends.length === 0 ? (
+        <div className="text-center mt-3">
+          Add a friend above to get started
+        </div>
       ) : (
         <>
-          <EditFriendModal
-            showModal={showEditFormModal}
-            setShowModal={setShowEditFormModal}
-            friendValues={selectedFriend}
+          <GlobalFilter
+            globalFilter={globalFilter}
+            setGlobalFilter={setGlobalFilter}
           />
-
-          <ConfirmModal
-            showModal={showDeleteModal}
-            setShowModal={setShowDeleteModal}
-            onConfirm={deleteFriend}
-            title={'Delete Friend?'}
-            body={`Please confirm that you want to delete ${selectedFriend?.name}.`}
-            confirmButtonText={'Delete'}
-            isSubmitting={isDeleting}
-          />
-
-          <Row className="justify-content-between">
-            <Col>
-              <Form.Control
-                as="select"
-                value={pageSize}
-                onChange={e => setPageSize(Number(e.target.value))}
-                style={{ width: 120 }}
-              >
-                {[5, 10, 20, 40].map(size => (
-                  <option key={size} value={size}>
-                    Show {size}
-                  </option>
-                ))}
-              </Form.Control>
-            </Col>
-            <Col xs={12} sm={6}>
-              <GlobalFilter
-                globalFilter={globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </Col>
-          </Row>
 
           <Table
             striped
@@ -288,10 +254,40 @@ export default ({ friends }) => {
               />
             </Pagination>
             <div>
+              <Form.Control
+                as="select"
+                value={pageSize}
+                onChange={e => setPageSize(Number(e.target.value))}
+                style={{ width: 120 }}
+              >
+                {[5, 10, 20, 40].map(size => (
+                  <option key={size} value={size}>
+                    Show {size}
+                  </option>
+                ))}
+              </Form.Control>
+            </div>
+            <div>
               Page {pageIndex + 1} of {pageOptions.length || 1}{' '}
               <small className="text-muted">({rows.length} records)</small>
             </div>
           </div>
+
+          <EditFriendModal
+            showModal={showEditFormModal}
+            setShowModal={setShowEditFormModal}
+            friendValues={selectedFriend}
+          />
+
+          <ConfirmModal
+            showModal={showDeleteModal}
+            setShowModal={setShowDeleteModal}
+            onConfirm={deleteFriend}
+            title={'Delete Friend?'}
+            body={`Please confirm that you want to delete ${selectedFriend?.name}.`}
+            confirmButtonText={'Delete'}
+            isSubmitting={isDeleting}
+          />
         </>
       )}
     </>
