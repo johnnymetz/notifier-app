@@ -51,5 +51,8 @@ cypress-run:
 
 # MISCELLANEOUS
 
+get-user-count:
+	heroku run -a notifier-app-api bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
+
 echo:
 	echo ${MY_EMAIL}
