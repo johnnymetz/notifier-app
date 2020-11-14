@@ -24,13 +24,12 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ## Todo
 
-- Enable 2FA on Twilio (required Oct 31, 2020)
 - Use [isort black profile](https://black.readthedocs.io/en/stable/compatible_configs.html#why-those-options-above)
 - Update to factory-boy v3
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Change no year from 1000 to na or null or 0 or something else because older years are now supported
-- Unit test emails
 - Use zoneinfo instead of pytz and update local vs utc datetime snippet below: [Pytz deprecation guide](https://pytz-deprecation-shim.readthedocs.io/en/latest/migration.html#which-replacement-to-choose)
+- Try time-machine instead of freezegun: https://github.com/adamchainz/time-machine
 - Add granulaized logging and ability to log sql when needed:
 
 ```
@@ -49,11 +48,11 @@ LOGGING = {
 ## Todo (maybe later)
 
 - Address TODOs in code
-- Move config files to pyproject.toml
-- Add silk and/or django debug toolbar
-- Papertrail heroku plugin
-- Remove cold starts ?
 - Sendgrid batch api
+- Move config files to pyproject.toml
+- Papertrail heroku plugin
+- Unit test emails
+- Add silk and/or django debug toolbar
 
 ## Notes
 

@@ -28,13 +28,23 @@ export const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 // export const isObjectEmpty = obj =>
 //   Object.entries(obj).length === 0 && obj.constructor === Object;
 
-// export const range = (start, end) => {
-//   const ans = [];
-//   for (let i = start; i < end; i++) {
-//     ans.push(i);
-//   }
-//   return ans;
-// };
+export const range = (start, end) => {
+  const ans = [];
+  for (let i = start; i < end; i++) {
+    ans.push(i);
+  }
+  return ans;
+};
+
+export const padNumber = (num, size = 2) => {
+  let result = num.toString();
+  let pads = size - num.toString().length;
+  while (pads > 0) {
+    result = '0' + result;
+    pads--;
+  }
+  return result;
+};
 
 // export const truncate = (str, length, suffix = '...') => {
 //   if (str.length <= length) {

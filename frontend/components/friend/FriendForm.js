@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -5,6 +6,7 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 import apiClient from 'services/api';
 import useAuth from 'contexts/auth';
+import { range, padNumber } from 'utils/helpers';
 import { FriendSchema } from 'utils/formSchemas';
 import SubmitButton from 'components/widgets/SubmitButton';
 
@@ -25,12 +27,35 @@ const MONTHS = [
 
 export default ({ action, friendValues = {}, setShowModal = null }) => {
   const { fetchUser } = useAuth();
+  const [showMonthNames, setShowMonthNames] = useState(false);
 
   const initialValues = {
     name: friendValues.name || '',
     month: friendValues.month || 1,
     day: friendValues.day || '',
     year: friendValues.year || '',
+  };
+
+  const getMonthDropdownOptions = () => {
+    let options = [];
+    if (showMonthNames) {
+      MONTHS.map((m, i) => {
+        options.push(
+          <option key={i} value={i + 1}>
+            {m}
+          </option>
+        );
+      });
+    } else {
+      range(1, 13).map(i => {
+        options.push(
+          <option key={i} value={i}>
+            {padNumber(i)}
+          </option>
+        );
+      });
+    }
+    return options;
   };
 
   return (
@@ -109,7 +134,12 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
 
           <Form.Row>
             <Form.Group as={Col}>
-              <Form.Label>Month *</Form.Label>
+              <Form.Label
+                title="Click to toggle month names"
+                onClick={() => setShowMonthNames(!showMonthNames)}
+              >
+                Month *
+              </Form.Label>
               <Form.Control
                 name="month"
                 as="select"
@@ -122,11 +152,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 {/* <option value="" disabled selected hidden>
                   Month
                 </option> */}
-                {MONTHS.map((m, i) => (
-                  <option key={i} value={i + 1}>
-                    {m}
-                  </option>
-                ))}
+                {getMonthDropdownOptions()}
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 <ErrorMessage name="month" />

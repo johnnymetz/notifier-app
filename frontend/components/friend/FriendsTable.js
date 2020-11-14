@@ -267,7 +267,7 @@ export default ({ friends }) => {
                 ))}
               </Form.Control>
             </div>
-            <div>
+            <div className="d-none d-md-block">
               Page {pageIndex + 1} of {pageOptions.length || 1}{' '}
               <small className="text-muted">({rows.length} records)</small>
             </div>
