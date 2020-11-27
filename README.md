@@ -6,7 +6,6 @@
 # initial setup (only needs to be done once)
 pip-compile
 pip-sync
-pre-commit autoupdate
 pre-commit install
 
 # development using local settings
@@ -21,6 +20,11 @@ docker container exec -it notifier-app_api_1 bash
 # development using email settings
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
+
+# upgrade packages
+pre-commit autoupdate
+pre-commit run all-files
+pip-compile upgrade  # then rebuild docker images
 ```
 
 ## Todo

@@ -4,86 +4,95 @@
 #
 #    pip-compile
 #
-appdirs==1.4.3            # via black, virtualenv
-asgiref==3.2.10           # via django
-attrs==19.3.0             # via pytest
+appdirs==1.4.4            # via black, virtualenv
+asgiref==3.3.1            # via django, djoser
+attrs==20.3.0             # via pytest
 backcall==0.2.0           # via ipython
 black==20.8b1             # via -r requirements.in
-certifi==2020.6.20        # via requests
-cfgv==3.1.0               # via pre-commit
+certifi==2020.11.8        # via requests
+cffi==1.14.4              # via cryptography
+cfgv==3.2.0               # via pre-commit
 chardet==3.0.4            # via requests
 click==7.1.2              # via black, pip-tools
-coreapi==2.3.3            # via drf-yasg
+coreapi==2.3.3            # via djoser, drf-yasg
 coreschema==0.0.4         # via coreapi, drf-yasg
+cryptography==3.2.1       # via social-auth-core
 decorator==4.4.2          # via ipython
-distlib==0.3.0            # via virtualenv
+defusedxml==0.6.0         # via python3-openid, social-auth-core
+distlib==0.3.1            # via virtualenv
 dj-database-url==0.5.0    # via -r requirements.in
-django-anymail==7.2       # via -r requirements.in
-django-cors-headers==3.4.0  # via -r requirements.in
-django-extensions==2.2.9  # via -r requirements.in
+django-anymail==8.1       # via -r requirements.in
+django-cors-headers==3.5.0  # via -r requirements.in
+django-extensions==3.1.0  # via -r requirements.in
 django-templated-mail==1.1.1  # via djoser
-django==3.1.1             # via -r requirements.in, django-anymail, django-cors-headers, djangorestframework, djangorestframework-simplejwt, drf-yasg
-djangorestframework-simplejwt==4.4.0  # via -r requirements.in
-djangorestframework==3.11.1  # via -r requirements.in, djangorestframework-simplejwt, drf-yasg
-djoser==2.0.5             # via -r requirements.in
-drf-yasg==1.17.1          # via -r requirements.in
+django==3.1.3             # via -r requirements.in, django-anymail, django-cors-headers, djangorestframework, djangorestframework-simplejwt, drf-yasg
+djangorestframework-simplejwt==4.6.0  # via -r requirements.in, djoser
+djangorestframework==3.12.2  # via -r requirements.in, djangorestframework-simplejwt, drf-yasg
+djoser==2.1.0             # via -r requirements.in
+drf-yasg==1.20.0          # via -r requirements.in
 factory-boy==3.1.0        # via -r requirements.in
-faker==4.0.3              # via factory-boy
+faker==4.17.1             # via factory-boy
 filelock==3.0.12          # via virtualenv
-freezegun==0.3.15         # via pytest-freezegun
+freezegun==1.0.0          # via pytest-freezegun
 gunicorn==20.0.4          # via -r requirements.in
-identify==1.4.14          # via pre-commit
+identify==1.5.10          # via pre-commit
 idna==2.10                # via requests
 inflection==0.5.1         # via drf-yasg
+iniconfig==1.1.1          # via pytest
 ipython-genutils==0.2.0   # via traitlets
 ipython==7.19.0           # via -r requirements.in
 itypes==1.2.0             # via coreapi
 jedi==0.17.2              # via ipython
 jinja2==2.11.2            # via coreschema
 markupsafe==1.1.1         # via jinja2
-more-itertools==8.2.0     # via pytest
 mypy-extensions==0.4.3    # via black, mypy
 mypy==0.790               # via -r requirements.in
-nodeenv==1.3.5            # via pre-commit
-packaging==20.3           # via drf-yasg, pytest
+nodeenv==1.5.0            # via pre-commit
+oauthlib==3.1.0           # via requests-oauthlib, social-auth-core
+packaging==20.4           # via drf-yasg, pytest
 parso==0.7.1              # via jedi
-pathspec==0.8.0           # via black
+pathspec==0.8.1           # via black
 pexpect==4.8.0            # via ipython
 pickleshare==0.7.5        # via ipython
-pip-tools==5.0.0          # via -r requirements.in
+pip-tools==5.4.0          # via -r requirements.in
 pluggy==0.13.1            # via pytest
-pre-commit==2.2.0         # via -r requirements.in
+pre-commit==2.9.2         # via -r requirements.in
 prompt-toolkit==3.0.8     # via ipython
-psycopg2==2.8.5           # via -r requirements.in
+psycopg2==2.8.6           # via -r requirements.in
 ptyprocess==0.6.0         # via pexpect
-py==1.8.1                 # via pytest
+py==1.9.0                 # via pytest
+pycparser==2.20           # via cffi
 pygments==2.7.2           # via ipython
-pyjwt==1.7.1              # via djangorestframework-simplejwt
+pyjwt==1.7.1              # via djangorestframework-simplejwt, social-auth-core
 pyparsing==2.4.7          # via packaging
-pytest-django==3.9.0      # via -r requirements.in
-pytest-freezegun==0.4.1   # via -r requirements.in
-pytest-randomly==3.4.0    # via -r requirements.in
-pytest-timeout==1.4.1     # via -r requirements.in
-pytest==5.4.1             # via -r requirements.in, pytest-django, pytest-freezegun, pytest-randomly, pytest-timeout
+pytest-django==4.1.0      # via -r requirements.in
+pytest-freezegun==0.4.2   # via -r requirements.in
+pytest-randomly==3.5.0    # via -r requirements.in
+pytest-timeout==1.4.2     # via -r requirements.in
+pytest==6.1.2             # via -r requirements.in, pytest-django, pytest-freezegun, pytest-randomly, pytest-timeout
 python-dateutil==2.8.1    # via faker, freezegun
-pytz==2019.3              # via django
+python3-openid==3.2.0     # via social-auth-core
+pytz==2020.4              # via django
 pyyaml==5.3.1             # via pre-commit
-regex==2020.4.4           # via black
-requests==2.24.0          # via coreapi, django-anymail
+regex==2020.11.13         # via black
+requests-oauthlib==1.3.0  # via social-auth-core
+requests==2.25.0          # via coreapi, django-anymail, requests-oauthlib, social-auth-core
 ruamel.yaml.clib==0.2.2   # via ruamel.yaml
 ruamel.yaml==0.16.12      # via drf-yasg
-six==1.14.0               # via django-anymail, django-extensions, drf-yasg, freezegun, packaging, pip-tools, python-dateutil, virtualenv
-sqlparse==0.3.1           # via django
+six==1.15.0               # via cryptography, packaging, pip-tools, python-dateutil, social-auth-app-django, social-auth-core, virtualenv
+social-auth-app-django==4.0.0  # via djoser
+social-auth-core==3.3.3   # via social-auth-app-django
+sqlparse==0.4.1           # via django
 text-unidecode==1.3       # via faker
-toml==0.10.2              # via black, pre-commit
+toml==0.10.2              # via black, pre-commit, pytest
 traitlets==5.0.5          # via ipython
 typed-ast==1.4.1          # via black, mypy
-typing-extensions==3.7.4.2  # via black, mypy
+typing-extensions==3.7.4.3  # via black, mypy
 uritemplate==3.0.1        # via coreapi, drf-yasg
-urllib3==1.25.10          # via requests
-virtualenv==20.0.18       # via pre-commit
-wcwidth==0.1.9            # via prompt-toolkit, pytest
-whitenoise==5.0.1         # via -r requirements.in
+urllib3==1.26.2           # via requests
+virtualenv==20.2.1        # via pre-commit
+wcwidth==0.2.5            # via prompt-toolkit
+whitenoise==5.2.0         # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
