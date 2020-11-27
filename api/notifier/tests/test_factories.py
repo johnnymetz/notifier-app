@@ -1,9 +1,9 @@
 import datetime
+from zoneinfo import ZoneInfo
 
 from django.utils import timezone
 
 import pytest
-import pytz
 
 from notifier.tests.factories import FriendFactory
 
@@ -18,12 +18,12 @@ def test_freeze_time_functionality():
     # print(timezone.now())  # UTC time
     # print(timezone.localdate())  # Local date
     # print(timezone.localtime())  # Local datetime
-    assert datetime.datetime.now(tz=pytz.timezone("UTC")) == timezone.now()
+    assert datetime.datetime.now(tz=ZoneInfo("UTC")) == timezone.now()
     assert (
-        datetime.datetime.now(tz=pytz.timezone("America/Los_Angeles"))
+        datetime.datetime.now(tz=ZoneInfo("America/Los_Angeles"))
         == timezone.localtime()
     )
     assert datetime.datetime.now().date() == timezone.localdate(
-        timezone=pytz.timezone("UTC")
+        timezone=ZoneInfo("UTC")
     )
     assert datetime.datetime.now() == datetime.datetime.today()
