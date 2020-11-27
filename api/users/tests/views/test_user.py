@@ -24,7 +24,8 @@ def test_read_current_user(client, token_headers):
     assert r.status_code == status.HTTP_200_OK
     assert r.data["id"] == u.id
     assert len(r.data["all_friends"]) == 1
-    assert "upcoming_friends" in r.data
+    assert "friends_with_birthday_today" in r.data
+    assert "friends_with_birthday_upcoming" in r.data
 
 
 @pytest.mark.django_db

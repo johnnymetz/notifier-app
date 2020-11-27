@@ -20,4 +20,5 @@ def test_read_user_fields():
     assert sorted([f["id"] for f in data["all_friends"]]) == sorted(
         [friend1.id, friend2.id, friend3.id]
     )
-    assert "upcoming_friends" in data
+    assert "friends_with_birthday_today" in data
+    assert "friends_with_birthday_upcoming" in data

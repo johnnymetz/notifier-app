@@ -181,7 +181,7 @@ export default ({ friends }) => {
 
   return (
     <>
-      <h5 className="text-center">My Friends</h5>
+      <h5 className="text-center">All Friends</h5>
 
       {friends.length === 0 ? (
         <div className="text-center mt-3">

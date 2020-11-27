@@ -23,7 +23,7 @@ context('Index', () => {
   it('display headers', () => {
     cy.contains('h5', 'Upcoming');
     cy.contains('h5', 'Add Friend');
-    cy.contains('h5', 'My Friends');
+    cy.contains('h5', 'All Friends');
   });
 
   it('display friends table', () => {
@@ -38,12 +38,26 @@ context('Index', () => {
     cy.get('[data-test=friends-list]>tbody>tr').its('length').should('eq', 1);
   });
 
+  it('clicking month label toggles dropdown values', () => {
+    cy.get('[data-test=create-friend-month-input]')
+      .find(':selected')
+      .contains('01');
+    cy.contains('label', 'Month').click();
+    cy.get('[data-test=create-friend-month-input]')
+      .find(':selected')
+      .contains('January');
+    cy.contains('label', 'Month').click();
+    cy.get('[data-test=create-friend-month-input]')
+      .find(':selected')
+      .contains('01');
+  });
+
   it('add friend', () => {
     cy.get('[data-test=friends-list]>tbody>tr').as('rows');
     cy.get('@rows').should('have.length', 4);
 
     cy.get('[data-test=create-friend-name-input]').type('JJ Reddick');
-    cy.get('[data-test=create-friend-month-input]').select('June');
+    cy.get('[data-test=create-friend-month-input]').select('06');
     cy.get('[data-test=create-friend-day-input]').type('24');
     cy.get('[data-test=create-friend-year-input]').type('1984{enter}');
 
@@ -73,7 +87,7 @@ context('Index', () => {
     cy.get('@firstRow').find('.ellipsis-dropdown-toggle').click();
     cy.get('@firstRow').contains('Edit').click();
     cy.get('[data-test=update-friend-name-input]').clear().type('JJ Reddick');
-    cy.get('[data-test=update-friend-month-input]').select('June');
+    cy.get('[data-test=update-friend-month-input]').select('06');
     cy.get('[data-test=update-friend-day-input]').clear().type('24{enter}');
 
     cy.wait('@editFriend').its('status').should('eq', 200);
