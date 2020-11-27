@@ -10,7 +10,7 @@ shell:
 	docker container exec -it notifier-app_api_1 bash
 
 pyshell:
-	@docker-compose exec api ./manage.py shell_plus --ipython
+	@docker-compose exec api ./manage.py shell_plus --ipython -- --profile=me
 
 logs:
 	docker container logs -f notifier-app_api_1

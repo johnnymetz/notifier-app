@@ -35,6 +35,7 @@ services:
       - '8000:8000'
     volumes:
       - ./api:/app
+      - ./api/ipython_config.py:/root/.ipython/profile_me/ipython_config.py
     environment:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - DB_HOST=db

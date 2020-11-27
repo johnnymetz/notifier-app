@@ -153,3 +153,28 @@ http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password
   - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)
 - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
 - [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)
+
+## iPython Notes
+
+https://ipythonbook.com/
+
+```
+./manage.py shell_plus --ipython -- --profile=me
+ipython locate me
+
+%autoreload 2  # automatically reload modules so new session isn't required on code changes
+%env
+%hist -n
+%lsmagic
+%magic -brief
+help(random.randint)
+random.randint?
+random.randint??
+%quickref
+%recall 3
+%rerun 3
+%timeit square(2)
+%who
+%whos
+%whos str
+```
