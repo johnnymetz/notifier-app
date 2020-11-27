@@ -9,7 +9,7 @@ from notifier.models import Friend
 def import_friend(friend_data, user):
     name, bday = friend_data
     friend, created = Friend.objects.get_or_create(
-        user=user, name=name, date_of_birth=datetime.date(*bday),
+        user=user, name=name, date_of_birth=datetime.date(*bday)
     )
     return friend, created
 
@@ -20,7 +20,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("email", type=str, help="User email")
         parser.add_argument(
-            "-f", "--filename", help="Friends file (defaults to '{email}_friends.csv')",
+            "-f", "--filename", help="Friends file (defaults to '{email}_friends.csv')"
         )
 
     def handle(self, *args, **options):

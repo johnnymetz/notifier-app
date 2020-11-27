@@ -10,4 +10,4 @@ def validate_date_of_birth(value: datetime.date):
     if value.year == UNKNOWN_YEAR:
         return
     elif value > timezone.localdate():
-        raise ValidationError(f"Date of birth cannot be in the future")
+        raise ValidationError("Date of birth cannot be in the future")

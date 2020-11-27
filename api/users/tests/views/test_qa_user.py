@@ -58,8 +58,6 @@ def test_delete_qa_users(qa_creds, client):
     url = reverse("seed-qa-user")
     r = client.delete(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    r = client.delete(
-        url, data={"auth": "Cypress789"}, content_type="application/json",
-    )
+    r = client.delete(url, data={"auth": "Cypress789"}, content_type="application/json")
     assert r.status_code == status.HTTP_204_NO_CONTENT
     assert not User.objects.exists()
