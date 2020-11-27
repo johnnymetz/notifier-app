@@ -26,6 +26,7 @@ pre-commit autoupdate
 pre-commit run all-files
 pip-compile upgrade  # then rebuild docker images
 npm update
+node and python versions  # in Dockerfiles and heroku runtimes as well (runtime.txt + package.json)!
 ```
 
 ## Todo
