@@ -13,9 +13,8 @@ npm run cypress:open
 
 ## Todo
 
-- Eye icon for password toggle
-- Add cypress tests to ensure redirect to login when logged in and trying to visit signup, activate account, reset password, etc.
 - Unit test helper functions
+- Add cypress tests to ensure redirect to login when logged in and trying to visit signup, activate account, reset password, etc.
 
 ## Later
 

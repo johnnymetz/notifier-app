@@ -19,14 +19,16 @@ export default ({ name, label, dataTestId, ...props }) => {
           type={showPassword ? 'text' : 'password'}
           isInvalid={touched && error}
           data-test={dataTestId}
+          style={{ borderRight: (!touched || !error) && 0 }}
           {...field}
           {...props}
         />
         <InputGroup.Append>
           <Button
-            variant="outline-secondary"
+            variant="link"
             onClick={() => setShowPassword(!showPassword)}
             title={showPassword ? 'Hide password' : 'Show password'}
+            style={{ border: '1px solid #ced4da', borderLeft: 0 }}
           >
             <FontAwesomeIcon
               icon={showPassword ? faEyeSlash : faEye}
