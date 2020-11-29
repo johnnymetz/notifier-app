@@ -44,13 +44,6 @@ def test_event_name_validation():
         EventFactory(name=event.name)
 
 
-@pytest.mark.freeze_time("2020-01-01")
-@pytest.mark.django_db
-def test_event_annual_date_validation():
-    with pytest.raises(ValidationError):
-        EventFactory(annual_date=datetime.date(2030, 1, 1))
-
-
 @pytest.mark.django_db
 def test_user_events_limit_validation():
     user = UserFactory()

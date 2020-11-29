@@ -6,6 +6,7 @@ from django.urls import reverse
 import pytest
 from rest_framework import status
 
+from notifier.models import Event
 from users.tests.factories import TEST_PASSWORD, UserFactory
 
 User = get_user_model()
@@ -61,3 +62,4 @@ def test_delete_qa_users(qa_creds, client):
     r = client.delete(url, data={"auth": "Cypress789"}, content_type="application/json")
     assert r.status_code == status.HTTP_204_NO_CONTENT
     assert not User.objects.exists()
+    assert not Event.objects.exists()

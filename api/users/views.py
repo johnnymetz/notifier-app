@@ -1,8 +1,9 @@
+import datetime
 import os
 from types import SimpleNamespace
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -37,15 +38,26 @@ class SeedQaUser(APIView):
         )
 
     def post(self, request, *args, **kwargs):
+        from notifier.models import Event
+
         qa_creds = self._get_and_delete_qa_users()
 
         qa_user = User.objects.create(email=qa_creds.email1)
         qa_user.set_password(qa_creds.password)
         qa_user.save()
 
-        _ = qa_user.add_events_from_csv(
-            filename=f"{settings.BASE_DIR}/notifier/data/qa_events.csv"
-        )
+        # create user events
+        today = timezone.localdate()
+        for name, date in [
+            ("Event1", today),
+            ("Event2", today + datetime.timedelta(days=1)),
+            ("Event3", today + datetime.timedelta(days=30)),
+            ("Event4", today + datetime.timedelta(days=120)),
+            # TODO: test whether future event is returned as "today"
+            ("Event5", today + datetime.timedelta(days=365)),
+        ]:
+            assert isinstance(date, datetime.date)
+            Event.objects.get_or_create(user=qa_user, name=name, annual_date=date)
 
         serializer = UserSerializer(qa_user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

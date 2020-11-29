@@ -4,7 +4,6 @@ from django.utils import timezone
 
 from notifier.constants import BIRTHDAY_FORMAT, MAX_EVENTS_PER_USER, UNKNOWN_YEAR
 from notifier.exceptions import NotifierException
-from notifier.validators import validate_annual_date
 
 
 class Event(models.Model):
@@ -12,7 +11,7 @@ class Event(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="events"
     )
     name = models.CharField(max_length=255, unique=True)
-    annual_date = models.DateField(validators=[validate_annual_date])
+    annual_date = models.DateField()
 
     class Meta:
         ordering = ["annual_date__month", "annual_date__day"]
