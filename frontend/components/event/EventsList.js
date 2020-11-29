@@ -16,7 +16,7 @@ import { useTable, usePagination, useGlobalFilter } from 'react-table';
 import useAuth from 'contexts/auth';
 import apiClient from 'services/api';
 // import { wait } from 'utils/helpers';
-import EditFriendModal from 'components/friend/EditFriendModal';
+import EditEventModal from 'components/event/EditEventModal';
 import ConfirmModal from 'components/widgets/ConfirmModal';
 
 const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
@@ -30,7 +30,7 @@ const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
         setValue(e.target.value);
         onChange(e.target.value);
       }}
-      data-test="friends-list-search"
+      data-test="events-list-search"
     />
   );
 };
@@ -49,23 +49,23 @@ const CustomDropdownToggle = forwardRef(({ children, onClick }, ref) => (
   </div>
 ));
 
-export default ({ friends }) => {
+export default ({ events }) => {
   const { fetchUser } = useAuth();
-  const [selectedFriend, setSelectedFriend] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEditFormModal, setShowEditFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const deleteFriend = async () => {
+  const deleteEvent = async () => {
     setIsDeleting(true);
     // await wait(2000);
     const { error } = await apiClient.authenticatedDelete(
-      `friends/${selectedFriend.id}`
+      `events/${selectedEvent.id}`
     );
     if (error) {
       console.error(error);
     } else {
-      toast.success(`"${selectedFriend.name}" successfully deleted`);
+      toast.success(`"${selectedEvent.name}" successfully deleted`);
       await fetchUser();
     }
     setIsDeleting(false);
@@ -79,10 +79,10 @@ export default ({ friends }) => {
         accessor: 'name',
       },
       {
-        Header: 'Birthday',
+        Header: 'Date',
         accessor: d => {
-          const monthStr = d.date_of_birth.month.toString().padStart(2, 0);
-          const dayStr = d.date_of_birth.day.toString().padStart(2, 0);
+          const monthStr = d.annual_date.month.toString().padStart(2, 0);
+          const dayStr = d.annual_date.day.toString().padStart(2, 0);
           return `${monthStr}-${dayStr}`;
         },
       },
@@ -95,12 +95,12 @@ export default ({ friends }) => {
         width: 70, // just large enough for 2 buttons with loading icon
         className: 'text-right',
         Cell: ({ row: { original } }) => {
-          const friend = {
+          const event = {
             id: original.id,
             name: original.name,
-            day: original.date_of_birth.day,
-            month: original.date_of_birth.month,
-            year: original.date_of_birth.year,
+            day: original.annual_date.day,
+            month: original.annual_date.month,
+            year: original.annual_date.year,
           };
           return (
             <div className="text-right">
@@ -112,7 +112,7 @@ export default ({ friends }) => {
                 <Dropdown.Menu>
                   <Dropdown.Item
                     onClick={() => {
-                      setSelectedFriend(friend);
+                      setSelectedEvent(event);
                       setShowEditFormModal(true);
                     }}
                   >
@@ -125,7 +125,7 @@ export default ({ friends }) => {
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
-                      setSelectedFriend(friend);
+                      setSelectedEvent(event);
                       setShowDeleteModal(true);
                     }}
                   >
@@ -172,7 +172,7 @@ export default ({ friends }) => {
   } = useTable(
     {
       columns,
-      data: friends,
+      data: events,
       initialState: { pageSize: 5 },
     },
     useGlobalFilter,
@@ -181,11 +181,11 @@ export default ({ friends }) => {
 
   return (
     <>
-      <h5 className="text-center">All Friends</h5>
+      <h5 className="text-center">All Events</h5>
 
-      {friends.length === 0 ? (
+      {events.length === 0 ? (
         <div className="text-center mt-3">
-          Add a friend above to get started
+          Add an event above to get started
         </div>
       ) : (
         <>
@@ -199,7 +199,7 @@ export default ({ friends }) => {
             hover
             responsive
             {...getTableProps()}
-            data-test="friends-list"
+            data-test="events-list"
           >
             <thead>
               {headerGroups.map(headerGroup => (
@@ -273,18 +273,18 @@ export default ({ friends }) => {
             </div>
           </div>
 
-          <EditFriendModal
+          <EditEventModal
             showModal={showEditFormModal}
             setShowModal={setShowEditFormModal}
-            friendValues={selectedFriend}
+            eventValues={selectedEvent}
           />
 
           <ConfirmModal
             showModal={showDeleteModal}
             setShowModal={setShowDeleteModal}
-            onConfirm={deleteFriend}
-            title={'Delete Friend?'}
-            body={`Please confirm that you want to delete ${selectedFriend?.name}.`}
+            onConfirm={deleteEvent}
+            title={'Delete Event?'}
+            body={`Please confirm that you want to delete ${selectedEvent?.name}.`}
             confirmButtonText={'Delete'}
             isSubmitting={isDeleting}
           />

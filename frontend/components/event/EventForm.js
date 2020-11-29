@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import apiClient from 'services/api';
 import useAuth from 'contexts/auth';
 import { range, padNumber } from 'utils/helpers';
-import { FriendSchema } from 'utils/formSchemas';
+import { EventSchema } from 'utils/formSchemas';
 import TextField from 'components/widgets/formikFields/TextField';
 import SelectField from 'components/widgets/formikFields/SelectField';
 import SubmitButton from 'components/widgets/SubmitButton';
@@ -27,15 +27,15 @@ const MONTHS = [
   'December',
 ];
 
-export default ({ action, friendValues = {}, setShowModal = null }) => {
+export default ({ action, eventValues = {}, setShowModal = null }) => {
   const { fetchUser } = useAuth();
   const [showMonthNames, setShowMonthNames] = useState(false);
 
   const initialValues = {
-    name: friendValues.name || '',
-    month: friendValues.month || 1,
-    day: friendValues.day || '',
-    year: friendValues.year || '',
+    name: eventValues.name || '',
+    month: eventValues.month || 1,
+    day: eventValues.day || '',
+    year: eventValues.year || '',
   };
 
   const getMonthDropdownOptions = () => {
@@ -63,28 +63,28 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={FriendSchema}
+      validationSchema={EventSchema}
       onSubmit={async (
         { name, month, day, year },
         { setSubmitting, setFieldError, resetForm }
       ) => {
         const payload = {
           name: name,
-          date_of_birth: { month: parseInt(month), day: parseInt(day) },
+          annual_date: { month: parseInt(month), day: parseInt(day) },
         };
         if (year) {
-          payload.date_of_birth.year = parseInt(year);
+          payload.annual_date.year = parseInt(year);
         }
         setSubmitting(true);
         let data, error;
         if (action === 'create') {
           ({ data, error } = await apiClient.authenticatedPost(
-            'friends/',
+            'events/',
             payload
           ));
         } else if (action === 'update') {
           ({ data, error } = await apiClient.authenticatedPatch(
-            `friends/${friendValues.id}/`,
+            `events/${eventValues.id}/`,
             payload
           ));
         } else {
@@ -121,7 +121,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 Name <span className="text-danger">&#x2a;</span>
               </span>
             }
-            dataTestId={`${action}-friend-name-input`}
+            dataTestId={`${action}-event-name-input`}
           />
 
           <Form.Row>
@@ -137,7 +137,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 title: 'Click to toggle month names',
                 onClick: () => setShowMonthNames(!showMonthNames),
               }}
-              dataTestId={`${action}-friend-month-input`}
+              dataTestId={`${action}-event-month-input`}
               as={Col}
             />
 
@@ -148,7 +148,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                   Day <span className="text-danger">&#x2a;</span>
                 </span>
               }
-              dataTestId={`${action}-friend-day-input`}
+              dataTestId={`${action}-event-day-input`}
               type="number"
               as={Col}
             />
@@ -156,7 +156,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             <TextField
               name="year"
               label="Year"
-              dataTestId={`${action}-friend-year-input`}
+              dataTestId={`${action}-event-year-input`}
               type="number"
               as={Col}
             />

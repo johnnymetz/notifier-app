@@ -1,16 +1,16 @@
 import Modal from 'react-bootstrap/Modal';
-import FriendForm from 'components/friend/FriendForm';
+import EventForm from 'components/event/EventForm';
 
-export default ({ showModal, setShowModal, friendValues }) => {
+export default ({ showModal, setShowModal, eventValues }) => {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Friend</Modal.Title>
+        <Modal.Title>Edit Event</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <FriendForm
+        <EventForm
           action={'update'}
-          friendValues={friendValues}
+          eventValues={eventValues}
           setShowModal={setShowModal}
         />
       </Modal.Body>
