@@ -21,9 +21,9 @@ def test_create_event():
 
 
 @pytest.mark.django_db
-def test_event_date_display():
+def test_event_annual_date_display():
     event = EventFactory(annual_date=datetime.date(2000, 2, 2))
-    assert event.date_display == "02-02"
+    assert event.annual_date_display == "02-02"
 
 
 @pytest.mark.freeze_time("2020-01-01")

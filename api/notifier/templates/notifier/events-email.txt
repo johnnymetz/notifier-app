@@ -11,7 +11,7 @@ No events today :(
 Upcoming
 {% if events_upcoming %}
   {% for event in events_upcoming %}
-- {{ event }} ({{ event.date_display }})
+- {{ event }} ({{ event.annual_date_display }})
   {% endfor %}
 {% else %}
 No events upcoming

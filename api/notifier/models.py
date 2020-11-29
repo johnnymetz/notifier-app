@@ -32,7 +32,7 @@ class Event(models.Model):
         )
 
     @property
-    def date_display(self):
+    def annual_date_display(self):
         return self.annual_date.strftime(BIRTHDAY_FORMAT)
 
     def clean(self):

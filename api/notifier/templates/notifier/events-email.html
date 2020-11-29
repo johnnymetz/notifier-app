@@ -24,7 +24,7 @@
       {% if events_upcoming %}
         {% for event in events_upcoming %}
         <li>
-          {{ event }} ({{ event.date_display }})
+          {{ event }} ({{ event.annual_date_display }})
         </li>
         {% endfor %}
       {% else %}

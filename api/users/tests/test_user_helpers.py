@@ -47,7 +47,12 @@ def test_get_events_upcoming_at_month_start(settings):
     assert event3 in events
     assert event4 in events
     assert len(events) == 4
-    assert [f.date_display for f in events] == ["01-02", "01-02", "01-05", "01-05"]
+    assert [f.annual_date_display for f in events] == [
+        "01-02",
+        "01-02",
+        "01-05",
+        "01-05",
+    ]
 
 
 @pytest.mark.freeze_time("2020-01-30")

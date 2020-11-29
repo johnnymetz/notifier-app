@@ -60,7 +60,7 @@ class User(AbstractUser):
             query |= f
 
         events = self.events.filter(query)
-        events_sorted = sorted(events, key=lambda x: x.date_display)
+        events_sorted = sorted(events, key=lambda x: x.annual_date_display)
         return events_sorted
 
     def get_events_email_context(self) -> dict:
