@@ -13,9 +13,9 @@ docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
 ./manage.py migrate
 ./manage.py createsuperuser
-./manage.py import_friends EMAIL
-./manage.py export_friends EMAIL
-./manage.py send_birthday_emails EMAIL
+./manage.py import_events EMAIL
+./manage.py export_events EMAIL
+./manage.py send_events_emails EMAIL
 
 # development using email settings
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
@@ -87,7 +87,7 @@ heroku ps -a notifier-app-api
 
 # backend exec
 heroku run -a notifier-app-api bash
-heroku run -a notifier-app-api python manage.py send_birthday_emails EMAIL
+heroku run -a notifier-app-api python manage.py send_events_emails EMAIL
 
 # check production settings on heroku server
 ./manage.py check --deploy --settings api.settings.production

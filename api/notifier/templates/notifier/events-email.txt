@@ -1,0 +1,18 @@
+Today ({{ today_display }})
+
+{% if events_today %}
+  {% for event in events_today %}
+- {{ event }}
+  {% endfor %}
+{% else %}
+No events today :(
+{% endif %}
+
+Upcoming
+{% if events_upcoming %}
+  {% for event in events_upcoming %}
+- {{ event }} ({{ event.date_display }})
+  {% endfor %}
+{% else %}
+No events upcoming
+{% endif %}

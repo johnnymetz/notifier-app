@@ -6,18 +6,18 @@ from django.urls import reverse
 import pytest
 from rest_framework import status
 
-from notifier.tests.factories import FriendFactory
+from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
 
 User = get_user_model()
 
 
 @pytest.mark.django_db
-def test_read_friend_list(client, token_headers):
+def test_read_event_list(client, token_headers):
     # TODO: this get request is not used and should probably be removed
-    FriendFactory()
-    FriendFactory()
-    url = reverse("friend-list")
+    EventFactory()
+    EventFactory()
+    url = reverse("event-list")
     r = client.get(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
@@ -27,25 +27,25 @@ def test_read_friend_list(client, token_headers):
 
 
 @pytest.mark.django_db
-def test_read_friend_detail(client, token_headers):
+def test_read_event_detail(client, token_headers):
     u = User.objects.get()
-    friend = FriendFactory(user=u)
-    url = reverse("friend-detail", args=[friend.id])
+    event = EventFactory(user=u)
+    url = reverse("event-detail", args=[event.id])
     r = client.get(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
-    assert r.data["id"] == friend.id
+    assert r.data["id"] == event.id
 
 
 @pytest.mark.django_db
-def test_create_friend(client, token_headers):
+def test_create_event(client, token_headers):
     u = User.objects.get()
-    url = reverse("friend-list")
+    url = reverse("event-list")
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "date_of_birth": {"year": date.year, "month": date.month, "day": date.day},
+        "annual_date": {"year": date.year, "month": date.month, "day": date.day},
     }
     r = client.post(url, data=data, content_type="application/json", **token_headers)
     assert r.status_code == status.HTTP_201_CREATED
@@ -54,14 +54,14 @@ def test_create_friend(client, token_headers):
 
 
 @pytest.mark.django_db
-def test_update_friend(client, token_headers):
+def test_update_event(client, token_headers):
     u = User.objects.get()
-    friend = FriendFactory(user=u)
-    url = reverse("friend-detail", args=[friend.id])
+    event = EventFactory(user=u)
+    url = reverse("event-detail", args=[event.id])
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "date_of_birth": {"year": date.year, "month": date.month, "day": date.day},
+        "annual_date": {"year": date.year, "month": date.month, "day": date.day},
     }
     r = client.patch(url, data=data, content_type="application/json", **token_headers)
     assert r.status_code == status.HTTP_200_OK
@@ -70,22 +70,22 @@ def test_update_friend(client, token_headers):
 
 
 @pytest.mark.django_db
-def test_delete_friend(client, token_headers):
+def test_delete_event(client, token_headers):
     u = User.objects.get()
-    friend = FriendFactory(user=u)
-    url = reverse("friend-detail", args=[friend.id])
+    event = EventFactory(user=u)
+    url = reverse("event-detail", args=[event.id])
     r = client.delete(url, **token_headers, content_type="application/json")
     assert r.status_code == status.HTTP_204_NO_CONTENT
     assert r.data is None
-    assert not u.friends.exists()
+    assert not u.events.exists()
 
 
 @pytest.mark.django_db
-def test_user_cant_read_or_delete_friend_of_another_user(client, token_headers):
+def test_user_cant_read_or_delete_event_of_another_user(client, token_headers):
     _ = User.objects.get()
     u = UserFactory()
-    u_friend = FriendFactory(user=u)
-    url = reverse("friend-detail", args=[u_friend.id])
+    u_event = EventFactory(user=u)
+    url = reverse("event-detail", args=[u_event.id])
     r = client.get(url, **token_headers)  # token belongs to _
     assert r.status_code == status.HTTP_403_FORBIDDEN
     r = client.delete(url, **token_headers)  # token belongs to _

@@ -6,9 +6,9 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    all_friends = serializers.SerializerMethodField()
-    friends_with_birthday_today = serializers.SerializerMethodField()
-    friends_with_birthday_upcoming = serializers.SerializerMethodField()
+    all_events = serializers.SerializerMethodField()
+    events_today = serializers.SerializerMethodField()
+    events_upcoming = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -16,27 +16,27 @@ class UserSerializer(serializers.ModelSerializer):
             "id",
             "email",
             "is_subscribed",
-            "all_friends",
-            "friends_with_birthday_today",
-            "friends_with_birthday_upcoming",
+            "all_events",
+            "events_today",
+            "events_upcoming",
         )
 
     @staticmethod
-    def get_all_friends(obj):
-        from notifier.serializers import FriendSerializer
+    def get_all_events(obj):
+        from notifier.serializers import EventSerializer
 
-        return FriendSerializer(obj.friends.all(), many=True).data
-
-    @staticmethod
-    def get_friends_with_birthday_today(obj):
-        from notifier.serializers import FriendSerializer
-
-        friends_with_birthday_today = obj.get_friends_with_birthday_today()
-        return FriendSerializer(friends_with_birthday_today, many=True).data
+        return EventSerializer(obj.events.all(), many=True).data
 
     @staticmethod
-    def get_friends_with_birthday_upcoming(obj):
-        from notifier.serializers import FriendSerializer
+    def get_events_today(obj):
+        from notifier.serializers import EventSerializer
 
-        friends_with_bday_upcoming = obj.get_friends_with_birthday_within(days=5)
-        return FriendSerializer(friends_with_bday_upcoming, many=True).data
+        events_today = obj.get_events_today()
+        return EventSerializer(events_today, many=True).data
+
+    @staticmethod
+    def get_events_upcoming(obj):
+        from notifier.serializers import EventSerializer
+
+        events_upcoming = obj.get_events_upcoming(days=5)
+        return EventSerializer(events_upcoming, many=True).data

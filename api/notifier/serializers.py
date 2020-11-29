@@ -3,7 +3,7 @@ import datetime
 from rest_framework import serializers
 
 from notifier.constants import UNKNOWN_YEAR
-from notifier.models import Friend
+from notifier.models import Event
 
 # class YearField(serializers.IntegerField):
 #     def to_representation(self, value):
@@ -44,14 +44,14 @@ class DateField(serializers.Field):
             raise serializers.ValidationError("Error parsing birth date")
 
 
-class FriendSerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
-    # date_of_birth = DateSerializer()
-    date_of_birth = DateField()
+    # annual_date = DateSerializer()
+    annual_date = DateField()
 
     class Meta:
-        model = Friend
-        fields = ("id", "user", "name", "date_of_birth", "age")
+        model = Event
+        fields = ("id", "user", "name", "annual_date", "age")
 
     def create(self, validated_data):
         return self.Meta.model.objects.create(
@@ -61,8 +61,8 @@ class FriendSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         try:
             instance.name = validated_data.get("name", instance.name)
-            instance.date_of_birth = validated_data.get(
-                "date_of_birth", instance.date_of_birth
+            instance.annual_date = validated_data.get(
+                "annual_date", instance.annual_date
             )
             instance.save()
             return instance

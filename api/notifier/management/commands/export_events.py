@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Export friends for a user."
+    help = "Export events for a user."
 
     def add_arguments(self, parser):
         parser.add_argument("email", type=str, help="User email")
@@ -19,14 +19,14 @@ class Command(BaseCommand):
         except User.DoesNotExist:
             raise Exception(f"User {email} does not exist.")
 
-        filename = f"{email}_friends.csv"
+        filename = f"{email}_events.csv"
         with open(filename, mode="w") as f:
             count = 0
             writer = csv.writer(f)
-            for friend in user.friends.order_by("name").all():
-                writer.writerow([friend.name, friend.date_of_birth])
+            for event in user.events.order_by("name").all():
+                writer.writerow([event.name, event.annual_date])
                 count += 1
 
         self.stdout.write(
-            self.style.SUCCESS(f"{count} friends export to {filename} successfully.")
+            self.style.SUCCESS(f"{count} events export to {filename} successfully.")
         )

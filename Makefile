@@ -24,7 +24,7 @@ dbmigrate:
 dbseed:
 	@docker-compose exec api ./manage.py migrate
 	@docker-compose exec api ./manage.py createsuperuser --email ${MY_EMAIL}
-	@docker-compose exec api ./manage.py import_friends ${MY_EMAIL}
+	@docker-compose exec api ./manage.py import_events ${MY_EMAIL}
 
 cleandb:
 	# kill any existing sessions connected to db

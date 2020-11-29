@@ -43,8 +43,8 @@ class SeedQaUser(APIView):
         qa_user.set_password(qa_creds.password)
         qa_user.save()
 
-        _ = qa_user.add_friends_from_csv(
-            filename=f"{settings.BASE_DIR}/notifier/data/qa_friends.csv"
+        _ = qa_user.add_events_from_csv(
+            filename=f"{settings.BASE_DIR}/notifier/data/qa_events.csv"
         )
 
         serializer = UserSerializer(qa_user)

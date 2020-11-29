@@ -2,11 +2,11 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from notifier.views import EmailMock, FriendViewset
+from notifier.views import EmailMock, EventViewset
 from users.views import SeedQaUser
 
 router = DefaultRouter()
-router.register("friends", FriendViewset)
+router.register("events", EventViewset)
 
 urlpatterns = [
     path("", include(router.urls)),

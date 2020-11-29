@@ -144,7 +144,7 @@ cython_debug/
 .DS_Store
 debugger.py
 api/static/
-api/*_friends.csv
+api/*_events.csv
 cypress.env.json
 frontend/cypress/fixtures/
 frontend/cypress/screenshots/

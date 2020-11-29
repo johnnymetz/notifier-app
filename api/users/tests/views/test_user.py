@@ -6,7 +6,7 @@ import djoser.utils
 import pytest
 from rest_framework import status
 
-from notifier.tests.factories import FriendFactory
+from notifier.tests.factories import EventFactory
 from users.tests.factories import TEST_PASSWORD, UserFactory
 
 User = get_user_model()
@@ -15,7 +15,7 @@ User = get_user_model()
 @pytest.mark.django_db
 def test_read_current_user(client, token_headers):
     u = User.objects.get()
-    FriendFactory(user=u)
+    EventFactory(user=u)
     UserFactory()
     url = reverse("user-me")
     r = client.get(url)
@@ -23,9 +23,9 @@ def test_read_current_user(client, token_headers):
     r = client.get(url, **token_headers)
     assert r.status_code == status.HTTP_200_OK
     assert r.data["id"] == u.id
-    assert len(r.data["all_friends"]) == 1
-    assert "friends_with_birthday_today" in r.data
-    assert "friends_with_birthday_upcoming" in r.data
+    assert len(r.data["all_events"]) == 1
+    assert "events_today" in r.data
+    assert "events_upcoming" in r.data
 
 
 @pytest.mark.django_db

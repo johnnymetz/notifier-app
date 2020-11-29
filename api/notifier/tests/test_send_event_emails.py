@@ -15,7 +15,7 @@ def test_email_group_of_users(mailoutbox):
         UserFactory(),
     ]
     call_command(
-        "send_birthday_emails",
+        "send_event_emails",
         *[u.email for u in users],
         users[0].email,  # duplicate is skipped
         "xxx@mail.com",  # non-existent is skipped
@@ -30,5 +30,5 @@ def test_email_all_users(mailoutbox):
     UserFactory(is_subscribed=False)
     UserFactory(is_active=False, is_subscribed=False)
     UserFactory()
-    call_command("send_birthday_emails", "all")
+    call_command("send_event_emails", "all")
     assert len(mailoutbox) == 2
