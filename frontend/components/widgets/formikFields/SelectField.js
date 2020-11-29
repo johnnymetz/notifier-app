@@ -14,9 +14,7 @@ export default ({
 
   return (
     <Form.Group as={as}>
-      <Form.Label {...labelProps}>
-        Month <span className="text-danger">&#x2a;</span>
-      </Form.Label>
+      <Form.Label {...labelProps}>{label}</Form.Label>
       <Form.Control
         name={name}
         as="select"
