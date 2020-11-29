@@ -128,6 +128,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 AUTH_USER_MODEL = "users.User"
 
 
+# django-templated-mail
+DOMAIN = "localhost"
+SITE_NAME = "Notifire"
+
+
+SWAGGER_SETTINGS = {
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    },
+}
+
+
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "api.pagination.CustomPageNumberPagination",
     "PAGE_SIZE": 5,
@@ -175,15 +188,4 @@ DJOSER = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(weeks=1),
-}
-
-# django-templated-mail
-DOMAIN = "localhost"
-SITE_NAME = "Notifire"
-
-SWAGGER_SETTINGS = {
-    "USE_SESSION_AUTH": False,
-    "SECURITY_DEFINITIONS": {
-        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"}
-    },
 }
