@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
-import SetEmailForm from 'components/user/SetEmailForm';
+import SetEmailForm from 'components/auth/SetEmailForm';
 
 export default ({ showModal, setShowModal, onSubmit }) => {
   return (

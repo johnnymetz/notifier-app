@@ -13,15 +13,13 @@ npm run cypress:open
 
 ## Todo
 
-- Add cypress tests for signup, set email and set password
-  - Redirect to login when logged in and trying to visit signup, activate account, reset password, etc.
+- Eye icon for password toggle
+- Add cypress tests to ensure redirect to login when logged in and trying to visit signup, activate account, reset password, etc.
 - Unit test helper functions
-- Dry up formik code with generic form fields
-- Check out [react-notification-system](https://github.com/igorprado/react-notification-system)
 
 ## Later
 
-- Look into Next Redux (store exists on both client and server)
+- Add a chart
 
 ## Resources
 
@@ -31,3 +29,4 @@ npm run cypress:open
 - [More cool loading icons](https://youtu.be/AW0eFKDhAFg)
 - [Another cool loading icon](https://youtu.be/xSNlsSfvwac)
 - [Deploy next app to heroku](https://github.com/mars/heroku-nextjs)
+- [react-notification-system](https://github.com/igorprado/react-notification-system)

@@ -1,18 +1,12 @@
-import { useState } from 'react';
+import { Formik, Form as FormikForm } from 'formik';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Button from 'react-bootstrap/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 import { SignupSchema } from 'utils/formSchemas';
+import TextField from 'components/widgets/formikFields/TextField';
+import PasswordField from 'components/widgets/formikFields/PasswordField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
 export default ({ onSubmit }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRePassword, setShowRePassword] = useState(false);
-
   return (
     <Formik
       initialValues={{ email: '', password: '', re_password: '' }}
@@ -21,85 +15,20 @@ export default ({ onSubmit }) => {
         await onSubmit(values, setFieldError);
       }}
     >
-      {({ errors, touched, isSubmitting }) => (
+      {({ isSubmitting }) => (
         <FormikForm as={Form}>
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Field
-              name="email"
-              as={Form.Control}
-              isInvalid={touched.email && errors.email}
-              data-test="signup-email"
-            />
-            <Form.Control.Feedback
-              type="invalid"
-              data-test="signup-email-invalid-feedback"
-            >
-              <ErrorMessage name="email" />
-            </Form.Control.Feedback>
-          </Form.Group>
+          <TextField name="email" label="Email" dataTestId="signup-email" />
 
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <InputGroup>
-              <Field
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                as={Form.Control}
-                isInvalid={touched.password && errors.password}
-                data-test="signup-password"
-              />
-              <InputGroup.Append>
-                <Button
-                  variant="outline-secondary"
-                  onClick={() => setShowPassword(!showPassword)}
-                  title={showPassword ? 'Hide password' : 'Show password'}
-                >
-                  <FontAwesomeIcon
-                    icon={showPassword ? faEyeSlash : faEye}
-                    size={'sm'}
-                  />
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-            <Form.Control.Feedback
-              type="invalid"
-              data-test="signup-password-invalid-feedback"
-            >
-              <ErrorMessage name="password" />
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Verify Password</Form.Label>
-            <InputGroup>
-              <Field
-                name="re_password"
-                type={showRePassword ? 'text' : 'password'}
-                as={Form.Control}
-                isInvalid={touched.re_password && errors.re_password}
-                data-test="signup-re-password"
-              />
-              <InputGroup.Append>
-                <Button
-                  variant="outline-secondary"
-                  onClick={() => setShowRePassword(!showRePassword)}
-                  title={showRePassword ? 'Hide password' : 'Show password'}
-                >
-                  <FontAwesomeIcon
-                    icon={showRePassword ? faEyeSlash : faEye}
-                    size={'sm'}
-                  />
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-            <Form.Control.Feedback
-              type="invalid"
-              data-test="signup-re-password-invalid-feedback"
-            >
-              <ErrorMessage name="re_password" />
-            </Form.Control.Feedback>
-          </Form.Group>
+          <PasswordField
+            name="password"
+            label="Password"
+            dataTestId="signup-password"
+          />
+          <PasswordField
+            name="re_password"
+            label="Verify Password"
+            dataTestId="signup-re-password"
+          />
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
             Sign Up

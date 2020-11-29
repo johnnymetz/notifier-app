@@ -1,13 +1,15 @@
+import { Formik, Form as FormikForm } from 'formik';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 import apiClient from 'services/api';
 import useAuth from 'contexts/auth';
 import { range, padNumber } from 'utils/helpers';
 import { FriendSchema } from 'utils/formSchemas';
+import TextField from 'components/widgets/formikFields/TextField';
+import SelectField from 'components/widgets/formikFields/SelectField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
 const MONTHS = [
@@ -110,82 +112,54 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
         }
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        isSubmitting,
-      }) => (
+      {({ isSubmitting }) => (
         <FormikForm as={Form}>
-          <Form.Group>
-            <Form.Label>Name *</Form.Label>
-            <Field
-              name="name"
-              as={Form.Control}
-              isInvalid={touched.name && errors.name}
-              data-test={`${action}-friend-name-input`}
-            />
-            <Form.Control.Feedback type="invalid">
-              <ErrorMessage name="name" />
-            </Form.Control.Feedback>
-          </Form.Group>
+          <TextField
+            name="name"
+            label={
+              <span>
+                Name <span className="text-danger">&#x2a;</span>
+              </span>
+            }
+            dataTestId={`${action}-friend-name-input`}
+          />
 
           <Form.Row>
-            <Form.Group as={Col}>
-              <Form.Label
-                title="Click to toggle month names"
-                onClick={() => setShowMonthNames(!showMonthNames)}
-              >
-                Month *
-              </Form.Label>
-              <Form.Control
-                name="month"
-                as="select"
-                value={values.month}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                isInvalid={touched.month && errors.month}
-                data-test={`${action}-friend-month-input`}
-              >
-                {/* <option value="" disabled selected hidden>
-                  Month
-                </option> */}
-                {getMonthDropdownOptions()}
-              </Form.Control>
-              <Form.Control.Feedback type="invalid">
-                <ErrorMessage name="month" />
-              </Form.Control.Feedback>
-            </Form.Group>
+            <SelectField
+              name="month"
+              options={getMonthDropdownOptions()}
+              label={
+                <span>
+                  Month <span className="text-danger">&#x2a;</span>
+                </span>
+              }
+              labelProps={{
+                title: 'Click to toggle month names',
+                onClick: () => setShowMonthNames(!showMonthNames),
+              }}
+              dataTestId={`${action}-friend-month-input`}
+              as={Col}
+            />
 
-            <Form.Group as={Col}>
-              <Form.Label>Day *</Form.Label>
-              <Field
-                type="number"
-                name="day"
-                as={Form.Control}
-                isInvalid={touched.day && errors.day}
-                data-test={`${action}-friend-day-input`}
-              />
-              <Form.Control.Feedback type="invalid">
-                <ErrorMessage name="day" />
-              </Form.Control.Feedback>
-            </Form.Group>
+            <TextField
+              name="day"
+              label={
+                <span>
+                  Day <span className="text-danger">&#x2a;</span>
+                </span>
+              }
+              dataTestId={`${action}-friend-day-input`}
+              type="number"
+              as={Col}
+            />
 
-            <Form.Group as={Col}>
-              <Form.Label>Year</Form.Label>
-              <Field
-                type="number"
-                name="year"
-                as={Form.Control}
-                isInvalid={touched.year && errors.year}
-                data-test={`${action}-friend-year-input`}
-              />
-              <Form.Control.Feedback type="invalid">
-                <ErrorMessage name="year" />
-              </Form.Control.Feedback>
-            </Form.Group>
+            <TextField
+              name="year"
+              label="Year"
+              dataTestId={`${action}-friend-year-input`}
+              type="number"
+              as={Col}
+            />
           </Form.Row>
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>

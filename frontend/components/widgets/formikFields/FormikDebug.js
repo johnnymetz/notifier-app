@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormikConsumer } from 'formik';
 
 const Debug = () => (

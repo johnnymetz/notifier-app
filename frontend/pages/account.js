@@ -7,8 +7,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
 
-import SetEmailModal from 'components/user/SetEmailModal';
-import SetPasswordModal from 'components/user/SetPasswordModal';
+import SetEmailModal from 'components/auth/SetEmailModal';
+import SetPasswordModal from 'components/auth/SetPasswordModal';
 import { PrivateRoute, useAuth } from 'contexts/auth';
 
 const AccountSetting = ({ label, value, onChange }) => (

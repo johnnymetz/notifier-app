@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
-import SetPasswordForm from 'components/user/SetPasswordForm';
+import SetPasswordForm from 'components/auth/SetPasswordForm';
 
 export default ({ showModal, setShowModal, onSubmit }) => {
   return (

@@ -1,7 +1,8 @@
+import { Formik, Form as FormikForm } from 'formik';
 import Form from 'react-bootstrap/Form';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 
 import { SendResetPasswordEmailSchema } from 'utils/formSchemas';
+import TextField from 'components/widgets/formikFields/TextField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
 export default ({ onSubmit }) => {
@@ -13,19 +14,9 @@ export default ({ onSubmit }) => {
         await onSubmit(values, setFieldError);
       }}
     >
-      {({ errors, touched, isSubmitting }) => (
+      {({ isSubmitting }) => (
         <FormikForm as={Form}>
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Field
-              name="email"
-              as={Form.Control}
-              isInvalid={touched.email && errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              <ErrorMessage name="email" />
-            </Form.Control.Feedback>
-          </Form.Group>
+          <TextField name="email" label="Email" />
 
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
             Reset Password
