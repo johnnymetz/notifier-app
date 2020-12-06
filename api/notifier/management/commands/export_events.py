@@ -24,7 +24,7 @@ class Command(BaseCommand):
             count = 0
             writer = csv.writer(f)
             for event in user.events.order_by("name").all():
-                writer.writerow([event.name, event.annual_date])
+                writer.writerow([event.name, event.annual_date, event.type])
                 count += 1
 
         self.stdout.write(

@@ -16,7 +16,9 @@ from users.tests.factories import UserFactory
 def test_create_event():
     user = UserFactory()
     today = timezone.localdate()
-    event = Event.objects.create(user=user, name="JJ Reddick", annual_date=today)
+    event = Event.objects.create(
+        user=user, name="JJ Reddick", annual_date=today, type=Event.EventType.BIRTHDAY
+    )
     assert event in Event.objects.all()
 
 

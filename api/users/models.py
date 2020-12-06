@@ -22,7 +22,7 @@ class User(AbstractUser):
     is_subscribed = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS: List[str] = []
+    REQUIRED_FIELDS: List[str] = []  # change to list[str] once mypy supports python 3.9
 
     objects = UserManager()
 
@@ -37,7 +37,8 @@ class User(AbstractUser):
             Q(annual_date__month=today.month, annual_date__day=today.day)
         )
 
-    def get_events_upcoming(self, days: int):
+    # TODO: figure out how to use list[Event] type hint even though Event isn't defined yet
+    def get_events_upcoming(self, days: int) -> list:
         today = timezone.localdate()
         later = today + datetime.timedelta(days=days)
 
@@ -60,7 +61,10 @@ class User(AbstractUser):
             query |= f
 
         events = self.events.filter(query)
+
+        # TODO: can prob sort using order_by
         events_sorted = sorted(events, key=lambda x: x.annual_date_display)
+
         return events_sorted
 
     def get_events_email_context(self) -> dict:
@@ -88,6 +92,7 @@ class User(AbstractUser):
             from_email=from_email,
         )
 
+    # TODO: same type hint thing as above
     def add_events_from_csv(self, filename: str) -> list:
         from notifier.models import Event
 
@@ -98,10 +103,14 @@ class User(AbstractUser):
         with open(filename) as f:
             csv_reader = csv.reader(f)
             for row in csv_reader:
+                name, annual_date_str, _type = row
                 event, created = Event.objects.get_or_create(
                     user=self,
-                    name=row[0],
-                    annual_date=datetime.datetime.strptime(row[1], "%Y-%m-%d").date(),
+                    name=name,
+                    annual_date=datetime.datetime.strptime(
+                        annual_date_str, "%Y-%m-%d"
+                    ).date(),
+                    type=_type,
                 )
                 if created:
                     created_events.append(event)

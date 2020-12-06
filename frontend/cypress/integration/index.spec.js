@@ -31,6 +31,7 @@ context('Index', () => {
     cy.get('@rows').should('have.length', 4);
     cy.get('@rows').contains('td', 'Event1');
     cy.get('@rows').contains('td', '03-28');
+    cy.get('@rows').contains('td', 'Birthday');
   });
 
   it('filter events table', () => {

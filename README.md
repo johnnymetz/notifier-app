@@ -26,13 +26,16 @@ pre-commit autoupdate
 pre-commit run all-files
 pip-compile upgrade  # then rebuild docker images
 npm update
-node and python versions  # in Dockerfiles and heroku runtimes as well (runtime.txt + package.json)!
+node and python versions  # Dockerfiles, heroku runtime, mypy config
 ```
 
 ## Todo
 
-- Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
+- Use direct type hints
+- Add silk and/or django debug toolbar
+- Address TODOs in code
 - Change no year from 1000 to na or null or 0 or something else because older years are now supported
+- Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed:
 
 ```
@@ -50,13 +53,12 @@ LOGGING = {
 
 ## Todo (maybe later)
 
-- Address TODOs in code
 - Sendgrid batch api
 - Move config files to pyproject.toml
 - Papertrail heroku plugin
 - Unit test emails
-- Add silk and/or django debug toolbar
 - Try time-machine instead of freezegun: https://github.com/adamchainz/time-machine
+- Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
 
 ## Notes
 

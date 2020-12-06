@@ -48,16 +48,18 @@ class SeedQaUser(APIView):
 
         # create user events
         today = timezone.localdate()
-        for name, date in [
-            ("Event1", today),
-            ("Event2", today + datetime.timedelta(days=1)),
-            ("Event3", today + datetime.timedelta(days=30)),
-            ("Event4", today + datetime.timedelta(days=120)),
+        for name, date, _type in [
+            ("Event1", today, Event.EventType.BIRTHDAY),
+            ("Event2", today + datetime.timedelta(days=1), Event.EventType.BIRTHDAY),
+            ("Event3", today + datetime.timedelta(days=30), Event.EventType.BIRTHDAY),
+            ("Event4", today + datetime.timedelta(days=120), Event.EventType.BIRTHDAY),
             # TODO: test whether future event is returned as "today"
-            ("Event5", today + datetime.timedelta(days=365)),
+            ("Event5", today + datetime.timedelta(days=365), Event.EventType.BIRTHDAY),
         ]:
             assert isinstance(date, datetime.date)
-            Event.objects.get_or_create(user=qa_user, name=name, annual_date=date)
+            Event.objects.get_or_create(
+                user=qa_user, name=name, annual_date=date, type=_type
+            )
 
         serializer = UserSerializer(qa_user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

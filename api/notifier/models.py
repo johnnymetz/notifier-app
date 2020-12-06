@@ -7,14 +7,20 @@ from notifier.exceptions import NotifierException
 
 
 class Event(models.Model):
+    class Meta:
+        ordering = ["annual_date__month", "annual_date__day"]
+
+    class EventType(models.TextChoices):
+        BIRTHDAY = "Birthday"
+        HOLIDAY = "Holiday"
+        OTHER = "Other"
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="events"
     )
     name = models.CharField(max_length=255, unique=True)
+    type = models.CharField(max_length=255, choices=EventType.choices)
     annual_date = models.DateField()
-
-    class Meta:
-        ordering = ["annual_date__month", "annual_date__day"]
 
     @property
     def age(self):

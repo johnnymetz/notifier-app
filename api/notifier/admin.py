@@ -11,9 +11,9 @@ from notifier.models import Event
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ("user", "__str__", "annual_date")
-    list_filter = ["annual_date"]
-    search_fields = ["annual_date__month", "annual_date__day"]
+    list_display = ("user", "__str__", "annual_date", "type")
+    list_filter = ["annual_date", "type"]
+    search_fields = ["annual_date__month", "annual_date__day", "type"]
     date_hierarchy = "annual_date"
 
 

@@ -1,17 +1,5 @@
-import datetime
-
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
-
-from notifier.models import Event
-
-
-def import_event(event_data, user):
-    name, date = event_data
-    event, created = Event.objects.get_or_create(
-        user=user, name=name, annual_date=datetime.date(*date)
-    )
-    return event, created
 
 
 class Command(BaseCommand):

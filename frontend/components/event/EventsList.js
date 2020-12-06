@@ -59,9 +59,7 @@ export default ({ events }) => {
   const deleteEvent = async () => {
     setIsDeleting(true);
     // await wait(2000);
-    const { error } = await apiClient.authenticatedDelete(
-      `events/${selectedEvent.id}`
-    );
+    const { error } = await apiClient.deleteEvent(selectedEvent.id);
     if (error) {
       console.error(error);
     } else {
@@ -91,6 +89,10 @@ export default ({ events }) => {
         accessor: 'age',
       },
       {
+        Header: 'Type',
+        accessor: 'type',
+      },
+      {
         Header: 'Actions',
         width: 70, // just large enough for 2 buttons with loading icon
         className: 'text-right',
@@ -101,6 +103,7 @@ export default ({ events }) => {
             day: original.annual_date.day,
             month: original.annual_date.month,
             year: original.annual_date.year,
+            type: original.type,
           };
           return (
             <div className="text-right">
@@ -284,7 +287,12 @@ export default ({ events }) => {
             setShowModal={setShowDeleteModal}
             onConfirm={deleteEvent}
             title={'Delete Event?'}
-            body={`Please confirm that you want to delete ${selectedEvent?.name}.`}
+            body={
+              <span>
+                Please confirm that you want to delete{' '}
+                <b>{selectedEvent?.name}</b>.
+              </span>
+            }
             confirmButtonText={'Delete'}
             isSubmitting={isDeleting}
           />

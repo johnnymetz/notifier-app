@@ -1,4 +1,5 @@
 import datetime
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -18,6 +19,7 @@ def test_read_event_fields():
     assert data["annual_date"]["year"] == event.annual_date.year
     assert data["annual_date"]["month"] == event.annual_date.month
     assert data["annual_date"]["day"] == event.annual_date.day
+    assert data["type"] == event.type
     assert data["age"] == event.age
 
 
@@ -32,20 +34,20 @@ def test_read_event_fields_without_year():
     assert data["annual_date"]["year"] is None
     assert data["annual_date"]["month"] == event.annual_date.month
     assert data["annual_date"]["day"] == event.annual_date.day
+    assert data["type"] == event.type
     assert data["age"] == event.age
 
 
 @pytest.mark.django_db
-def test_create_event(rf):
+def test_create_event():
     u = UserFactory()
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
         "annual_date": {"year": date.year, "month": date.month, "day": date.day},
+        "type": "Birthday",
     }
-    request = rf.post("/whatever")
-    request.user = u
-    serializer = EventSerializer(data=data, context={"request": request})
+    serializer = EventSerializer(data=data, context={"request": MagicMock(user=u)})
     assert serializer.is_valid(raise_exception=True)
     event = serializer.save()
     assert event.name == data["name"]
@@ -61,6 +63,7 @@ def test_update_event():
     data = {
         "name": "JJ Reddick",
         "annual_date": {"year": date.year, "month": date.month, "day": date.day},
+        "type": "Birthday",
     }
     serializer = EventSerializer(event, data=data)
     assert serializer.is_valid(raise_exception=True)
@@ -78,6 +81,7 @@ def test_update_event_without_year():
     data = {
         "name": "JJ Reddick",
         "annual_date": {"month": date.month, "day": date.day},
+        "type": "Birthday",
     }
     serializer = EventSerializer(event, data=data)
     assert serializer.is_valid(raise_exception=True)

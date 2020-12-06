@@ -5,25 +5,6 @@ from rest_framework import serializers
 from notifier.constants import UNKNOWN_YEAR
 from notifier.models import Event
 
-# class YearField(serializers.IntegerField):
-#     def to_representation(self, value):
-#         year = int(value)
-#         return None if year == UNKNOWN_YEAR else year
-
-
-# class DateSerializer(serializers.Serializer):
-#     year = YearField(required=False)
-#     month = serializers.IntegerField()
-#     day = serializers.IntegerField()
-#
-#     def validate(self, data):
-#         try:
-#             return datetime.date(
-#                 data.get("year", UNKNOWN_YEAR), data["month"], data["day"]
-#             )
-#         except ValueError as e:
-#             raise serializers.ValidationError(e)
-
 
 class DateField(serializers.Field):
     def to_representation(self, value):
@@ -46,12 +27,11 @@ class DateField(serializers.Field):
 
 class EventSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
-    # annual_date = DateSerializer()
     annual_date = DateField()
 
     class Meta:
         model = Event
-        fields = ("id", "user", "name", "annual_date", "age")
+        fields = ("id", "user", "name", "annual_date", "type", "age")
 
     def create(self, validated_data):
         return self.Meta.model.objects.create(
@@ -64,6 +44,7 @@ class EventSerializer(serializers.ModelSerializer):
             instance.annual_date = validated_data.get(
                 "annual_date", instance.annual_date
             )
+            instance.type = validated_data.get("type", instance.type)
             instance.save()
             return instance
         except ValueError as e:

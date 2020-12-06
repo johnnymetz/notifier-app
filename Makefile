@@ -18,10 +18,10 @@ logs:
 dbshell:
 	PGPASSWORD=postgres psql -h localhost -U postgres -d notifier
 
-dbmigrate:
+migratedb:
 	@docker-compose exec api ./manage.py migrate
 
-dbseed:
+seeddb:
 	@docker-compose exec api ./manage.py migrate
 	@docker-compose exec api ./manage.py createsuperuser --email ${MY_EMAIL}
 	@docker-compose exec api ./manage.py import_events ${MY_EMAIL}

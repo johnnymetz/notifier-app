@@ -6,6 +6,7 @@ from django.urls import reverse
 import pytest
 from rest_framework import status
 
+from notifier.models import Event
 from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
 
@@ -46,6 +47,7 @@ def test_create_event(client, token_headers):
     data = {
         "name": "JJ Reddick",
         "annual_date": {"year": date.year, "month": date.month, "day": date.day},
+        "type": "Birthday",
     }
     r = client.post(url, data=data, content_type="application/json", **token_headers)
     assert r.status_code == status.HTTP_201_CREATED
@@ -58,15 +60,29 @@ def test_update_event(client, token_headers):
     u = User.objects.get()
     event = EventFactory(user=u)
     url = reverse("event-detail", args=[event.id])
-    date = datetime.date(1994, 1, 24)
+
+    name = "Something else"
+    date = datetime.date(1994, 1, 1)
+    _type = Event.EventType.OTHER
+    assert event.name != name
+    assert event.annual_date != date
+    assert event.type != _type
+
     data = {
-        "name": "JJ Reddick",
+        "name": name,
         "annual_date": {"year": date.year, "month": date.month, "day": date.day},
+        "type": _type.value,
     }
     r = client.patch(url, data=data, content_type="application/json", **token_headers)
     assert r.status_code == status.HTTP_200_OK
-    assert r.data["name"] == data["name"]
+    assert r.data["name"] == name
+    assert r.data["type"] == _type.value
     assert r.data["user"] == u.id
+
+    event.refresh_from_db()
+    assert event.name == name
+    assert event.annual_date == date
+    assert event.type == _type
 
 
 @pytest.mark.django_db
