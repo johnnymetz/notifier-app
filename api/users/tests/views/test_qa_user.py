@@ -32,7 +32,9 @@ def test_seed_qa_user(qa_creds, client):
     r = client.post(url, data={"auth": "Cypress789"})
     assert r.status_code == status.HTTP_201_CREATED
     assert r.data["email"] == qa_creds.email1
-    assert len(r.data["all_events"]) == 5
+    assert r.data["events_today"]
+    assert r.data["events_upcoming"]
+    assert r.data["all_events"]
     assert User.objects.count() == 1
     u = User.objects.get()
     assert u.check_password(qa_creds.password)

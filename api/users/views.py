@@ -38,6 +38,7 @@ class SeedQaUser(APIView):
         )
 
     def post(self, request, *args, **kwargs):
+        from notifier.constants import UNKNOWN_YEAR
         from notifier.models import Event
 
         qa_creds = self._get_and_delete_qa_users()
@@ -48,17 +49,25 @@ class SeedQaUser(APIView):
 
         # create user events
         today = timezone.localdate()
-        for name, date, _type in [
-            ("Event1", today, Event.EventType.BIRTHDAY),
-            ("Event2", today + datetime.timedelta(days=1), Event.EventType.BIRTHDAY),
-            ("Event3", today + datetime.timedelta(days=30), Event.EventType.BIRTHDAY),
-            ("Event4", today + datetime.timedelta(days=120), Event.EventType.BIRTHDAY),
-            # TODO: test whether future event is returned as "today"
-            ("Event5", today + datetime.timedelta(days=365), Event.EventType.BIRTHDAY),
-        ]:
+        for i, (date, _type) in enumerate(
+            [
+                # today
+                (today, Event.EventType.BIRTHDAY),
+                (today.replace(year=UNKNOWN_YEAR), Event.EventType.BIRTHDAY),
+                (today + datetime.timedelta(days=365), Event.EventType.OTHER),
+                # tomorrow
+                (today + datetime.timedelta(days=1), Event.EventType.OTHER),
+                (today - datetime.timedelta(days=364), Event.EventType.BIRTHDAY),
+                # other days
+                (today - datetime.timedelta(days=1), Event.EventType.BIRTHDAY),
+                (today - datetime.timedelta(days=300), Event.EventType.BIRTHDAY),
+                (today + datetime.timedelta(days=30), Event.EventType.OTHER),
+                (today + datetime.timedelta(days=120), Event.EventType.OTHER),
+            ]
+        ):
             assert isinstance(date, datetime.date)
             Event.objects.get_or_create(
-                user=qa_user, name=name, annual_date=date, type=_type
+                user=qa_user, name=f"Event{i + 1}", annual_date=date, type=_type
             )
 
         serializer = UserSerializer(qa_user)

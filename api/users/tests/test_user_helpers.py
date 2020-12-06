@@ -16,12 +16,12 @@ def test_get_events_today(settings):
     event1 = EventFactory(user=user, annual_date=datetime.date(1990, 1, 1))
     event2 = EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 1))
     EventFactory(user=user, annual_date=datetime.date(1990, 1, 2))
-    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 3))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 2))
+    EventFactory(user=user, annual_date=datetime.date(1989, 12, 31))
+    EventFactory(user=user, annual_date=datetime.date(2021, 1, 1))
+    EventFactory(user=user, annual_date=datetime.date(2030, 1, 1))
     EventFactory(user=user2, annual_date=datetime.date(1990, 1, 1))
-    events = user.get_events_today()
-    assert event1 in events
-    assert event2 in events
-    assert events.count() == 2
+    assert set(user.get_events_today()) == {event1, event2}
 
 
 @pytest.mark.freeze_time("2020-01-01")
@@ -40,19 +40,10 @@ def test_get_events_upcoming_at_month_start(settings):
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 1))
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 6))
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 12, 31))
+    EventFactory(user=user, annual_date=datetime.date(2021, 1, 2))
+    EventFactory(user=user, annual_date=datetime.date(2030, 1, 3))
     EventFactory(user=user2, annual_date=datetime.date(1990, 1, 2))
-    events = user.get_events_upcoming(days=5)
-    assert event1 in events
-    assert event2 in events
-    assert event3 in events
-    assert event4 in events
-    assert len(events) == 4
-    assert [f.annual_date_display for f in events] == [
-        "01-02",
-        "01-02",
-        "01-05",
-        "01-05",
-    ]
+    assert list(user.get_events_upcoming(days=5)) == [event1, event3, event2, event4]
 
 
 @pytest.mark.freeze_time("2020-01-30")
@@ -68,9 +59,4 @@ def test_get_events_upcoming_at_month_end(settings):
     EventFactory(user=user, annual_date=datetime.date(1990, 2, 10))
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 30))
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 2, 10))
-    events = user.get_events_upcoming(days=5)
-    assert event1 in events
-    assert event2 in events
-    assert event3 in events
-    assert event4 in events
-    assert len(events) == 4
+    assert list(user.get_events_upcoming(days=5)) == [event1, event3, event2, event4]

@@ -1,6 +1,6 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const EventsListItem = ({ event, highlight = false }) => {
+const EventsListItem = ({ event, today = false }) => {
   const currentYear = new Date().getFullYear();
   const date = new Date(
     `${event.annual_date.month}/${event.annual_date.day}/${currentYear}`
@@ -10,15 +10,18 @@ const EventsListItem = ({ event, highlight = false }) => {
     month: 'long',
     day: 'numeric',
   });
+
   return (
-    <ListGroup.Item variant={highlight && 'info'}>
-      {event.age ? (
+    <ListGroup.Item variant={today && 'warning'}>
+      {event.annual_date.year ? (
         <span>
-          <b>{event.name}</b> is turning {event.age} on {dateString}
+          <b>{event.name}</b> is turning{' '}
+          {today ? `${event.age} today` : `${event.age + 1} on ${dateString}`}
         </span>
       ) : (
         <span>
-          <b>{event.name}</b> has a birthday on {dateString}
+          <b>{event.name}</b> has a birthday{' '}
+          {today ? 'today' : `on ${dateString}`}
         </span>
       )}
     </ListGroup.Item>
@@ -28,7 +31,7 @@ const EventsListItem = ({ event, highlight = false }) => {
 const EventsListGroup = ({ events_today, events_upcoming }) => (
   <ListGroup>
     {events_today.map(event => (
-      <EventsListItem key={event.id} event={event} highlight={true} />
+      <EventsListItem key={event.id} event={event} today={true} />
     ))}
     {events_upcoming.map(event => (
       <EventsListItem key={event.id} event={event} />

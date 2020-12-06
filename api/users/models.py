@@ -31,14 +31,20 @@ class User(AbstractUser):
 
     # CUSTOM METHODS
 
+    # TODO: type hint qs return value, also figure out how to use
+    #  qa[Event] type hint even though Event isn't defined yet
     def get_events_today(self):
+        """
+        Get events today in history, including past events but excluding future events.
+        """
         today = timezone.localdate()
         return self.events.filter(
-            Q(annual_date__month=today.month, annual_date__day=today.day)
+            annual_date__month=today.month,
+            annual_date__day=today.day,
+            annual_date__year__lte=today.year,
         )
 
-    # TODO: figure out how to use list[Event] type hint even though Event isn't defined yet
-    def get_events_upcoming(self, days: int) -> list:
+    def get_events_upcoming(self, days: int):
         today = timezone.localdate()
         later = today + datetime.timedelta(days=days)
 
@@ -51,7 +57,11 @@ class User(AbstractUser):
 
         # Transform each into a Q object.
         filters = [
-            Q(annual_date__month=month, annual_date__day=day)
+            Q(
+                annual_date__month=month,
+                annual_date__day=day,
+                annual_date__year__lte=today.year,
+            )
             for month, day in monthdays
         ]
 
@@ -60,12 +70,9 @@ class User(AbstractUser):
         for f in filters:
             query |= f
 
-        events = self.events.filter(query)
-
-        # TODO: can prob sort using order_by
-        events_sorted = sorted(events, key=lambda x: x.annual_date_display)
-
-        return events_sorted
+        return self.events.filter(query).order_by(
+            "annual_date__month", "annual_date__day", "-annual_date__year"
+        )
 
     def get_events_email_context(self) -> dict:
         events_today = self.get_events_today()

@@ -37,6 +37,10 @@ def test_event_age(settings):
     assert EventFactory(annual_date=datetime.date(2000, 1, 1)).age == 20
     assert EventFactory(annual_date=datetime.date(1999, 11, 30)).age == 20
     assert EventFactory(annual_date=datetime.date(1999, 12, 31)).age == 20
+    assert EventFactory(annual_date=datetime.date(2020, 1, 1)).age == 0
+    assert EventFactory(annual_date=datetime.date(2020, 1, 2)).age == -1
+    assert EventFactory(annual_date=datetime.date(2020, 2, 2)).age == -1
+    assert EventFactory(annual_date=datetime.date(2021, 1, 2)).age == -2
 
 
 @pytest.mark.django_db
