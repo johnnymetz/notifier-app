@@ -14,8 +14,6 @@ npm run cypress:open
 ## Todo
 
 - Add cypress tests to...
-  - Ensure event today highlighted in upcomcing
-  - Ensure event in a day or so is in upcoming
   - Unit test helper functions
   - Ensure pressing eye icon displays password
   - Ensure redirect to login when logged in and trying to visit signup, activate account, reset password, etc.

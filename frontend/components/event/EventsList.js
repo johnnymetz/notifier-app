@@ -30,7 +30,7 @@ const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
         setValue(e.target.value);
         onChange(e.target.value);
       }}
-      data-test="events-list-search"
+      data-test="all-events-list-search"
     />
   );
 };
@@ -81,12 +81,22 @@ export default ({ events }) => {
         accessor: d => {
           const monthStr = d.annual_date.month.toString().padStart(2, 0);
           const dayStr = d.annual_date.day.toString().padStart(2, 0);
-          return `${monthStr}-${dayStr}`;
+          const year = d.annual_date.year;
+          return d.type === 'Birthday' || !year
+            ? `${monthStr}-${dayStr}`
+            : `${monthStr}-${dayStr}-${year}`;
         },
       },
       {
         Header: 'Age',
-        accessor: 'age',
+        accessor: d =>
+          d.age !== null && d.age >= 0 ? (
+            d.age
+          ) : (
+            <span title="Age unknown or event hasn't happened yet">
+              &ndash;
+            </span>
+          ),
       },
       {
         Header: 'Type',
@@ -202,7 +212,7 @@ export default ({ events }) => {
             hover
             responsive
             {...getTableProps()}
-            data-test="events-list"
+            data-test="all-events-list"
           >
             <thead>
               {headerGroups.map(headerGroup => (
@@ -272,7 +282,9 @@ export default ({ events }) => {
             </div>
             <div className="d-none d-md-block">
               Page {pageIndex + 1} of {pageOptions.length || 1}{' '}
-              <small className="text-muted">({rows.length} records)</small>
+              <small className="text-muted" data-test="all-events-count">
+                ({rows.length} records)
+              </small>
             </div>
           </div>
 

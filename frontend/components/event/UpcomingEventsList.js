@@ -1,4 +1,21 @@
 import ListGroup from 'react-bootstrap/ListGroup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBirthdayCake,
+  faGlassCheers,
+  faCalendarDay,
+} from '@fortawesome/free-solid-svg-icons';
+
+const getEventTypeIcon = eventType => {
+  switch (eventType) {
+    case 'Birthday':
+      return faBirthdayCake;
+    case 'Holiday':
+      return faGlassCheers;
+    default:
+      return faCalendarDay;
+  }
+};
 
 const EventsListItem = ({ event, today = false }) => {
   const currentYear = new Date().getFullYear();
@@ -12,29 +29,21 @@ const EventsListItem = ({ event, today = false }) => {
   });
 
   return (
-    <ListGroup.Item variant={today && 'warning'}>
-      {event.annual_date.year ? (
-        <span>
-          <b>{event.name}</b> is turning{' '}
-          {today ? `${event.age} today` : `${event.age + 1} on ${dateString}`}
-        </span>
-      ) : (
-        <span>
-          <b>{event.name}</b> has a birthday{' '}
-          {today ? 'today' : `on ${dateString}`}
-        </span>
-      )}
+    <ListGroup.Item>
+      <FontAwesomeIcon
+        icon={getEventTypeIcon(event.type)}
+        size={'sm'}
+        style={{ marginRight: 10 }}
+      />
+      <b>{event.name}</b> {!today && `on ${dateString}`}
     </ListGroup.Item>
   );
 };
 
-const EventsListGroup = ({ events_today, events_upcoming }) => (
-  <ListGroup>
-    {events_today.map(event => (
-      <EventsListItem key={event.id} event={event} today={true} />
-    ))}
-    {events_upcoming.map(event => (
-      <EventsListItem key={event.id} event={event} />
+const EventsListGroup = ({ events, today = false }) => (
+  <ListGroup data-test={today ? 'today-events-list' : 'upcoming-events-list'}>
+    {events.map(event => (
+      <EventsListItem key={event.id} event={event} today={today} />
     ))}
   </ListGroup>
 );
@@ -42,14 +51,17 @@ const EventsListGroup = ({ events_today, events_upcoming }) => (
 export default ({ events_today, events_upcoming }) => {
   return (
     <>
-      <h5 className="text-center">Upcoming Events</h5>
-      {events_today.length > 0 || events_upcoming.length > 0 ? (
-        <EventsListGroup
-          events_today={events_today}
-          events_upcoming={events_upcoming}
-        />
+      <h5 className="text-center">Today's Events</h5>
+      {events_today.length > 0 ? (
+        <EventsListGroup events={events_today} today={true} />
       ) : (
-        <div className="text-center mt-3">No upcoming events</div>
+        <div className="text-center mt-3">No events today</div>
+      )}
+      <h5 className="text-center mt-3">Upcoming Events</h5>
+      {events_upcoming.length > 0 ? (
+        <EventsListGroup events={events_upcoming} />
+      ) : (
+        <div className="text-center mt-3">No events upcoming</div>
       )}
     </>
   );

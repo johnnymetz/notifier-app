@@ -22,9 +22,10 @@ Cypress.Commands.add('login', (email, password) => {
   });
 });
 
-Cypress.Commands.add('seedQaUser', () => {
+Cypress.Commands.add('seedQaUser', dataset => {
   cy.request('POST', `${serverUrl}/seed/qa-user/`, {
     auth: 'Cypress789',
+    dataset: dataset,
   }).should(res => {
     expect(res.status).to.eq(201);
     expect(res.body.email).to.eq(qaUserEmail);

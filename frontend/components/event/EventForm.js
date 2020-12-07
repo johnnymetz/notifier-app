@@ -6,8 +6,8 @@ import Col from 'react-bootstrap/Col';
 
 import apiClient from 'services/api';
 import useAuth from 'contexts/auth';
-import { padNumber } from 'utils/helpers';
 import { EventSchema } from 'utils/formSchemas';
+import { handleDrfError } from 'utils/helpers';
 import TextField from 'components/widgets/formikFields/TextField';
 import SelectField from 'components/widgets/formikFields/SelectField';
 // import FormikDebug from 'components/widgets/formikFields/FormikDebug';
@@ -35,11 +35,13 @@ export default ({ action, eventValues, setShowModal }) => {
 
   const getEventTypeChoices = async () => {
     const choices = await apiClient.getEventTypeChoices();
-    const choicesTransformed = choices.map(x => ({
-      value: x.value,
-      label: x.display_name,
-    }));
-    setEventTypeChoices(choicesTransformed);
+    if (choices) {
+      const choicesTransformed = choices.map(x => ({
+        value: x.value,
+        label: x.display_name,
+      }));
+      setEventTypeChoices(choicesTransformed);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export default ({ action, eventValues, setShowModal }) => {
 
   const monthOptions = MONTHS.map((m, i) => ({
     value: i + 1,
-    label: showMonthNames ? m : padNumber(i + 1),
+    label: showMonthNames ? m : (i + 1).toString().padStart(2, '0'),
   }));
 
   const initialValues = {
@@ -100,12 +102,7 @@ export default ({ action, eventValues, setShowModal }) => {
           fetchUser();
           resetForm();
         } else {
-          console.warn(error);
-          if (error.name) {
-            setFieldError('name', error.name[0]);
-          } else if (typeof error === 'string') {
-            toast.error(error);
-          }
+          handleDrfError(error, ['name', 'type'], setFieldError);
         }
         setSubmitting(false);
         if (setShowModal) {
@@ -114,7 +111,7 @@ export default ({ action, eventValues, setShowModal }) => {
       }}
     >
       {({ isSubmitting }) => (
-        <FormikForm as={Form}>
+        <FormikForm as={Form} data-test={`${action}-event-form`}>
           <TextField
             name="name"
             label={

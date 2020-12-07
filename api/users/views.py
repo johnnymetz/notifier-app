@@ -49,22 +49,41 @@ class SeedQaUser(APIView):
 
         # create user events
         today = timezone.localdate()
-        for i, (date, _type) in enumerate(
-            [
+        if request.data.get("dataset") == "relative":
+            ten_years_ago = today.year - 10
+            dataset = [
                 # today
-                (today, Event.EventType.BIRTHDAY),
+                (today.replace(year=ten_years_ago), Event.EventType.BIRTHDAY),
                 (today.replace(year=UNKNOWN_YEAR), Event.EventType.BIRTHDAY),
                 (today + datetime.timedelta(days=365), Event.EventType.OTHER),
                 # tomorrow
                 (today + datetime.timedelta(days=1), Event.EventType.OTHER),
-                (today - datetime.timedelta(days=364), Event.EventType.BIRTHDAY),
+                (
+                    (today - datetime.timedelta(days=364)).replace(year=ten_years_ago),
+                    Event.EventType.BIRTHDAY,
+                ),
                 # other days
                 (today - datetime.timedelta(days=1), Event.EventType.BIRTHDAY),
                 (today - datetime.timedelta(days=300), Event.EventType.BIRTHDAY),
                 (today + datetime.timedelta(days=30), Event.EventType.OTHER),
-                (today + datetime.timedelta(days=120), Event.EventType.OTHER),
+                (
+                    (today + datetime.timedelta(days=30)).replace(year=ten_years_ago),
+                    Event.EventType.OTHER,
+                ),
+                (
+                    (today + datetime.timedelta(days=120)).replace(year=UNKNOWN_YEAR),
+                    Event.EventType.OTHER,
+                ),
             ]
-        ):
+        else:
+            dataset = [
+                (datetime.date(1994, 1, 24), Event.EventType.BIRTHDAY),
+                (datetime.date(1959, 3, 28), Event.EventType.BIRTHDAY),
+                (datetime.date(1960, 11, 26), Event.EventType.BIRTHDAY),
+                (datetime.date(1999, 12, 31), Event.EventType.HOLIDAY),
+            ]
+
+        for i, (date, _type) in enumerate(dataset):
             assert isinstance(date, datetime.date)
             Event.objects.get_or_create(
                 user=qa_user, name=f"Event{i + 1}", annual_date=date, type=_type
