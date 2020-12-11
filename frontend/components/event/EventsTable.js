@@ -194,8 +194,6 @@ export default ({ events }) => {
 
   return (
     <>
-      <h5 className="text-center">All Events</h5>
-
       {events.length === 0 ? (
         <div className="text-center mt-3">
           Add an event above to get started
