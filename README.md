@@ -39,7 +39,6 @@ node and python versions  # Dockerfiles, heroku runtime, mypy config
 - Add pre commit hooks:
   - Run pyupgrade
   - Run pytest
-  - Check django migrations
   - markdownlint
   - some docker lint
   - something else from [super-linter](https://github.com/github/super-linter)
