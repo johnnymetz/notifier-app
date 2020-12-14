@@ -16,7 +16,7 @@ logs:
 	docker container logs -f notifier-app_api_1
 
 dbshell:
-	PGPASSWORD=postgres psql -h localhost -U postgres -d notifier
+	PGPASSWORD=postgres psql -h localhost -U postgres -d notifier -p 5433
 
 migratedb:
 	@docker-compose exec api ./manage.py migrate
@@ -28,9 +28,9 @@ seeddb:
 
 cleandb:
 	# kill any existing sessions connected to db
-	# PGPASSWORD=postgres psql -h localhost -U postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid IN (SELECT pid FROM pg_stat_activity WHERE datname = 'notifier');"
-	PGPASSWORD=postgres psql -h localhost -U postgres -c "DROP DATABASE notifier WITH (FORCE);"
-	PGPASSWORD=postgres psql -h localhost -U postgres -c "CREATE DATABASE notifier;"
+	# PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid IN (SELECT pid FROM pg_stat_activity WHERE datname = 'notifier');"
+	PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "DROP DATABASE notifier WITH (FORCE);"
+	PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "CREATE DATABASE notifier;"
 
 pipcompile:
 	@docker-compose exec api pip-compile
