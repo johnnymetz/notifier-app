@@ -33,6 +33,8 @@ node and python versions  # Dockerfiles, heroku runtime, mypy config
 
 ## Todo
 
+- Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
+- Create splash page
 - Add holidays
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code

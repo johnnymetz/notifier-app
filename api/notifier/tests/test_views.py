@@ -15,16 +15,13 @@ User = get_user_model()
 
 @pytest.mark.django_db
 def test_read_event_list(client, token_headers):
-    # TODO: this get request is not used and should probably be removed
     EventFactory()
     EventFactory()
     url = reverse("event-list")
     r = client.get(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
     r = client.get(url, **token_headers)
-    assert r.status_code == status.HTTP_200_OK
-    assert r.data["count"] == 2
-    assert len(r.data["results"]) == 2
+    assert r.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
 
 @pytest.mark.django_db

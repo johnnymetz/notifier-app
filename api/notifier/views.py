@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
-from rest_framework import viewsets
+from rest_framework import mixins
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
 
 from notifier.models import Event
 from notifier.permissions import IsOwner
@@ -11,8 +12,22 @@ from notifier.serializers import EventSerializer
 User = get_user_model()
 
 
-class EventViewset(viewsets.ModelViewSet):
-    # TODO: remove get event-list view
+class ModelViewSetWithoutList(
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    GenericViewSet,
+):
+    """
+    A viewset that provides default `create()`, `retrieve()`, `update()`,
+    `partial_update()` and `destroy()` actions.
+    """
+
+    pass
+
+
+class EventViewset(ModelViewSetWithoutList):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = (IsOwner,)
