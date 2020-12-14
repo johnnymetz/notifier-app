@@ -1,5 +1,7 @@
 # Notifier App
 
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+
 ## Development
 
 ```
@@ -32,8 +34,8 @@ node and python versions  # Dockerfiles, heroku runtime, mypy config
 ## Todo
 
 - Use direct type hints (once mypy supports it)
-- Add silk and/or django debug toolbar
 - Address TODOs in code
+- Add silk and/or django debug toolbar
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed:
 
