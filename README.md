@@ -36,6 +36,13 @@ node and python versions  # Dockerfiles, heroku runtime, mypy config
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code
 - Add silk and/or django debug toolbar
+- Add pre commit hooks:
+  - Run pyupgrade
+  - Run pytest
+  - Check django migrations
+  - markdownlint
+  - some docker lint
+  - something else from [super-linter](https://github.com/github/super-linter)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed:
 
