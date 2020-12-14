@@ -17,7 +17,7 @@ docker container exec -it notifier-app_api_1 bash
 ./manage.py createsuperuser
 ./manage.py import_events EMAIL
 ./manage.py export_events EMAIL
-./manage.py send_events_emails EMAIL
+./manage.py send_event_emails EMAIL
 
 # development using email settings
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
@@ -33,6 +33,7 @@ node and python versions  # Dockerfiles, heroku runtime, mypy config
 
 ## Todo
 
+- Add holidays
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code
 - Add silk and/or django debug toolbar
@@ -96,7 +97,7 @@ heroku ps -a notifier-app-api
 
 # backend exec
 heroku run -a notifier-app-api bash
-heroku run -a notifier-app-api python manage.py send_events_emails EMAIL
+heroku run -a notifier-app-api python manage.py send_event_emails EMAIL
 
 # check production settings on heroku server
 ./manage.py check --deploy --settings api.settings.production
