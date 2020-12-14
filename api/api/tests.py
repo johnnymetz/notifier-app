@@ -19,8 +19,9 @@ def enable_throttle_rates(settings):
 
 
 def test_anon_throttle_rate(client, settings, enable_throttle_rates):
-    # TODO: use removesuffix when upgrading to python 3.9
-    rate = int(settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["anon"].split("/")[0])
+    rate = int(
+        settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["anon"].removesuffix("/day")
+    )
     url = reverse("welcome")
     for _ in range(rate):
         r = client.get(url)
@@ -31,7 +32,9 @@ def test_anon_throttle_rate(client, settings, enable_throttle_rates):
 
 @pytest.mark.django_db
 def test_user_throttle_rate(client, settings, enable_throttle_rates, token_headers):
-    rate = int(settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["user"].split("/")[0])
+    rate = int(
+        settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["user"].removesuffix("/day")
+    )
     url = reverse("user-me")
     for _ in range(rate):
         r = client.get(url, **token_headers)

@@ -31,10 +31,9 @@ node and python versions  # Dockerfiles, heroku runtime, mypy config
 
 ## Todo
 
-- Use direct type hints
+- Use direct type hints (once mypy supports it)
 - Add silk and/or django debug toolbar
 - Address TODOs in code
-- Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed:
 
