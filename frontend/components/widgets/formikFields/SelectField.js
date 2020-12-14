@@ -24,9 +24,13 @@ export default ({
         {...props}
       >
         {/* <option value="" disabled selected hidden>
-              Month
-            </option> */}
-        {options}
+          Month
+        </option> */}
+        {options.map((x, i) => (
+          <option key={i} value={x.value}>
+            {x.label}
+          </option>
+        ))}
       </Form.Control>
       {touched && error && (
         <Form.Control.Feedback

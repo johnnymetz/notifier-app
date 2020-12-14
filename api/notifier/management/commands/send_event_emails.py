@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Send birthday notifier emails to a given set or all users."
+    help = "Send event emails to a given set or all users."
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -31,5 +31,5 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.ERROR(f"{email} does not exist."))
 
         for user in users:
-            user.send_birthday_notifier_email()
-            self.stdout.write(self.style.SUCCESS(f"{user} successfully notified."))
+            user.send_events_email()
+            self.stdout.write(self.style.SUCCESS(f"{user} successfully email."))

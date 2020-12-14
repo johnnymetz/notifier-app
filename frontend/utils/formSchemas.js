@@ -1,10 +1,11 @@
 import * as Yup from 'yup';
 
-export const FriendSchema = Yup.object().shape({
+export const EventSchema = Yup.object().shape({
   name: Yup.string().required('Required'),
   day: Yup.number().required('Required').min(1).max(31),
   month: Yup.number().required('Required').min(1).max(12),
   year: Yup.number().min(1900).max(new Date().getFullYear()),
+  type: Yup.string().required('Required'),
 });
 
 export const LoginSchema = Yup.object().shape({

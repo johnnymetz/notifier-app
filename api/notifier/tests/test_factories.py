@@ -5,12 +5,12 @@ from django.utils import timezone
 
 import pytest
 
-from notifier.tests.factories import FriendFactory
+from notifier.tests.factories import EventFactory
 
 
 @pytest.mark.django_db
-def test_friend_factory():
-    FriendFactory()
+def test_event_factory():
+    EventFactory()
 
 
 @pytest.mark.freeze_time("2020-01-01")

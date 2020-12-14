@@ -59,6 +59,19 @@ class ApiClient {
     return { error, status };
   }
 
+  async options(url, config) {
+    let data, error, status;
+    try {
+      const res = await this.axiosInstance.options(url, config);
+      data = res.data;
+      status = res.status;
+    } catch (err) {
+      error = err.message;
+      status = err.response?.status;
+    }
+    return { data, error, status };
+  }
+
   //////////////////////////////////
   // Authenticated Base Methods
   //////////////////////////////////
@@ -86,13 +99,15 @@ class ApiClient {
     return await this.delete(url, { headers });
   }
 
+  async authenticatedOptions(url) {
+    const accessToken = localStorage.getItem('accessToken');
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    return await this.options(url, { headers });
+  }
+
   //////////////////////////////////
   // User Management
   //////////////////////////////////
-  async getCurrentUser() {
-    return await apiClient.authenticatedGet('auth/users/me/');
-  }
-
   async login(payload) {
     let { data, error } = await apiClient.post('auth/jwt/create/', payload);
     if (data) {
@@ -158,6 +173,10 @@ class ApiClient {
     return refreshed;
   }
 
+  async getCurrentUser() {
+    return await apiClient.authenticatedGet('auth/users/me/');
+  }
+
   async createUser(payload) {
     return await apiClient.post(`auth/users/`, payload);
   }
@@ -187,6 +206,30 @@ class ApiClient {
 
   async resetPassword(payload) {
     return await apiClient.post(`auth/users/reset_password_confirm/`, payload);
+  }
+
+  //////////////////////////////////
+  // User Events
+  //////////////////////////////////
+  async createEvent(payload) {
+    return await apiClient.authenticatedPost('events/', payload);
+  }
+
+  async updateEvent(eventId, payload) {
+    return await apiClient.authenticatedPatch(`events/${eventId}/`, payload);
+  }
+
+  async deleteEvent(eventId) {
+    return await apiClient.authenticatedDelete(`events/${eventId}/`);
+  }
+
+  async getEventTypeChoices() {
+    const { data, error } = await apiClient.authenticatedOptions(`events/`);
+    if (data) {
+      return data.actions.POST.type.choices;
+    } else {
+      console.error(`Unable to pull type choices: ${error}`);
+    }
   }
 }
 

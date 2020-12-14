@@ -8,7 +8,8 @@ export const handleDrfError = (error, fields, setFieldError) => {
   } else if (Array.isArray(error)) {
     toast.error(error[0]);
   } else {
-    for (const field of fields || []) {
+    fields = fields || [];
+    for (const field of fields) {
       if (error[field]) {
         setFieldError(field, error[field][0]);
       }
@@ -18,6 +19,11 @@ export const handleDrfError = (error, fields, setFieldError) => {
     }
     if (error.non_field_errors) {
       toast.error(error.non_field_errors[0]);
+    }
+    for (const [key, value] of Object.entries(error)) {
+      if (!fields.includes(key)) {
+        toast.error(value[0]);
+      }
     }
   }
 };
@@ -34,16 +40,6 @@ export const range = (start, end) => {
     ans.push(i);
   }
   return ans;
-};
-
-export const padNumber = (num, size = 2) => {
-  let result = num.toString();
-  let pads = size - num.toString().length;
-  while (pads > 0) {
-    result = '0' + result;
-    pads--;
-  }
-  return result;
 };
 
 // export const truncate = (str, length, suffix = '...') => {

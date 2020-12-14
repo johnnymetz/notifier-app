@@ -1,5 +1,7 @@
 # Notifier App
 
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+
 ## Development
 
 ```
@@ -13,9 +15,9 @@ docker-compose up -d
 docker container exec -it notifier-app_api_1 bash
 ./manage.py migrate
 ./manage.py createsuperuser
-./manage.py import_friends EMAIL
-./manage.py export_friends EMAIL
-./manage.py send_birthday_emails EMAIL
+./manage.py import_events EMAIL
+./manage.py export_events EMAIL
+./manage.py send_events_emails EMAIL
 
 # development using email settings
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
@@ -26,13 +28,21 @@ pre-commit autoupdate
 pre-commit run all-files
 pip-compile upgrade  # then rebuild docker images
 npm update
-node and python versions  # in Dockerfiles and heroku runtimes as well (runtime.txt + package.json)!
+node and python versions  # Dockerfiles, heroku runtime, mypy config
 ```
 
 ## Todo
 
+- Use direct type hints (once mypy supports it)
+- Address TODOs in code
+- Add silk and/or django debug toolbar
+- Add pre commit hooks:
+  - Run pyupgrade
+  - Run pytest
+  - markdownlint
+  - some docker lint
+  - something else from [super-linter](https://github.com/github/super-linter)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
-- Change no year from 1000 to na or null or 0 or something else because older years are now supported
 - Add granulaized logging and ability to log sql when needed:
 
 ```
@@ -50,13 +60,12 @@ LOGGING = {
 
 ## Todo (maybe later)
 
-- Address TODOs in code
 - Sendgrid batch api
 - Move config files to pyproject.toml
 - Papertrail heroku plugin
 - Unit test emails
-- Add silk and/or django debug toolbar
 - Try time-machine instead of freezegun: https://github.com/adamchainz/time-machine
+- Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
 
 ## Notes
 
@@ -87,7 +96,7 @@ heroku ps -a notifier-app-api
 
 # backend exec
 heroku run -a notifier-app-api bash
-heroku run -a notifier-app-api python manage.py send_birthday_emails EMAIL
+heroku run -a notifier-app-api python manage.py send_events_emails EMAIL
 
 # check production settings on heroku server
 ./manage.py check --deploy --settings api.settings.production

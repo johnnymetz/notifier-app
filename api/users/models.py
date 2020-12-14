@@ -22,7 +22,7 @@ class User(AbstractUser):
     is_subscribed = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS: List[str] = []
+    REQUIRED_FIELDS: List[str] = []  # change to list[str] once mypy supports python 3.9
 
     objects = UserManager()
 
@@ -31,13 +31,20 @@ class User(AbstractUser):
 
     # CUSTOM METHODS
 
-    def get_friends_with_birthday_today(self):
+    # TODO: type hint qs return value, also figure out how to use
+    #  qa[Event] type hint even though Event isn't defined yet
+    def get_events_today(self):
+        """
+        Get events today in history, including past events but excluding future events.
+        """
         today = timezone.localdate()
-        return self.friends.filter(
-            Q(date_of_birth__month=today.month, date_of_birth__day=today.day)
+        return self.events.filter(
+            annual_date__month=today.month,
+            annual_date__day=today.day,
+            annual_date__year__lte=today.year,
         )
 
-    def get_friends_with_birthday_within(self, days: int):
+    def get_events_upcoming(self, days: int):
         today = timezone.localdate()
         later = today + datetime.timedelta(days=days)
 
@@ -50,7 +57,11 @@ class User(AbstractUser):
 
         # Transform each into a Q object.
         filters = [
-            Q(date_of_birth__month=month, date_of_birth__day=day)
+            Q(
+                annual_date__month=month,
+                annual_date__day=day,
+                annual_date__year__lte=today.year,
+            )
             for month, day in monthdays
         ]
 
@@ -59,51 +70,56 @@ class User(AbstractUser):
         for f in filters:
             query |= f
 
-        friends = self.friends.filter(query)
-        friends_sorted = sorted(friends, key=lambda x: x.birthday_display)
-        return friends_sorted
+        return self.events.filter(query).order_by(
+            "annual_date__month", "annual_date__day", "-annual_date__year"
+        )
 
-    def get_birthday_email_context(self) -> dict:
-        friends_with_bday_today = self.get_friends_with_birthday_today()
-        friends_with_bday_upcoming = self.get_friends_with_birthday_within(days=5)
+    def get_events_email_context(self) -> dict:
+        events_today = self.get_events_today()
+        events_upcoming = self.get_events_upcoming(days=5)
         context = {
             "today_display": timezone.localdate().strftime(BIRTHDAY_FORMAT),
-            "friends_with_bday_today": friends_with_bday_today,
-            "friends_with_bday_upcoming": friends_with_bday_upcoming,
+            "events_today": events_today,
+            "events_upcoming": events_upcoming,
         }
         return context
 
-    def send_birthday_notifier_email(self, from_email: Optional[str] = None) -> None:
+    def send_events_email(self, from_email: Optional[str] = None) -> None:
         """
         from_email defaults to DEFAULT_FROM_EMAIL,
         except when using gmail which defaults to EMAIL_HOST_USER
         """
-        context = self.get_birthday_email_context()
-        text_content = render_to_string("notifier/birthdays-email.txt", context)
-        html_content = render_to_string("notifier/birthdays-email.html", context)
+        context = self.get_events_email_context()
+        text_content = render_to_string("notifier/events-email.txt", context)
+        html_content = render_to_string("notifier/events-email.html", context)
         self.email_user(
-            subject="Today's Birthdays",
+            subject="Today's Events",
             message=text_content,
             html_message=html_content,
             from_email=from_email,
         )
 
-    def add_friends_from_csv(self, filename: str) -> list:
-        from notifier.models import Friend
+    # TODO: same type hint thing as above
+    def add_events_from_csv(self, filename: str) -> list:
+        from notifier.models import Event
 
         if not filename:
-            filename = f"{self.email}_friends.csv"
+            filename = f"{self.email}_events.csv"
 
-        created_friends = []
+        created_events = []
         with open(filename) as f:
             csv_reader = csv.reader(f)
             for row in csv_reader:
-                friend, created = Friend.objects.get_or_create(
+                name, annual_date_str, _type = row
+                event, created = Event.objects.get_or_create(
                     user=self,
-                    name=row[0],
-                    date_of_birth=datetime.datetime.strptime(row[1], "%Y-%m-%d"),
+                    name=name,
+                    annual_date=datetime.datetime.strptime(
+                        annual_date_str, "%Y-%m-%d"
+                    ).date(),
+                    type=_type,
                 )
                 if created:
-                    created_friends.append(friend)
+                    created_events.append(event)
 
-        return created_friends
+        return created_events

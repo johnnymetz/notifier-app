@@ -1,87 +1,91 @@
 import datetime
+from unittest.mock import MagicMock
 
 import pytest
 
 from notifier.constants import UNKNOWN_YEAR
-from notifier.serializers import FriendSerializer
-from notifier.tests.factories import FriendFactory
+from notifier.serializers import EventSerializer
+from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
 
 
 @pytest.mark.django_db
-def test_read_friend_fields():
-    friend = FriendFactory()
-    data = FriendSerializer(friend).data
-    assert data["id"] == friend.id
-    assert data["user"] == friend.user.id
-    assert data["name"] == friend.name
-    assert data["date_of_birth"]["year"] == friend.date_of_birth.year
-    assert data["date_of_birth"]["month"] == friend.date_of_birth.month
-    assert data["date_of_birth"]["day"] == friend.date_of_birth.day
-    assert data["age"] == friend.age
+def test_read_event_fields():
+    event = EventFactory()
+    data = EventSerializer(event).data
+    assert data["id"] == event.id
+    assert data["user"] == event.user.id
+    assert data["name"] == event.name
+    assert data["annual_date"]["year"] == event.annual_date.year
+    assert data["annual_date"]["month"] == event.annual_date.month
+    assert data["annual_date"]["day"] == event.annual_date.day
+    assert data["type"] == event.type
+    assert data["age"] == event.age
 
 
 @pytest.mark.django_db
-def test_read_friend_fields_without_bday_year():
-    friend = FriendFactory()
-    friend.date_of_birth = friend.date_of_birth.replace(year=UNKNOWN_YEAR)
-    data = FriendSerializer(friend).data
-    assert data["id"] == friend.id
-    assert data["user"] == friend.user.id
-    assert data["name"] == friend.name
-    assert data["date_of_birth"]["year"] is None
-    assert data["date_of_birth"]["month"] == friend.date_of_birth.month
-    assert data["date_of_birth"]["day"] == friend.date_of_birth.day
-    assert data["age"] == friend.age
+def test_read_event_fields_without_year():
+    event = EventFactory()
+    event.annual_date = event.annual_date.replace(year=UNKNOWN_YEAR)
+    data = EventSerializer(event).data
+    assert data["id"] == event.id
+    assert data["user"] == event.user.id
+    assert data["name"] == event.name
+    assert data["annual_date"]["year"] is None
+    assert data["annual_date"]["month"] == event.annual_date.month
+    assert data["annual_date"]["day"] == event.annual_date.day
+    assert data["type"] == event.type
+    assert data["age"] == event.age
 
 
 @pytest.mark.django_db
-def test_create_friend(rf):
+def test_create_event():
     u = UserFactory()
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "date_of_birth": {"year": date.year, "month": date.month, "day": date.day},
+        "annual_date": {"year": date.year, "month": date.month, "day": date.day},
+        "type": "Birthday",
     }
-    request = rf.post("/whatever")
-    request.user = u
-    serializer = FriendSerializer(data=data, context={"request": request})
+    serializer = EventSerializer(data=data, context={"request": MagicMock(user=u)})
     assert serializer.is_valid(raise_exception=True)
-    friend = serializer.save()
-    assert friend.name == data["name"]
-    assert friend.date_of_birth == date
-    assert friend.user == u
+    event = serializer.save()
+    assert event.name == data["name"]
+    assert event.annual_date == date
+    assert event.user == u
 
 
 @pytest.mark.django_db
-def test_update_friend():
+def test_update_event():
     u = UserFactory()
-    friend = FriendFactory(user=u)
+    event = EventFactory(user=u)
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "date_of_birth": {"year": date.year, "month": date.month, "day": date.day},
+        "annual_date": {"year": date.year, "month": date.month, "day": date.day},
+        "type": "Birthday",
     }
-    serializer = FriendSerializer(friend, data=data)
+    serializer = EventSerializer(event, data=data)
     assert serializer.is_valid(raise_exception=True)
-    friend = serializer.save()
-    assert friend.name == data["name"]
-    assert friend.date_of_birth == date
-    assert friend.user == u
+    event = serializer.save()
+    assert event.name == data["name"]
+    assert event.annual_date == date
+    assert event.user == u
 
 
 @pytest.mark.django_db
-def test_update_friend_without_bday_year():
+def test_update_event_without_year():
     u = UserFactory()
-    friend = FriendFactory(user=u)
+    event = EventFactory(user=u)
     date = datetime.date(1994, 1, 24)
     data = {
         "name": "JJ Reddick",
-        "date_of_birth": {"month": date.month, "day": date.day},
+        "annual_date": {"month": date.month, "day": date.day},
+        "type": "Birthday",
     }
-    serializer = FriendSerializer(friend, data=data)
+    serializer = EventSerializer(event, data=data)
     assert serializer.is_valid(raise_exception=True)
-    friend = serializer.save()
-    assert friend.name == data["name"]
-    assert friend.date_of_birth == datetime.date(UNKNOWN_YEAR, date.month, date.day)
-    assert friend.user == u
+    event = serializer.save()
+    assert event.name == data["name"]
+    assert event.annual_date == datetime.date(UNKNOWN_YEAR, date.month, date.day)
+    assert event.user == u

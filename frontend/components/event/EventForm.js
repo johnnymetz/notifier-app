@@ -1,15 +1,16 @@
 import { Formik, Form as FormikForm } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 
 import apiClient from 'services/api';
 import useAuth from 'contexts/auth';
-import { range, padNumber } from 'utils/helpers';
-import { FriendSchema } from 'utils/formSchemas';
+import { EventSchema } from 'utils/formSchemas';
+import { handleDrfError } from 'utils/helpers';
 import TextField from 'components/widgets/formikFields/TextField';
 import SelectField from 'components/widgets/formikFields/SelectField';
+// import FormikDebug from 'components/widgets/formikFields/FormikDebug';
 import SubmitButton from 'components/widgets/SubmitButton';
 
 const MONTHS = [
@@ -27,64 +28,66 @@ const MONTHS = [
   'December',
 ];
 
-export default ({ action, friendValues = {}, setShowModal = null }) => {
+export default ({ action, eventValues, setShowModal }) => {
   const { fetchUser } = useAuth();
+  const [eventTypeChoices, setEventTypeChoices] = useState(null);
   const [showMonthNames, setShowMonthNames] = useState(false);
 
-  const initialValues = {
-    name: friendValues.name || '',
-    month: friendValues.month || 1,
-    day: friendValues.day || '',
-    year: friendValues.year || '',
+  const getEventTypeChoices = async () => {
+    const choices = await apiClient.getEventTypeChoices();
+    if (choices) {
+      const choicesTransformed = choices.map(x => ({
+        value: x.value,
+        label: x.display_name,
+      }));
+      setEventTypeChoices(choicesTransformed);
+    }
   };
 
-  const getMonthDropdownOptions = () => {
-    let options = [];
-    if (showMonthNames) {
-      MONTHS.map((m, i) => {
-        options.push(
-          <option key={i} value={i + 1}>
-            {m}
-          </option>
-        );
-      });
-    } else {
-      range(1, 13).map(i => {
-        options.push(
-          <option key={i} value={i}>
-            {padNumber(i)}
-          </option>
-        );
-      });
-    }
-    return options;
+  useEffect(() => {
+    getEventTypeChoices();
+  }, []);
+
+  const monthOptions = MONTHS.map((m, i) => ({
+    value: i + 1,
+    label: showMonthNames ? m : (i + 1).toString().padStart(2, '0'),
+  }));
+
+  const initialValues = {
+    name: eventValues?.name || '',
+    month: eventValues?.month || (monthOptions && monthOptions[0].value),
+    day: eventValues?.day || '',
+    year: eventValues?.year || '',
+    type:
+      eventValues?.type ||
+      (eventTypeChoices && eventTypeChoices[0].value) ||
+      '',
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={FriendSchema}
+      enableReinitialize={true} // reset the form if initialValues changes
+      validationSchema={EventSchema}
       onSubmit={async (
-        { name, month, day, year },
+        { name, month, day, year, type },
         { setSubmitting, setFieldError, resetForm }
       ) => {
         const payload = {
-          name: name,
-          date_of_birth: { month: parseInt(month), day: parseInt(day) },
+          name,
+          annual_date: { month: parseInt(month), day: parseInt(day) },
+          type,
         };
         if (year) {
-          payload.date_of_birth.year = parseInt(year);
+          payload.annual_date.year = parseInt(year);
         }
         setSubmitting(true);
         let data, error;
         if (action === 'create') {
-          ({ data, error } = await apiClient.authenticatedPost(
-            'friends/',
-            payload
-          ));
+          ({ data, error } = await apiClient.createEvent(payload));
         } else if (action === 'update') {
-          ({ data, error } = await apiClient.authenticatedPatch(
-            `friends/${friendValues.id}/`,
+          ({ data, error } = await apiClient.updateEvent(
+            eventValues.id,
             payload
           ));
         } else {
@@ -99,12 +102,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
           fetchUser();
           resetForm();
         } else {
-          console.warn(error);
-          if (error.name) {
-            setFieldError('name', error.name[0]);
-          } else if (typeof error === 'string') {
-            toast.error(error);
-          }
+          handleDrfError(error, ['name', 'type'], setFieldError);
         }
         setSubmitting(false);
         if (setShowModal) {
@@ -113,7 +111,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
       }}
     >
       {({ isSubmitting }) => (
-        <FormikForm as={Form}>
+        <FormikForm as={Form} data-test={`${action}-event-form`}>
           <TextField
             name="name"
             label={
@@ -121,13 +119,13 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 Name <span className="text-danger">&#x2a;</span>
               </span>
             }
-            dataTestId={`${action}-friend-name-input`}
+            dataTestId={`${action}-event-name-input`}
           />
 
           <Form.Row>
             <SelectField
               name="month"
-              options={getMonthDropdownOptions()}
+              options={monthOptions}
               label={
                 <span>
                   Month <span className="text-danger">&#x2a;</span>
@@ -137,7 +135,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                 title: 'Click to toggle month names',
                 onClick: () => setShowMonthNames(!showMonthNames),
               }}
-              dataTestId={`${action}-friend-month-input`}
+              dataTestId={`${action}-event-month-input`}
               as={Col}
             />
 
@@ -148,7 +146,7 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
                   Day <span className="text-danger">&#x2a;</span>
                 </span>
               }
-              dataTestId={`${action}-friend-day-input`}
+              dataTestId={`${action}-event-day-input`}
               type="number"
               as={Col}
             />
@@ -156,15 +154,31 @@ export default ({ action, friendValues = {}, setShowModal = null }) => {
             <TextField
               name="year"
               label="Year"
-              dataTestId={`${action}-friend-year-input`}
+              dataTestId={`${action}-event-year-input`}
               type="number"
               as={Col}
             />
           </Form.Row>
 
+          {eventTypeChoices ? (
+            <SelectField
+              name="type"
+              options={eventTypeChoices}
+              label="Event Type"
+              dataTestId={`${action}-event-type-input`}
+            />
+          ) : (
+            <TextField
+              name="type"
+              label="Event Type"
+              dataTestId={`${action}-event-type-input`}
+            />
+          )}
+
           <SubmitButton isSubmitting={isSubmitting} variant="primary" block>
             Submit
           </SubmitButton>
+          {/* <FormikDebug /> */}
         </FormikForm>
       )}
     </Formik>

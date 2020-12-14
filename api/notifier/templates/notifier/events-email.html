@@ -3,32 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Birthdays</title>
+    <title>Events</title>
   </head>
   <body>
     <h3>Today ({{ today_display }})</h3>
     <ul>
-      {% if friends_with_bday_today %}
-        {% for friend in friends_with_bday_today %}
+      {% if events_today %}
+        {% for event in events_today %}
         <li>
-          {{ friend }}
+          {{ event }}
         </li>
         {% endfor %}
       {% else %}
-        <p>No birthday's today :(</p>
+        <p>No events today :(</p>
       {% endif %}
     </ul>
 
     <h3>Upcoming</h3>
     <ul>
-      {% if friends_with_bday_upcoming %}
-        {% for friend in friends_with_bday_upcoming %}
+      {% if events_upcoming %}
+        {% for event in events_upcoming %}
         <li>
-          {{ friend }} ({{ friend.birthday_display }})
+          {{ event }} ({{ event.annual_date_display }})
         </li>
         {% endfor %}
       {% else %}
-        <p>No birthday's upcoming</p>
+        <p>No events upcoming</p>
       {% endif %}
     </ul>
   </body>

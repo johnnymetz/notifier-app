@@ -1,8 +1,9 @@
+import datetime
 import os
 from types import SimpleNamespace
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -37,15 +38,56 @@ class SeedQaUser(APIView):
         )
 
     def post(self, request, *args, **kwargs):
+        from notifier.constants import UNKNOWN_YEAR
+        from notifier.models import Event
+
         qa_creds = self._get_and_delete_qa_users()
 
         qa_user = User.objects.create(email=qa_creds.email1)
         qa_user.set_password(qa_creds.password)
         qa_user.save()
 
-        _ = qa_user.add_friends_from_csv(
-            filename=f"{settings.BASE_DIR}/notifier/data/qa_friends.csv"
-        )
+        # create user events
+        today = timezone.localdate()
+        if request.data.get("dataset") == "relative":
+            ten_years_ago = today.year - 10
+            dataset = [
+                # today
+                (today.replace(year=ten_years_ago), Event.EventType.BIRTHDAY),
+                (today.replace(year=UNKNOWN_YEAR), Event.EventType.BIRTHDAY),
+                (today + datetime.timedelta(days=365), Event.EventType.OTHER),
+                # tomorrow
+                (today + datetime.timedelta(days=1), Event.EventType.OTHER),
+                (
+                    (today - datetime.timedelta(days=364)).replace(year=ten_years_ago),
+                    Event.EventType.BIRTHDAY,
+                ),
+                # other days
+                (today - datetime.timedelta(days=1), Event.EventType.BIRTHDAY),
+                (today - datetime.timedelta(days=300), Event.EventType.BIRTHDAY),
+                (today + datetime.timedelta(days=30), Event.EventType.OTHER),
+                (
+                    (today + datetime.timedelta(days=30)).replace(year=ten_years_ago),
+                    Event.EventType.OTHER,
+                ),
+                (
+                    (today + datetime.timedelta(days=120)).replace(year=UNKNOWN_YEAR),
+                    Event.EventType.OTHER,
+                ),
+            ]
+        else:
+            dataset = [
+                (datetime.date(1994, 1, 24), Event.EventType.BIRTHDAY),
+                (datetime.date(1959, 3, 28), Event.EventType.BIRTHDAY),
+                (datetime.date(1960, 11, 26), Event.EventType.BIRTHDAY),
+                (datetime.date(1999, 12, 31), Event.EventType.HOLIDAY),
+            ]
+
+        for i, (date, _type) in enumerate(dataset):
+            assert isinstance(date, datetime.date)
+            Event.objects.get_or_create(
+                user=qa_user, name=f"Event{i + 1}", annual_date=date, type=_type
+            )
 
         serializer = UserSerializer(qa_user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

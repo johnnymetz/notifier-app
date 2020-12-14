@@ -20,6 +20,15 @@ repos:
     rev: v0.790
     hooks:
       - id: mypy
+  - repo: local
+    hooks:
+      - id: pre-commit-django-migrations
+        name: Check django migrations
+        entry: docker-compose exec -T api ./manage.py makemigrations --dry-run --check
+        language: system
+        types: [python]
+        pass_filenames: false
+        require_serial: true
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.3.0
     hooks:

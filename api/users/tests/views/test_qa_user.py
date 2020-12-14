@@ -6,6 +6,7 @@ from django.urls import reverse
 import pytest
 from rest_framework import status
 
+from notifier.models import Event
 from users.tests.factories import TEST_PASSWORD, UserFactory
 
 User = get_user_model()
@@ -23,7 +24,24 @@ def qa_creds(monkeypatch):
 
 
 @pytest.mark.django_db
-def test_seed_qa_user(qa_creds, client):
+def test_seed_qa_user_with_relatively_dated_events(qa_creds, client):
+    assert not User.objects.exists()
+    url = reverse("seed-qa-user")
+    r = client.post(url, data={"dataset": "relative"})
+    assert r.status_code == status.HTTP_401_UNAUTHORIZED
+    r = client.post(url, data={"auth": "Cypress789", "dataset": "relative"})
+    assert r.status_code == status.HTTP_201_CREATED
+    assert r.data["email"] == qa_creds.email1
+    assert len(r.data["events_today"]) == 2
+    assert len(r.data["events_upcoming"]) == 2
+    assert len(r.data["all_events"]) == 10
+    assert User.objects.count() == 1
+    u = User.objects.get()
+    assert u.check_password(qa_creds.password)
+
+
+@pytest.mark.django_db
+def test_seed_qa_user_with_statically_dated_events(qa_creds, client):
     assert not User.objects.exists()
     url = reverse("seed-qa-user")
     r = client.post(url)
@@ -31,7 +49,7 @@ def test_seed_qa_user(qa_creds, client):
     r = client.post(url, data={"auth": "Cypress789"})
     assert r.status_code == status.HTTP_201_CREATED
     assert r.data["email"] == qa_creds.email1
-    assert len(r.data["all_friends"]) == 4
+    assert len(r.data["all_events"]) == 4
     assert User.objects.count() == 1
     u = User.objects.get()
     assert u.check_password(qa_creds.password)
@@ -61,3 +79,4 @@ def test_delete_qa_users(qa_creds, client):
     r = client.delete(url, data={"auth": "Cypress789"}, content_type="application/json")
     assert r.status_code == status.HTTP_204_NO_CONTENT
     assert not User.objects.exists()
+    assert not Event.objects.exists()

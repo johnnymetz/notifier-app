@@ -1,17 +1,19 @@
-import csv
-
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Export friends for a user."
+    help = "Import events for a user."
 
     def add_arguments(self, parser):
         parser.add_argument("email", type=str, help="User email")
+        parser.add_argument(
+            "-f", "--filename", help="Events file (defaults to '{email}_events.csv')"
+        )
 
     def handle(self, *args, **options):
         email = options["email"]
+        filename = options["filename"]
 
         User = get_user_model()
         try:
@@ -19,14 +21,10 @@ class Command(BaseCommand):
         except User.DoesNotExist:
             raise Exception(f"User {email} does not exist.")
 
-        filename = f"{email}_friends.csv"
-        with open(filename, mode="w") as f:
-            count = 0
-            writer = csv.writer(f)
-            for friend in user.friends.order_by("name").all():
-                writer.writerow([friend.name, friend.date_of_birth])
-                count += 1
+        created_events = user.add_events_from_csv(filename=filename)
 
+        for event in created_events:
+            self.stdout.write(self.style.SUCCESS(f"{event} created successfully."))
         self.stdout.write(
-            self.style.SUCCESS(f"{count} friends export to {filename} successfully.")
+            self.style.SUCCESS(f"{len(created_events)} events created for {email}.")
         )

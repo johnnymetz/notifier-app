@@ -2,17 +2,18 @@ import datetime
 
 import factory
 
-from notifier.models import Friend
+from notifier.models import Event
 from users.tests.factories import UserFactory
 
 
-class FriendFactory(factory.django.DjangoModelFactory):
+class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = Friend
+        model = Event
 
     user = factory.SubFactory(UserFactory)
-    name = factory.Sequence(lambda n: f"Friend{n + 1}")
-    date_of_birth = datetime.date(2000, 1, 1)
+    name = factory.Sequence(lambda n: f"Event{n + 1}")
+    annual_date = datetime.date(2000, 1, 1)
+    type = Event.EventType.BIRTHDAY
 
     @factory.post_generation
     def finish(self, create, extended):

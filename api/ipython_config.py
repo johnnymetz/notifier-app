@@ -3,6 +3,10 @@
 
 # Configuration file for ipython.
 
+## lines of code to run at IPython startup.
+#  Default: []
+c.InteractiveShellApp.exec_lines = ["%reload_ext autoreload", "%autoreload 2"]
+
 ## Whether to display a banner upon starting IPython.
 #  Default: True
 c.TerminalIPythonApp.display_banner = False

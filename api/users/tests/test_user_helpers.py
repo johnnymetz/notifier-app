@@ -3,79 +3,60 @@ import datetime
 import pytest
 
 from notifier.constants import UNKNOWN_YEAR
-from notifier.tests.factories import FriendFactory
+from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
 
 
 @pytest.mark.freeze_time("2020-01-01")
 @pytest.mark.django_db
-def test_get_friends_with_birthday_today(settings):
+def test_get_events_today(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
     user2 = UserFactory()
-    friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 1))
-    friend2 = FriendFactory(
-        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 1)
-    )
-    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 2))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 3))
-    FriendFactory(user=user2, date_of_birth=datetime.datetime(1990, 1, 1))
-    friends = user.get_friends_with_birthday_today()
-    assert friend1 in friends
-    assert friend2 in friends
-    assert friends.count() == 2
+    event1 = EventFactory(user=user, annual_date=datetime.date(1990, 1, 1))
+    event2 = EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 1))
+    EventFactory(user=user, annual_date=datetime.date(1990, 1, 2))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 2))
+    EventFactory(user=user, annual_date=datetime.date(1989, 12, 31))
+    EventFactory(user=user, annual_date=datetime.date(2021, 1, 1))
+    EventFactory(user=user, annual_date=datetime.date(2030, 1, 1))
+    EventFactory(user=user2, annual_date=datetime.date(1990, 1, 1))
+    assert set(user.get_events_today()) == {event1, event2}
 
 
 @pytest.mark.freeze_time("2020-01-01")
 @pytest.mark.django_db
-def test_get_friends_with_birthday_within(settings):
+def test_get_events_upcoming_at_month_start(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
     user2 = UserFactory()
-    friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 2))
-    friend2 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 5))
-    friend3 = FriendFactory(
-        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 2)
-    )
-    friend4 = FriendFactory(
-        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 5)
-    )
-    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 1))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 6))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(1989, 12, 31))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 1))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 6))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 12, 31))
-    FriendFactory(user=user2, date_of_birth=datetime.datetime(1990, 1, 2))
-    friends = user.get_friends_with_birthday_within(days=5)
-    assert friend1 in friends
-    assert friend2 in friends
-    assert friend3 in friends
-    assert friend4 in friends
-    assert len(friends) == 4
-    assert [f.birthday_display for f in friends] == ["01-02", "01-02", "01-05", "01-05"]
+    event1 = EventFactory(user=user, annual_date=datetime.date(1990, 1, 2))
+    event2 = EventFactory(user=user, annual_date=datetime.date(1990, 1, 5))
+    event3 = EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 2))
+    event4 = EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 5))
+    EventFactory(user=user, annual_date=datetime.date(1990, 1, 1))
+    EventFactory(user=user, annual_date=datetime.date(1990, 1, 6))
+    EventFactory(user=user, annual_date=datetime.date(1989, 12, 31))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 1))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 6))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 12, 31))
+    EventFactory(user=user, annual_date=datetime.date(2021, 1, 2))
+    EventFactory(user=user, annual_date=datetime.date(2030, 1, 3))
+    EventFactory(user=user2, annual_date=datetime.date(1990, 1, 2))
+    assert list(user.get_events_upcoming(days=5)) == [event1, event3, event2, event4]
 
 
 @pytest.mark.freeze_time("2020-01-30")
 @pytest.mark.django_db
-def test_get_friends_with_birthday_within_end_of_month(settings):
+def test_get_events_upcoming_at_month_end(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
-    friend1 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 31))
-    friend2 = FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 1))
-    friend3 = FriendFactory(
-        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 31)
-    )
-    friend4 = FriendFactory(
-        user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 2, 2)
-    )
-    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 1, 30))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(1990, 2, 10))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 1, 30))
-    FriendFactory(user=user, date_of_birth=datetime.datetime(UNKNOWN_YEAR, 2, 10))
-    friends = user.get_friends_with_birthday_within(days=5)
-    assert friend1 in friends
-    assert friend2 in friends
-    assert friend3 in friends
-    assert friend4 in friends
-    assert len(friends) == 4
+    event1 = EventFactory(user=user, annual_date=datetime.date(1990, 1, 31))
+    event2 = EventFactory(user=user, annual_date=datetime.date(1990, 2, 1))
+    event3 = EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 31))
+    event4 = EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 2, 2))
+    EventFactory(user=user, annual_date=datetime.date(1990, 1, 30))
+    EventFactory(user=user, annual_date=datetime.date(1990, 2, 10))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 30))
+    EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 2, 10))
+    assert list(user.get_events_upcoming(days=5)) == [event1, event3, event2, event4]
