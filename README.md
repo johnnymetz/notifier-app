@@ -1,35 +1,17 @@
 # Notifier App
 
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge)](https://github.com/prettier/prettier)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&style=for-the-badge)](https://github.com/pre-commit/pre-commit)
 
-## Development
+![Django](https://img.shields.io/badge/-Django-092E20?logo=Django&style=for-the-badge)
+![PostgreSQL](https://img.shields.io/badge/postgres-%23316192.svg?logo=postgresql&style=for-the-badge)
+![React](https://img.shields.io/badge/react%20-%2320232a.svg?logo=react&style=for-the-badge)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-563D7C?logo=bootstrap&style=for-the-badge)
+![Heroku](https://img.shields.io/badge/heroku%20-%23430098.svg?logo=heroku&style=for-the-badge)
+![Docker](https://img.shields.io/badge/docker%20-%230db7ed.svg?logo=docker&logoColor=white&style=for-the-badge)
 
-```
-# initial setup (only needs to be done once)
-pip-compile
-pip-sync
-pre-commit install
-
-# development using local settings
-docker-compose up -d
-docker container exec -it notifier-app_api_1 bash
-./manage.py migrate
-./manage.py createsuperuser
-./manage.py import_events EMAIL
-./manage.py export_events EMAIL
-./manage.py send_event_emails EMAIL
-
-# development using email settings
-docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
-docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
-
-# upgrade packages
-pre-commit autoupdate
-pre-commit run all-files
-pip-compile upgrade  # then rebuild docker images
-npm update
-node and python versions  # Dockerfiles, heroku runtime, mypy config
-```
+Send yourself email notifications every day.
 
 ## Todo
 
