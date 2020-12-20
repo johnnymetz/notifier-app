@@ -17,7 +17,7 @@ export default () => {
     <>
       <Row className="mb-4">
         <Col md={6}>
-          <Card body className="shadow mb-4">
+          <Card body className="mb-4">
             <h5 className="text-center">Today's Events</h5>
             {events_today.length > 0 ? (
               <EventsListGroup events={events_today} today={true} />
@@ -25,7 +25,7 @@ export default () => {
               <div className="text-center mt-3">No events today</div>
             )}
           </Card>
-          <Card body className="shadow mb-4">
+          <Card body className="mb-4">
             <h5 className="text-center">Upcoming Events</h5>
             {events_upcoming.length > 0 ? (
               <EventsListGroup events={events_upcoming} />
@@ -36,12 +36,12 @@ export default () => {
           <div className="d-sm-block d-md-none mb-4"></div>
         </Col>
         <Col md={6}>
-          <Card body className="shadow">
+          <Card body>
             <AddEvent />
           </Card>
         </Col>
       </Row>
-      <Card body className="shadow">
+      <Card body>
         <h5 className="text-center">All Events</h5>
         <EventsTable events={all_events} />
       </Card>

@@ -16,3 +16,8 @@ table.table th {
 .invalid-feedback {
   display: block;
 }
+
+.card {
+  /* copied from bootstrap "shadow" class: https://getbootstrap.com/docs/4.5/utilities/shadows/ */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
