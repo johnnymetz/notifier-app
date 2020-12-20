@@ -69,6 +69,7 @@ LOGGING = {
 - Unit test emails
 - Try time-machine instead of freezegun: https://github.com/adamchainz/time-machine
 - Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
+- PR in django-extensions to raise error on `create_command` if file already exists
 
 ## Notes
 

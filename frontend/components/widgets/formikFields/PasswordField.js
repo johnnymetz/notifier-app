@@ -32,7 +32,7 @@ export default ({ name, label, dataTestId, ...props }) => {
           >
             <FontAwesomeIcon
               icon={showPassword ? faEyeSlash : faEye}
-              size={'sm'}
+              size="sm"
             />
           </Button>
         </InputGroup.Append>

@@ -35,7 +35,7 @@ export default ({ children }) => {
                   <Nav.Link data-test="navbar-account-link">
                     <FontAwesomeIcon
                       icon={faUser}
-                      size={'sm'}
+                      size="sm"
                       style={{ marginRight: 5 }}
                     />{' '}
                     Account
@@ -44,7 +44,7 @@ export default ({ children }) => {
                 <Nav.Link onClick={logout}>
                   <FontAwesomeIcon
                     icon={faSignOutAlt}
-                    size={'sm'}
+                    size="sm"
                     style={{ marginRight: 3 }}
                   />{' '}
                   Logout

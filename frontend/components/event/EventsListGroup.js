@@ -32,7 +32,7 @@ const EventsListItem = ({ event, today = false }) => {
     <ListGroup.Item>
       <FontAwesomeIcon
         icon={getEventTypeIcon(event.type)}
-        size={'sm'}
+        size="sm"
         style={{ marginRight: 10 }}
       />
       <b>{event.name}</b> {!today && `on ${dateString}`}

@@ -88,24 +88,19 @@ export default ({ events }) => {
         },
       },
       {
-        Header: 'Age',
-        accessor: d =>
-          d.age !== null && d.age >= 0 ? (
-            d.age
-          ) : (
-            <span title="Age unknown or event hasn't happened yet">
-              &ndash;
-            </span>
-          ),
-      },
-      {
         Header: 'Type',
-        accessor: 'type',
+        className: 'd-none d-sm-block',
+        accessor: d => (
+          <span>
+            {d.type}
+            {d.age && <small> ({d.age})</small>}
+          </span>
+        ),
       },
       {
         Header: 'Actions',
-        width: 70, // just large enough for 2 buttons with loading icon
         className: 'text-right',
+        style: { width: 90 },
         Cell: ({ row: { original } }) => {
           const event = {
             id: original.id,
@@ -116,10 +111,10 @@ export default ({ events }) => {
             type: original.type,
           };
           return (
-            <div className="text-right">
+            <div>
               <Dropdown>
                 <Dropdown.Toggle as={CustomDropdownToggle} alignRight>
-                  <FontAwesomeIcon icon={faEllipsisV} size={'sm'} />
+                  <FontAwesomeIcon icon={faEllipsisV} size="sm" />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -131,7 +126,7 @@ export default ({ events }) => {
                   >
                     <FontAwesomeIcon
                       icon={faPencilAlt}
-                      size={'sm'}
+                      size="sm"
                       style={{ marginRight: 8 }}
                     />{' '}
                     Edit
@@ -144,7 +139,7 @@ export default ({ events }) => {
                   >
                     <FontAwesomeIcon
                       icon={faTrashAlt}
-                      size={'sm'}
+                      size="sm"
                       style={{ marginRight: 10 }}
                     />{' '}
                     Delete
@@ -218,9 +213,12 @@ export default ({ events }) => {
                   {headerGroup.headers.map(column => {
                     return (
                       <th
-                        {...column.getHeaderProps()}
-                        width={column.width !== 150 ? column.width : null}
-                        className=""
+                        {...column.getHeaderProps([
+                          {
+                            className: column.className,
+                            style: column.style,
+                          },
+                        ])}
                       >
                         {column.render('Header')}
                       </th>
@@ -236,7 +234,16 @@ export default ({ events }) => {
                   <tr {...row.getRowProps()}>
                     {row.cells.map(cell => {
                       return (
-                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                        <td
+                          {...cell.getCellProps([
+                            {
+                              className: cell.column.className,
+                              style: cell.column.style,
+                            },
+                          ])}
+                        >
+                          {cell.render('Cell')}
+                        </td>
                       );
                     })}
                   </tr>
