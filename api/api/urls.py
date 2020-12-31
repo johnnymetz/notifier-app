@@ -16,7 +16,9 @@ urlpatterns = [
     path("api/auth/", include("djoser.urls.jwt")),
     # # documentation
     # path("api/docs/", schema_view.with_ui("swagger")),
-    path("silk/", include("silk.urls", namespace="silk")),
+    path(
+        f"{os.environ.get('SILK_URL', 'silk')}/", include("silk.urls", namespace="silk")
+    ),
     path(
         settings.LOGIN_URL.removeprefix("/"),
         LoginView.as_view(
