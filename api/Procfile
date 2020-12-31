@@ -1,1 +1,2 @@
-web: ./manage.py check --deploy; ./manage.py collectstatic --noinput; ./manage.py migrate; gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
+web: ./manage.py check --deploy; gunicorn api.wsgi:application --bind=0.0.0.0:$PORT
+release: ./manage.py migrate; ./manage.py collectstatic --noinput
