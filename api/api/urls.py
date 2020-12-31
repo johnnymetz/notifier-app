@@ -1,6 +1,8 @@
 import os
 
+from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.views import LoginView
 from django.urls import include, path
 
 # from .swagger import schema_view
@@ -14,4 +16,12 @@ urlpatterns = [
     path("api/auth/", include("djoser.urls.jwt")),
     # # documentation
     # path("api/docs/", schema_view.with_ui("swagger")),
+    path("silk/", include("silk.urls", namespace="silk")),
+    path(
+        settings.LOGIN_URL.removeprefix("/"),
+        LoginView.as_view(
+            template_name="admin/login.html",
+            extra_context={"site_header": "Silk Debugging"},
+        ),
+    ),
 ]

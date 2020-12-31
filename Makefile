@@ -35,6 +35,9 @@ cleandb:
 pipcompile:
 	@docker-compose exec api pip-compile
 
+clear-silk:
+	@docker-compose exec api ./manage.py silk_clear_request_log
+
 heroku-shell:
 	heroku run -a notifier-app-api bash
 

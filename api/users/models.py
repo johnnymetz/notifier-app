@@ -22,7 +22,9 @@ class User(AbstractUser):
     is_subscribed = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS: List[str] = []  # change to list[str] once mypy supports python 3.9
+    REQUIRED_FIELDS: List[
+        str
+    ] = []  # TODO: change to list[str] once mypy supports python 3.9
 
     objects = UserManager()
 

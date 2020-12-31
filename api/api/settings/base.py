@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     # "django_celery_results",
     # "django_celery_beat",
     "corsheaders",
+    "silk",
     "rest_framework",
     "djoser",
     "drf_yasg",
@@ -46,6 +47,7 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "silk.middleware.SilkyMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -126,6 +128,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 
 AUTH_USER_MODEL = "users.User"
+
+
+# django-silk
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHENTICATION = True
+SILKY_AUTHORISATION = True
+LOGIN_URL = "/backend/login/"
 
 
 # django-templated-mail

@@ -20,6 +20,7 @@ npm run cypress:open
 
 ## Later
 
+- Check out Next-auth
 - Check out swr npm module for data fetching
 - Add a chart
 
