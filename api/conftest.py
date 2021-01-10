@@ -2,6 +2,7 @@ from django.core.cache import cache
 from django.urls import reverse
 
 import pytest
+from nplusone.core.profiler import Profiler
 
 from users.tests.factories import TEST_PASSWORD, UserFactory
 
@@ -9,6 +10,12 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 @pytest.fixture(autouse=True)
 def setup():
     cache.clear()  # clear throttling limit cache
+
+
+@pytest.fixture(autouse=True)
+def raise_nplusone():
+    with Profiler():
+        yield
 
 
 @pytest.fixture

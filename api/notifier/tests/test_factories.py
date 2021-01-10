@@ -1,11 +1,14 @@
 import datetime
 from zoneinfo import ZoneInfo
 
+from django.db import connection, reset_queries
 from django.utils import timezone
 
 import pytest
+from nplusone.core.exceptions import NPlusOneError
 
-from notifier.tests.factories import EventFactory
+from notifier.models import Event
+from notifier.tests.factories import EventFactory, UserFactory
 
 
 @pytest.mark.django_db
@@ -27,3 +30,21 @@ def test_freeze_time_functionality():
         timezone=ZoneInfo("UTC")
     )
     assert datetime.datetime.now() == datetime.datetime.today()
+
+
+@pytest.mark.django_db
+def test_nplusone(settings, raise_nplusone):
+    settings.DEBUG = True  # debug must be True to populate connection.queries
+    u1 = UserFactory()
+    for _ in range(100):
+        EventFactory(user=u1)
+
+    reset_queries()
+    with pytest.raises(NPlusOneError):
+        for e in Event.objects.all():
+            assert e.user
+
+    reset_queries()
+    for e in Event.objects.select_related("user"):
+        assert e.user
+    assert len(connection.queries) == 1
