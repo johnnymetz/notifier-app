@@ -38,5 +38,5 @@ class UserSerializer(serializers.ModelSerializer):
     def get_events_upcoming(obj):
         from notifier.serializers import EventSerializer
 
-        events_upcoming = obj.get_events_upcoming(days=5)
+        events_upcoming = obj.get_events_upcoming()
         return EventSerializer(events_upcoming, many=True).data

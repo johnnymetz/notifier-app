@@ -5,12 +5,12 @@ from typing import List, Optional
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import Q
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from notifier.constants import BIRTHDAY_FORMAT
+from notifier.constants import BIRTHDAY_FORMAT, UPCOMING_DAYS
+from notifier.helpers import build_events_upcoming_query_filter
 from users.managers import UserManager
 
 logger = logging.getLogger("django")
@@ -46,39 +46,20 @@ class User(AbstractUser):
             annual_date__year__lte=today.year,
         )
 
-    def get_events_upcoming(self, days: int):
-        today = timezone.localdate()
-        later = today + datetime.timedelta(days=days)
+    def get_events_upcoming(self, days: int = UPCOMING_DAYS):
+        """Get upcoming events. Sort by date, not including the year"""
+        query_filter = build_events_upcoming_query_filter(days=days)
 
-        # Build the list of month/day tuples.
-        monthdays = []
-        counter = today + datetime.timedelta(days=1)
-        while counter < later:
-            monthdays.append((counter.month, counter.day))
-            counter += datetime.timedelta(days=1)
+        # TODO
+        # return sort_events_by_date_without_year(self.events.filter(query_filter))
 
-        # Transform each into a Q object.
-        filters = [
-            Q(
-                annual_date__month=month,
-                annual_date__day=day,
-                annual_date__year__lte=today.year,
-            )
-            for month, day in monthdays
-        ]
-
-        # Compose the Q objects together into a single query.
-        query = Q()
-        for f in filters:
-            query |= f
-
-        return self.events.filter(query).order_by(
+        return self.events.filter(query_filter).order_by(
             "annual_date__month", "annual_date__day", "-annual_date__year"
         )
 
     def get_events_email_context(self) -> dict:
         events_today = self.get_events_today()
-        events_upcoming = self.get_events_upcoming(days=5)
+        events_upcoming = self.get_events_upcoming()
         context = {
             "today_display": timezone.localdate().strftime(BIRTHDAY_FORMAT),
             "events_today": events_today,

@@ -8,14 +8,22 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 
 
 @pytest.fixture(autouse=True)
-def setup():
+def ensure_test_settings(settings):
+    assert settings.SETTINGS_MODULE == "api.settings.test", "Must use the test settings"
+
+
+@pytest.fixture(autouse=True)
+def clear_cache():
     cache.clear()  # clear throttling limit cache
 
 
 @pytest.fixture(autouse=True)
-def raise_nplusone():
-    with Profiler():
+def raise_nplusone(request):
+    if request.node.get_closest_marker("skip_nplusone"):
         yield
+    else:
+        with Profiler():
+            yield
 
 
 @pytest.fixture

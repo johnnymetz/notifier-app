@@ -4,7 +4,7 @@ setup:
 # BACKEND
 
 pytest:
-	@docker-compose run api pytest
+	@docker-compose run api pytest --ds=api.settings.test
 
 shell:
 	# docker container exec -it notifier-app_api_1 bash
