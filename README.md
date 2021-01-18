@@ -20,13 +20,20 @@ Send yourself email notifications every day.
 - Add holidays
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code
-- Add silk and/or django debug toolbar
 - Add pre commit hooks:
   - Run pyupgrade
   - Run pytest
   - markdownlint
   - some docker lint
+  - bandit (security linter)
   - something else from [super-linter](https://github.com/github/super-linter)
+- Add flake8 plugins: https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h
+  - flake8-bugbear
+  - pep8-naming
+  - flake8-builtins
+  - flake8-spellcheck
+  - flake8-comprehensions
+  - flake8-pytest-style
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed:
 
@@ -45,6 +52,7 @@ LOGGING = {
 
 ## Todo (maybe later)
 
+- Add [django-version-checks](https://github.com/adamchainz/django-version-checks) to ensure all devs are have the correct environment setup
 - Sendgrid batch api
 - Move config files to pyproject.toml
 - Papertrail heroku plugin

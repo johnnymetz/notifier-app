@@ -21,7 +21,7 @@ npm run cypress:open
 ## Later
 
 - Check out Next-auth
-- Check out swr npm module for data fetching
+- Check out react-query or swr library for data fetching
 - Add a chart
 
 ## Resources
@@ -33,3 +33,13 @@ npm run cypress:open
 - [Another cool loading icon](https://youtu.be/xSNlsSfvwac)
 - [Deploy next app to heroku](https://github.com/mars/heroku-nextjs)
 - [react-notification-system](https://github.com/igorprado/react-notification-system)
+
+## Update packages
+
+```
+npm install -g npm-check-updates
+ncu  # show any updates
+ncu -u cypress  # update cypress in package.json
+npm i
+npm list --depth 0
+```

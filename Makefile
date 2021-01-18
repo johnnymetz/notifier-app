@@ -3,14 +3,15 @@ setup:
 
 # BACKEND
 
-test:
-	@docker-compose exec api pytest
+pytest:
+	@docker-compose run api pytest --ds=api.settings.test
 
 shell:
-	docker container exec -it notifier-app_api_1 bash
+	# docker container exec -it notifier-app_api_1 bash
+	@docker-compose run api bash
 
 pyshell:
-	@docker-compose exec api ./manage.py shell_plus --ipython -- --profile=me
+	@docker-compose run api ./manage.py shell_plus --ipython -- --profile=me
 
 logs:
 	docker container logs -f notifier-app_api_1
@@ -19,12 +20,12 @@ dbshell:
 	PGPASSWORD=postgres psql -h localhost -U postgres -d notifier -p 5433
 
 migratedb:
-	@docker-compose exec api ./manage.py migrate
+	@docker-compose run api ./manage.py migrate
 
 seeddb:
-	@docker-compose exec api ./manage.py migrate
-	@docker-compose exec api ./manage.py createsuperuser --email ${MY_EMAIL}
-	@docker-compose exec api ./manage.py import_events ${MY_EMAIL}
+	@docker-compose run api ./manage.py migrate
+	@docker-compose run api ./manage.py createsuperuser --email ${MY_EMAIL}
+	@docker-compose run api ./manage.py import_events ${MY_EMAIL}
 
 cleandb:
 	# kill any existing sessions connected to db
@@ -33,10 +34,10 @@ cleandb:
 	PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "CREATE DATABASE notifier;"
 
 pipcompile:
-	@docker-compose exec api pip-compile
+	@docker-compose run api pip-compile
 
 clear-silk:
-	@docker-compose exec api ./manage.py silk_clear_request_log
+	@docker-compose run api ./manage.py silk_clear_request_log
 
 heroku-shell:
 	heroku run -a notifier-app-api bash
