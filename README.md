@@ -22,12 +22,10 @@ Send yourself email notifications every day.
 - Address TODOs in code
 - Add pre commit hooks:
   - Run pyupgrade
-  - Run pytest
-  - markdownlint
   - some docker lint
   - bandit (security linter)
   - something else from [super-linter](https://github.com/github/super-linter)
-- Add flake8 plugins: https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h
+- Add [flake8 plugins](https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h)
   - flake8-bugbear
   - pep8-naming
   - flake8-builtins
@@ -39,14 +37,18 @@ Send yourself email notifications every day.
 
 ## Todo (maybe later)
 
-- Add [django-version-checks](https://github.com/adamchainz/django-version-checks) to ensure all devs are have the correct environment setup
+- Add [django-version-checks](https://github.com/adamchainz/django-version-checks)
+  - Ensures all devs are have the correct environment setup
 - Sendgrid batch api
 - Move config files to pyproject.toml
 - Papertrail heroku plugin
 - Unit test emails
-- Try time-machine instead of freezegun: https://github.com/adamchainz/time-machine
+- Try [time-machine](https://github.com/adamchainz/time-machine) instead of freezegun
 - Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
 - PR in django-extensions to raise error on `create_command` if file already exists
+- Scan site with [Mozilla Observatory](https://observatory.mozilla.org/)
+- [Add security.txt to .well-known endpoint](https://adamj.eu/tech/2020/06/28/how-to-add-a-well-known-url-to-your-django-site/)
+- [Maybe add robots endpoint](https://adamj.eu/tech/2020/02/10/robots-txt/)
 
 ## Notes
 
@@ -143,20 +145,24 @@ http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password
 
 - [Production deployment checklist](https://testdriven.io/blog/production-django-deployments-on-heroku/)
 - [SendGrid web api vs. SMTP](https://sendgrid.com/blog/web-api-or-smtp-relay-how-should-you-send-your-mail/)
-  - Web api: [django-sendgrid-v5](https://github.com/sklarsa/django-sendgrid-v5) or [sendgrid-django](https://github.com/elbuo8/sendgrid-django)
+  - Web api:
+    - [django-sendgrid-v5](https://github.com/sklarsa/django-sendgrid-v5)
+    - (OR) [sendgrid-django](https://github.com/elbuo8/sendgrid-django)
   - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)
 - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
 - [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)
 
 ## iPython Notes
 
-https://ipythonbook.com/
+[ipythonbook](https://ipythonbook.com/)
 
 ```
 ./manage.py shell_plus --ipython -- --profile=me
 ipython locate me
 
-%autoreload 2  # automatically reload modules so new session isn't required on code changes
+# automatically reload modules so new session isn't required on code changes
+%autoreload 2
+
 %env
 %hist -n
 %lsmagic

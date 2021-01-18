@@ -21,7 +21,7 @@ docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 # upgrade packages
 pre-commit autoupdate
-pre-commit run all-files
+pre-commit run --all-files
 pip-compile upgrade  # then rebuild docker images
 npm update
 node and python versions  # Dockerfiles, heroku runtime, mypy config
