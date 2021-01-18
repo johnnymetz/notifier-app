@@ -36,5 +36,5 @@ class EventViewset(ModelViewSetWithoutList):
 class EmailMock(APIView):
     def get(self, request, email, *args, **kwargs):
         user = User.objects.get(email=email)
-        context = user.get_email_context()
+        context = user.get_events_email_context()
         return render(request, "notifier/events-email.html", context)

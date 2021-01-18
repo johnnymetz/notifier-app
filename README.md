@@ -35,20 +35,7 @@ Send yourself email notifications every day.
   - flake8-comprehensions
   - flake8-pytest-style
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
-- Add granulaized logging and ability to log sql when needed:
-
-```
-LOGGING = {
-    # ...
-    'loggers': {
-        # ...
-        'django.db': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    },
-}
-```
+- Add granulaized logging and ability to log sql when needed
 
 ## Todo (maybe later)
 
