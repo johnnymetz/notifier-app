@@ -18,7 +18,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Resources
 
-- [Route protection](url1)
+- [Route protection][url1]
 - [Axios error handling](https://gist.github.com/fgilio/230ccd514e9381fafa51608fcf137253)
 - [next-redux-wrapper](https://github.com/kirill-konshin/next-redux-wrapper)
 - [More cool loading icons](https://youtu.be/AW0eFKDhAFg)
