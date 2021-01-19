@@ -2,8 +2,7 @@
 
 ```
 # initial setup (only needs to be done once)
-pip-compile
-pip-sync
+brew install pre-commit
 pre-commit install
 
 # development using local settings

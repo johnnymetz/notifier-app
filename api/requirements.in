@@ -1,7 +1,6 @@
 pip-tools
 black
 mypy
-pre-commit
 ipython
 
 psycopg2
@@ -31,3 +30,13 @@ pytest-freezegun
 factory-boy
 
 gunicorn
+
+flake8
+flake8-broken-line
+flake8-bugbear
+flake8-builtins
+flake8-comprehensions
+flake8-print
+flake8-pytest-style
+flake8-spellcheck
+pep8-naming

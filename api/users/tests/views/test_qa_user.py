@@ -12,7 +12,7 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 User = get_user_model()
 
 
-@pytest.fixture
+@pytest.fixture()
 def qa_creds(monkeypatch):
     email1 = "qa1@email.com"
     email2 = "qa2@email.com"

@@ -40,8 +40,8 @@ def test_nplusone(settings):
         EventFactory(user=u1)
 
     reset_queries()
-    with pytest.raises(NPlusOneError):
-        for e in Event.objects.all():
+    for e in Event.objects.all():
+        with pytest.raises(NPlusOneError):
             assert e.user
 
     reset_queries()

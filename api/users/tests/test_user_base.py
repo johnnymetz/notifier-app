@@ -17,7 +17,7 @@ def test_create_user():
         User.objects.create_user()
     with pytest.raises(TypeError):
         User.objects.create_user(email="")
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="The Email must be set"):
         User.objects.create_user(email="", password="foo")
     assert user.is_subscribed
 
@@ -30,7 +30,7 @@ def test_create_superuser():
     assert admin_user.is_staff
     assert admin_user.is_superuser
     assert not admin_user.username
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Superuser must have is_superuser=True"):
         User.objects.create_superuser(
             email="super@user.com", password="foo", is_superuser=False
         )

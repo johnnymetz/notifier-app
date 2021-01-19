@@ -8,17 +8,17 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 
 
 @pytest.fixture(autouse=True)
-def ensure_test_settings(settings):
+def _ensure_test_settings(settings):
     assert settings.SETTINGS_MODULE == "api.settings.test", "Must use the test settings"
 
 
 @pytest.fixture(autouse=True)
-def clear_cache():
+def _clear_cache():
     cache.clear()  # clear throttling limit cache
 
 
 @pytest.fixture(autouse=True)
-def raise_nplusone(request):
+def _raise_nplusone(request):
     if request.node.get_closest_marker("skip_nplusone"):
         yield
     else:
@@ -26,7 +26,7 @@ def raise_nplusone(request):
             yield
 
 
-@pytest.fixture
+@pytest.fixture()
 def token_headers(client):
     url = reverse("jwt-create")
     u = UserFactory(password=TEST_PASSWORD)

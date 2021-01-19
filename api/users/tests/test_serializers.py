@@ -17,7 +17,7 @@ def test_read_user_fields():
     assert data["is_subscribed"] == u.is_subscribed
     assert "password" not in data
     assert len(data["all_events"]) == 3
-    assert sorted([f["id"] for f in data["all_events"]]) == sorted(
+    assert sorted(f["id"] for f in data["all_events"]) == sorted(
         [event1.id, event2.id, event3.id]
     )
     assert "events_today" in data

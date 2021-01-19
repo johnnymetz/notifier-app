@@ -19,7 +19,7 @@ class Event(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="events"
     )
     name = models.CharField(max_length=255, unique=True)
-    type = models.CharField(max_length=255, choices=EventType.choices)
+    type = models.CharField(max_length=255, choices=EventType.choices)  # noqa
     annual_date = models.DateField()
 
     @property

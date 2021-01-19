@@ -10,8 +10,8 @@ def test_welcome_view(client):
     assert r.status_code == status.HTTP_200_OK
 
 
-@pytest.fixture
-def enable_throttle_rates(settings):
+@pytest.fixture()
+def _enable_throttle_rates(settings):
     settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
         "anon": "10/day",
         "user": "20/day",

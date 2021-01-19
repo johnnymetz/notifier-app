@@ -18,14 +18,9 @@ Send yourself email notifications every day.
 - Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code
-- Add [flake8 plugins](https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h)
-  - flake8-bugbear
-  - pep8-naming
-  - flake8-builtins
-  - flake8-spellcheck
-  - flake8-comprehensions
-  - flake8-pytest-style
-  - flake8-broken-line
+- Finish [flake8 plugins](https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h):
+  - flake8-bandit
+  - [flake8-awesome](https://github.com/afonasev/flake8-awesome)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed
 

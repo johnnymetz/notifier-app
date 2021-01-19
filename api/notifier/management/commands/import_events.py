@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
+User = get_user_model()
+
 
 class Command(BaseCommand):
-    help = "Import events for a user."
+    help = "Import events for a user."  # noqa
 
     def add_arguments(self, parser):
         parser.add_argument("email", type=str, help="User email")
@@ -15,7 +17,6 @@ class Command(BaseCommand):
         email = options["email"]
         filename = options["filename"]
 
-        User = get_user_model()
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
