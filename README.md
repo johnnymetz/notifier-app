@@ -16,15 +16,8 @@ Send yourself email notifications every day.
 ## Todo
 
 - Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
-- Create splash page
-- Add holidays
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code
-- Add pre commit hooks:
-  - Run pyupgrade
-  - some docker lint
-  - bandit (security linter)
-  - something else from [super-linter](https://github.com/github/super-linter)
 - Add [flake8 plugins](https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h)
   - flake8-bugbear
   - pep8-naming
@@ -32,16 +25,17 @@ Send yourself email notifications every day.
   - flake8-spellcheck
   - flake8-comprehensions
   - flake8-pytest-style
+  - flake8-broken-line
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 - Add granulaized logging and ability to log sql when needed
 
 ## Todo (maybe later)
 
+- Move config files to pyproject.toml
+- Papertrail heroku plugin
 - Add [django-version-checks](https://github.com/adamchainz/django-version-checks)
   - Ensures all devs are have the correct environment setup
 - Sendgrid batch api
-- Move config files to pyproject.toml
-- Papertrail heroku plugin
 - Unit test emails
 - Try [time-machine](https://github.com/adamchainz/time-machine) instead of freezegun
 - Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
@@ -49,6 +43,8 @@ Send yourself email notifications every day.
 - Scan site with [Mozilla Observatory](https://observatory.mozilla.org/)
 - [Add security.txt to .well-known endpoint](https://adamj.eu/tech/2020/06/28/how-to-add-a-well-known-url-to-your-django-site/)
 - [Maybe add robots endpoint](https://adamj.eu/tech/2020/02/10/robots-txt/)
+- Create splash page
+- Add holidays
 
 ## Notes
 
@@ -151,6 +147,7 @@ http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password
   - SMPT: [no extra package necessary](https://sendgrid.com/docs/for-developers/sending-email/django/)
 - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
 - [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)
+- [super-linter](https://github.com/github/super-linter)
 
 ## iPython Notes
 
