@@ -11,7 +11,6 @@
 const serverUrl = Cypress.env('serverUrl');
 const qaUserEmail = Cypress.env('qaUserEmail');
 
-// -- This is a parent command --
 Cypress.Commands.add('login', (email, password) => {
   cy.request('POST', `${serverUrl}/auth/jwt/create/`, {
     email,

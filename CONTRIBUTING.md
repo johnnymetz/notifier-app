@@ -18,6 +18,9 @@ docker container exec -it notifier-app_api_1 bash
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml config
 docker-compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
+# run cypress tests in docker container
+docker-compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
+
 # upgrade packages
 pre-commit autoupdate
 pre-commit run --all-files

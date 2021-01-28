@@ -4,6 +4,7 @@ const qaUserPassword = Cypress.env('qaUserPassword');
 
 context('Index', () => {
   beforeEach(() => {
+    // TODO: fix deprecated commands
     cy.server();
     cy.route('GET', '/api/auth/users/me/').as('getUser');
     cy.route('POST', '/api/events/').as('addEvent');

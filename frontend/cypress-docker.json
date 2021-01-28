@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://frontend-cypress:3000",
+  "video": false,
+  "env": {
+    "serverUrl": "http://api:8000/api",
+    "qaUserEmail": "",
+    "qaUserEmail2": "",
+    "qaUserPassword": ""
+  }
+}

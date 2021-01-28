@@ -32,7 +32,10 @@ context('Login', () => {
   it('raise alert with bad credentials', () => {
     cy.get('[data-test=login-email]').type('bad@email.com');
     cy.get('[data-test=login-password]').type('bad{enter}');
-    cy.get('[role=alert]').should('include.text', 'No active account found');
+    cy.get('[role=alert]').should(
+      'include.text',
+      'No active account found with the given credentials'
+    );
   });
 
   it('navigate to home page with valid credentials', () => {
