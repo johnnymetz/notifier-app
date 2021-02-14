@@ -15,8 +15,6 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 import os
 from datetime import timedelta
 
-# from celery.schedules import crontab
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -33,8 +31,6 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "notifier.apps.NotifierConfig",
     "django_extensions",
-    # "django_celery_results",
-    # "django_celery_beat",
     "corsheaders",
     "silk",
     "rest_framework",

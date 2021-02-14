@@ -4,16 +4,12 @@ mypy
 ipython
 
 psycopg2
-# celery
-# watchdog[watchmedo]
 whitenoise
 nplusone
 
 django
 django-extensions
 dj-database-url
-# django-celery-results
-# django-celery-beat
 django-cors-headers
 django-anymail
 django-silk
