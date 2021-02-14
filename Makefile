@@ -40,6 +40,9 @@ cleandb:
 pipcompile:
 	@docker-compose run api pip-compile
 
+pipupgrade:
+	@docker-compose run api pip-compile --upgrade
+
 clear-silk:
 	@docker-compose run api ./manage.py silk_clear_request_log
 

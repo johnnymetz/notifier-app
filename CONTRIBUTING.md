@@ -26,9 +26,10 @@ docker-compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-
 # upgrade packages
 pre-commit autoupdate
 pre-commit run --all-files
-pip-compile upgrade  # then rebuild docker images
-npm update
+pip-compile upgrade
+# see frontend/README.md for updating npm modules
 node and python versions  # Dockerfiles, heroku runtime, mypy config
+# then rebuild docker images
 ```
 
 ## Heroku workflow

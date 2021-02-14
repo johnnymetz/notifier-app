@@ -48,3 +48,14 @@ def test_nplusone(settings):
     for e in Event.objects.select_related("user"):
         assert e.user
     assert len(connection.queries) == 1
+
+
+def test_pytest_caplog(caplog):
+    import logging
+
+    logger = logging.getLogger("django")
+    logger.info("One")
+    logger.info("Two")
+    assert "One" in caplog.text
+    assert "Two" in caplog.text
+    assert "Something else" not in caplog.text

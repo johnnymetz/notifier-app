@@ -1,6 +1,5 @@
 import csv
 import datetime
-import logging
 import random
 from typing import List, Optional
 
@@ -13,8 +12,6 @@ from django.utils.translation import gettext_lazy as _
 from notifier.constants import BIRTHDAY_FORMAT, UPCOMING_DAYS
 from notifier.helpers import build_events_upcoming_query_filter
 from users.managers import UserManager
-
-logger = logging.getLogger("django")
 
 
 class User(AbstractUser):

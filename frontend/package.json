@@ -15,7 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.21.1",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^4.6.0",
     "formik": "^2.2.6",
     "next": "9.4.4",
     "nprogress": "^0.2.0",
@@ -23,12 +23,12 @@
     "react-bootstrap": "^1.4.3",
     "react-dom": "16.13.1",
     "react-table": "^7.6.3",
-    "react-toastify": "^6.2.0",
+    "react-toastify": "^7.0.3",
     "use-async-effect": "^2.2.2",
     "yup": "^0.32.8"
   },
   "devDependencies": {
-    "cypress": "^6.2.1"
+    "cypress": "^6.4.0"
   },
   "engines": {
     "node": "15.x"

@@ -11,7 +11,7 @@
 ![Heroku](https://img.shields.io/badge/heroku%20-%23430098.svg?logo=heroku&style=for-the-badge)
 ![Docker](https://img.shields.io/badge/docker%20-%230db7ed.svg?logo=docker&logoColor=white&style=for-the-badge)
 
-Send yourself email notifications every day.
+Send yourself daily email notifications.
 
 ## Todo
 
@@ -27,9 +27,8 @@ Send yourself email notifications every day.
 - Sendgrid batch api
 - Unit test emails
 - Freezegun should be able to choose a timezone
-  so I don't need to set settings.TIME_ZONE = "UTC" in the first line of every test
-- Try [time-machine](https://github.com/adamchainz/time-machine) instead of freezegun
-- Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
+  so I don't need to set settings.TIME_ZONE = "UTC" in the first line of every test.
+  If no luck, try [time-machine](https://github.com/adamchainz/time-machine)
 - PR in django-extensions to raise error on `create_command` if file already exists
 - Scan site with [Mozilla Observatory](https://observatory.mozilla.org/)
 - [Add security.txt to .well-known endpoint](https://adamj.eu/tech/2020/06/28/how-to-add-a-well-known-url-to-your-django-site/)
@@ -49,3 +48,4 @@ Send yourself email notifications every day.
 - [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)
 - [super-linter](https://github.com/github/super-linter)
 - [flake8-awesome](https://github.com/afonasev/flake8-awesome)
+- [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)

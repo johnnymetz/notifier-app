@@ -32,7 +32,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 npm install -g npm-check-updates
 ncu  # show any updates
 ncu -u cypress  # update cypress in package.json
-npm i
+npm install
 npm list --depth 0
 ```
 
