@@ -1,18 +1,16 @@
 version: '3'
 services:
-  frontend-cypress:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./frontend:/app
+  # disable logging to reduce noise
+  api:
+    logging:
+      driver: none
+
+  frontend-dev:
     environment:
       - NEXT_PUBLIC_API_HOST=http://api:8000/api/
-    depends_on:
-      - api
 
   cypress:
-    image: cypress/included:3.3.2
+    image: cypress/included:6.4.0
     ipc: host # https://github.com/cypress-io/cypress/issues/350#issuecomment-267704772
     working_dir: /app
     volumes:
@@ -24,4 +22,4 @@ services:
     #   - DISPLAY=192.168.1.79:0
     # entrypoint: cypress open --project .
     depends_on:
-      - frontend-cypress
+      - frontend-dev

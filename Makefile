@@ -60,6 +60,9 @@ cypress-open:
 cypress-run:
 	npm run --prefix frontend/ cypress:run
 
+cypress-docker-run:
+	@docker-compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
+
 # MISCELLANEOUS
 
 get-user-count:

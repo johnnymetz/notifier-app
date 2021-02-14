@@ -6,5 +6,9 @@
     "qaUserEmail": "",
     "qaUserEmail2": "",
     "qaUserPassword": ""
+  },
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
   }
 }

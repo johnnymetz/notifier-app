@@ -15,7 +15,6 @@ Send yourself daily email notifications.
 
 ## Todo
 
-- Dockerize cypress tests
 - Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code

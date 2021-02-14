@@ -25,6 +25,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [Another cool loading icon](https://youtu.be/xSNlsSfvwac)
 - [Deploy next app to heroku](https://github.com/mars/heroku-nextjs)
 - [react-notification-system](https://github.com/igorprado/react-notification-system)
+- [Cypress cy.intercept Problems | Better world by better software](https://glebbahmutov.com/blog/cypress-intercept-problems/#no-overwriting-interceptors)
 
 ## Update packages
 
