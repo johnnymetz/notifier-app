@@ -17,6 +17,7 @@ chardet==3.0.4            # via requests
 click==7.1.2              # via black, pip-tools
 coreapi==2.3.3            # via djoser, drf-yasg
 coreschema==0.0.4         # via coreapi, drf-yasg
+coverage==5.4             # via pytest-cov
 cryptography==3.2.1       # via social-auth-core
 decorator==4.4.2          # via ipython
 defusedxml==0.6.0         # via python3-openid, social-auth-core
@@ -80,11 +81,12 @@ pyflakes==2.2.0           # via flake8
 pygments==2.7.2           # via django-silk, ipython
 pyjwt==1.7.1              # via djangorestframework-simplejwt, social-auth-core
 pyparsing==2.4.7          # via packaging
+pytest-cov==2.11.1        # via -r requirements.in
 pytest-django==4.1.0      # via -r requirements.in
 pytest-freezegun==0.4.2   # via -r requirements.in
 pytest-randomly==3.5.0    # via -r requirements.in
 pytest-timeout==1.4.2     # via -r requirements.in
-pytest==6.1.2             # via -r requirements.in, pytest-django, pytest-freezegun, pytest-randomly, pytest-timeout
+pytest==6.1.2             # via -r requirements.in, pytest-cov, pytest-django, pytest-freezegun, pytest-randomly, pytest-timeout
 python-dateutil==2.8.1    # via django-silk, faker, freezegun
 python3-openid==3.2.0     # via social-auth-core
 pytz==2020.4              # via django, django-silk

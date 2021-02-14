@@ -19,6 +19,7 @@ djoser
 drf-yasg
 
 pytest
+pytest-cov
 pytest-django
 pytest-randomly
 pytest-timeout

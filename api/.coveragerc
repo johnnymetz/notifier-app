@@ -1,0 +1,9 @@
+[run]
+omit =
+  manage.py,
+  *wsgi.py,
+  *asgi.py,
+  *swagger.py,
+  */settings/*
+  */tests*
+  ipython_config.py

@@ -53,7 +53,7 @@ repos:
     hooks:
       - id: pre-commit-django-migrations
         name: Check django migrations
-        entry: docker-compose exec -T api ./manage.py makemigrations --dry-run --check
+        entry: docker-compose run api ./manage.py makemigrations --dry-run --check
         language: system
         types: [python]
         pass_filenames: false
@@ -68,7 +68,7 @@ repos:
       - id: check-docstring-first # validate no code is placed before docstring
       - id: check-added-large-files # reject giant files (default=500kB)
         args: ['--maxkb=1500'] # bump from 500 kb default for images
-      - id: check-byte-order-marker # reject files which have a UTF-8 byte-order marker
+      - id: fix-byte-order-marker # removes UTF-8 byte order marker
       - id: check-symlinks # check for broken symlinks
       - id: debug-statements # validate no breakpoint() calls in python source
       - id: detect-private-key # keep those keys safe
