@@ -4,12 +4,10 @@ const qaUserPassword = Cypress.env('qaUserPassword');
 
 context('Index', () => {
   beforeEach(() => {
-    // TODO: fix deprecated commands
-    cy.server();
-    cy.route('GET', '/api/auth/users/me/').as('getUser');
-    cy.route('POST', '/api/events/').as('addEvent');
-    cy.route('PATCH', '/api/events/*').as('editEvent');
-    cy.route('DELETE', '/api/events/*').as('deleteEvent');
+    cy.intercept('GET', '/api/auth/users/me/').as('getUser');
+    cy.intercept('POST', '/api/events/').as('addEvent');
+    cy.intercept('PATCH', '/api/events/*').as('editEvent');
+    cy.intercept('DELETE', '/api/events/*').as('deleteEvent');
 
     cy.seedQaUser();
     cy.login(qaUserEmail, qaUserPassword);
@@ -97,8 +95,8 @@ context('Index', () => {
     cy.get('[data-test=create-event-type-input]').select('Other');
     cy.get('[data-test=create-event-form]').submit();
 
-    cy.wait('@addEvent').its('status').should('eq', 201);
-    cy.wait('@getUser').its('status').should('eq', 200);
+    cy.wait('@addEvent').its('response.statusCode').should('eq', 201);
+    cy.wait('@getUser').its('response.statusCode').should('eq', 200);
     // cy.get('@rows').should('have.length', 5); // bug: assertion hangs indefinitely
     cy.get('[data-test=all-events-list]>tbody>tr').should('have.length', 5);
     cy.get('[data-test=all-events-count').contains(5);
@@ -138,8 +136,8 @@ context('Index', () => {
     cy.get('[data-test=update-event-type-input]').select('Other');
     cy.get('[data-test=update-event-form]').submit();
 
-    cy.wait('@editEvent').its('status').should('eq', 200);
-    cy.wait('@getUser').its('status').should('eq', 200);
+    cy.wait('@editEvent').its('response.statusCode').should('eq', 200);
+    cy.wait('@getUser').its('response.statusCode').should('eq', 200);
     cy.get('@rows').should('have.length', 4);
     cy.get('[data-test=all-events-count').contains(4);
     cy.get('@rows')
@@ -158,8 +156,8 @@ context('Index', () => {
     cy.get('@targetRow').contains('Delete').click();
     cy.get('[data-test=confirm-modal-btn]').click();
 
-    cy.wait('@deleteEvent').its('status').should('eq', 204);
-    cy.wait('@getUser').its('status').should('eq', 200);
+    cy.wait('@deleteEvent').its('response.statusCode').should('eq', 204);
+    cy.wait('@getUser').its('response.statusCode').should('eq', 200);
     cy.get('@rows').should('have.length', 3);
     cy.get('[data-test=all-events-count').contains(3);
     cy.get('@rows').should('not.contain', 'Event1');
