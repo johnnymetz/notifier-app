@@ -25,7 +25,10 @@ migratedb:
 
 seeddb:
 	@docker-compose run api ./manage.py migrate
-	@docker-compose run api ./manage.py createsuperuser --email ${MY_EMAIL}
+	@docker-compose run \
+	  -e DJANGO_SUPERUSER_EMAIL=${MY_EMAIL} \
+		-e DJANGO_SUPERUSER_PASSWORD=pw \
+		api ./manage.py createsuperuser --noinput
 	@docker-compose run api ./manage.py import_events ${MY_EMAIL}
 
 cleandb:
