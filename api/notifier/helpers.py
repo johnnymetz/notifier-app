@@ -56,9 +56,7 @@ def sort_events_by_yearless_date_starting_at_today(events):
         key=lambda e: (e.annual_date.month, e.annual_date.day, -e.annual_date.year),
     )
 
-    events_sorted = events_today + events_later_this_year + events_earlier_this_year
-
-    return events_sorted
+    return events_today + events_later_this_year + events_earlier_this_year
 
 
 # TODO

@@ -18,9 +18,6 @@ Send yourself email notifications every day.
 - Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
 - Use direct type hints (once mypy supports it)
 - Address TODOs in code
-- Finish [flake8 plugins](https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h):
-  - flake8-bandit
-  - Others from [flake8-awesome](https://github.com/afonasev/flake8-awesome)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 
 ## Todo (maybe later)
@@ -144,6 +141,7 @@ http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password
 - [Using Postgres Row-Level Security in Python and Django](https://pganalyze.com/blog/postgres-row-level-security-django-python)
 - [Installing system packages in Docker with minimal bloat](https://pythonspeed.com/articles/system-packages-docker/)
 - [super-linter](https://github.com/github/super-linter)
+- [flake8-awesome](https://github.com/afonasev/flake8-awesome)
 
 ## iPython Notes
 

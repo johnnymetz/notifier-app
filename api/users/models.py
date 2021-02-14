@@ -61,12 +61,11 @@ class User(AbstractUser):
     def get_events_email_context(self) -> dict:
         events_today = self.get_events_today()
         events_upcoming = self.get_events_upcoming()
-        context = {
+        return {
             "today_display": timezone.localdate().strftime(BIRTHDAY_FORMAT),
             "events_today": events_today,
             "events_upcoming": events_upcoming,
         }
-        return context
 
     def send_events_email(self, from_email: Optional[str] = None) -> None:
         """

@@ -32,5 +32,4 @@ def token_headers(client):
     u = UserFactory(password=TEST_PASSWORD)
     r = client.post(url, {"email": u.email, "password": TEST_PASSWORD})
     access_token = r.data["access"]
-    headers = {"HTTP_AUTHORIZATION": f"Bearer {access_token}"}
-    return headers
+    return {"HTTP_AUTHORIZATION": f"Bearer {access_token}"}

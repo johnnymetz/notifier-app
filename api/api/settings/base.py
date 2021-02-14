@@ -28,14 +28,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users.apps.UsersConfig",
-    "notifier.apps.NotifierConfig",
+    # third-party
     "django_extensions",
     "corsheaders",
     "silk",
     "rest_framework",
     "djoser",
     "drf_yasg",
+    # my apps
+    "users.apps.UsersConfig",
+    "notifier.apps.NotifierConfig",
 ]
 
 MIDDLEWARE = [
