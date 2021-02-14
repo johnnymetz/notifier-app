@@ -33,6 +33,14 @@ export default ({ action, eventValues, setShowModal }) => {
   const [eventTypeChoices, setEventTypeChoices] = useState(null);
   const [showMonthNames, setShowMonthNames] = useState(false);
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentDay = currentDate.getDate();
+  const monthOptions = MONTHS.map((m, i) => ({
+    value: i + 1,
+    label: showMonthNames ? m : (i + 1).toString().padStart(2, '0'),
+  }));
+
   const getEventTypeChoices = async () => {
     const choices = await apiClient.getEventTypeChoices();
     if (choices) {
@@ -48,15 +56,10 @@ export default ({ action, eventValues, setShowModal }) => {
     getEventTypeChoices();
   }, []);
 
-  const monthOptions = MONTHS.map((m, i) => ({
-    value: i + 1,
-    label: showMonthNames ? m : (i + 1).toString().padStart(2, '0'),
-  }));
-
   const initialValues = {
     name: eventValues?.name || '',
-    month: eventValues?.month || (monthOptions && monthOptions[0].value),
-    day: eventValues?.day || '',
+    month: eventValues?.month || currentMonth,
+    day: eventValues?.day || currentDay,
     year: eventValues?.year || '',
     type:
       eventValues?.type ||

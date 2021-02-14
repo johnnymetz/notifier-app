@@ -8,6 +8,7 @@ pytest:
 
 shell:
 	# docker container exec -it notifier-app_api_1 bash
+	# @docker-compose exec api bash
 	@docker-compose run api bash
 
 pyshell:
