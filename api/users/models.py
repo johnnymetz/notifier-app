@@ -1,6 +1,7 @@
 import csv
 import datetime
 import logging
+import random
 from typing import List, Optional
 
 from django.contrib.auth.models import AbstractUser
@@ -92,7 +93,12 @@ class User(AbstractUser):
         created_events = []
         with open(filename) as f:
             csv_reader = csv.reader(f)
-            for row in csv_reader:
+            rows = list(csv_reader)
+
+            # Shuffle the rows so we known our sorting logic works correctly
+            random.shuffle(rows)
+
+            for row in rows:
                 name, annual_date_str, _type = row
                 event, created = Event.objects.get_or_create(
                     user=self,

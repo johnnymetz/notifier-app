@@ -32,6 +32,8 @@ Send yourself email notifications every day.
   - Ensures all devs are have the correct environment setup
 - Sendgrid batch api
 - Unit test emails
+- Freezegun should be able to choose a timezone
+  so I don't need to set settings.TIME_ZONE = "UTC" in the first line of every test
 - Try [time-machine](https://github.com/adamchainz/time-machine) instead of freezegun
 - Integrate [django-migration-linter](https://github.com/3YOURMIND/django-migration-linter)
 - PR in django-extensions to raise error on `create_command` if file already exists
