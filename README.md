@@ -20,9 +20,8 @@ Send yourself email notifications every day.
 - Address TODOs in code
 - Finish [flake8 plugins](https://dev.to/bowmanjd/some-flake8-plugins-for-python-linting-107h):
   - flake8-bandit
-  - [flake8-awesome](https://github.com/afonasev/flake8-awesome)
+  - Others from [flake8-awesome](https://github.com/afonasev/flake8-awesome)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
-- Add granulaized logging and ability to log sql when needed
 
 ## Todo (maybe later)
 

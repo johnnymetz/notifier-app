@@ -42,7 +42,8 @@ flake8-polyfill==1.0.2    # via pep8-naming
 flake8-print==4.0.0       # via -r requirements.in
 flake8-pytest-style==1.3.0  # via -r requirements.in
 flake8-spellcheck==0.23.0  # via -r requirements.in
-flake8==3.8.4             # via -r requirements.in, flake8-broken-line, flake8-bugbear, flake8-builtins, flake8-comprehensions, flake8-polyfill, flake8-print, flake8-spellcheck
+flake8-tuple==0.4.1       # via -r requirements.in
+flake8==3.8.4             # via -r requirements.in, flake8-broken-line, flake8-bugbear, flake8-builtins, flake8-comprehensions, flake8-polyfill, flake8-print, flake8-spellcheck, flake8-tuple
 freezegun==1.0.0          # via pytest-freezegun
 gprof2dot==2019.11.30     # via django-silk
 gunicorn==20.0.4          # via -r requirements.in
@@ -90,7 +91,7 @@ regex==2020.11.13         # via black
 requests-oauthlib==1.3.0  # via social-auth-core
 requests==2.25.0          # via coreapi, django-anymail, django-silk, requests-oauthlib, social-auth-core
 ruamel.yaml==0.16.12      # via drf-yasg
-six==1.15.0               # via cryptography, flake8-print, nplusone, packaging, pip-tools, python-dateutil, social-auth-app-django, social-auth-core
+six==1.15.0               # via cryptography, flake8-print, flake8-tuple, nplusone, packaging, pip-tools, python-dateutil, social-auth-app-django, social-auth-core
 social-auth-app-django==4.0.0  # via djoser
 social-auth-core==3.3.3   # via social-auth-app-django
 sqlparse==0.4.1           # via django, django-silk

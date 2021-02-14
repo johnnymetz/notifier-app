@@ -39,4 +39,5 @@ flake8-comprehensions
 flake8-print
 flake8-pytest-style
 flake8-spellcheck
+flake8-tuple
 pep8-naming
