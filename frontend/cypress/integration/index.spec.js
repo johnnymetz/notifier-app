@@ -73,10 +73,8 @@ context('Index', () => {
     cy.get('[data-test=all-events-count').contains(1);
   });
 
-  it('clicking month label toggles dropdown values', () => {
-    cy.get('[data-test=create-event-month-input]')
-      .find(':selected')
-      .contains('01');
+  it('toggle month dropdown values between numbers and names', () => {
+    cy.get('[data-test=create-event-month-input]').select('01');
     cy.contains('label', 'Month').click();
     cy.get('[data-test=create-event-month-input]')
       .find(':selected')
@@ -94,8 +92,8 @@ context('Index', () => {
 
     cy.get('[data-test=create-event-name-input]').type('JJ Reddick');
     cy.get('[data-test=create-event-month-input]').select('06');
-    cy.get('[data-test=create-event-day-input]').type('24');
-    cy.get('[data-test=create-event-year-input]').type('1984');
+    cy.get('[data-test=create-event-day-input]').clear().type('24');
+    cy.get('[data-test=create-event-year-input]').clear().type('1984');
     cy.get('[data-test=create-event-type-input]').select('Other');
     cy.get('[data-test=create-event-form]').submit();
 
@@ -110,7 +108,11 @@ context('Index', () => {
   });
 
   it('display feedback with no values on add event', () => {
-    cy.get('[data-test=create-event-name-input]').type('{enter}');
+    cy.wait(1000);
+    cy.get('[data-test=create-event-day-input]')
+      .clear()
+      .should('have.value', '');
+    cy.get('[data-test=create-event-form]').submit();
     cy.get('[data-test=create-event-name-input]')
       .siblings('.invalid-feedback')
       .contains('Required');
@@ -149,12 +151,11 @@ context('Index', () => {
   it('delete event', () => {
     cy.get('[data-test=all-events-list]>tbody>tr').as('rows');
     cy.get('@rows').should('have.length', 4);
-    cy.get('@rows').should('contain', 'Event1');
     cy.get('[data-test=all-events-count').contains(4);
 
-    cy.get('@rows').first().as('firstRow');
-    cy.get('@firstRow').find('.ellipsis-dropdown-toggle').click();
-    cy.get('@firstRow').contains('Delete').click();
+    cy.get('@rows').contains('td', 'Event1').parent().as('targetRow');
+    cy.get('@targetRow').find('.ellipsis-dropdown-toggle').click();
+    cy.get('@targetRow').contains('Delete').click();
     cy.get('[data-test=confirm-modal-btn]').click();
 
     cy.wait('@deleteEvent').its('status').should('eq', 204);
