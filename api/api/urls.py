@@ -8,6 +8,11 @@ from django.urls import include, path
 # from .swagger import schema_view
 from .views import Welcome
 
+
+def trigger_error(request):
+    return 1 / 0
+
+
 urlpatterns = [
     path(f"{os.environ.get('ADMIN_URL', 'admin')}/", admin.site.urls),
     path("", Welcome.as_view(), name="welcome"),
@@ -16,6 +21,7 @@ urlpatterns = [
     path("api/auth/", include("djoser.urls.jwt")),
     # # documentation
     # path("api/docs/", schema_view.with_ui("swagger")),
+    # silk
     path(
         f"{os.environ.get('SILK_URL', 'silk')}/", include("silk.urls", namespace="silk")
     ),
@@ -26,4 +32,6 @@ urlpatterns = [
             extra_context={"site_header": "Silk Debugging"},
         ),
     ),
+    # sentry
+    path("api/sentry-789/", trigger_error),
 ]

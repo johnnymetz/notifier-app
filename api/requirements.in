@@ -6,6 +6,7 @@ ipython
 psycopg2
 whitenoise
 nplusone
+sentry-sdk
 
 django
 django-extensions
@@ -28,7 +29,7 @@ factory-boy
 
 gunicorn
 
-# add plugins to additional_dependencies in pre-commit hook
+# add flake8 plugins to additional_dependencies in pre-commit hook
 flake8
 flake8-broken-line
 flake8-bugbear

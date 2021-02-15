@@ -2,6 +2,8 @@
 ./manage.py check --deploy --settings api.settings.production
 """
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *
 
@@ -56,3 +58,12 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
     "anon": "100/day",
     "user": "1000/day",
 }
+
+# sentry
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    integrations=[DjangoIntegration()],
+    environment="production",
+    traces_sample_rate=1.0,
+    send_default_pii=False,  # associate users to errors
+)
