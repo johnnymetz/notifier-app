@@ -188,3 +188,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(weeks=1),
 }
+
+
+# Custom settings
+USER_COUNT_LIMIT = 100

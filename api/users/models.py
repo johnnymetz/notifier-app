@@ -3,8 +3,9 @@ import datetime
 import random
 from typing import List, Optional
 
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
-from django.db import models
+from django.db import DataError, models
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -108,3 +109,9 @@ class User(AbstractUser):
                     created_events.append(event)
 
         return created_events
+
+    def save(self, *args, **kwargs):
+        if (self.__class__.objects.count() + 1) > settings.USER_COUNT_LIMIT:
+            raise DataError("User count limit exceeded")
+
+        super().save(*args, **kwargs)

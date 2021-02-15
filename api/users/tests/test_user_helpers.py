@@ -1,5 +1,7 @@
 import datetime
 
+from django.db import DataError
+
 import pytest
 
 from notifier.constants import UNKNOWN_YEAR
@@ -77,3 +79,12 @@ def test_get_events_upcoming_at_year_end(settings):
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 12, 30))
     EventFactory(user=user, annual_date=datetime.date(UNKNOWN_YEAR, 1, 10))
     assert list(user.get_events_upcoming()) == [event1, event3, event2, event4]
+
+
+@pytest.mark.django_db
+def test_exceed_user_count_limit(settings):
+    assert settings.USER_COUNT_LIMIT
+    for _ in range(settings.USER_COUNT_LIMIT):
+        UserFactory()
+    with pytest.raises(DataError, match="User count limit exceeded"):
+        UserFactory()
