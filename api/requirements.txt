@@ -216,6 +216,8 @@ pytest-django==4.1.0
     # via -r requirements.in
 pytest-freezegun==0.4.2
     # via -r requirements.in
+pytest-instafail==0.4.2
+    # via -r requirements.in
 pytest-randomly==3.5.0
     # via -r requirements.in
 pytest-timeout==1.4.2
@@ -226,6 +228,7 @@ pytest==6.2.2
     #   pytest-cov
     #   pytest-django
     #   pytest-freezegun
+    #   pytest-instafail
     #   pytest-randomly
     #   pytest-timeout
 python-dateutil==2.8.1

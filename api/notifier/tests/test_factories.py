@@ -51,6 +51,7 @@ def test_nplusone(settings):
 
 
 def test_pytest_caplog(caplog):
+    """https://stribny.name/blog/pytest/#logging"""
     import logging
 
     logger = logging.getLogger("django")

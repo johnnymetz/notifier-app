@@ -22,6 +22,7 @@ drf-yasg
 pytest
 pytest-cov
 pytest-django
+pytest-instafail
 pytest-randomly
 pytest-timeout
 pytest-freezegun
