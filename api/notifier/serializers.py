@@ -1,15 +1,16 @@
 import datetime
 
+from django.conf import settings
+
 from rest_framework import serializers
 
-from notifier.constants import UNKNOWN_YEAR
 from notifier.models import Event
 
 
 class DateField(serializers.Field):
     def to_representation(self, value):
         return {
-            "year": None if value.year == UNKNOWN_YEAR else value.year,
+            "year": None if value.year == settings.UNKNOWN_YEAR else value.year,
             "month": value.month,
             "day": value.day,
         }
@@ -17,7 +18,7 @@ class DateField(serializers.Field):
     def to_internal_value(self, data):
         try:
             return datetime.date(
-                int(data.get("year", UNKNOWN_YEAR)),
+                int(data.get("year", settings.UNKNOWN_YEAR)),
                 int(data["month"]),
                 int(data["day"]),
             )

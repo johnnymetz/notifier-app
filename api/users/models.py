@@ -10,7 +10,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from notifier.constants import BIRTHDAY_FORMAT, UPCOMING_DAYS
 from notifier.helpers import build_events_upcoming_query_filter
 from users.managers import UserManager
 
@@ -45,7 +44,7 @@ class User(AbstractUser):
             annual_date__year__lte=today.year,
         )
 
-    def get_events_upcoming(self, days: int = UPCOMING_DAYS):
+    def get_events_upcoming(self, days: int = settings.UPCOMING_DAYS):
         """Get upcoming events. Sort by date, not including the year"""
         query_filter = build_events_upcoming_query_filter(days=days)
 
@@ -60,7 +59,7 @@ class User(AbstractUser):
         events_today = self.get_events_today()
         events_upcoming = self.get_events_upcoming()
         return {
-            "today_display": timezone.localdate().strftime(BIRTHDAY_FORMAT),
+            "today_display": timezone.localdate().strftime(settings.BIRTHDAY_FORMAT),
             "events_today": events_today,
             "events_upcoming": events_upcoming,
         }

@@ -2,7 +2,6 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from notifier.constants import BIRTHDAY_FORMAT, MAX_EVENTS_PER_USER, UNKNOWN_YEAR
 from notifier.exceptions import NotifierException
 
 
@@ -24,7 +23,7 @@ class Event(models.Model):
 
     @property
     def age(self):
-        if self.annual_date.year == UNKNOWN_YEAR:
+        if self.annual_date.year == settings.UNKNOWN_YEAR:
             return None
         today = timezone.localdate()
         return (
@@ -38,10 +37,10 @@ class Event(models.Model):
 
     @property
     def annual_date_display(self):
-        return self.annual_date.strftime(BIRTHDAY_FORMAT)
+        return self.annual_date.strftime(settings.BIRTHDAY_FORMAT)
 
     def clean(self):
-        if self.user_id and self.user.events.count() > MAX_EVENTS_PER_USER:
+        if self.user_id and self.user.events.count() > settings.MAX_EVENTS_PER_USER:
             raise NotifierException(f"{self.user} has reached the event limit")
 
     def save(self, *args, **kwargs):

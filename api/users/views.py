@@ -2,6 +2,7 @@ import datetime
 import os
 from types import SimpleNamespace
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
@@ -38,7 +39,6 @@ class SeedQaUser(APIView):
         )
 
     def post(self, request, *args, **kwargs):
-        from notifier.constants import UNKNOWN_YEAR
         from notifier.models import Event
 
         qa_creds = self._get_and_delete_qa_users()
@@ -54,7 +54,7 @@ class SeedQaUser(APIView):
             dataset = [
                 # today
                 (today.replace(year=ten_years_ago), Event.EventType.BIRTHDAY),
-                (today.replace(year=UNKNOWN_YEAR), Event.EventType.BIRTHDAY),
+                (today.replace(year=settings.UNKNOWN_YEAR), Event.EventType.BIRTHDAY),
                 (today + datetime.timedelta(days=365), Event.EventType.OTHER),
                 # tomorrow
                 (today + datetime.timedelta(days=1), Event.EventType.OTHER),
@@ -71,7 +71,9 @@ class SeedQaUser(APIView):
                     Event.EventType.OTHER,
                 ),
                 (
-                    (today + datetime.timedelta(days=120)).replace(year=UNKNOWN_YEAR),
+                    (today + datetime.timedelta(days=120)).replace(
+                        year=settings.UNKNOWN_YEAR
+                    ),
                     Event.EventType.OTHER,
                 ),
             ]
