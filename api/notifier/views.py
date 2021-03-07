@@ -22,6 +22,8 @@ class ModelViewSetWithoutList(
     """
     A viewset that provides default `create()`, `retrieve()`, `update()`,
     `partial_update()` and `destroy()` actions.
+
+    Note no `list()`.
     """
 
     pass
