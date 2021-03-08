@@ -24,7 +24,7 @@ def test_create_user():
 
 @pytest.mark.django_db
 def test_create_superuser():
-    admin_user = User.objects.create_superuser("super@user.com", "foo")
+    admin_user = User.objects.create_superuser(email="super@user.com", password="foo")
     assert admin_user.email == "super@user.com"
     assert admin_user.is_active
     assert admin_user.is_staff
