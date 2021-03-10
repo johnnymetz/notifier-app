@@ -32,10 +32,8 @@ seeddb:
 	@docker-compose run api ./manage.py import_events ${MY_EMAIL}
 
 cleandb:
-	# kill any existing sessions connected to db
-	# PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid IN (SELECT pid FROM pg_stat_activity WHERE datname = 'notifier');"
-	PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "DROP DATABASE notifier WITH (FORCE);"
-	PGPASSWORD=postgres psql -h localhost -U postgres -p 5433 -c "CREATE DATABASE notifier;"
+	docker-compose exec db psql -U postgres -c "DROP DATABASE notifier WITH (FORCE);"
+	docker-compose exec db psql -U postgres -c "CREATE DATABASE notifier;"
 
 pipcompile:
 	@docker-compose run api pip-compile
