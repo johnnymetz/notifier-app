@@ -1,54 +1,63 @@
+DB_NAME=notifier
+HEROKU_API_APP_NAME=notifier-app-api
+
+all: shell
+
 setup:
 	pre-commit install
+
+updateprecommit:
+	pre-commit autoupdate
+	pre-commit run --all-files
 
 # BACKEND
 
 pytest:
-	@docker-compose run api pytest --ds=api.settings.test
+	docker-compose run api pytest --ds=api.settings.test
 
 shell:
 	# docker container exec -it notifier-app_api_1 bash
-	# @docker-compose exec api bash
-	@docker-compose run api bash
+	# docker-compose exec api bash
+	docker-compose run api bash
 
 pyshell:
-	@docker-compose run api ./manage.py shell_plus --ipython -- --profile=me
+	docker-compose run api ./manage.py shell_plus --ipython -- --profile=me
 
 logs:
-	docker container logs -f notifier-app_api_1
+	docker-compose logs -f --no-log-prefix api
 
 dbshell:
-	PGPASSWORD=postgres psql -h localhost -U postgres -d notifier -p 5433
+	docker-compose exec db psql -U postgres
+
+cleandb:
+	docker-compose exec db psql -U postgres -c "DROP DATABASE ${DB_NAME} WITH (FORCE);"
+	docker-compose exec db psql -U postgres -c "CREATE DATABASE ${DB_NAME};"
 
 migratedb:
-	@docker-compose run api ./manage.py migrate
+	docker-compose run api ./manage.py migrate
 
-seeddb:
-	@docker-compose run api ./manage.py migrate
+createsuperuser:
 	@docker-compose run \
 	  -e DJANGO_SUPERUSER_EMAIL=${MY_EMAIL} \
 		-e DJANGO_SUPERUSER_PASSWORD=pw \
 		api ./manage.py createsuperuser --noinput
-	@docker-compose run api ./manage.py import_events ${MY_EMAIL}
 
-cleandb:
-	docker-compose exec db psql -U postgres -c "DROP DATABASE notifier WITH (FORCE);"
-	docker-compose exec db psql -U postgres -c "CREATE DATABASE notifier;"
+importevents:
+	docker-compose run api ./manage.py import_events ${MY_EMAIL}
+
+exportevents:
+	docker-compose run api ./manage.py export_events ${MY_EMAIL}
+
+seeddb: migratedb createsuperuser importevents
 
 pipcompile:
-	@docker-compose run api pip-compile
+	docker-compose run api pip-compile
 
-pipupgrade:
-	@docker-compose run api pip-compile --upgrade
+upgradepip:
+	docker-compose run api pip-compile --upgrade
 
 clear-silk:
-	@docker-compose run api ./manage.py silk_clear_request_log
-
-heroku-shell:
-	heroku run -a notifier-app-api bash
-
-heroku-logs:
-	heroku logs -a notifier-app-api --tail
+	docker-compose run api ./manage.py silk_clear_request_log
 
 # FRONTEND
 
@@ -59,12 +68,20 @@ cypress-run:
 	npm run --prefix frontend/ cypress:run
 
 cypress-docker-run:
-	@docker-compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
+	docker-compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
+
+# HEROKU
+
+heroku-shell:
+	heroku run -a ${HEROKU_API_APP_NAME} bash
+
+heroku-logs:
+	heroku logs -a ${HEROKU_API_APP_NAME} --tail
+
+get-user-count:
+	heroku run -a ${HEROKU_API_APP_NAME} bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
 
 # MISCELLANEOUS
 
-get-user-count:
-	heroku run -a notifier-app-api bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
-
-echo:
+echoemail:
 	echo ${MY_EMAIL}
