@@ -1,12 +1,6 @@
-pip-tools
-black
-mypy
-ipython
-
-psycopg2
-whitenoise
-nplusone
-sentry-sdk
+#############################
+# BASE REQUIREMENTS
+#############################
 
 django
 django-extensions
@@ -19,6 +13,19 @@ djangorestframework-simplejwt
 djoser
 drf-yasg
 
+psycopg2
+whitenoise
+
+#############################
+# DEV REQUIREMENTS
+#############################
+
+pip-tools
+black
+mypy
+ipython
+pywatchman
+
 pytest
 pytest-cov
 pytest-django
@@ -27,8 +34,7 @@ pytest-randomly
 pytest-timeout
 pytest-freezegun
 factory-boy
-
-gunicorn
+nplusone
 
 # add flake8 plugins to additional_dependencies in pre-commit hook
 flake8
@@ -42,3 +48,10 @@ flake8-return
 flake8-spellcheck
 flake8-tuple
 pep8-naming
+
+#############################
+# PROD REQUIREMENTS
+#############################
+
+gunicorn
+sentry-sdk
