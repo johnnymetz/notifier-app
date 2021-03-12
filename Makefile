@@ -13,7 +13,7 @@ updateprecommit:
 # BACKEND
 
 pytest:
-	docker-compose run api pytest --ds=api.settings.test
+	docker-compose run api pytest
 
 shell:
 	# docker container exec -it notifier-app_api_1 bash

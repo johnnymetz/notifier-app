@@ -26,19 +26,18 @@ class UserSerializer(serializers.ModelSerializer):
         from notifier.helpers import sort_events_by_yearless_date_starting_at_today
         from notifier.serializers import EventSerializer
 
-        events = sort_events_by_yearless_date_starting_at_today(obj.events.all())
-        return EventSerializer(events, many=True).data
+        return EventSerializer(
+            sort_events_by_yearless_date_starting_at_today(obj.events.all()), many=True
+        ).data
 
     @staticmethod
     def get_events_today(obj):
         from notifier.serializers import EventSerializer
 
-        events_today = obj.get_events_today()
-        return EventSerializer(events_today, many=True).data
+        return EventSerializer(obj.get_events_today(), many=True).data
 
     @staticmethod
     def get_events_upcoming(obj):
         from notifier.serializers import EventSerializer
 
-        events_upcoming = obj.get_events_upcoming()
-        return EventSerializer(events_upcoming, many=True).data
+        return EventSerializer(obj.get_events_upcoming(), many=True).data

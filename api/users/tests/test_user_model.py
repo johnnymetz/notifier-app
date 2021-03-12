@@ -73,7 +73,6 @@ def test_get_events_upcoming_at_month_end(settings):
     assert list(user.get_events_upcoming()) == [event1, event3, event2, event4]
 
 
-@pytest.mark.skip(reason="TODO")
 @pytest.mark.freeze_time("2020-12-30")
 @pytest.mark.django_db
 def test_get_events_upcoming_at_year_end(settings):

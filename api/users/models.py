@@ -1,7 +1,7 @@
 import csv
 import datetime
 import random
-from typing import List, Optional
+from typing import Optional
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -20,9 +20,7 @@ class User(AbstractUser):
     is_subscribed = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS: List[
-        str
-    ] = []  # TODO: change to list[str] once mypy supports python 3.9
+    REQUIRED_FIELDS: list[str] = []
 
     objects = UserManager()
 
@@ -46,14 +44,11 @@ class User(AbstractUser):
 
     def get_events_upcoming(self, days: int = settings.UPCOMING_DAYS):
         """Get upcoming events. Sort by date, not including the year"""
+        from notifier.helpers import sort_events_by_yearless_date_starting_at_today
+
         query_filter = build_events_upcoming_query_filter(days=days)
-
-        # TODO
-        # return sort_events_by_date_without_year(self.events.filter(query_filter))
-
-        return self.events.filter(query_filter).order_by(
-            "annual_date__month", "annual_date__day", "-annual_date__year"
-        )
+        events = self.events.filter(query_filter)
+        return sort_events_by_yearless_date_starting_at_today(events)
 
     def get_events_email_context(self) -> dict:
         events_today = self.get_events_today()

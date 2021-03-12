@@ -59,12 +59,6 @@ def sort_events_by_yearless_date_starting_at_today(events):
     return events_today + events_later_this_year + events_earlier_this_year
 
 
-# TODO
-def sort_events_by_date_without_year(events):
-    """Get upcoming events. Sort by date, not including the year."""
-    return events
-
-
 def add_one(x: int):
     """
     Test pytest doctest.
