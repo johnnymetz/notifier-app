@@ -141,6 +141,8 @@ ipython-genutils==0.2.0
     # via traitlets
 ipython==7.20.0
     # via -r requirements.in
+isort==5.7.0
+    # via -r requirements.in
 itypes==1.2.0
     # via coreapi
 jedi==0.18.0
