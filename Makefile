@@ -1,7 +1,7 @@
 DB_NAME=notifier
 HEROKU_API_APP_NAME=notifier-app-api
 
-all: shell
+.DEFAULT_GOAL = shell
 
 setup:
 	pre-commit install
