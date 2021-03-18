@@ -14,8 +14,13 @@ exclude = '''
   | build
   | dist
   | venv
-  | migrations
 )/
+'''
+# files in this dir are ignored by pre-commit
+force-exclude = '''
+/(
+  migrations
+)\
 '''
 
 [tool.isort]
