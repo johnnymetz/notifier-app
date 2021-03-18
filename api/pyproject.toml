@@ -1,5 +1,4 @@
 [tool.black]
-line-length = 88
 target-version = ['py38']  # update to py39 on new release
 include = '\.pyi?$'
 # change to extend-exclude on new release
