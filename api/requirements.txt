@@ -64,7 +64,7 @@ django-silk==4.1.0
     # via -r requirements.in
 django-templated-mail==1.1.1
     # via djoser
-django==3.1.6
+django==3.1.8
     # via
     #   -r requirements.in
     #   django-anymail
