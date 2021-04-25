@@ -12,7 +12,7 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 User = get_user_model()
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_read_current_user(client, token_headers):
     u = User.objects.get()
     EventFactory(user=u)
@@ -28,7 +28,7 @@ def test_read_current_user(client, token_headers):
     assert "events_upcoming" in r.data
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_create_user(client, mailoutbox, settings):
     url = reverse("user-list")
     data = {
@@ -50,7 +50,7 @@ def test_create_user(client, mailoutbox, settings):
     assert not u.is_superuser
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_resend_activation_email(client, mailoutbox):
     u = UserFactory(is_active=False)
     url = reverse("user-resend-activation")
@@ -59,7 +59,7 @@ def test_resend_activation_email(client, mailoutbox):
     assert len(mailoutbox) == 1
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_activate_user(client, mailoutbox):
     u = UserFactory(is_active=False)
     url = reverse("user-activation")
@@ -74,7 +74,7 @@ def test_activate_user(client, mailoutbox):
     assert u.is_active
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_set_email(client, mailoutbox, token_headers):
     u = User.objects.get()
     url = reverse("user-set-username")
@@ -91,7 +91,7 @@ def test_set_email(client, mailoutbox, token_headers):
     assert u.email == new_email
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_set_password(client, mailoutbox, token_headers):
     u = User.objects.get()
     url = reverse("user-set-password")
@@ -109,7 +109,7 @@ def test_set_password(client, mailoutbox, token_headers):
     assert u.check_password(new_pw)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_update(client, mailoutbox, token_headers):
     u = User.objects.get()
     assert u.is_subscribed is True
@@ -122,7 +122,7 @@ def test_update(client, mailoutbox, token_headers):
     assert len(mailoutbox) == 1
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_send_reset_password_email(client, mailoutbox):
     u = UserFactory()
     url = reverse("user-reset-password")
@@ -136,7 +136,7 @@ def test_send_reset_password_email(client, mailoutbox):
     assert len(mailoutbox) == 1
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_reset_password(client, mailoutbox):
     u = UserFactory()
     url = reverse("user-reset-password-confirm")

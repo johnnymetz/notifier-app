@@ -10,12 +10,12 @@ repos:
       - id: black
         args: ['--config=api/pyproject.toml']
   - repo: https://github.com/pycqa/isort
-    rev: 5.7.0
+    rev: 5.8.0
     hooks:
       - id: isort
         args: ['--settings-file=api/pyproject.toml']
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+    rev: 3.9.1
     hooks:
       - id: flake8
         args: ['--config=api/.flake8']

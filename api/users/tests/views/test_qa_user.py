@@ -23,7 +23,7 @@ def qa_creds(monkeypatch):
     return SimpleNamespace(email1=email1, email2=email2, password=pw)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_seed_qa_user_with_relatively_dated_events(qa_creds, client):
     assert not User.objects.exists()
     url = reverse("seed-qa-user")
@@ -40,7 +40,7 @@ def test_seed_qa_user_with_relatively_dated_events(qa_creds, client):
     assert u.check_password(qa_creds.password)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_seed_qa_user_with_statically_dated_events(qa_creds, client):
     assert not User.objects.exists()
     url = reverse("seed-qa-user")
@@ -55,7 +55,7 @@ def test_seed_qa_user_with_statically_dated_events(qa_creds, client):
     assert u.check_password(qa_creds.password)
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_seed_qa_user_replaces_existing_qa_user_with_email1(qa_creds, client):
     u1 = UserFactory(email=qa_creds.email1, password=qa_creds.password)
     url = reverse("seed-qa-user")
@@ -68,7 +68,7 @@ def test_seed_qa_user_replaces_existing_qa_user_with_email1(qa_creds, client):
     assert not User.objects.filter(pk=u1.pk).exists()
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_delete_qa_users(qa_creds, client):
     UserFactory(email=qa_creds.email1, password=qa_creds.password)
     UserFactory(email=qa_creds.email2, password=qa_creds.password)

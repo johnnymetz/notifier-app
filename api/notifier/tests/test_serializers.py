@@ -8,7 +8,7 @@ from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_read_event_fields():
     event = EventFactory()
     data = EventSerializer(event).data
@@ -22,7 +22,7 @@ def test_read_event_fields():
     assert data["age"] == event.age
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_read_event_fields_without_year(settings):
     event = EventFactory()
     event.annual_date = event.annual_date.replace(year=settings.UNKNOWN_YEAR)
@@ -37,7 +37,7 @@ def test_read_event_fields_without_year(settings):
     assert data["age"] == event.age
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_create_event():
     u = UserFactory()
     date = datetime.date(1994, 1, 24)
@@ -54,7 +54,7 @@ def test_create_event():
     assert event.user == u
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_update_event():
     u = UserFactory()
     event = EventFactory(user=u)
@@ -72,7 +72,7 @@ def test_update_event():
     assert event.user == u
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_update_event_without_year(settings):
     u = UserFactory()
     event = EventFactory(user=u)

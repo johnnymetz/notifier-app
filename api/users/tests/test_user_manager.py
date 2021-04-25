@@ -5,7 +5,7 @@ import pytest
 User = get_user_model()
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_create_user():
     user = User.objects.create_user(email="normal@user.com", password="foo")
     assert user.email == "normal@user.com"
@@ -22,7 +22,7 @@ def test_create_user():
     assert user.is_subscribed
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_create_superuser():
     admin_user = User.objects.create_superuser(email="super@user.com", password="foo")
     assert admin_user.email == "super@user.com"

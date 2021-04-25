@@ -5,7 +5,7 @@ from users.serializers import UserSerializer
 from users.tests.factories import UserFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_read_user_fields():
     u = UserFactory()
     event1 = EventFactory(user=u)

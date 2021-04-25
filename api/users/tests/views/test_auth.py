@@ -9,7 +9,7 @@ from rest_framework import status
 from users.tests.factories import TEST_PASSWORD, UserFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_create_verify_refresh_jwt(client, freezer, settings):
     u = UserFactory(password=TEST_PASSWORD, is_active=False)
 
@@ -50,7 +50,7 @@ def test_create_verify_refresh_jwt(client, freezer, settings):
     assert r.data["access"] != access_token
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_client_login(client):
     u = UserFactory(password=TEST_PASSWORD)
     is_logged_in = client.login(email=u.email, password="bad")

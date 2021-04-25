@@ -30,7 +30,7 @@ def test_anon_throttle_rate(client, settings, enable_throttle_rates):
     assert r.status_code == status.HTTP_429_TOO_MANY_REQUESTS
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_user_throttle_rate(client, settings, enable_throttle_rates, token_headers):
     rate = int(
         settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["user"].removesuffix("/day")

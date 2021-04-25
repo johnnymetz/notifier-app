@@ -13,7 +13,7 @@ from users.tests.factories import UserFactory
 User = get_user_model()
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_read_event_list(client, token_headers):
     EventFactory()
     EventFactory()
@@ -24,7 +24,7 @@ def test_read_event_list(client, token_headers):
     assert r.status_code == status.HTTP_405_METHOD_NOT_ALLOWED
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_read_event_detail(client, token_headers):
     u = User.objects.get()
     event = EventFactory(user=u)
@@ -36,7 +36,7 @@ def test_read_event_detail(client, token_headers):
     assert r.data["id"] == event.id
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_create_event(client, token_headers):
     u = User.objects.get()
     url = reverse("event-list")
@@ -52,7 +52,7 @@ def test_create_event(client, token_headers):
     assert r.data["user"] == u.id
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_update_event(client, token_headers):
     u = User.objects.get()
     event = EventFactory(user=u)
@@ -82,7 +82,7 @@ def test_update_event(client, token_headers):
     assert event.type == _type
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_delete_event(client, token_headers):
     u = User.objects.get()
     event = EventFactory(user=u)
@@ -93,7 +93,7 @@ def test_delete_event(client, token_headers):
     assert not u.events.exists()
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_user_cant_read_or_delete_event_of_another_user(client, token_headers):
     _ = User.objects.get()
     u = UserFactory()

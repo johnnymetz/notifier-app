@@ -8,7 +8,7 @@ from notifier.tests.factories import EventFactory
 
 
 @pytest.mark.freeze_time("2020-06-01")
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_sort_events_by_yearless_date_starting_at_today(settings):
     settings.TIME_ZONE = "UTC"
     event1 = EventFactory(annual_date=datetime.date(1990, 12, 31))

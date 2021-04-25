@@ -3,7 +3,7 @@ import pytest
 from users.tests.factories import UserFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_user_factory():
     u = UserFactory()
     assert u.username is None
@@ -14,7 +14,7 @@ def test_user_factory():
     assert not u.is_superuser
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_superuser_factory():
     u = UserFactory(is_superuser=True)
     assert u.username is None

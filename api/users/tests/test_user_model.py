@@ -9,7 +9,7 @@ from users.tests.factories import UserFactory
 
 
 @pytest.mark.freeze_time("2020-01-01")
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_get_events_today(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
@@ -28,7 +28,7 @@ def test_get_events_today(settings):
 
 
 @pytest.mark.freeze_time("2020-01-01")
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_get_events_upcoming_at_month_start(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
@@ -54,7 +54,7 @@ def test_get_events_upcoming_at_month_start(settings):
 
 
 @pytest.mark.freeze_time("2020-01-30")
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_get_events_upcoming_at_month_end(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
@@ -74,7 +74,7 @@ def test_get_events_upcoming_at_month_end(settings):
 
 
 @pytest.mark.freeze_time("2020-12-30")
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_get_events_upcoming_at_year_end(settings):
     settings.TIME_ZONE = "UTC"
     user = UserFactory()
@@ -93,7 +93,7 @@ def test_get_events_upcoming_at_year_end(settings):
     assert list(user.get_events_upcoming()) == [event1, event3, event2, event4]
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_exceed_user_count_limit(settings):
     assert settings.USER_COUNT_LIMIT
     for _ in range(settings.USER_COUNT_LIMIT):

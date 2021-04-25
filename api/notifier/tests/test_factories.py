@@ -11,7 +11,7 @@ from notifier.models import Event
 from notifier.tests.factories import EventFactory, UserFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_event_factory():
     EventFactory()
 
@@ -32,7 +32,7 @@ def test_freeze_time_functionality():
     assert datetime.datetime.now() == datetime.datetime.today()
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_nplusone(settings):
     settings.DEBUG = True  # debug must be True to populate connection.queries
     u1 = UserFactory()

@@ -5,7 +5,7 @@ import pytest
 from users.tests.factories import UserFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db()
 def test_email_group_of_users(mailoutbox):
     users = [
         UserFactory(),
@@ -23,8 +23,8 @@ def test_email_group_of_users(mailoutbox):
     assert len(mailoutbox) == 2
 
 
-@pytest.mark.skip_nplusone
-@pytest.mark.django_db
+@pytest.mark.skip_nplusone()
+@pytest.mark.django_db()
 def test_email_all_users(mailoutbox):
     UserFactory()
     UserFactory(is_active=False)
