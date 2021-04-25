@@ -53,7 +53,7 @@ seeddb: migratedb createsuperuser importevents
 pipcompile:
 	docker-compose run api pip-compile
 
-upgradepip:
+pipcompileupgrade:
 	docker-compose run api pip-compile --upgrade
 
 clear-silk:
