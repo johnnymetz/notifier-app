@@ -57,17 +57,3 @@ def sort_events_by_yearless_date_starting_at_today(events):
     )
 
     return events_today + events_later_this_year + events_earlier_this_year
-
-
-def add_one(x: int):
-    """
-    Test pytest doctest.
-
-    >>> add_one(1)
-    2
-    >>> add_one(10)
-    11
-    >>> add_one(100)
-    101
-    """
-    return x + 1

@@ -35,7 +35,7 @@ class EventViewset(ModelViewSetWithoutList):
     permission_classes = (IsOwner,)
 
 
-class EmailMock(APIView):
+class EventsEmailView(APIView):
     def get(self, request, email, *args, **kwargs):
         user = User.objects.get(email=email)
         context = user.get_events_email_context()

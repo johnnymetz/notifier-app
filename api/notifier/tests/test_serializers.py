@@ -1,7 +1,8 @@
 import datetime
-from unittest.mock import MagicMock
+from unittest.mock import create_autospec
 
 import pytest
+from rest_framework.request import Request
 
 from notifier.serializers import EventSerializer
 from notifier.tests.factories import EventFactory
@@ -46,7 +47,8 @@ def test_create_event():
         "annual_date": {"year": date.year, "month": date.month, "day": date.day},
         "type": "Birthday",
     }
-    serializer = EventSerializer(data=data, context={"request": MagicMock(user=u)})
+    request = create_autospec(Request, spec_set=True, instance=True, user=u)
+    serializer = EventSerializer(data=data, context={"request": request})
     assert serializer.is_valid(raise_exception=True)
     event = serializer.save()
     assert event.name == data["name"]
