@@ -1,5 +1,5 @@
 [tool.black]
-target-version = ['py38']  # update to py39 on new release
+target-version = ["py38"]  # update to py39 on new release
 include = '\.pyi?$'
 # change to extend-exclude on new release
 exclude = '''
@@ -30,3 +30,38 @@ known_first_party = ["api", "users", "notifier"]
 known_django = "django"
 sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 remove_redundant_aliases = true
+
+[tool.pytest.ini_options]
+addopts= [
+  "--ds=api.settings.test",
+  "--verbose",
+  "-ra",
+  "--doctest-modules",
+  "--instafail",
+  "--cov=.",
+  # "--cov-config .coveragerc",
+  "--cov-report=term-missing",
+  # ignore files that break doctest
+  "--ignore=ipython_config.py",
+  "--ignore=scripts/",
+  "--ignore-glob=api/settings/*",
+]
+markers = [
+  "skip_nplusone: mark test to not raise an error when an n+1 query is detected",
+]
+filterwarnings =[
+  "ignore::django.utils.deprecation.RemovedInDjango40Warning:silk.*:",
+]
+# timeout for a single test; comment out when debugging
+timeout = 20
+
+[tool.coverage.run]
+omit = [
+  "manage.py",
+  "*wsgi.py",
+  "*asgi.py",
+  "*swagger.py",
+  "*/settings/*",
+  "*/tests*",
+  "ipython_config.py",
+]
