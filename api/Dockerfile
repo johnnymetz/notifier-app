@@ -5,9 +5,14 @@ ENV DJANGO_WATCHMAN_TIMEOUT=20
 
 ARG WM_VERSION=v2021.03.01.00
 
+RUN  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
+
 # install watchman
 # hadolint ignore=SC2039,DL3003
-RUN wget https://github.com/facebook/watchman/releases/download/$WM_VERSION/watchman-$WM_VERSION-linux.zip && \
+RUN wget --progress=dot:giga https://github.com/facebook/watchman/releases/download/$WM_VERSION/watchman-$WM_VERSION-linux.zip && \
   unzip watchman-*-linux.zip && \
   cd watchman-*-linux && \
   mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman && \
