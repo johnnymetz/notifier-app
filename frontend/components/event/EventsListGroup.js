@@ -40,10 +40,12 @@ const EventsListItem = ({ event, today = false }) => {
   );
 };
 
-export default ({ events, today = false }) => (
+const EventsListGroup = ({ events, today = false }) => (
   <ListGroup data-test={today ? 'today-events-list' : 'upcoming-events-list'}>
     {events.map(event => (
       <EventsListItem key={event.id} event={event} today={today} />
     ))}
   </ListGroup>
 );
+
+export default EventsListGroup;

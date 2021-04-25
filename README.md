@@ -16,20 +16,19 @@ Send yourself daily email notifications.
 ## Todo
 
 - Add holidays
+- Freezegun should be able to choose a timezone
+  so I don't need to set settings.TIME_ZONE = "UTC" in the first line of every test.
+  If no luck, try [time-machine](https://github.com/adamchainz/time-machine)
 - Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 
 ## Todo (maybe later)
 
-- Create splash page
-- Move config files to pyproject.toml (mypy and flake8 don't support it yet)
 - Papertrail heroku plugin
 - Sendgrid batch api
 - Import birthdays from Facebook
 - Unit test emails
-- Freezegun should be able to choose a timezone
-  so I don't need to set settings.TIME_ZONE = "UTC" in the first line of every test.
-  If no luck, try [time-machine](https://github.com/adamchainz/time-machine)
+- Move config files to pyproject.toml once mypy and flake8 support it
 - PR in django-extensions to raise error on `create_command` if file already exists
 - Scan site with [Mozilla Observatory](https://observatory.mozilla.org/)
 - [Add security.txt to .well-known endpoint](https://adamj.eu/tech/2020/06/28/how-to-add-a-well-known-url-to-your-django-site/)

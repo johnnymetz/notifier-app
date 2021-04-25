@@ -5,7 +5,7 @@ import { SendResetPasswordEmailSchema } from 'utils/formSchemas';
 import TextField from 'components/widgets/formikFields/TextField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({ onSubmit }) => {
+const SendResetPasswordEmailForm = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{ email: '' }}
@@ -26,3 +26,5 @@ export default ({ onSubmit }) => {
     </Formik>
   );
 };
+
+export default SendResetPasswordEmailForm;

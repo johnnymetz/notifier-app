@@ -1,7 +1,7 @@
 import { useField } from 'formik';
 import Form from 'react-bootstrap/Form';
 
-export default ({ name, label, dataTestId, as, ...props }) => {
+const TextField = ({ name, label, dataTestId, as, ...props }) => {
   const [field, { touched, error }] = useField(name);
 
   return (
@@ -28,3 +28,5 @@ export default ({ name, label, dataTestId, as, ...props }) => {
     </Form.Group>
   );
 };
+
+export default TextField;

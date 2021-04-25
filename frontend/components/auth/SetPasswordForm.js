@@ -6,7 +6,7 @@ import { SetPasswordSchema } from 'utils/formSchemas';
 import PasswordField from 'components/widgets/formikFields/PasswordField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({ onSubmit, setShowModal }) => {
+const SetPasswordForm = ({ onSubmit, setShowModal }) => {
   return (
     <Formik
       initialValues={{
@@ -48,3 +48,5 @@ export default ({ onSubmit, setShowModal }) => {
     </Formik>
   );
 };
+
+export default SetPasswordForm;

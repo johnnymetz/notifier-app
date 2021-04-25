@@ -6,7 +6,7 @@ import TextField from 'components/widgets/formikFields/TextField';
 import PasswordField from 'components/widgets/formikFields/PasswordField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({ onSubmit }) => {
+const LoginForm = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -33,3 +33,5 @@ export default ({ onSubmit }) => {
     </Formik>
   );
 };
+
+export default LoginForm;

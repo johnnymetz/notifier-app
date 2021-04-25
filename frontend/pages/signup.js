@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import useAuth from 'contexts/auth';
 import SignupForm from 'components/auth/SignupForm';
 
-export default () => {
+const Signup = () => {
   const { user, createUser } = useAuth();
   const router = useRouter();
 
@@ -35,3 +35,5 @@ export default () => {
     </Row>
   );
 };
+
+export default Signup;

@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import useAuth from 'contexts/auth';
 import LoginForm from 'components/auth/LoginForm';
 
-export default () => {
+const Login = () => {
   const { user, login } = useAuth();
   const router = useRouter();
 
@@ -40,3 +40,5 @@ export default () => {
     </Row>
   );
 };
+
+export default Login;

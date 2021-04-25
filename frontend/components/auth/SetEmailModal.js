@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import SetEmailForm from 'components/auth/SetEmailForm';
 
-export default ({ showModal, setShowModal, onSubmit }) => {
+const SetEmailModal = ({ showModal, setShowModal, onSubmit }) => {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Body>
@@ -10,3 +10,5 @@ export default ({ showModal, setShowModal, onSubmit }) => {
     </Modal>
   );
 };
+
+export default SetEmailModal;

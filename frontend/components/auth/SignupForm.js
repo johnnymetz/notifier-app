@@ -6,7 +6,7 @@ import TextField from 'components/widgets/formikFields/TextField';
 import PasswordField from 'components/widgets/formikFields/PasswordField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({ onSubmit }) => {
+const SignupForm = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '', re_password: '' }}
@@ -38,3 +38,5 @@ export default ({ onSubmit }) => {
     </Formik>
   );
 };
+
+export default SignupForm;

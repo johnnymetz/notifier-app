@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
+- Add a chart
+- Check out react-query or swr library for data fetching
 - Add cypress tests to...
   - Unit test helper functions
   - Ensure pressing eye icon displays password
@@ -12,9 +14,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Later
 
+- Create splash page
 - Check out Next-auth
-- Check out react-query or swr library for data fetching
-- Add a chart
 
 ## Resources
 
@@ -33,6 +34,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 npm install -g npm-check-updates
 ncu  # show any updates
 ncu -u cypress  # update cypress in package.json
+ncu -u  # update all in package.json
 npm install
 npm list --depth 0
 ```

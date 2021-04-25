@@ -10,25 +10,25 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "formik": "^2.2.6",
-    "next": "9.4.4",
+    "next": "9.5.5",
     "nprogress": "^0.2.0",
     "react": "16.13.1",
-    "react-bootstrap": "^1.4.3",
+    "react-bootstrap": "^1.5.2",
     "react-dom": "16.13.1",
     "react-table": "^7.6.3",
-    "react-toastify": "^7.0.3",
-    "use-async-effect": "^2.2.2",
-    "yup": "^0.32.8"
+    "react-toastify": "^7.0.4",
+    "use-async-effect": "^2.2.3",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
-    "cypress": "^6.4.0"
+    "cypress": "^7.1.0"
   },
   "engines": {
     "node": "15.x"

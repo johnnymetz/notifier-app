@@ -1,4 +1,4 @@
-export default () => {
+const LoadingIcon = () => {
   return (
     <div className="spinner">
       <div className="rect1"></div>
@@ -76,3 +76,5 @@ export default () => {
     </div>
   );
 };
+
+export default LoadingIcon;

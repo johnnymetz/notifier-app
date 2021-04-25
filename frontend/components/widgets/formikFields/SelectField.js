@@ -1,7 +1,7 @@
 import { useField } from 'formik';
 import Form from 'react-bootstrap/Form';
 
-export default ({
+const SelectField = ({
   name,
   options,
   label,
@@ -43,3 +43,5 @@ export default ({
     </Form.Group>
   );
 };
+
+export default SelectField;

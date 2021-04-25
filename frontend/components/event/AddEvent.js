@@ -1,6 +1,6 @@
 import EventForm from 'components/event/EventForm';
 
-export default () => {
+const AddEvent = () => {
   return (
     <>
       <h5 className="text-center">Add an Event</h5>
@@ -8,3 +8,5 @@ export default () => {
     </>
   );
 };
+
+export default AddEvent;

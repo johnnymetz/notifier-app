@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import EventForm from 'components/event/EventForm';
 
-export default ({ showModal, setShowModal, eventValues }) => {
+const EditEventModal = ({ showModal, setShowModal, eventValues }) => {
   return (
     <Modal show={showModal} onHide={() => setShowModal(false)}>
       <Modal.Header closeButton>
@@ -17,3 +17,5 @@ export default ({ showModal, setShowModal, eventValues }) => {
     </Modal>
   );
 };
+
+export default EditEventModal;

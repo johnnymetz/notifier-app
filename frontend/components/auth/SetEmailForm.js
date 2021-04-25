@@ -7,7 +7,7 @@ import TextField from 'components/widgets/formikFields/TextField';
 import PasswordField from 'components/widgets/formikFields/PasswordField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({ onSubmit, setShowModal }) => {
+const SetEmailForm = ({ onSubmit, setShowModal }) => {
   return (
     <Formik
       initialValues={{ new_email: '', re_new_email: '', current_password: '' }}
@@ -46,3 +46,5 @@ export default ({ onSubmit, setShowModal }) => {
     </Formik>
   );
 };
+
+export default SetEmailForm;

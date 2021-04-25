@@ -28,7 +28,7 @@ const MONTHS = [
   'December',
 ];
 
-export default ({ action, eventValues, setShowModal }) => {
+const EventForm = ({ action, eventValues, setShowModal }) => {
   const { fetchUser } = useAuth();
   const [eventTypeChoices, setEventTypeChoices] = useState(null);
   const [showMonthNames, setShowMonthNames] = useState(false);
@@ -187,3 +187,5 @@ export default ({ action, eventValues, setShowModal }) => {
     </Formik>
   );
 };
+
+export default EventForm;

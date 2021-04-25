@@ -5,7 +5,7 @@ import { ResetPasswordSchema } from 'utils/formSchemas';
 import PasswordField from 'components/widgets/formikFields/PasswordField';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({ onSubmit, uid, token }) => {
+const ResetPasswordForm = ({ onSubmit, uid, token }) => {
   return (
     <Formik
       initialValues={{ new_password: '', re_new_password: '' }}
@@ -27,3 +27,5 @@ export default ({ onSubmit, uid, token }) => {
     </Formik>
   );
 };
+
+export default ResetPasswordForm;

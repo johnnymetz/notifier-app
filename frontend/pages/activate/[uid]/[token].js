@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import useAuth from 'contexts/auth';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default () => {
+const Activate = () => {
   const { activateUser } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,3 +37,5 @@ export default () => {
     </Row>
   );
 };
+
+export default Activate;

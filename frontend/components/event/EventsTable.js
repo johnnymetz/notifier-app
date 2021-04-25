@@ -49,7 +49,7 @@ const CustomDropdownToggle = forwardRef(({ children, onClick }, ref) => (
   </div>
 ));
 
-export default ({ events }) => {
+const EventsTable = ({ events }) => {
   const { fetchUser } = useAuth();
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [showEditFormModal, setShowEditFormModal] = useState(false);
@@ -318,3 +318,5 @@ export default ({ events }) => {
     </>
   );
 };
+
+export default EventsTable;

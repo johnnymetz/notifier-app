@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import useAuth from 'contexts/auth';
 import SendResetPasswordEmailForm from 'components/auth/SendResetPasswordEmailForm';
 
-export default () => {
+const ResetPassword = () => {
   const { user, sendResetPasswordEmail } = useAuth();
   const router = useRouter();
 
@@ -33,3 +33,5 @@ export default () => {
     </Row>
   );
 };
+
+export default ResetPassword;

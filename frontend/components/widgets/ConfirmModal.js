@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import SubmitButton from 'components/widgets/SubmitButton';
 
-export default ({
+const ConfirmModal = ({
   showModal,
   setShowModal,
   onConfirm,
@@ -35,3 +35,5 @@ export default ({
     </Modal>
   );
 };
+
+export default ConfirmModal;

@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import useAuth from 'contexts/auth';
 import ResetPasswordForm from 'components/auth/ResetPasswordForm';
 
-export default () => {
+const PasswordResetConfirmation = () => {
   const { resetPassword } = useAuth();
   const router = useRouter();
 
@@ -25,3 +25,5 @@ export default () => {
     </Row>
   );
 };
+
+export default PasswordResetConfirmation;

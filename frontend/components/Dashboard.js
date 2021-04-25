@@ -8,7 +8,7 @@ import AddEvent from 'components/event/AddEvent';
 import EventsListGroup from 'components/event/EventsListGroup';
 import EventsTable from 'components/event/EventsTable';
 
-export default () => {
+const Dashboard = () => {
   const {
     user: { events_today, events_upcoming, all_events },
   } = useAuth();
@@ -48,3 +48,5 @@ export default () => {
     </>
   );
 };
+
+export default Dashboard;

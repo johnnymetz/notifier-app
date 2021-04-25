@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-export default ({ name, label, dataTestId, ...props }) => {
+const PasswordField = ({ name, label, dataTestId, ...props }) => {
   const [field, { touched, error }] = useField(name);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -48,3 +48,5 @@ export default ({ name, label, dataTestId, ...props }) => {
     </Form.Group>
   );
 };
+
+export default PasswordField;
