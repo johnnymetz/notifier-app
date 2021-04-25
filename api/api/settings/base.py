@@ -77,8 +77,13 @@ DATABASES = {
         "PASSWORD": os.environ.get("DB_PASSWORD", "postgres"),
         "HOST": os.environ.get("DB_HOST"),
         "PORT": os.environ.get("DB_PORT", 5432),
+        "ATOMIC_REQUESTS": True,
     }
 }
+
+AUTH_USER_MODEL = "users.User"
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 
 # Password validation
@@ -115,11 +120,6 @@ USE_TZ = True
 STATIC_URL = "/staticfiles/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-
-
-AUTH_USER_MODEL = "users.User"
-
-DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 
 # django-silk
