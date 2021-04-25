@@ -29,6 +29,7 @@ pre-commit run --all-files
 pip-compile --upgrade
 # see frontend/README.md for updating npm modules
 node and python versions  # Dockerfiles, heroku runtime, mypy config
+# upgrade watchman version in api/Dockerfile
 # then rebuild docker images
 ```
 

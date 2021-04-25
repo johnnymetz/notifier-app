@@ -3,7 +3,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_WATCHMAN_TIMEOUT=20
 
-ARG WM_VERSION=v2021.03.01.00
+ARG WM_VERSION=v2021.04.19.00
 
 RUN  apt-get update && \
   apt-get -y upgrade && \
@@ -12,7 +12,7 @@ RUN  apt-get update && \
 
 # install watchman
 # hadolint ignore=SC2039,DL3003
-RUN wget --progress=dot:giga https://github.com/facebook/watchman/releases/download/$WM_VERSION/watchman-$WM_VERSION-linux.zip && \
+RUN wget -nv https://github.com/facebook/watchman/releases/download/$WM_VERSION/watchman-$WM_VERSION-linux.zip && \
   unzip watchman-*-linux.zip && \
   cd watchman-*-linux && \
   mkdir -p /usr/local/{bin,lib} /usr/local/var/run/watchman && \
