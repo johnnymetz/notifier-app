@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from notifier.exceptions import NotifierException
+from notifier.exceptions import NotifierError
 
 
 class Event(models.Model):
@@ -41,7 +41,7 @@ class Event(models.Model):
 
     def clean(self):
         if self.user_id and self.user.events.count() > settings.MAX_EVENTS_PER_USER:
-            raise NotifierException(f"{self.user} has reached the event limit")
+            raise NotifierError(f"{self.user} has reached the event limit")
 
     def save(self, *args, **kwargs):
         self.full_clean()

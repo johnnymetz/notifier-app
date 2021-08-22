@@ -1,2 +1,2 @@
-class NotifierException(Exception):
+class NotifierError(Exception):
     pass

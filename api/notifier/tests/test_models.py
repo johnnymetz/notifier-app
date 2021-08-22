@@ -5,7 +5,7 @@ from django.utils import timezone
 
 import pytest
 
-from notifier.exceptions import NotifierException
+from notifier.exceptions import NotifierError
 from notifier.models import Event
 from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
@@ -56,5 +56,5 @@ def test_user_events_limit_validation(settings):
         EventFactory(user=user)
     assert user.events.count() == settings.MAX_EVENTS_PER_USER
     msg = f"{user} has reached the event limit"
-    with pytest.raises(NotifierException, match=msg):
+    with pytest.raises(NotifierError, match=msg):
         EventFactory(user=user)
