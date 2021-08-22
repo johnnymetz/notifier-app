@@ -13,51 +13,51 @@ updateprecommit:
 # BACKEND
 
 pytest:
-	docker-compose run api pytest
+	docker compose run api pytest
 
 shell:
 	# docker container exec -it notifier-app_api_1 bash
-	# docker-compose exec api bash
-	docker-compose run api bash
+	# docker compose exec api bash
+	docker compose run api bash
 
 pyshell:
-	docker-compose run api ./manage.py shell_plus --ipython -- --profile=me
+	docker compose run api ./manage.py shell_plus --ipython -- --profile=me
 
 logs:
-	docker-compose logs -f --no-log-prefix api
+	docker compose logs -f --no-log-prefix api
 
 dbshell:
-	docker-compose exec db psql -U postgres
+	docker compose exec db psql -U postgres
 
 cleandb:
-	docker-compose exec db psql -U postgres -c "DROP DATABASE ${DB_NAME} WITH (FORCE);"
-	docker-compose exec db psql -U postgres -c "CREATE DATABASE ${DB_NAME};"
+	docker compose exec db psql -U postgres -c "DROP DATABASE ${DB_NAME} WITH (FORCE);"
+	docker compose exec db psql -U postgres -c "CREATE DATABASE ${DB_NAME};"
 
 migratedb:
-	docker-compose run api ./manage.py migrate
+	docker compose run api ./manage.py migrate
 
 createsuperuser:
-	@docker-compose run \
+	@docker compose run \
 	  -e DJANGO_SUPERUSER_EMAIL=${MY_EMAIL} \
 		-e DJANGO_SUPERUSER_PASSWORD=pw \
 		api ./manage.py createsuperuser --noinput
 
 importevents:
-	docker-compose run api ./manage.py import_events ${MY_EMAIL}
+	docker compose run api ./manage.py import_events ${MY_EMAIL}
 
 exportevents:
-	docker-compose run api ./manage.py export_events ${MY_EMAIL}
+	docker compose run api ./manage.py export_events ${MY_EMAIL}
 
 seeddb: migratedb createsuperuser importevents
 
 pipcompile:
-	docker-compose run api pip-compile
+	docker compose run api pip-compile
 
 pipcompileupgrade:
-	docker-compose run api pip-compile --upgrade
+	docker compose run api pip-compile --upgrade
 
 clear-silk:
-	docker-compose run api ./manage.py silk_clear_request_log
+	docker compose run api ./manage.py silk_clear_request_log
 
 # FRONTEND
 
@@ -68,7 +68,7 @@ cypress-run:
 	npm run --prefix frontend/ cypress:run
 
 cypress-docker-run:
-	docker-compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
+	docker compose -f docker compose.yaml -f docker compose.cypress.yaml up --abort-on-container-exit
 
 # HEROKU
 

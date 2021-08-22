@@ -59,7 +59,7 @@ repos:
     hooks:
       - id: pre-commit-django-migrations
         name: Check django migrations
-        entry: docker-compose run api ./manage.py makemigrations --dry-run --check
+        entry: docker compose run api ./manage.py makemigrations --dry-run --check
         language: system
         types: [python]
         pass_filenames: false
