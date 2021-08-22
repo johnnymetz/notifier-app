@@ -9,7 +9,8 @@ django-cors-headers
 django-anymail
 django-silk
 djangorestframework
-djangorestframework-simplejwt
+# https://github.com/jazzband/djangorestframework-simplejwt/issues/449
+djangorestframework-simplejwt==4.7.*
 djoser
 drf-yasg
 
