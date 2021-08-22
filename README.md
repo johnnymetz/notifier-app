@@ -29,10 +29,12 @@ Send yourself daily email notifications.
 - Import birthdays from Facebook
 - Unit test emails
 - Move config files to pyproject.toml once mypy and flake8 support it
+- [Analyse your HTTP response headers](https://securityheaders.com/)
 - PR in django-extensions to raise error on `create_command` if file already exists
 - Scan site with [Mozilla Observatory](https://observatory.mozilla.org/)
 - [Add security.txt to .well-known endpoint](https://adamj.eu/tech/2020/06/28/how-to-add-a-well-known-url-to-your-django-site/)
 - [Maybe add robots endpoint](https://adamj.eu/tech/2020/02/10/robots-txt/)
+- [Disabling FLoC, Google’s new advertising technology - Adam Johnson](https://adamj.eu/tech/2021/05/04/disabling-floc-googles-new-advertising-technology/)
 
 ## Resources
 
