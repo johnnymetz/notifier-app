@@ -17,19 +17,19 @@ docker container exec -it notifier-app_api_1 bash
 ./manage.py send_event_emails EMAIL
 
 # development using email settings
-docker compose -f docker compose.yaml -f docker compose.email.yaml config
-docker compose -f docker compose.yaml -f docker compose.email.yaml up -d
+docker compose -f docker-compose.yaml -f docker-compose.email.yaml config
+docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 # run cypress tests in docker container
-docker compose -f docker compose.yaml -f docker compose.cypress.yaml up --abort-on-container-exit
+docker compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
 
 # upgrade packages
-pre-commit autoupdate
-pre-commit run --all-files
-pip-compile --upgrade
+make updateprecommit
+make pipcompileupgrade
 # see frontend/README.md for updating npm modules
 node and python versions  # Dockerfiles, heroku runtime, mypy config
-# upgrade watchman version in api/Dockerfile
+watchman version  # api/Dockerfile
+cypress image  # docker-compose.cypress.yaml
 # then rebuild docker images
 ```
 
