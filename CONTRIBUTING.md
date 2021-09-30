@@ -24,9 +24,8 @@ docker compose -f docker compose.yaml -f docker compose.email.yaml up -d
 docker compose -f docker compose.yaml -f docker compose.cypress.yaml up --abort-on-container-exit
 
 # upgrade packages
-pre-commit autoupdate
-pre-commit run --all-files
-pip-compile --upgrade
+make updateprecommit
+make pipcompileupgrade
 # see frontend/README.md for updating npm modules
 node and python versions  # Dockerfiles, heroku runtime, mypy config
 # upgrade watchman version in api/Dockerfile
