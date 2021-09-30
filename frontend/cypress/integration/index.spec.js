@@ -97,12 +97,12 @@ context('Index', () => {
 
     cy.wait('@addEvent').its('response.statusCode').should('eq', 201);
     cy.wait('@getUser').its('response.statusCode').should('eq', 200);
-    // cy.get('@rows').should('have.length', 5); // bug: assertion hangs indefinitely
+    // can't use cached "rows" for some reason
     cy.get('[data-test=all-events-list]>tbody>tr').should('have.length', 5);
     cy.get('[data-test=all-events-count').contains(5);
-    cy.get('@rows').contains('td', 'JJ Reddick');
-    cy.get('@rows').contains('td', '06-24');
-    cy.get('@rows').contains('td', 'Other');
+    cy.get('[data-test=all-events-list]>tbody>tr').contains('td', 'JJ Reddick');
+    cy.get('[data-test=all-events-list]>tbody>tr').contains('td', '06-24');
+    cy.get('[data-test=all-events-list]>tbody>tr').contains('td', 'Other');
   });
 
   it('display feedback with no values on add event', () => {

@@ -2,6 +2,7 @@ version: '3'
 services:
   # disable logging to reduce noise
   api:
+    command: bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
     logging:
       driver: none
 

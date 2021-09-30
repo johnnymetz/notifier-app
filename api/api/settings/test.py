@@ -1,6 +1,7 @@
 from .base import *
 
 SECRET_KEY = "12345"  # nosec
+DEBUG = True
 
 DATABASES = {
     "default": {
