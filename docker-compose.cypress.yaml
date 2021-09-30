@@ -2,7 +2,7 @@ version: '3'
 services:
   api:
     command: bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
-    # disable logging to reduce noise
+    # disable logging to reduce noise;
     # not working: https://github.com/docker/compose/issues/8578
     logging:
       driver: none
