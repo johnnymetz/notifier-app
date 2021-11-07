@@ -49,12 +49,16 @@ mypy.ini
 api/Dockerfile
 docker compose build api --no-cache
 
-# backend
+# backend packages
 make pipcompileupgrade
 docker compose build api --no-cache
 make pytest
 
-# frontend
+# Node version
+frontend/Dockerfile
+frontend/Dockerfile.dev
+
+# frontend packages
 npm install -g npm-check-updates
 ncu  # show any updates
 ncu -u cypress  # update cypress in package.json
@@ -62,10 +66,6 @@ ncu -u  # update all in package.json
 npm install
 npm list --depth 0
 docker compose build frontend-dev --no-cache
-
-# Node version
-frontend/Dockerfile
-frontend/Dockerfile.dev
 ```
 
 ## Heroku workflow

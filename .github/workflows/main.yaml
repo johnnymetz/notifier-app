@@ -1,4 +1,4 @@
-name: Build and Push on Main
+name: Build and Test on Main
 on:
   push:
     branches:
@@ -11,15 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      # # https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-ruby#specifying-the-ruby-version
-      # - name: Set up Ruby
-      #   uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
-      #   with:
-      #     ruby-version: 3.0
-      # - name: Install dependencies
-      #   run: bundle install
-
       # - name: Login to Dockerhub
       #   run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Build api image
