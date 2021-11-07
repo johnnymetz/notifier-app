@@ -55,7 +55,7 @@ def test_nplusone(settings):
     queries = [
         x for x in connection.queries if not x["sql"].startswith("EXPLAIN QUERY PLAN")
     ]
-    assert len(queries) == 1
+    assert len(queries) == 4
 
 
 def test_pytest_caplog(caplog):

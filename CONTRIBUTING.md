@@ -22,15 +22,6 @@ docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 # run cypress tests in docker container
 docker compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
-
-# upgrade packages
-make updateprecommit
-make pipcompileupgrade
-# see frontend/README.md for updating npm modules
-node and python versions  # Dockerfiles, heroku runtime, mypy config
-watchman version  # api/Dockerfile
-cypress image  # docker-compose.cypress.yaml
-# then rebuild docker images
 ```
 
 ## Upgrade packages
@@ -67,6 +58,9 @@ ncu -u  # update all in package.json
 npm install
 npm list --depth 0
 docker compose build frontend-dev --no-cache
+
+# cypress
+image in docker-compose.cypress.yaml
 ```
 
 ## Heroku workflow
