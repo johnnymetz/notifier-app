@@ -50,7 +50,7 @@ def test_nplusone(settings):
     reset_queries()
     for e in Event.objects.select_related("user"):
         assert e.user
-    assert len(connection.queries) == 1
+    assert len(connection.queries) == 1, connection.queries
 
 
 def test_pytest_caplog(caplog):

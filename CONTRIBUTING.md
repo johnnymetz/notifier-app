@@ -47,6 +47,7 @@ mypy.ini
 
 # watchman version
 api/Dockerfile
+docker compose build api --no-cache
 
 # backend
 make pipcompileupgrade
