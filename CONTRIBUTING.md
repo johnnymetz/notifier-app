@@ -33,6 +33,29 @@ cypress image  # docker-compose.cypress.yaml
 # then rebuild docker images
 ```
 
+## Upgrade packages
+
+```
+# pre-commit
+make updateprecommit
+pre-commit run --all-files
+
+# Python version
+api/Dockerfile
+heroku runtime.txt
+mypy.ini
+
+# watchman version
+api/Dockerfile
+
+# backend
+make pipcompileupgrade
+docker compose build --no-cache
+make pytest
+
+# frontend: see frontend/README.md for updating npm modules
+```
+
 ## Heroku workflow
 
 [heroku-buildpack-monorepo](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo)
