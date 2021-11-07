@@ -3,7 +3,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_WATCHMAN_TIMEOUT=20
 
-ARG WM_VERSION=v2021.04.19.00
+# https://github.com/facebook/watchman/releases
+ARG WM_VERSION=v2021.11.01.00
 
 RUN  apt-get update && \
   apt-get -y upgrade && \

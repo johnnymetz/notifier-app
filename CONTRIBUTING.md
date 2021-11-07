@@ -50,10 +50,21 @@ api/Dockerfile
 
 # backend
 make pipcompileupgrade
-docker compose build --no-cache
+docker compose build api --no-cache
 make pytest
 
-# frontend: see frontend/README.md for updating npm modules
+# frontend
+npm install -g npm-check-updates
+ncu  # show any updates
+ncu -u cypress  # update cypress in package.json
+ncu -u  # update all in package.json
+npm install
+npm list --depth 0
+docker compose build frontend-dev --no-cache
+
+# Node version
+frontend/Dockerfile
+frontend/Dockerfile.dev
 ```
 
 ## Heroku workflow
