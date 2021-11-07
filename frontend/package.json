@@ -31,6 +31,6 @@
     "cypress": "^7.1.0"
   },
   "engines": {
-    "node": "15.x"
+    "node": "16.x"
   }
 }

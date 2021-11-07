@@ -42,8 +42,8 @@ pre-commit run --all-files
 
 # Python version
 api/Dockerfile
-heroku runtime.txt
 mypy.ini
+heroku runtime.txt
 
 # watchman version
 api/Dockerfile
@@ -57,6 +57,7 @@ make pytest
 # Node version
 frontend/Dockerfile
 frontend/Dockerfile.dev
+package.json > engines > node  # https://devcenter.heroku.com/articles/nodejs-support#specifying-a-node-js-version
 
 # frontend packages
 npm install -g npm-check-updates
