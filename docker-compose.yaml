@@ -34,10 +34,13 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
+    # command: tail -f /dev/null  # keep container running for debugging
     ports:
       - '3001:3000'
     volumes:
       - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
     environment:
       - NEXT_PUBLIC_API_HOST=http://0.0.0.0:8000/api/
     depends_on:

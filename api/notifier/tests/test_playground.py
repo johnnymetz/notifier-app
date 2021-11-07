@@ -50,7 +50,12 @@ def test_nplusone(settings):
     reset_queries()
     for e in Event.objects.select_related("user"):
         assert e.user
-    assert len(connection.queries) == 1
+
+    # sqlite will occasionally run an extra "EXPLAIN" query so let's exclude that
+    queries = [
+        x for x in connection.queries if not x["sql"].startswith("EXPLAIN QUERY PLAN")
+    ]
+    assert len(queries) == 1
 
 
 def test_pytest_caplog(caplog):

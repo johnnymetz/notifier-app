@@ -1,0 +1,17 @@
+name: Build and Test on Main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build api image
+        run: docker build api --tag notifier-api
+      - name: Run api tests
+        run: docker run notifier-api pytest

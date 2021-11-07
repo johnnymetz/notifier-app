@@ -30,13 +30,4 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Update packages
 
-```
-npm install -g npm-check-updates
-ncu  # show any updates
-ncu -u cypress  # update cypress in package.json
-ncu -u  # update all in package.json
-npm install
-npm list --depth 0
-```
-
 [url1]: https://www.mikealche.com/software-development/how-to-implement-authentication-in-next-js-without-third-party-libraries

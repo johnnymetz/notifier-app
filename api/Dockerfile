@@ -3,14 +3,16 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_WATCHMAN_TIMEOUT=20
 
-ARG WM_VERSION=v2021.04.19.00
+# https://github.com/facebook/watchman/releases
+# get the release that has an asset named watchman-<VERSION>-linux.zip
+ARG WM_VERSION=v2021.10.18.00
 
 RUN  apt-get update && \
   apt-get -y upgrade && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-# install watchman
+# install watchman: https://stackoverflow.com/questions/66513668/error-installing-watchman-into-a-python-docker-container
 # hadolint ignore=SC2039,DL3003
 RUN wget -nv https://github.com/facebook/watchman/releases/download/$WM_VERSION/watchman-$WM_VERSION-linux.zip && \
   unzip watchman-*-linux.zip && \
