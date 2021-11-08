@@ -129,11 +129,17 @@ dt_utc = dt_la.astimezone(pytz.utc)
 
 ## Djoser
 
-```
+```bash
 ./manage.py flush --noinput
 
 # create user
 http POST localhost:8000/api/auth/users/ email=$MY_EMAIL password=pw re_password=pw
+
+# get token
+export TOKEN=$(http POST localhost:8000/api/auth/jwt/create/ email=$MY_EMAIL password=pw | jq -r '.access')
+
+# send authenticated request
+http OPTIONS http://localhost:8000/api/events/ Authorization:"Bearer $TOKEN"
 ```
 
 ### Endpoints tested / implemeneted in UI
