@@ -25,6 +25,7 @@ pip-tools
 black
 isort
 mypy
+pyupgrade
 ipython
 pywatchman
 
