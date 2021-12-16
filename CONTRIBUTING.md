@@ -33,8 +33,8 @@ pre-commit run --all-files
 
 # Python version
 api/Dockerfile
-mypy.ini
-heroku runtime.txt
+api/mypy.ini
+api/runtime.txt for heroku
 
 # watchman version
 api/Dockerfile
