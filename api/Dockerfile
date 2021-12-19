@@ -5,7 +5,7 @@ ENV DJANGO_WATCHMAN_TIMEOUT=20
 
 # https://github.com/facebook/watchman/releases
 # get the release that has an asset named watchman-<VERSION>-linux.zip
-ARG WM_VERSION=v2021.10.18.00
+ARG WM_VERSION=v2021.12.06.00
 
 RUN  apt-get update && \
   apt-get -y upgrade && \
