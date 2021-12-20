@@ -12,6 +12,7 @@ services:
       - NEXT_PUBLIC_API_HOST=http://api:8000/api/
 
   cypress:
+    # https://hub.docker.com/r/cypress/included/tags
     image: cypress/included:6.4.0
     ipc: host # https://github.com/cypress-io/cypress/issues/350#issuecomment-267704772
     working_dir: /app
