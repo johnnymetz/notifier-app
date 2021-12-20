@@ -13,8 +13,7 @@ services:
 
   cypress:
     # https://hub.docker.com/r/cypress/included/tags
-    image: cypress/included:6.4.0
-    ipc: host # https://github.com/cypress-io/cypress/issues/350#issuecomment-267704772
+    image: cypress/included:9.1.0
     working_dir: /app
     volumes:
       - ./frontend/cypress:/app/cypress
