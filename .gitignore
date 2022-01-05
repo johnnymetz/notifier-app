@@ -142,6 +142,7 @@ cython_debug/
 # Others
 .idea
 .DS_Store
+.vscode/
 debugger.py
 api/static/
 api/*_events.csv
