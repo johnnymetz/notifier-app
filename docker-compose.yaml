@@ -17,6 +17,7 @@ services:
     # command: gunicorn api.wsgi:application --bind=0.0.0.0:8000 --timeout=20 --reload
     ports:
       - '8000:8000'
+    tty: true # enables colorized logs with rich package
     volumes:
       - ./api:/app
       - ./api/ipython_config.py:/root/.ipython/profile_me/ipython_config.py
