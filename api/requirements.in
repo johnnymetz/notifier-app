@@ -28,6 +28,7 @@ mypy
 pyupgrade
 ipython
 pywatchman
+rich
 
 pytest
 pytest-cov
