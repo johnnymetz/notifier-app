@@ -28,8 +28,7 @@ docker compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-
 
 ```
 # pre-commit
-make updateprecommit
-pre-commit run --all-files
+make updateprecommit  # runs all hooks automatically
 
 # Python version
 api/Dockerfile
