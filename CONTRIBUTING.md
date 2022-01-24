@@ -28,21 +28,19 @@ docker compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-
 
 ```
 # pre-commit
-make updateprecommit
-pre-commit run --all-files
+make updateprecommit  # runs all hooks automatically
 
 # Python version
 api/Dockerfile
 api/mypy.ini
-api/runtime.txt for heroku
+api/runtime.txt for heroku  # see supported runtimes below
+pyupgrade argument
 
 # watchman version
 api/Dockerfile
-docker compose build api --no-cache
 
 # backend packages
 make pipcompileupgrade
-docker compose build api --no-cache
 make pytest
 
 # Node version
@@ -57,11 +55,12 @@ ncu -u cypress  # update cypress in package.json
 ncu -u  # update all in package.json
 npm install
 npm list --depth 0
-docker compose build frontend-dev --no-cache
-
 # cypress
 image in docker-compose.cypress.yaml
 ```
+
+- [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
+- Be sure to rebuild docker images, run pre-commit hooks, run unit tests and run cypress tests against all files after an upgrade.
 
 ## Heroku workflow
 

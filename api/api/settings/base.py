@@ -8,7 +8,7 @@ import os
 from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
 # Application definition
@@ -107,8 +107,6 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/Los_Angeles"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
