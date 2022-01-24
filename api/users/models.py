@@ -1,7 +1,6 @@
 import csv
 import datetime
 import random
-from typing import Optional
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -59,7 +58,7 @@ class User(AbstractUser):
             "events_upcoming": events_upcoming,
         }
 
-    def send_events_email(self, from_email: Optional[str] = None) -> None:
+    def send_events_email(self, from_email: str | None = None) -> None:
         """
         from_email defaults to DEFAULT_FROM_EMAIL,
         except when using gmail which defaults to EMAIL_HOST_USER
