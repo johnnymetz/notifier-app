@@ -46,6 +46,7 @@ services:
     depends_on:
       - api
 
+  # Need to set environment variable at build time to allow frontend to hit backend:
   # docker compose build frontend-prd --build-arg NEXT_PUBLIC_API_HOST=http://0.0.0.0:8000/api/
   frontend-prd:
     build: ./frontend
