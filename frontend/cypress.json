@@ -1,12 +1,4 @@
 {
-  "baseUrl": "http://localhost:3001",
-  "video": false,
-  "env": {
-    "serverUrl": "http://localhost:8000/api",
-    "qaUserEmail": "",
-    "qaUserEmail2": "",
-    "qaUserPassword": ""
-  },
   "retries": {
     "runMode": 2,
     "openMode": 0

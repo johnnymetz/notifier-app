@@ -17,9 +17,9 @@ def qa_creds(monkeypatch):
     email1 = "qa1@email.com"
     email2 = "qa2@email.com"
     pw = TEST_PASSWORD
-    monkeypatch.setenv("QA_USER_EMAIL1", email1)
-    monkeypatch.setenv("QA_USER_EMAIL2", email2)
-    monkeypatch.setenv("QA_USER_PASSWORD", pw)
+    monkeypatch.setenv("CYPRESS_QA_USER_EMAIL1", email1)
+    monkeypatch.setenv("CYPRESS_QA_USER_EMAIL2", email2)
+    monkeypatch.setenv("CYPRESS_QA_USER_PASSWORD", pw)
     return SimpleNamespace(email1=email1, email2=email2, password=pw)
 
 

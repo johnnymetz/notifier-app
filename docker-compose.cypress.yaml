@@ -11,17 +11,16 @@ services:
     environment:
       - NEXT_PUBLIC_API_HOST=http://api:8000/api/
 
-  cypress:
-    image: cypress/included:6.4.0
-    ipc: host # https://github.com/cypress-io/cypress/issues/350#issuecomment-267704772
-    working_dir: /app
+  cypress-run:
+    image: cypress/included:9.3.1
     volumes:
-      - ./frontend/cypress:/app/cypress
-      - ./frontend/cypress-docker.json:/app/cypress.json
-      - ./frontend/cypress.env.json:/app/cypress.env.json
-    #   - /tmp/.X11-unix:/tmp/.X11-unix
-    # environment:
-    #   - DISPLAY=192.168.1.79:0
-    # entrypoint: cypress open --project .
+      - ./frontend/cypress:/cypress
+      - ./frontend/cypress.json:/cypress.json
+    environment:
+      - CYPRESS_BASE_URL=http://frontend-dev:3000
+      - CYPRESS_SERVER_URL=http://api:8000/api
+      - CYPRESS_QA_USER_EMAIL1
+      - CYPRESS_QA_USER_EMAIL2
+      - CYPRESS_QA_USER_PASSWORD
     depends_on:
       - frontend-dev

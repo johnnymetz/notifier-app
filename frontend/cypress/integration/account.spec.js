@@ -1,7 +1,7 @@
-const qaUserEmail = Cypress.env('qaUserEmail');
-const qaUserEmail2 = Cypress.env('qaUserEmail2');
-const qaUserPassword = Cypress.env('qaUserPassword');
-const qaUserPassword2 = '123456';
+const qaUserEmail = Cypress.env('QA_USER_EMAIL1');
+const qaUserEmail2 = Cypress.env('QA_USER_EMAIL2');
+const qaUserPassword = Cypress.env('QA_USER_PASSWORD');
+const qaUserPassword2 = '123456'; // not a secret so just hardcode
 
 context('Account', () => {
   beforeEach(() => {

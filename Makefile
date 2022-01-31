@@ -61,14 +61,21 @@ clear-silk:
 
 # FRONTEND
 
-cypress-open:
+docker-cypress-run:
+	docker compose \
+	-f docker-compose.yaml \
+	-f docker-compose.cypress.yaml \
+	up --abort-on-container-exit --remove-orphans
+
+host-cypress-open:
+	docker compose up -d --remove-orphans && \
+	npm install --prefix frontend && \
 	npm run --prefix frontend/ cypress:open
 
-cypress-run:
+host-cypress-run:
+	docker compose up -d --remove-orphans && \
+	npm install --prefix frontend && \
 	npm run --prefix frontend/ cypress:run
-
-cypress-docker-run:
-	docker compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
 
 # HEROKU
 

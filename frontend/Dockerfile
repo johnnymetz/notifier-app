@@ -12,17 +12,22 @@ ARG NEXT_PUBLIC_API_HOST
 ENV NEXT_PUBLIC_API_HOST=${NEXT_PUBLIC_API_HOST}
 COPY --from=deps /app ./
 COPY src/ ./src
+COPY public/ ./public
+COPY next.config.js/ ./next.config.js
+COPY jsconfig.json ./jsconfig.json
 RUN npm run build
 
+# use alpine for a smaller final image size
 FROM node:16
 WORKDIR /app
 ENV NODE_ENV=production
 
+# copy everything except src/,  jsconfig.json and package-lock.json
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
 
 HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 

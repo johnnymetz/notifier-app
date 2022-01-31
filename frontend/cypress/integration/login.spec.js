@@ -1,5 +1,5 @@
-const qaUserEmail = Cypress.env('qaUserEmail');
-const qaUserPassword = Cypress.env('qaUserPassword');
+const qaUserEmail = Cypress.env('QA_USER_EMAIL1');
+const qaUserPassword = Cypress.env('QA_USER_PASSWORD');
 
 context('Login', () => {
   beforeEach(() => {
