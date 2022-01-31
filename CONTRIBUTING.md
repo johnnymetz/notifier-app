@@ -7,6 +7,9 @@
 brew install pre-commit
 pre-commit install
 
+# set environment variables on host machine
+export MY_EMAIL=<YOUR_EMAIL>
+
 # development using local settings
 docker compose up -d
 docker container exec -it notifier-app_api_1 bash
@@ -15,14 +18,9 @@ docker container exec -it notifier-app_api_1 bash
 ./manage.py import_events EMAIL
 ./manage.py export_events EMAIL
 ./manage.py send_event_emails EMAIL
-
-# development using email settings
-docker compose -f docker-compose.yaml -f docker-compose.email.yaml config
-docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
-
-# run cypress tests in docker container
-docker compose -f docker-compose.yaml -f docker-compose.cypress.yaml up --abort-on-container-exit
 ```
+
+Now visit http://localhost:3001/ and login with `<YOUR_EMAIL>` and `pw`.
 
 ## Upgrade packages
 
@@ -61,6 +59,35 @@ image in docker-compose.cypress.yaml
 
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
 - Be sure to rebuild docker images, run pre-commit hooks, run unit tests and run cypress tests against all files after an upgrade.
+
+## Development using email settings
+
+Use this if you want to send actual emails instead of logging them to the api container.
+
+```
+# set environment variables on host machine
+export DEFAULT_FROM_EMAIL="Notifier App <YOUR_EMAIL>"
+export SENDGRID_API_KEY=<YOUR_KEY>
+
+# spin up containers
+docker compose -f docker-compose.yaml -f docker-compose.email.yaml config
+docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
+```
+
+## Run Cypress Tests
+
+```
+# set environment variables on host machine
+export QA_USER_EMAIL1=<SOME_EMAIL>
+export QA_USER_EMAIL2=<ANOTHER_EMAIL>
+export QA_USER_PASSWORD=<A_RANDOM_PASSWORD>
+
+# cypress open
+make host-cypress-open
+
+# cypress run
+make docker-cypress-run
+```
 
 ## Heroku workflow
 
