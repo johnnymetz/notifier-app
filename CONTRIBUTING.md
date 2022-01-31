@@ -7,7 +7,7 @@
 brew install pre-commit
 pre-commit install
 
-# set environment variables on host machine
+# set environment variables
 export MY_EMAIL=<YOUR_EMAIL>
 
 # development using local settings
@@ -65,7 +65,7 @@ image in docker-compose.cypress.yaml
 Use this if you want to send actual emails instead of logging them to the api container.
 
 ```
-# set environment variables on host machine
+# set environment variables
 export DEFAULT_FROM_EMAIL="Notifier App <YOUR_EMAIL>"
 export SENDGRID_API_KEY=<YOUR_KEY>
 
@@ -77,12 +77,14 @@ docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 ## Run Cypress Tests
 
 ```
-# set environment variables on host machine
+# set environment variables
 export CYPRESS_QA_USER_EMAIL1=<SOME_EMAIL>
 export CYPRESS_QA_USER_EMAIL2=<ANOTHER_EMAIL>
 export CYPRESS_QA_USER_PASSWORD=<A_RANDOM_PASSWORD>
 
 # cypress open
+export CYPRESS_BASE_URL=http://localhost:3001
+export CYPRESS_SERVER_URL=http://localhost:8000/api
 make host-cypress-open
 
 # cypress run

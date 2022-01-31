@@ -17,8 +17,8 @@ services:
       - ./frontend/cypress:/cypress
       - ./frontend/cypress.json:/cypress.json
     environment:
-      - CYPRESS_SERVER_URL=http://api:8000/api
       - CYPRESS_BASE_URL=http://frontend-dev:3000
+      - CYPRESS_SERVER_URL=http://api:8000/api
       - CYPRESS_QA_USER_EMAIL1
       - CYPRESS_QA_USER_EMAIL2
       - CYPRESS_QA_USER_PASSWORD
