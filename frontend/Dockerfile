@@ -17,6 +17,7 @@ COPY next.config.js/ ./next.config.js
 COPY jsconfig.json ./jsconfig.json
 RUN npm run build
 
+# use alpine for a smaller final image size
 FROM node:16
 WORKDIR /app
 ENV NODE_ENV=production
