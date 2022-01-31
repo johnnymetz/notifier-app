@@ -78,9 +78,9 @@ docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
 
 ```
 # set environment variables on host machine
-export QA_USER_EMAIL1=<SOME_EMAIL>
-export QA_USER_EMAIL2=<ANOTHER_EMAIL>
-export QA_USER_PASSWORD=<A_RANDOM_PASSWORD>
+export CYPRESS_QA_USER_EMAIL1=<SOME_EMAIL>
+export CYPRESS_QA_USER_EMAIL2=<ANOTHER_EMAIL>
+export CYPRESS_QA_USER_PASSWORD=<A_RANDOM_PASSWORD>
 
 # cypress open
 make host-cypress-open

@@ -25,9 +25,9 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - DB_HOST=db
       - DB_NAME=notifier
-      - QA_USER_EMAIL1
-      - QA_USER_EMAIL2
-      - QA_USER_PASSWORD
+      - CYPRESS_QA_USER_EMAIL1
+      - CYPRESS_QA_USER_EMAIL2
+      - CYPRESS_QA_USER_PASSWORD
     depends_on:
       - db
 

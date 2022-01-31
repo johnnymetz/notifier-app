@@ -17,8 +17,9 @@ services:
       - ./frontend/cypress:/cypress
       - ./frontend/cypress-docker.json:/cypress.json
     environment:
-      - QA_USER_EMAIL1
-      - QA_USER_EMAIL2
-      - QA_USER_PASSWORD
+      - CYPRESS_SERVER_URL=http://api:8000/api
+      - CYPRESS_QA_USER_EMAIL1
+      - CYPRESS_QA_USER_EMAIL2
+      - CYPRESS_QA_USER_PASSWORD
     depends_on:
       - frontend-dev

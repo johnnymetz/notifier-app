@@ -20,9 +20,9 @@ class SeedQaUser(APIView):
     permission_classes = (IsCypress,)
 
     def _get_and_delete_qa_users(self):
-        qa_user_email1 = os.environ.get("QA_USER_EMAIL1")
-        qa_user_email2 = os.environ.get("QA_USER_EMAIL2")
-        qa_user_password = os.environ.get("QA_USER_PASSWORD")
+        qa_user_email1 = os.environ.get("CYPRESS_QA_USER_EMAIL1")
+        qa_user_email2 = os.environ.get("CYPRESS_QA_USER_EMAIL2")
+        qa_user_password = os.environ.get("CYPRESS_QA_USER_PASSWORD")
 
         if not qa_user_email1 or not qa_user_email2 or not qa_user_password:
             return Response(

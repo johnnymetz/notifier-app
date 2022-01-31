@@ -1,5 +1,5 @@
-const serverUrl = Cypress.env('serverUrl');
-const qaUserEmail = Cypress.env('qaUserEmail');
+const serverUrl = Cypress.env('SERVER_URL');
+const qaUserEmail = Cypress.env('QA_USER_EMAIL1');
 
 Cypress.Commands.add('login', (email, password) => {
   const log = Cypress.log({
