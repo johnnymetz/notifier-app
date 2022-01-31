@@ -11,7 +11,7 @@ WORKDIR /app
 ARG NEXT_PUBLIC_API_HOST
 ENV NEXT_PUBLIC_API_HOST=${NEXT_PUBLIC_API_HOST}
 COPY --from=deps /app ./
-COPY . .
+COPY src/ ./src
 RUN npm run build
 
 FROM node:16

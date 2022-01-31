@@ -35,6 +35,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
+    # command: tail -f /dev/null  # keep container running for debugging
     ports:
       - '3001:3000'
     volumes:

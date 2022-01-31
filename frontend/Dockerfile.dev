@@ -6,9 +6,7 @@ COPY package*.json ./
 RUN npm install --silent
 
 # copy source code
-COPY . .
-
-EXPOSE 3000
+COPY src/ ./src
 
 HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
