@@ -8,8 +8,9 @@ RUN npm install --silent
 # copy source code
 COPY . .
 
+ARG NEXT_PUBLIC_API_HOST
+ENV NEXT_PUBLIC_API_HOST=${NEXT_PUBLIC_API_HOST}
+
 RUN npm run build
 
-HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
-
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

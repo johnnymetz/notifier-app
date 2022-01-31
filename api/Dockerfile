@@ -36,9 +36,6 @@ RUN pip install --upgrade --no-cache-dir pip && \
 # copy source code
 COPY . .
 
-# make port available to other containers
-EXPOSE 8000
-
 HEALTHCHECK CMD curl --fail http://localhost:8000 || exit 1
 
 # run app when the container launches

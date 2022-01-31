@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p ${PORT:-3000}",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "next start -p ${PORT:-80}",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },

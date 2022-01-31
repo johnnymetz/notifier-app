@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Todo
 
-- Move important files into [src folder](https://nextjs.org/docs/advanced-features/src-directory) to make frontend image size slightly smaller
+- Move important files into [src folder](https://nextjs.org/docs/advanced-features/src-directory) to make frontend image size faster and slightly smaller
 - Add a chart
 - Check out react-query or swr library for data fetching
 - Add cypress tests to...
