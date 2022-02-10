@@ -26,7 +26,7 @@ Now visit http://localhost:3001/ and login with `<YOUR_EMAIL>` and `pw`.
 
 ```
 # pre-commit
-make updateprecommit  # runs all hooks automatically
+make updateprecommit  # runs all hooks for us
 
 # Python version
 api/Dockerfile

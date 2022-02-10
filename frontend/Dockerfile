@@ -1,6 +1,3 @@
-# https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
-# https://www.nicovak.com/posts/nextjs-docker-multistage
-
 # Stage 1: install dependencies
 FROM node:16-alpine AS deps
 WORKDIR /app
