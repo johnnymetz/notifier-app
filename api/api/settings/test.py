@@ -18,3 +18,6 @@ PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
 INSTALLED_APPS.append("nplusone.ext.django")
 MIDDLEWARE.insert(0, "nplusone.ext.django.NPlusOneMiddleware")
 NPLUSONE_RAISE = True
+
+# silk
+MIDDLEWARE.remove("silk.middleware.SilkyMiddleware")
