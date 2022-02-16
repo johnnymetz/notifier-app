@@ -61,10 +61,10 @@ clear-silk:
 
 # FRONTEND
 
-make open-localhost-3001:
+open-localhost-3001:
 	open http://localhost:3001
 
-make open-localhost-81:
+open-localhost-81:
 	open http://localhost:81
 
 docker-cypress-run:

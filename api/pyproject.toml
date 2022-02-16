@@ -40,7 +40,6 @@ addopts= [
   "--doctest-modules",
   "--instafail",
   "--cov=.",
-  # "--cov-config .coveragerc",
   "--cov-report=term-missing",
   # ignore files that break doctest
   "--ignore=ipython_config.py",
@@ -63,3 +62,4 @@ omit = [
   "*/tests*",
   "ipython_config.py",
 ]
+branch = true
