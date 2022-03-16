@@ -1,5 +1,5 @@
 [tool.black]
-target-version = ["py38"]  # update to py39 on new release
+target-version = ["py310"]
 include = '\.pyi?$'
 # change to extend-exclude on new release
 exclude = '''
