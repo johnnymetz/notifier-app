@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse
 
@@ -7,9 +6,8 @@ import pytest
 from rest_framework import status
 
 from notifier.tests.factories import EventFactory
+from users.models import User
 from users.tests.factories import TEST_PASSWORD, UserFactory
-
-User = get_user_model()
 
 
 @pytest.mark.django_db()

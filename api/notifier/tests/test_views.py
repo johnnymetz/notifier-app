@@ -1,6 +1,5 @@
 import datetime
 
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 import pytest
@@ -8,9 +7,8 @@ from rest_framework import status
 
 from notifier.models import Event
 from notifier.tests.factories import EventFactory
+from users.models import User
 from users.tests.factories import UserFactory
-
-User = get_user_model()
 
 
 @pytest.mark.django_db()

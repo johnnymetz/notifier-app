@@ -1,15 +1,13 @@
 from types import SimpleNamespace
 
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 import pytest
 from rest_framework import status
 
 from notifier.models import Event
+from users.models import User
 from users.tests.factories import TEST_PASSWORD, UserFactory
-
-User = get_user_model()
 
 
 @pytest.fixture()

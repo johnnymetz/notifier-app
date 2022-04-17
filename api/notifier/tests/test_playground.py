@@ -6,7 +6,6 @@ import logging
 from unittest.mock import Mock, create_autospec
 from zoneinfo import ZoneInfo
 
-from django.contrib.auth import get_user_model
 from django.db import connection, reset_queries
 from django.utils import timezone
 
@@ -15,8 +14,7 @@ from nplusone.core.exceptions import NPlusOneError
 
 from notifier.models import Event
 from notifier.tests.factories import EventFactory, UserFactory
-
-User = get_user_model()
+from users.models import User
 
 
 @pytest.mark.freeze_time("2020-01-01")

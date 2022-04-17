@@ -3,17 +3,15 @@ import os
 from types import SimpleNamespace
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from users.models import User
 from users.permissions import IsCypress
 from users.serializers import UserSerializer
-
-User = get_user_model()
 
 
 class SeedQaUser(APIView):

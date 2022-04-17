@@ -1,7 +1,7 @@
-from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 from rest_framework import mixins
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
@@ -9,8 +9,7 @@ from notifier.exceptions import NotifierError
 from notifier.models import Event
 from notifier.permissions import IsOwner
 from notifier.serializers import EventSerializer
-
-User = get_user_model()
+from users.models import User
 
 
 class ModelViewSetWithoutList(
@@ -44,5 +43,7 @@ class EventsEmailView(APIView):
 
 
 class ThrowError(APIView):
+    permission_classes = (AllowAny,)
+
     def get(self, *args, **kwargs):
         raise NotifierError("Bad news bears")
