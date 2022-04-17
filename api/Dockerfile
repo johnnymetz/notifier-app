@@ -7,13 +7,13 @@ ENV DJANGO_WATCHMAN_TIMEOUT=20
 # get the release that has an asset named watchman-<VERSION>-linux.zip
 ARG WM_VERSION=v2022.01.03.00
 
-RUN  apt-get update && \
+RUN apt-get update && \
   apt-get -y upgrade && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
 # install watchman: https://stackoverflow.com/questions/66513668/error-installing-watchman-into-a-python-docker-container
-# hadolint ignore=SC2039,DL3003
+# hadolint ignore=SC2039,SC3009,DL3003
 RUN wget -nv https://github.com/facebook/watchman/releases/download/$WM_VERSION/watchman-$WM_VERSION-linux.zip && \
   unzip watchman-*-linux.zip && \
   cd watchman-*-linux && \
