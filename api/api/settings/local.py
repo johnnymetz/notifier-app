@@ -1,6 +1,6 @@
 from .base import *
 
-SECRET_KEY = "12345"  # nosec
+SECRET_KEY = "DONOTUSEINPRODUCTION"  # nosec
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 CORS_ORIGIN_ALLOW_ALL = True

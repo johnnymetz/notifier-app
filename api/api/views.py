@@ -6,5 +6,5 @@ from rest_framework.views import APIView
 class Welcome(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, *args, **kwargs):
         return Response({"message": "Welcome to the Notifier API."})

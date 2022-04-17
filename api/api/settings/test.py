@@ -1,12 +1,12 @@
 from .base import *
 
-SECRET_KEY = "12345"  # nosec
+SECRET_KEY = "DONOTUSEINPRODUCTION"  # nosec
 DEBUG = True
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
 }
 

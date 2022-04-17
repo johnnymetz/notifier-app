@@ -98,6 +98,8 @@ make docker-cypress-run
 
 ```
 # deploy
+git remote add frontend https://git.heroku.com/notifire-app.git
+git remote add api https://git.heroku.com/notifier-app-api.git
 git push frontend master
 git push api master
 
