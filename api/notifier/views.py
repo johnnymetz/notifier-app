@@ -5,6 +5,7 @@ from rest_framework import mixins
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
+from notifier.exceptions import NotifierError
 from notifier.models import Event
 from notifier.permissions import IsOwner
 from notifier.serializers import EventSerializer
@@ -40,3 +41,8 @@ class EventsEmailView(APIView):
         user = User.objects.get(email=email)
         context = user.get_events_email_context()
         return render(request, "notifier/events-email.html", context)
+
+
+class ThrowError(APIView):
+    def get(self, *args, **kwargs):
+        raise NotifierError("Bad news bears")
