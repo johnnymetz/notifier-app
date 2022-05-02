@@ -56,6 +56,9 @@ pipcompile:
 pipcompileupgrade:
 	docker compose run api pip-compile --upgrade
 
+runscriptplayground:
+	docker compose run api ./manage.py runscript playground
+
 clear-silk:
 	docker compose run api ./manage.py silk_clear_request_log
 
