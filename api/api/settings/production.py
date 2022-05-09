@@ -2,6 +2,7 @@
 ./manage.py check --deploy --settings api.settings.production
 """
 import dj_database_url
+import rollbar
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -58,6 +59,10 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
     "anon": "100/day",
     "user": "1000/day",
 }
+
+# rollbar
+ROLLBAR = {"environment": "production"}
+rollbar.init(**ROLLBAR)
 
 # sentry
 sentry_sdk.init(
