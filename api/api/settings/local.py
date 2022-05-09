@@ -39,7 +39,7 @@ ROLLBAR = {
     "enabled": os.environ.get("ROLLBAR_ENABLED", "").lower() == "true",
     "access_token": os.environ.get("ROLLBAR_ACCESS_TOKEN"),
     "environment": "development",
-    "root": BASE_DIR,
+    "root": str(BASE_DIR),
     "branch": "main",
     "capture_email": True,
     "capture_username": True,

@@ -64,7 +64,7 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
 ROLLBAR = {
     "access_token": os.environ.get("ROLLBAR_ACCESS_TOKEN"),
     "environment": "production",
-    "root": BASE_DIR,
+    "root": str(BASE_DIR),
     "branch": "main",
     "capture_email": True,
     "capture_username": True,
