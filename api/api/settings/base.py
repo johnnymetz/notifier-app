@@ -8,8 +8,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-import rollbar
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -48,13 +46,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
     # rollbar Excluding404 or the single middleware should be last
     "rollbar.contrib.django.middleware.RollbarNotifierMiddlewareExcluding404",
-
-    # Reports all exceptions to Rollbar including 404s. Using the split 2 middlewares
-    # allows you to skip reporting some 404s to Rollbar (not sure a use case here).
-    # "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
 ]
 
 ROOT_URLCONF = "api.urls"
@@ -162,26 +155,11 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
     ],
-
     # Only works with rest_framework.test.APIClient + rest_framework.test.APIRequestFactory
     # "TEST_REQUEST_DEFAULT_FORMAT": "json",
-
     # Includes parsed POST variables in exception
     "EXCEPTION_HANDLER": "rollbar.contrib.django_rest_framework.post_exception_handler",
 }
-
-
-# https://docs.rollbar.com/docs/django
-ROLLBAR = {
-    "enabled": os.environ.get("ROLLBAR_ENABLED", "").lower() == "true",
-    "access_token": os.environ.get("ROLLBAR_ACCESS_TOKEN"),
-    "environment": "development",
-    "root": BASE_DIR,
-    "branch": "main",
-    "capture_email": True,
-    "capture_username": True,
-}
-rollbar.init(**ROLLBAR)
 
 
 DJOSER = {

@@ -28,7 +28,7 @@ services:
       - CYPRESS_QA_USER_EMAIL1
       - CYPRESS_QA_USER_EMAIL2
       - CYPRESS_QA_USER_PASSWORD
-      - ROLLBAR_ENABLED=false
+      # - ROLLBAR_ENABLED=true
       - ROLLBAR_ACCESS_TOKEN
     depends_on:
       - db

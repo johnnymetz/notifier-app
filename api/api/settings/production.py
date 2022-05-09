@@ -60,8 +60,15 @@ REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
     "user": "1000/day",
 }
 
-# rollbar
-ROLLBAR = {"environment": "production"}
+# https://docs.rollbar.com/docs/django
+ROLLBAR = {
+    "access_token": os.environ.get("ROLLBAR_ACCESS_TOKEN"),
+    "environment": "production",
+    "root": BASE_DIR,
+    "branch": "main",
+    "capture_email": True,
+    "capture_username": True,
+}
 rollbar.init(**ROLLBAR)
 
 # sentry

@@ -1,3 +1,5 @@
+import rollbar
+
 from .base import *
 
 SECRET_KEY = "DONOTUSEINPRODUCTION"  # nosec
@@ -30,3 +32,16 @@ LOGGING = {
     },
     "loggers": {"django": {"handlers": ["console"]}},
 }
+
+
+# https://docs.rollbar.com/docs/django
+ROLLBAR = {
+    "enabled": os.environ.get("ROLLBAR_ENABLED", "").lower() == "true",
+    "access_token": os.environ.get("ROLLBAR_ACCESS_TOKEN"),
+    "environment": "development",
+    "root": BASE_DIR,
+    "branch": "main",
+    "capture_email": True,
+    "capture_username": True,
+}
+rollbar.init(**ROLLBAR)
