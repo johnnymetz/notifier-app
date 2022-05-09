@@ -100,8 +100,8 @@ make docker-cypress-run
 # deploy
 git remote add frontend https://git.heroku.com/notifire-app.git
 git remote add api https://git.heroku.com/notifier-app-api.git
-git push frontend master
-git push api master
+git push frontend main
+git push api main
 
 # debug
 heroku logs -a notifire-app --tail
@@ -128,7 +128,7 @@ heroku create -a notifire-app
 heroku buildpacks:add -a notifire-app https://github.com/lstoll/heroku-buildpack-monorepo
 heroku buildpacks:add -a notifire-app heroku/nodejs
 heroku config:set -a notifire-app APP_BASE=frontend
-git push https://git.heroku.com/notifire-app.git master
+git push https://git.heroku.com/notifire-app.git main
 git remote add frontend https://git.heroku.com/notifire-app.git
 
 # backend
@@ -137,7 +137,7 @@ heroku buildpacks:add -a notifier-app-api https://github.com/lstoll/heroku-build
 heroku buildpacks:add -a notifier-app-api heroku/python
 heroku buildpacks:add https://github.com/carloluis/heroku-buildpack-vim
 heroku config:set -a notifier-app-api APP_BASE=api
-git push https://git.heroku.com/notifier-app-api.git master
+git push https://git.heroku.com/notifier-app-api.git main
 git remote add api https://git.heroku.com/notifier-app-api.git
 
 # backend addons
