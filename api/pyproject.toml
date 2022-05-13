@@ -52,6 +52,19 @@ markers = [
 # timeout for a single test; comment out when debugging
 timeout = 20
 
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
 [tool.coverage.run]
 omit = [
   "manage.py",

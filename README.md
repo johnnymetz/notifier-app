@@ -28,7 +28,7 @@ Send yourself daily email notifications.
 - Sendgrid batch api
 - Import birthdays from Facebook
 - Unit test emails
-- Move config files to pyproject.toml once mypy and flake8 support it
+- Move config files to pyproject.toml once flake8 support it
 - [Analyse your HTTP response headers](https://securityheaders.com/)
 - PR in django-extensions to raise error on `create_command` if file already exists
 - Scan site with [Mozilla Observatory](https://observatory.mozilla.org/)
