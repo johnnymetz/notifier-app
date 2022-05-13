@@ -22,15 +22,32 @@ DOMAIN = "localhost:3001"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {"rich": {"datefmt": "[%X]"}},
+    "formatters": {
+        "rich": {
+            "datefmt": "[%X]",
+        },
+    },
     "handlers": {
         "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+        },
+        "rich": {
             "class": "rich.logging.RichHandler",
             "formatter": "rich",
             "level": "DEBUG",
-        }
+        },
     },
-    "loggers": {"django": {"handlers": ["console"]}},
+    "loggers": {
+        "django": {
+            "handlers": ["rich"],
+        },
+        "api.metrics": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
 }
 
 

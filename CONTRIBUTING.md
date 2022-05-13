@@ -30,8 +30,7 @@ make updateprecommit  # runs all hooks for us
 
 # Python version
 api/Dockerfile
-api/mypy.ini
-api/pyproject.toml target-version
+api/pyproject.toml black + mypy
 api/runtime.txt for heroku  # see supported runtimes below
 pyupgrade argument
 
