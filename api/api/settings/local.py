@@ -1,3 +1,5 @@
+from django.core.exceptions import ImproperlyConfigured
+
 import rollbar
 
 from .base import *
@@ -49,6 +51,44 @@ LOGGING = {
         },
     },
 }
+
+
+REDIS_URL = os.environ.get("REDIS_URL")
+REDIS_MAX_CONNECTIONS_PER_CACHE = 2
+CACHE_DB_LOCATIONS = {"default": 0, "another": 1}
+
+
+def redis_or_locmem_cache(location: str):
+    """Return cache configuration for the given cache location."""
+
+    database = CACHE_DB_LOCATIONS.get(location)
+
+    if database is None or database < 0 or database > 15:
+        # https://www.digitalocean.com/community/cheatsheets/how-to-manage-redis-databases-and-keys
+        raise ImproperlyConfigured(
+            f"Invalid Redis database: {database} (must be between 0 and 15, inclusive)"
+        )
+
+    if redis_url := REDIS_URL:
+        # TODO: look into if each cache uses a different connection pool or shares the same one
+        connection_pool_kwargs = {"max_connections": REDIS_MAX_CONNECTIONS_PER_CACHE}
+
+        return {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": f"{redis_url}/{database}",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "CONNECTION_POOL_KWARGS": connection_pool_kwargs,
+            },
+        }
+
+    return {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": location,
+    }
+
+
+CACHES = {location: redis_or_locmem_cache(location) for location in CACHE_DB_LOCATIONS}
 
 
 # https://docs.rollbar.com/docs/django

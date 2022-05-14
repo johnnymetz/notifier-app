@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from rest_framework import mixins
 from rest_framework.permissions import AllowAny
@@ -32,7 +34,13 @@ class ModelViewSetWithoutList(
 class EventViewset(ModelViewSetWithoutList):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = (IsOwner,)
+    permission_classes = (IsOwner,)  # Comment this out to hit endpoint without auth
+
+    @method_decorator(cache_page(60))  # cache response for 1 min
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(
+            request,
+        )
 
 
 class EventsEmailView(APIView):

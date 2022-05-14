@@ -10,6 +10,14 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=notifier
 
+  redis:
+    image: redis:7
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - '6379:6379'
+    # volumes:
+    #   - redis_data:/data
+
   api:
     build: ./api
     image: notifier-app_api
@@ -25,6 +33,7 @@ services:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - DB_HOST=db
       - DB_NAME=notifier
+      - REDIS_URL=redis://redis:6379
       - CYPRESS_QA_USER_EMAIL1
       - CYPRESS_QA_USER_EMAIL2
       - CYPRESS_QA_USER_PASSWORD
@@ -32,6 +41,7 @@ services:
       - ROLLBAR_ACCESS_TOKEN
     depends_on:
       - db
+      - redis
 
   frontend-dev:
     build:
@@ -61,3 +71,4 @@ services:
 
 volumes:
   postgres_data:
+  # redis_data:
