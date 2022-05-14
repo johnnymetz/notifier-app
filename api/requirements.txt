@@ -4,7 +4,7 @@
 #
 #    pip-compile
 #
-asgiref==3.5.0
+asgiref==3.5.1
     # via
     #   django
     #   djoser
@@ -30,7 +30,7 @@ cffi==1.15.0
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-click==8.1.2
+click==8.1.3
     # via
     #   black
     #   pip-tools
@@ -44,9 +44,9 @@ coreschema==0.0.4
     # via
     #   coreapi
     #   drf-yasg
-coverage[toml]==6.3.2
+coverage[toml]==6.3.3
     # via pytest-cov
-cryptography==36.0.2
+cryptography==37.0.2
     # via social-auth-core
 decorator==5.1.1
     # via ipython
@@ -68,7 +68,7 @@ django==4.0.4
     #   drf-yasg
 django-anymail==8.5
     # via -r requirements.in
-django-cors-headers==3.11.0
+django-cors-headers==3.12.0
     # via -r requirements.in
 django-extensions==3.1.5
     # via -r requirements.in
@@ -93,7 +93,7 @@ executing==0.8.3
     # via stack-data
 factory-boy==3.2.1
     # via -r requirements.in
-faker==13.3.4
+faker==13.11.1
     # via factory-boy
 flake8==4.0.1
     # via
@@ -109,11 +109,11 @@ flake8==4.0.1
     #   pep8-naming
 flake8-broken-line==0.4.0
     # via -r requirements.in
-flake8-bugbear==22.3.23
+flake8-bugbear==22.4.25
     # via -r requirements.in
 flake8-builtins==1.5.3
     # via -r requirements.in
-flake8-comprehensions==3.8.0
+flake8-comprehensions==3.9.0
     # via -r requirements.in
 flake8-plugin-utils==1.3.2
     # via
@@ -121,7 +121,7 @@ flake8-plugin-utils==1.3.2
     #   flake8-return
 flake8-polyfill==1.0.2
     # via pep8-naming
-flake8-print==4.0.0
+flake8-print==5.0.0
     # via -r requirements.in
 flake8-pytest-style==1.6.0
     # via -r requirements.in
@@ -143,7 +143,7 @@ inflection==0.5.1
     # via drf-yasg
 iniconfig==1.1.1
     # via pytest
-ipython==8.2.0
+ipython==8.3.0
     # via -r requirements.in
 isort==5.10.1
     # via -r requirements.in
@@ -151,7 +151,7 @@ itypes==1.2.0
     # via coreapi
 jedi==0.18.1
     # via ipython
-jinja2==3.1.1
+jinja2==3.1.2
     # via
     #   coreschema
     #   django-silk
@@ -161,7 +161,7 @@ matplotlib-inline==0.1.3
     # via ipython
 mccabe==0.6.1
     # via flake8
-mypy==0.942
+mypy==0.950
     # via -r requirements.in
 mypy-extensions==0.4.3
     # via
@@ -189,9 +189,9 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pip-tools==6.6.0
+pip-tools==6.6.1
     # via -r requirements.in
-platformdirs==2.5.1
+platformdirs==2.5.2
     # via black
 pluggy==1.0.0
     # via pytest
@@ -214,17 +214,17 @@ pycparser==2.21
     # via cffi
 pyflakes==2.4.0
     # via flake8
-pygments==2.11.2
+pygments==2.12.0
     # via
     #   ipython
     #   rich
-pyjwt==2.3.0
+pyjwt==2.4.0
     # via
     #   djangorestframework-simplejwt
     #   social-auth-core
-pyparsing==3.0.8
+pyparsing==3.0.9
     # via packaging
-pytest==7.1.1
+pytest==7.1.2
     # via
     #   -r requirements.in
     #   pytest-cov
@@ -241,7 +241,7 @@ pytest-freezegun==0.4.2
     # via -r requirements.in
 pytest-instafail==0.4.2
     # via -r requirements.in
-pytest-randomly==3.11.0
+pytest-randomly==3.12.0
     # via -r requirements.in
 pytest-timeout==2.1.0
     # via -r requirements.in
@@ -256,7 +256,7 @@ pytz==2022.1
     # via
     #   django-silk
     #   djangorestframework
-pyupgrade==2.32.0
+pyupgrade==2.32.1
     # via -r requirements.in
 pywatchman==1.4.1
     # via -r requirements.in
@@ -270,7 +270,7 @@ requests==2.27.1
     #   social-auth-core
 requests-oauthlib==1.3.1
     # via social-auth-core
-rich==12.2.0
+rich==12.4.1
     # via -r requirements.in
 rollbar==0.16.2
     # via -r requirements.in
@@ -278,12 +278,11 @@ ruamel-yaml==0.17.21
     # via drf-yasg
 ruamel-yaml-clib==0.2.6
     # via ruamel-yaml
-sentry-sdk==1.5.10
+sentry-sdk==1.5.12
     # via -r requirements.in
 six==1.16.0
     # via
     #   asttokens
-    #   flake8-print
     #   flake8-tuple
     #   nplusone
     #   python-dateutil
@@ -310,11 +309,11 @@ tomli==2.0.1
     #   mypy
     #   pep517
     #   pytest
-traitlets==5.1.1
+traitlets==5.2.0
     # via
     #   ipython
     #   matplotlib-inline
-typing-extensions==4.1.1
+typing-extensions==4.2.0
     # via mypy
 uritemplate==4.1.1
     # via
@@ -328,7 +327,7 @@ wcwidth==0.2.5
     # via prompt-toolkit
 wheel==0.37.1
     # via pip-tools
-whitenoise==6.0.0
+whitenoise==6.1.0
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
