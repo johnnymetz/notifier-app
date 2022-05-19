@@ -31,6 +31,6 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/package.json /app/next.config.js ./
 
-HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
+# HEALTHCHECK CMD curl --fail http://localhost:80 || exit 1
 
 CMD ["npm", "run", "start"]

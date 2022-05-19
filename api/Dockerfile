@@ -36,7 +36,7 @@ RUN pip install --upgrade --no-cache-dir pip && \
 # copy source code
 COPY . .
 
-HEALTHCHECK CMD curl --fail http://localhost:8000 || exit 1
+# HEALTHCHECK CMD curl --fail http://localhost:8000 || exit 1
 
 # run app when the container launches
 CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

@@ -8,6 +8,6 @@ RUN npm install --silent
 # copy source code
 COPY src/ ./src
 
-HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+# HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
 CMD ["npm", "run", "dev"]
