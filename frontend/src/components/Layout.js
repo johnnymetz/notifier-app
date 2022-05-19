@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Container from 'react-bootstrap/Container';
@@ -5,11 +6,25 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 import useAuth from 'src/contexts/auth';
+import apiClient from 'src/services/api';
 
 const Layout = ({ children }) => {
   const { user, logout } = useAuth();
+
+  const healthCheck = async () => {
+    const { error } = await apiClient.getHealthCheck();
+    console.log(error);
+    if (error) {
+      toast.error(`Can't connect to the backend: ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    healthCheck();
+  }, []);
 
   return (
     <>

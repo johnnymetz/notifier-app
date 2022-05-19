@@ -109,7 +109,7 @@ class ApiClient {
   // User Management
   //////////////////////////////////
   async login(payload) {
-    let { data, error } = await apiClient.post('auth/jwt/create/', payload);
+    let { data, error } = await this.post('api/auth/jwt/create/', payload);
     if (data) {
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
@@ -128,7 +128,7 @@ class ApiClient {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       console.log('Verifying token...');
-      const { data, error, status } = await apiClient.post('auth/jwt/verify/', {
+      const { data, error, status } = await this.post('api/auth/jwt/verify/', {
         token: accessToken,
       });
       if (data) {
@@ -155,7 +155,7 @@ class ApiClient {
     let refreshed = false;
     const refreshToken = localStorage.getItem('refreshToken');
     if (refreshToken) {
-      const { data, error } = await apiClient.post('auth/jwt/refresh/', {
+      const { data, error } = await this.post('api/auth/jwt/refresh/', {
         refresh: refreshToken,
       });
       if (data) {
@@ -174,62 +174,69 @@ class ApiClient {
   }
 
   async getCurrentUser() {
-    return await apiClient.authenticatedGet('auth/users/me/');
+    return await this.authenticatedGet('api/auth/users/me/');
   }
 
   async createUser(payload) {
-    return await apiClient.post(`auth/users/`, payload);
+    return await this.post(`api/auth/users/`, payload);
   }
 
   async updateUser(payload) {
-    return await apiClient.authenticatedPatch(`auth/users/me/`, payload);
+    return await this.authenticatedPatch(`api/auth/users/me/`, payload);
   }
 
   async activateUser(payload) {
-    return await apiClient.post(`auth/users/activation/`, payload);
+    return await this.post(`api/auth/users/activation/`, payload);
   }
 
   async setEmail(payload) {
-    return await apiClient.authenticatedPost(`auth/users/set_email/`, payload);
+    return await this.authenticatedPost(`api/auth/users/set_email/`, payload);
   }
 
   async setPassword(payload) {
-    return await apiClient.authenticatedPost(
-      `auth/users/set_password/`,
+    return await this.authenticatedPost(
+      `api/auth/users/set_password/`,
       payload
     );
   }
 
   async sendResetPasswordEmail(payload) {
-    return await apiClient.post(`auth/users/reset_password/`, payload);
+    return await this.post(`api/auth/users/reset_password/`, payload);
   }
 
   async resetPassword(payload) {
-    return await apiClient.post(`auth/users/reset_password_confirm/`, payload);
+    return await this.post(`api/auth/users/reset_password_confirm/`, payload);
   }
 
   //////////////////////////////////
   // User Events
   //////////////////////////////////
   async createEvent(payload) {
-    return await apiClient.authenticatedPost('events/', payload);
+    return await this.authenticatedPost('api/events/', payload);
   }
 
   async updateEvent(eventId, payload) {
-    return await apiClient.authenticatedPatch(`events/${eventId}/`, payload);
+    return await this.authenticatedPatch(`api/events/${eventId}/`, payload);
   }
 
   async deleteEvent(eventId) {
-    return await apiClient.authenticatedDelete(`events/${eventId}/`);
+    return await this.authenticatedDelete(`api/events/${eventId}/`);
   }
 
   async getEventTypeChoices() {
-    const { data, error } = await apiClient.authenticatedOptions(`events/`);
+    const { data, error } = await this.authenticatedOptions(`api/events/`);
     if (data) {
       return data.actions.POST.type.choices;
     } else {
       console.error(`Unable to pull type choices: ${error}`);
     }
+  }
+
+  //////////////////////////////////
+  // Miscellaneous
+  //////////////////////////////////
+  async getHealthCheck() {
+    return await this.get('/');
   }
 }
 
