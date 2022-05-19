@@ -216,3 +216,7 @@ random.randint??
 %whos
 %whos str
 ```
+
+## Notes
+
+- Find celery code by searching for commit description "Remove unused celery stuff"

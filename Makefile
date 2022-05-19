@@ -27,7 +27,7 @@ logs:
 	docker compose logs -f --no-log-prefix api
 
 dbshell:
-	docker compose exec db psql -U postgres
+	docker compose exec db psql -U postgres -d ${DB_NAME}
 
 cleandb:
 	docker compose exec db psql -U postgres -c "DROP DATABASE ${DB_NAME} WITH (FORCE);"
