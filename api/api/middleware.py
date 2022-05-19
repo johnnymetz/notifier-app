@@ -25,14 +25,9 @@ class ReportFailedCORSPreflightMiddleware:
         )
 
         if not access_control_allow_origin:
-            # request_headers = {
-            #     k: v for k, v in request.META.items() if k.startswith("HTTP_")
-            # }
-            # path = f"{request.method} {request.path}"
             rollbar.report_message(
                 "Response has no 'Access-Control-Allow-Origin' header, which "
-                "means it will be blocked by CORS policy",
-                # extra_data={"request_headers": request_headers, "path": path},
+                "means it will be blocked by CORS policy"
             )
 
         return response
