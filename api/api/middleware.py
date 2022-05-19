@@ -1,6 +1,7 @@
 import logging
 
 import rollbar
+from rest_framework.response import Response
 
 logger = logging.getLogger(__name__)
 
@@ -18,19 +19,15 @@ class ReportFailedCORSPreflightMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        response = self.get_response(request)
+        response: Response = self.get_response(request)
         access_control_allow_origin = response.headers.get(
             "Access-Control-Allow-Origin"
         )
 
         if not access_control_allow_origin:
-            important_request_headers = {
-                header: request.META.get(header) for header in REQUEST_HEADERS
-            }
             rollbar.report_message(
-                f"Response has no 'Access-Control-Allow-Origin' header, which "
-                f"means it will be blocked by CORS policy. The request has the "
-                f"following headers: {important_request_headers}"
+                "Response has no 'Access-Control-Allow-Origin' header, which "
+                "means it will be blocked by CORS policy"
             )
 
         return response
