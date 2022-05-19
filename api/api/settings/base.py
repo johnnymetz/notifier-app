@@ -36,11 +36,11 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # rollbar Only404 should be first
     "rollbar.contrib.django.middleware.RollbarNotifierMiddlewareOnly404",
-    "api.middleware.LogFailedCORSPreflightMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "api.middleware.ReportFailedCORSPreflightMiddleware",
     "silk.middleware.SilkyMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
