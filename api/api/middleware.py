@@ -1,17 +1,5 @@
-import logging
-
 import rollbar
 from rest_framework.response import Response
-
-logger = logging.getLogger(__name__)
-
-
-REQUEST_HEADERS = [
-    "HTTP_ORIGIN",
-    "HTTP_REFERER",
-    "HTTP_ACCESS_CONTROL_REQUEST_METHOD",
-    "HTTP_ACCESS_CONTROL_REQUEST_HEADERS",
-]
 
 
 class ReportFailedCORSPreflightMiddleware:
