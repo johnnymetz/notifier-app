@@ -14,7 +14,7 @@ services:
     build: ./api
     image: notifier-app_api
     command: ./manage.py runserver 0.0.0.0:8000
-    # command: gunicorn --bind=0.0.0.0:8000 --reload --config python:api.gunicorn_conf api.wsgi:application
+    # command: gunicorn api.wsgi:application --bind=0.0.0.0:8000 --config python:api.gunicorn_conf --reload
     ports:
       - '8000:8000'
     tty: true # enables colorized logs with rich package
