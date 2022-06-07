@@ -4,7 +4,7 @@
 #
 #    pip-compile
 #
-asgiref==3.5.1
+asgiref==3.5.2
     # via
     #   django
     #   djoser
@@ -22,7 +22,7 @@ black==22.3.0
     # via -r requirements.in
 blinker==1.4
     # via nplusone
-certifi==2021.10.8
+certifi==2022.5.18.1
     # via
     #   requests
     #   sentry-sdk
@@ -44,7 +44,7 @@ coreschema==0.0.4
     # via
     #   coreapi
     #   drf-yasg
-coverage[toml]==6.3.3
+coverage[toml]==6.4.1
     # via pytest-cov
 cryptography==37.0.2
     # via social-auth-core
@@ -56,7 +56,7 @@ defusedxml==0.7.1
     #   social-auth-core
 dj-database-url==0.5.0
     # via -r requirements.in
-django==4.0.4
+django==4.0.5
     # via
     #   -r requirements.in
     #   django-anymail
@@ -66,9 +66,9 @@ django==4.0.4
     #   djangorestframework
     #   djangorestframework-simplejwt
     #   drf-yasg
-django-anymail==8.5
+django-anymail==8.6
     # via -r requirements.in
-django-cors-headers==3.12.0
+django-cors-headers==3.13.0
     # via -r requirements.in
 django-extensions==3.1.5
     # via -r requirements.in
@@ -93,7 +93,7 @@ executing==0.8.3
     # via stack-data
 factory-boy==3.2.1
     # via -r requirements.in
-faker==13.11.1
+faker==13.12.1
     # via factory-boy
 flake8==4.0.1
     # via
@@ -102,7 +102,6 @@ flake8==4.0.1
     #   flake8-bugbear
     #   flake8-builtins
     #   flake8-comprehensions
-    #   flake8-polyfill
     #   flake8-print
     #   flake8-spellcheck
     #   flake8-tuple
@@ -113,14 +112,12 @@ flake8-bugbear==22.4.25
     # via -r requirements.in
 flake8-builtins==1.5.3
     # via -r requirements.in
-flake8-comprehensions==3.9.0
+flake8-comprehensions==3.10.0
     # via -r requirements.in
 flake8-plugin-utils==1.3.2
     # via
     #   flake8-pytest-style
     #   flake8-return
-flake8-polyfill==1.0.2
-    # via pep8-naming
 flake8-print==5.0.0
     # via -r requirements.in
 flake8-pytest-style==1.6.0
@@ -143,7 +140,7 @@ inflection==0.5.1
     # via drf-yasg
 iniconfig==1.1.1
     # via pytest
-ipython==8.3.0
+ipython==8.4.0
     # via -r requirements.in
 isort==5.10.1
     # via -r requirements.in
@@ -161,12 +158,14 @@ matplotlib-inline==0.1.3
     # via ipython
 mccabe==0.6.1
     # via flake8
-mypy==0.950
+mypy==0.961
     # via -r requirements.in
 mypy-extensions==0.4.3
     # via
     #   black
     #   mypy
+newrelic==7.10.0.175
+    # via -r requirements.in
 nplusone==1.0.0
     # via -r requirements.in
 oauthlib==3.2.0
@@ -183,13 +182,13 @@ pathspec==0.9.0
     # via black
 pep517==0.12.0
     # via pip-tools
-pep8-naming==0.12.1
+pep8-naming==0.13.0
     # via -r requirements.in
 pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pip-tools==6.6.1
+pip-tools==6.6.2
     # via -r requirements.in
 platformdirs==2.5.2
     # via black
@@ -256,7 +255,7 @@ pytz==2022.1
     # via
     #   django-silk
     #   djangorestframework
-pyupgrade==2.32.1
+pyupgrade==2.34.0
     # via -r requirements.in
 pywatchman==1.4.1
     # via -r requirements.in
@@ -270,7 +269,7 @@ requests==2.27.1
     #   social-auth-core
 requests-oauthlib==1.3.1
     # via social-auth-core
-rich==12.4.1
+rich==12.4.4
     # via -r requirements.in
 rollbar==0.16.2
     # via -r requirements.in
@@ -309,7 +308,7 @@ tomli==2.0.1
     #   mypy
     #   pep517
     #   pytest
-traitlets==5.2.0
+traitlets==5.2.2.post1
     # via
     #   ipython
     #   matplotlib-inline
@@ -327,7 +326,7 @@ wcwidth==0.2.5
     # via prompt-toolkit
 wheel==0.37.1
     # via pip-tools
-whitenoise==6.1.0
+whitenoise==6.2.0
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
