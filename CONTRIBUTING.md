@@ -60,6 +60,15 @@ image in docker-compose.cypress.yaml
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
 - Be sure to rebuild docker images, run pre-commit hooks, run unit tests and run cypress tests against all files after an upgrade.
 
+## New Relic
+
+Set the following environment variables:
+
+```
+NEW_RELIC_LICENSE_KEY=df78d9296c9e9cb6f08b48c86cfe01cfbf00NRAL
+NEW_RELIC_CONFIG_FILE=newrelic.ini
+```
+
 ## Development using email settings
 
 Use this if you want to send actual emails instead of logging them to the api container.
