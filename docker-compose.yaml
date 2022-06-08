@@ -29,8 +29,8 @@ services:
       - CYPRESS_QA_USER_EMAIL2
       - CYPRESS_QA_USER_PASSWORD
       # - ROLLBAR_ENABLED=true
-      # - NEW_RELIC_LICENSE_KEY
-      # - NEW_RELIC_CONFIG_FILE
+      - NEW_RELIC_LICENSE_KEY
+      - NEW_RELIC_CONFIG_FILE
     depends_on:
       - db
 

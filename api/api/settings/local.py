@@ -42,7 +42,7 @@ LOGGING = {
         "django": {
             "handlers": ["rich"],
         },
-        "api.metrics": {
+        "api.telemetry": {
             "handlers": ["console"],
             "level": "DEBUG",
             "propagate": False,
