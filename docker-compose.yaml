@@ -13,7 +13,7 @@ services:
   api:
     build: ./api
     image: notifier-app_api
-    command: ./manage.py runserver 0.0.0.0:8000
+    command: newrelic-admin run-program ./manage.py runserver 0.0.0.0:8000
     # command: gunicorn api.wsgi:application --bind=0.0.0.0:8000 --config python:api.gunicorn_conf --reload
     ports:
       - '8000:8000'
@@ -29,7 +29,9 @@ services:
       - CYPRESS_QA_USER_EMAIL2
       - CYPRESS_QA_USER_PASSWORD
       # - ROLLBAR_ENABLED=true
-      - ROLLBAR_ACCESS_TOKEN
+      # - ROLLBAR_ACCESS_TOKEN
+      # - NEW_RELIC_LICENSE_KEY
+      # - NEW_RELIC_CONFIG_FILE
     depends_on:
       - db
 

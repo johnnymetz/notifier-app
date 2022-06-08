@@ -3,7 +3,7 @@ from contextlib import ExitStack
 from django.contrib.auth.models import Group
 from django.db import connection, reset_queries
 
-from api.metrics import query_count, query_count_tracker, timer
+from api.telemetry import query_count, query_count_tracker, timer
 
 Group.objects.all().delete()
 

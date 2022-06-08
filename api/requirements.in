@@ -60,3 +60,4 @@ pep8-naming
 gunicorn
 rollbar
 sentry-sdk
+newrelic
