@@ -2,7 +2,7 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from notifier.views import EventsEmailView, EventViewset, ThrowError
+from notifier.views import EventsEmailView, EventViewset, ThrowError, TimeoutView
 from users.views import SeedQaUser
 
 router = DefaultRouter()
@@ -13,4 +13,5 @@ urlpatterns = [
     path("seed/qa-user/", SeedQaUser.as_view(), name="seed-qa-user"),
     path("user/events-email/<email>/", EventsEmailView.as_view()),
     path("throw/", ThrowError.as_view()),
+    path("timeout-4567/", TimeoutView.as_view()),
 ]
