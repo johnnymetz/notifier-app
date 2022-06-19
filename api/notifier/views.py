@@ -47,3 +47,16 @@ class ThrowError(APIView):
 
     def get(self, *args, **kwargs):
         raise NotifierError("Bad news bears")
+
+
+class TimeoutView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, *args, **kwargs):
+        import time
+
+        from rest_framework import status
+        from rest_framework.response import Response
+
+        time.sleep(16)
+        return Response(status=status.HTTP_204_NO_CONTENT)
