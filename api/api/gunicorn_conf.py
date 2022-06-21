@@ -26,4 +26,4 @@ log_file = "-"
 # While the router has returned a time out response to the client, your application
 # will not know that the request it is processing  has reached a time-out, and your
 # application will continue to work on the request.
-timeout = 10
+timeout = 40
