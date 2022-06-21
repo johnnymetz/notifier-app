@@ -79,3 +79,22 @@ sentry_sdk.init(
     traces_sample_rate=1.0,
     send_default_pii=False,  # associate users to errors
 )
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+        },
+    },
+    "loggers": {
+        "play": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

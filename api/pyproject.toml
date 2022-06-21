@@ -26,7 +26,7 @@ force-exclude = '''
 [tool.isort]
 profile = "black"
 default_section = "THIRDPARTY"
-known_first_party = ["api", "users", "notifier"]
+known_first_party = ["api", "users", "notifier", "play"]
 known_django = "django"
 sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 remove_redundant_aliases = true

@@ -1,5 +1,6 @@
 from types import SimpleNamespace
 
+from django.conf import settings
 from django.urls import reverse
 
 import pytest
@@ -27,7 +28,9 @@ def test_seed_qa_user_with_relatively_dated_events(qa_creds, client):
     url = reverse("seed-qa-user")
     r = client.post(url, data={"dataset": "relative"})
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    r = client.post(url, data={"auth": "Cypress789", "dataset": "relative"})
+    r = client.post(
+        url, data={"auth": settings.CYPRESS_AUTH_SECRET, "dataset": "relative"}
+    )
     assert r.status_code == status.HTTP_201_CREATED
     assert r.data["email"] == qa_creds.email1
     assert len(r.data["events_today"]) == 2
@@ -44,7 +47,7 @@ def test_seed_qa_user_with_statically_dated_events(qa_creds, client):
     url = reverse("seed-qa-user")
     r = client.post(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    r = client.post(url, data={"auth": "Cypress789"})
+    r = client.post(url, data={"auth": settings.CYPRESS_AUTH_SECRET})
     assert r.status_code == status.HTTP_201_CREATED
     assert r.data["email"] == qa_creds.email1
     assert len(r.data["all_events"]) == 4
@@ -57,7 +60,7 @@ def test_seed_qa_user_with_statically_dated_events(qa_creds, client):
 def test_seed_qa_user_replaces_existing_qa_user_with_email1(qa_creds, client):
     u1 = UserFactory(email=qa_creds.email1, password=qa_creds.password)
     url = reverse("seed-qa-user")
-    r = client.post(url, data={"auth": "Cypress789"})
+    r = client.post(url, data={"auth": settings.CYPRESS_AUTH_SECRET})
     assert r.status_code == status.HTTP_201_CREATED
     assert r.data["email"] == qa_creds.email1
     assert User.objects.count() == 1
@@ -74,7 +77,11 @@ def test_delete_qa_users(qa_creds, client):
     url = reverse("seed-qa-user")
     r = client.delete(url)
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    r = client.delete(url, data={"auth": "Cypress789"}, content_type="application/json")
+    r = client.delete(
+        url,
+        data={"auth": settings.CYPRESS_AUTH_SECRET},
+        content_type="application/json",
+    )
     assert r.status_code == status.HTTP_204_NO_CONTENT
     assert not User.objects.exists()
     assert not Event.objects.exists()

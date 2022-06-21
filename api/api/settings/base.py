@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # my apps
     "users.apps.UsersConfig",
     "notifier.apps.NotifierConfig",
+    "play.apps.PlayConfig",
 ]
 
 MIDDLEWARE = [
@@ -204,3 +205,4 @@ MAX_EVENTS_PER_USER = 150
 UNKNOWN_YEAR = 1000
 UPCOMING_DAYS = 4
 USER_COUNT_LIMIT = 100
+CYPRESS_AUTH_SECRET = os.environ.get("CYPRESS_AUTH_SECRET", "Cypress789")
