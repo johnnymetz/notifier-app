@@ -8,6 +8,7 @@ dj-database-url
 django-cors-headers
 django-anymail
 django-silk
+django-db-geventpool
 djangorestframework
 # https://github.com/jazzband/djangorestframework-simplejwt/issues/449
 djangorestframework-simplejwt==4.7.*
@@ -57,7 +58,7 @@ pep8-naming
 # PROD REQUIREMENTS
 #############################
 
-gunicorn
+gunicorn[gevent]
 rollbar
 sentry-sdk
 newrelic

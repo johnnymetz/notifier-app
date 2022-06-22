@@ -13,8 +13,8 @@ services:
   api:
     build: ./api
     image: notifier-app_api
-    command: newrelic-admin run-program ./manage.py runserver 0.0.0.0:8000
-    # command: gunicorn api.wsgi:application --bind=0.0.0.0:8000 --config python:api.gunicorn_conf --reload
+    # command: newrelic-admin run-program ./manage.py runserver 0.0.0.0:8000
+    command: gunicorn api.wsgi:application --config python:api.gunicorn_conf --bind=0.0.0.0:8000 --log-level debug --reload
     ports:
       - '8000:8000'
     tty: true # enables colorized logs with rich package
