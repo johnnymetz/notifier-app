@@ -20,10 +20,11 @@ max_requests_jitter = 50
 
 # loglevel = "debug"
 
+worker_class = "gevent"
+
 # This created 17 workers on heroku which lead to OOM issues.
 # 1 worker default is fine for now.
 # workers = multiprocessing.cpu_count() * 2 + 1
-# worker_class = "gevent"
 
 # Heroku has a 30 sec request timeout: https://devcenter.heroku.com/articles/request-timeout
 # We want to set a gunicorn timeout well below the Heroku timeout so we don't
