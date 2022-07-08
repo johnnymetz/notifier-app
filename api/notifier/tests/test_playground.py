@@ -35,7 +35,8 @@ def test_freeze_time_functionality():
 
 @pytest.mark.django_db()
 def test_nplusone(settings):
-    settings.DEBUG = True  # debug must be True to populate connection.queries
+    assert settings.DEBUG is True  # debug must be True to populate connection.queries
+
     u1 = UserFactory()
     for _ in range(100):
         EventFactory(user=u1)

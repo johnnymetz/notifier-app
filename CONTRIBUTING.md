@@ -40,6 +40,7 @@ api/Dockerfile
 # backend packages
 make pipcompileupgrade
 make pytest
+.pre-commit-config.yaml  # update django-upgrade target version
 
 # Node version
 frontend/Dockerfile
