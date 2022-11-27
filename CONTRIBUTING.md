@@ -45,7 +45,7 @@ make pytest
 # Node version
 frontend/Dockerfile
 frontend/Dockerfile.dev
-package.json > engines > node  # https://devcenter.heroku.com/articles/nodejs-support#specifying-a-node-js-version
+package.json > engines > node
 
 # frontend packages
 npm install -g npm-check-updates
@@ -104,19 +104,13 @@ make docker-cypress-run
 
 ## Heroku workflow
 
-[heroku-buildpack-monorepo](https://elements.heroku.com/buildpacks/lstoll/heroku-buildpack-monorepo)
-
 ```
 # deploy
-git remote add frontend https://git.heroku.com/notifire-app.git
 git remote add api https://git.heroku.com/notifier-app-api.git
-git push frontend main
 git push api main
 
 # debug
-heroku logs -a notifire-app --tail
 heroku logs -a notifier-app-api --tail
-heroku ps -a notifire-app
 heroku ps -a notifier-app-api
 
 # backend exec
@@ -133,14 +127,6 @@ heroku pg:psql
 ## Heroku monorepo setup
 
 ```
-# frontend
-heroku create -a notifire-app
-heroku buildpacks:add -a notifire-app https://github.com/lstoll/heroku-buildpack-monorepo
-heroku buildpacks:add -a notifire-app heroku/nodejs
-heroku config:set -a notifire-app APP_BASE=frontend
-git push https://git.heroku.com/notifire-app.git main
-git remote add frontend https://git.heroku.com/notifire-app.git
-
 # backend
 heroku create -a notifier-app-api
 heroku buildpacks:add -a notifier-app-api https://github.com/lstoll/heroku-buildpack-monorepo
@@ -149,17 +135,11 @@ heroku buildpacks:add https://github.com/carloluis/heroku-buildpack-vim
 heroku config:set -a notifier-app-api APP_BASE=api
 git push https://git.heroku.com/notifier-app-api.git main
 git remote add api https://git.heroku.com/notifier-app-api.git
-
-# backend addons
-heroku addons:create -a notifier-app-api heroku-postgresql:hobby-dev
-heroku addons:create -a notifier-app-api scheduler:standard
-# set env vars
 ```
 
 ## Notes
 
 - SendGrid: 100 free emails / day
-- Heroku does not support SQLITE3
 - PUT = full update; PATCH = partial update
 
 ```
