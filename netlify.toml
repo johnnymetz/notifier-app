@@ -1,4 +1,7 @@
 [build]
   base = "frontend/"
-  command = "npm run build"
-  publish = ".next"
+  # Our next app is currently entirely static so we can export it as a static site:
+  # https://nextjs.org/docs/advanced-features/static-html-export#next-export
+  # If we add dynamic functionality and need the next server then we need to change this.
+  command = "npm run build:export"
+  publish = "out"
