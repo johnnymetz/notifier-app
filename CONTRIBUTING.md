@@ -29,13 +29,13 @@ Now visit http://localhost:3001/ and login with `<YOUR_EMAIL>` and `pw`.
 make updateprecommit  # runs all hooks for us
 
 # Python version
-api/Dockerfile
-api/pyproject.toml black + mypy
-api/runtime.txt for heroku  # see supported runtimes below
+Dockerfile
+pyproject.toml black + mypy
+runtime.txt for heroku  # see supported runtimes below
 pyupgrade argument
 
 # watchman version
-api/Dockerfile
+Dockerfile
 
 # backend packages
 make pipcompileupgrade
@@ -122,19 +122,6 @@ heroku run -a notifier-app-api python manage.py send_event_emails EMAIL
 
 # psql
 heroku pg:psql
-```
-
-## Heroku monorepo setup
-
-```
-# backend
-heroku create -a notifier-app-api
-heroku buildpacks:add -a notifier-app-api https://github.com/lstoll/heroku-buildpack-monorepo
-heroku buildpacks:add -a notifier-app-api heroku/python
-heroku buildpacks:add https://github.com/carloluis/heroku-buildpack-vim
-heroku config:set -a notifier-app-api APP_BASE=api
-git push https://git.heroku.com/notifier-app-api.git main
-git remote add api https://git.heroku.com/notifier-app-api.git
 ```
 
 ## Notes

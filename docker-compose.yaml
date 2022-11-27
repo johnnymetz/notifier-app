@@ -1,4 +1,3 @@
-version: '3'
 services:
   db:
     image: postgres:13
@@ -11,7 +10,7 @@ services:
       - POSTGRES_DB=notifier
 
   api:
-    build: ./api
+    build: .
     image: notifier-app_api
     command: newrelic-admin run-program ./manage.py runserver 0.0.0.0:8000
     # command: gunicorn api.wsgi:application --bind=0.0.0.0:8000 --config python:api.gunicorn_conf --reload
@@ -19,8 +18,9 @@ services:
       - '8000:8000'
     tty: true # enables colorized logs with rich package
     volumes:
-      - ./api:/app
-      - ./api/ipython_config.py:/root/.ipython/profile_me/ipython_config.py
+      - .:/app
+      - ./ipython_config.py:/root/.ipython/profile_me/ipython_config.py
+      - /app/frontend
     environment:
       - DJANGO_SETTINGS_MODULE=api.settings.local
       - DB_HOST=db

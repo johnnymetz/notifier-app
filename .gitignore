@@ -144,8 +144,8 @@ cython_debug/
 .DS_Store
 .vscode/
 debugger.py
-api/static/
-api/*_events.csv
+static/
+*_events.csv
 cypress.env.json
 frontend/cypress/fixtures/
 frontend/cypress/screenshots/

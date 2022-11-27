@@ -18,17 +18,14 @@ repos:
     rev: 22.10.0
     hooks:
       - id: black
-        args: ['--config=api/pyproject.toml']
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
     hooks:
       - id: isort
-        args: ['--settings-file=api/pyproject.toml']
   - repo: https://github.com/pycqa/flake8
     rev: 6.0.0
     hooks:
       - id: flake8
-        args: ['--config=api/.flake8']
         # TODO: getting dependency conflict
         # additional_dependencies:
         #   [
@@ -71,7 +68,7 @@ repos:
   #   hooks:
   #     - id: pre-commit-django-migrations
   #       name: Check django migrations
-  #       entry: docker compose run api ./manage.py makemigrations --dry-run --check
+  #       entry: docker compose run ./manage.py makemigrations --dry-run --check
   #       language: system
   #       types: [python]
   #       pass_filenames: false
