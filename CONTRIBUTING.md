@@ -105,9 +105,8 @@ make docker-cypress-run
 ## Heroku workflow
 
 ```
-# deploy
-git remote add api https://git.heroku.com/notifier-app-api.git
-git push api main
+# deploy (automatic deploys from main are enabled)
+git push
 
 # debug
 heroku logs -a notifier-app-api --tail
