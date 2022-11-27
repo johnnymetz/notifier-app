@@ -51,6 +51,7 @@ package.json > engines > node  # https://devcenter.heroku.com/articles/nodejs-su
 npm install -g npm-check-updates
 ncu  # show any updates
 ncu -u cypress  # update cypress in package.json
+ncu -u --target patch  # update to latest patch version
 ncu -u  # update all in package.json
 npm install
 npm list --depth 0

@@ -1,12 +1,17 @@
 [flake8]
 ignore =
-  E203   # incompatible with black
-  E266,  # Too many leading '#' for block comment
-  E501,  # Line too long
-  W503,  # Line break occurred before a binary operator
-  # TODO: whitelist some words
-  SC100,  # Spelling error in comments
-  SC200  # Spelling error in name (e.g. variable, function, class)
+  # incompatible with black
+  E203
+  # Too many leading '#' for block comment
+  E266,
+  # Line too long
+  E501,
+  # Line break occurred before a binary operator
+  W503,
+  # Spelling error in comments
+  SC100,
+  # Spelling error in name (e.g. variable, function, class)
+  SC200
 max-line-length = 88
 max-complexity = 18
 exclude = */migrations/*,venv/*,scripts/*
