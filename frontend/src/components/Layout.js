@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
 
       <Navbar bg="dark" variant="dark" expand="sm" className="mb-4">
         <Container>
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <Navbar.Brand style={{ cursor: 'pointer' }}>
               <img src="/logo.png" alt="Notifire" height="40" />
             </Navbar.Brand>
@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
           <Navbar.Collapse className="justify-content-end">
             {!!user && (
               <Nav activeKey="">
-                <Link href="/account" passHref>
+                <Link href="/account" passHref legacyBehavior>
                   <Nav.Link data-test="navbar-account-link">
                     <FontAwesomeIcon
                       icon={faUser}

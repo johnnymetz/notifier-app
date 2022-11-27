@@ -22,14 +22,14 @@ context('Signup', () => {
     cy.get('[data-test=signup-email-invalid-feedback]').contains('Required');
     cy.get('[data-test=signup-password-invalid-feedback]').contains('Required');
     cy.get('[data-test=signup-re-password-invalid-feedback]').contains(
-      'Required'
+      'Required',
     );
   });
 
   it('display feedback with invalid email', () => {
     cy.get('[data-test=signup-email]').type('bad{enter}');
     cy.get('[data-test=signup-email-invalid-feedback]').contains(
-      'Invalid email'
+      'Invalid email',
     );
   });
 
@@ -37,7 +37,7 @@ context('Signup', () => {
     cy.get('[data-test=signup-password]').type(`123{enter}`);
     cy.get('[data-test=signup-re-password]').type(`456{enter}`);
     cy.get('[data-test=signup-re-password-invalid-feedback]').contains(
-      'Passwords must match'
+      'Passwords must match',
     );
   });
 
@@ -47,7 +47,7 @@ context('Signup', () => {
     cy.get('[data-test=signup-password]').type(`${qaUserPassword}{enter}`);
     cy.get('[data-test=signup-re-password]').type(`${qaUserPassword}{enter}`);
     cy.get('[data-test=signup-email-invalid-feedback]').contains(
-      'user with this email address already exists.'
+      'user with this email address already exists.',
     );
   });
 
@@ -57,7 +57,7 @@ context('Signup', () => {
     cy.get('[data-test=signup-re-password]').type(`${qaUserPassword}{enter}`);
     cy.get('[role=alert]').should(
       'include.text',
-      'Your account was successfully created! Check your email to activate it.'
+      'Your account was successfully created! Check your email to activate it.',
     );
     cy.location('pathname').should('eq', '/login');
     cy.get('[data-test=login-email]').type(qaUserEmail);

@@ -151,7 +151,7 @@ const EventsTable = ({ events }) => {
         },
       },
     ],
-    []
+    [],
   );
 
   const {
@@ -184,7 +184,7 @@ const EventsTable = ({ events }) => {
       initialState: { pageSize: 5 },
     },
     useGlobalFilter,
-    usePagination
+    usePagination,
   );
 
   return (

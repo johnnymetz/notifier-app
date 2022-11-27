@@ -1,12 +1,12 @@
 # Stage 1: install dependencies
-FROM node:16-alpine AS deps
+FROM node:18-alpine AS deps
 WORKDIR /app
 
 COPY package*.json .
 RUN npm install --only=production --silent
 
 # Stage 2: build the app
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
 
 ARG NEXT_PUBLIC_API_HOST
@@ -22,7 +22,7 @@ COPY next.config.js jsconfig.json ./
 RUN npm run build
 
 # Stage 3: run the app
-FROM node:16-alpine
+FROM node:18-alpine
 WORKDIR /app
 
 # copy everything from builder except src/,  jsconfig.json and package-lock.json

@@ -26,15 +26,13 @@ const Login = () => {
           <LoginForm onSubmit={login} />
           <p className="mt-3 text-center">
             Don't have an account?{' '}
-            <Link href="/signup">
-              <a data-test="login-to-signup-link">Sign Up</a>
+            <Link href="/signup" data-test="login-to-signup-link">
+              Sign Up
             </Link>
           </p>
           <p className="mt-3 text-center">
             Forgot your Password?{' '}
-            <Link href="/reset-password">
-              <a>Reset Password</a>
-            </Link>
+            <Link href="/reset-password">Reset Password</Link>
           </p>
         </Card>
       </Col>

@@ -25,10 +25,7 @@ const Signup = () => {
           <h4 className="text-center">Sign Up</h4>
           <SignupForm onSubmit={createUser} />
           <p className="mt-3 text-center">
-            Already have an account?{' '}
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
+            Already have an account? <Link href="/login">Login</Link>
           </p>
         </Card>
       </Col>

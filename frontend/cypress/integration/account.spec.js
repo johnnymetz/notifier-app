@@ -28,13 +28,13 @@ context('Account', () => {
     cy.get('[data-test=account-change-email]').click();
     cy.get('[data-test=set-email-new-email]').type('{enter}');
     cy.get('[data-test=set-email-new-email-invalid-feedback]').contains(
-      'Required'
+      'Required',
     );
     cy.get('[data-test=set-email-re-new-email-invalid-feedback]').contains(
-      'Required'
+      'Required',
     );
     cy.get('[data-test=set-email-current-password-invalid-feedback]').contains(
-      'Required'
+      'Required',
     );
   });
 
@@ -43,7 +43,7 @@ context('Account', () => {
     cy.get('[data-test=set-email-new-email]').type(qaUserEmail);
     cy.get('[data-test=set-email-re-new-email]').type(`${qaUserEmail2}{enter}`);
     cy.get('[data-test=set-email-re-new-email-invalid-feedback]').contains(
-      'Emails must match'
+      'Emails must match',
     );
   });
 
@@ -52,10 +52,10 @@ context('Account', () => {
     cy.get('[data-test=set-email-new-email]').type(qaUserEmail);
     cy.get('[data-test=set-email-re-new-email]').type(qaUserEmail);
     cy.get('[data-test=set-email-current-password]').type(
-      `${qaUserPassword}{enter}`
+      `${qaUserPassword}{enter}`,
     );
     cy.get('[data-test=set-email-new-email-invalid-feedback]').contains(
-      'user with this email address already exists.'
+      'user with this email address already exists.',
     );
   });
 
@@ -65,7 +65,7 @@ context('Account', () => {
     cy.get('[data-test=set-email-re-new-email]').type(qaUserEmail2);
     cy.get('[data-test=set-email-current-password]').type('bad{enter}');
     cy.get('[data-test=set-email-current-password-invalid-feedback]').contains(
-      'Invalid password.'
+      'Invalid password.',
     );
   });
 
@@ -75,7 +75,7 @@ context('Account', () => {
     cy.get('[data-test=set-email-new-email]').type(qaUserEmail2);
     cy.get('[data-test=set-email-re-new-email]').type(qaUserEmail2);
     cy.get('[data-test=set-email-current-password]').type(
-      `${qaUserPassword}{enter}`
+      `${qaUserPassword}{enter}`,
     );
     cy.get('[role=alert]').should('include.text', 'Email successfully changed');
     cy.get('[data-test=account-email]').contains(qaUserEmail2);
@@ -89,13 +89,13 @@ context('Account', () => {
     cy.get('[data-test=account-change-password]').click();
     cy.get('[data-test=set-password-new-password]').type('{enter}');
     cy.get('[data-test=set-password-new-password-invalid-feedback]').contains(
-      'Required'
+      'Required',
     );
     cy.get(
-      '[data-test=set-password-re-new-password-invalid-feedback]'
+      '[data-test=set-password-re-new-password-invalid-feedback]',
     ).contains('Required');
     cy.get(
-      '[data-test=set-password-current-password-invalid-feedback]'
+      '[data-test=set-password-current-password-invalid-feedback]',
     ).contains('Required');
   });
 
@@ -103,10 +103,10 @@ context('Account', () => {
     cy.get('[data-test=account-change-password]').click();
     cy.get('[data-test=set-password-new-password]').type(qaUserPassword);
     cy.get('[data-test=set-password-re-new-password]').type(
-      `${qaUserPassword2}{enter}`
+      `${qaUserPassword2}{enter}`,
     );
     cy.get(
-      '[data-test=set-password-re-new-password-invalid-feedback]'
+      '[data-test=set-password-re-new-password-invalid-feedback]',
     ).contains('New passwords must match');
   });
 
@@ -116,7 +116,7 @@ context('Account', () => {
     cy.get('[data-test=set-password-re-new-password]').type(qaUserPassword2);
     cy.get('[data-test=set-password-current-password]').type('bad{enter}');
     cy.get(
-      '[data-test=set-password-current-password-invalid-feedback]'
+      '[data-test=set-password-current-password-invalid-feedback]',
     ).contains('Invalid password.');
   });
 
@@ -125,11 +125,11 @@ context('Account', () => {
     cy.get('[data-test=set-password-new-password]').type(qaUserPassword2);
     cy.get('[data-test=set-password-re-new-password]').type(qaUserPassword2);
     cy.get('[data-test=set-password-current-password]').type(
-      `${qaUserPassword}{enter}`
+      `${qaUserPassword}{enter}`,
     );
     cy.get('[role=alert]').should(
       'include.text',
-      'Password successfully changed'
+      'Password successfully changed',
     );
     cy.login(qaUserEmail, qaUserPassword2);
   });

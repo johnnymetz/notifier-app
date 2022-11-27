@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     if (data) {
       router.push('/login');
       toast.success(
-        'Your account was successfully created! Check your email to activate it.'
+        'Your account was successfully created! Check your email to activate it.',
       );
     } else {
       handleDrfError(error, Object.keys(payload), setFieldError);
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       router.push('/');
       toast.success(
-        'Account successfully activated. Please login to get started.'
+        'Account successfully activated. Please login to get started.',
       );
     }
   };

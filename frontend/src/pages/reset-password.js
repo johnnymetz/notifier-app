@@ -25,9 +25,7 @@ const ResetPassword = () => {
           <h4 className="text-center">Reset Password</h4>
           <SendResetPasswordEmailForm onSubmit={sendResetPasswordEmail} />
           <p className="mt-3 text-center">
-            <Link href="/login">
-              <a>Back to Login</a>
-            </Link>
+            <Link href="/login">Back to Login</Link>
           </p>
         </Card>
       </Col>

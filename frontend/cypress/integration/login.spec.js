@@ -25,7 +25,7 @@ context('Login', () => {
   it('display feedback with invalid email', () => {
     cy.get('[data-test=login-email]').type('bad{enter}');
     cy.get('[data-test=login-email-invalid-feedback]').contains(
-      'Invalid email'
+      'Invalid email',
     );
   });
 
@@ -34,7 +34,7 @@ context('Login', () => {
     cy.get('[data-test=login-password]').type('bad{enter}');
     cy.get('[role=alert]').should(
       'include.text',
-      'No active account found with the given credentials'
+      'No active account found with the given credentials',
     );
   });
 

@@ -20,7 +20,7 @@ const getEventTypeIcon = eventType => {
 const EventsListItem = ({ event, today = false }) => {
   const currentYear = new Date().getFullYear();
   const date = new Date(
-    `${event.annual_date.month}/${event.annual_date.day}/${currentYear}`
+    `${event.annual_date.month}/${event.annual_date.day}/${currentYear}`,
   );
   const dateString = date.toLocaleDateString(undefined, {
     weekday: 'long',

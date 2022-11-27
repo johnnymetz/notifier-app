@@ -74,7 +74,7 @@ const EventForm = ({ action, eventValues, setShowModal }) => {
       validationSchema={EventSchema}
       onSubmit={async (
         { name, month, day, year, type },
-        { setSubmitting, setFieldError, resetForm }
+        { setSubmitting, setFieldError, resetForm },
       ) => {
         const payload = {
           name,
@@ -91,7 +91,7 @@ const EventForm = ({ action, eventValues, setShowModal }) => {
         } else if (action === 'update') {
           ({ data, error } = await apiClient.updateEvent(
             eventValues.id,
-            payload
+            payload,
           ));
         } else {
           throw Error(`Invalid action: ${action}`);
@@ -100,7 +100,7 @@ const EventForm = ({ action, eventValues, setShowModal }) => {
           toast.success(
             `"${name}" successfully ${
               action === 'create' ? 'added' : 'updated'
-            }`
+            }`,
           );
           fetchUser();
           resetForm();

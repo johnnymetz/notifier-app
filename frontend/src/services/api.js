@@ -196,7 +196,7 @@ class ApiClient {
   async setPassword(payload) {
     return await this.authenticatedPost(
       `api/auth/users/set_password/`,
-      payload
+      payload,
     );
   }
 

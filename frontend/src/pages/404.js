@@ -11,9 +11,7 @@ const FourOhFour = () => {
           <h1>404</h1>
           <p>Page Not Found</p>
           <div>
-            <Link href="/">
-              <a>Back to Home</a>
-            </Link>
+            <Link href="/">Back to Home</Link>
           </div>
         </Card>
       </Col>
