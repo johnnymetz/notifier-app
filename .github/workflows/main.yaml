@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build api image
-        run: docker build api --tag notifier-api
+        run: docker build . --tag notifier-api
       - name: Run api tests
         run: docker run notifier-api pytest
