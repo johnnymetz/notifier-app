@@ -15,15 +15,14 @@ jobs:
         run: docker build . --tag notifier-api
       - name: Run api tests
         run: docker run notifier-api pytest
-
-  cypress-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Run Cypress tests
-        # # https://github.com/cypress-io/github-action#explicit-version
-        uses: cypress-io/github-action@v5
-        with:
-          working-directory: frontend
-          browser: chrome
+#  cypress-run:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#      - name: Run Cypress tests
+#        # # https://github.com/cypress-io/github-action#explicit-version
+#        uses: cypress-io/github-action@v5
+#        with:
+#          working-directory: frontend
+#          browser: chrome

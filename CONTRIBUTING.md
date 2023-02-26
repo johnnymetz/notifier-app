@@ -71,7 +71,7 @@ yup
 Set the following environment variables:
 
 ```
-NEW_RELIC_LICENSE_KEY=df78d9296c9e9cb6f08b48c86cfe01cfbf00NRAL
+NEW_RELIC_LICENSE_KEY=<YOUR_KEY>
 NEW_RELIC_CONFIG_FILE=newrelic.ini
 ```
 
