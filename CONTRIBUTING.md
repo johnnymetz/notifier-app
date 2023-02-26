@@ -57,9 +57,11 @@ ncu  # show all updates
 # SKIP:
 # - bootstrap: still on v4 (latest is v5)
 # - cypress: upgrade separately (see below)
+# - yup: don't want to deal with major version upgrade yet
 ncu --reject bootstrap,\
 react-bootstrap,\
-cypress
+cypress,
+yup
 
 # cypress version
 package.json

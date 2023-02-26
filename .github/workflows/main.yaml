@@ -18,5 +18,5 @@ jobs:
       - name: Run cypress tests
         cypress-run:
           steps:
-            # https://github.com/cypress-io/github-action/tags
+            # https://github.com/cypress-io/github-action#explicit-version
             uses: cypress-io/github-action@v5
