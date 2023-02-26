@@ -51,10 +51,10 @@ exportevents:
 seeddb: migratedb createsuperuser importevents
 
 pipcompile:
-	docker compose run api pip-compile
+	docker compose run api pip-compile --resolver=backtracking
 
 pipcompileupgrade:
-	docker compose run api pip-compile --upgrade
+	docker compose run api pip-compile --resolver=backtracking --upgrade
 
 runscriptplayground:
 	docker compose run api ./manage.py runscript playground

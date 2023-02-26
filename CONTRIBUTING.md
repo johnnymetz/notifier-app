@@ -48,15 +48,22 @@ frontend/Dockerfile.dev
 package.json > engines > node
 
 # frontend packages
-npm install -g npm-check-updates
-ncu  # show any updates
-ncu -u cypress  # update cypress in package.json
-ncu -u --target patch  # update to latest patch version
-ncu -u  # update all in package.json
 npm install
 npm list --depth 0
-# cypress
-image in docker-compose.cypress.yaml
+
+# update frontend packages:
+npm install -g npm-check-updates
+ncu  # show all updates
+# SKIP:
+# - bootstrap: still on v4 (latest is v5)
+# - cypress: upgrade separately (see below)
+ncu --reject bootstrap,\
+react-bootstrap\
+cypress
+
+# cypress version
+package.json
+docker-compose.cypress.yaml
 ```
 
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
