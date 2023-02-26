@@ -1,5 +1,9 @@
 ci:
   autofix_prs: false
+  skip:
+    - docker-compose-check
+    - hadolint-docker
+    - pre-commit-django-migrations
 
 repos:
   - repo: https://github.com/pre-commit/mirrors-prettier

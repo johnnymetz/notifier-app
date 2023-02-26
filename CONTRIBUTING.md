@@ -56,14 +56,11 @@ npm install -g npm-check-updates
 ncu  # show all updates
 # SKIP:
 # - bootstrap: still on v4 (latest is v5)
-# - cypress: upgrade separately (see below)
+# - yup: don't want to deal with major version upgrade yet
 ncu --reject bootstrap,\
-react-bootstrap\
-cypress
-
-# cypress version
-package.json
-docker-compose.cypress.yaml
+react-bootstrap,\
+yup
+# update cypress version in docker-compose.cypress.yaml
 ```
 
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
@@ -74,7 +71,7 @@ docker-compose.cypress.yaml
 Set the following environment variables:
 
 ```
-NEW_RELIC_LICENSE_KEY=df78d9296c9e9cb6f08b48c86cfe01cfbf00NRAL
+NEW_RELIC_LICENSE_KEY=<YOUR_KEY>
 NEW_RELIC_CONFIG_FILE=newrelic.ini
 ```
 
