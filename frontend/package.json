@@ -28,7 +28,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "cypress": "^9.3.1"
+    "cypress": "^12.7.0"
   },
   "engines": {
     "node": "18.x"

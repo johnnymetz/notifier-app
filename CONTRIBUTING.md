@@ -56,16 +56,11 @@ npm install -g npm-check-updates
 ncu  # show all updates
 # SKIP:
 # - bootstrap: still on v4 (latest is v5)
-# - cypress: upgrade separately (see below)
 # - yup: don't want to deal with major version upgrade yet
 ncu --reject bootstrap,\
 react-bootstrap,\
-cypress,
 yup
-
-# cypress version
-package.json
-docker-compose.cypress.yaml
+# update cypress version in docker-compose.cypress.yaml
 ```
 
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
