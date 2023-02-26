@@ -7,23 +7,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  main:
+  python-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build api image
         run: docker build . --tag notifier-api
       - name: Run api tests
         run: docker run notifier-api pytest
-      - name: Run cypress tests
-        cypress-run:
-          runs-on: ubuntu-latest
-          steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-            - name: Cypress run
-              # https://github.com/cypress-io/github-action#explicit-version
-              uses: cypress-io/github-action@v5
-              with:
-                build: npm run build
-                start: npm start
+
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Cypress tests
+        # # https://github.com/cypress-io/github-action#explicit-version
+        uses: cypress-io/github-action@v5
