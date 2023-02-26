@@ -17,6 +17,13 @@ jobs:
         run: docker run notifier-api pytest
       - name: Run cypress tests
         cypress-run:
+          runs-on: ubuntu-latest
           steps:
-            # https://github.com/cypress-io/github-action#explicit-version
-            uses: cypress-io/github-action@v5
+            - name: Checkout
+              uses: actions/checkout@v3
+            - name: Cypress run
+              # https://github.com/cypress-io/github-action#explicit-version
+              uses: cypress-io/github-action@v5
+              with:
+                build: npm run build
+                start: npm start
