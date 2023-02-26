@@ -15,3 +15,8 @@ jobs:
         run: docker build . --tag notifier-api
       - name: Run api tests
         run: docker run notifier-api pytest
+      - name: Run cypress tests
+        cypress-run:
+          steps:
+            # https://github.com/cypress-io/github-action/tags
+            uses: cypress-io/github-action@v5
