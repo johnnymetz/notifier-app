@@ -1,4 +1,4 @@
-# Todo: Consolidate with .env
+# Todo: would be nice to consolidate with .env
 DB_NAME=notifier
 HEROKU_APP=notifier-app-api
 
@@ -97,6 +97,5 @@ get-user-count:
 
 # MISCELLANEOUS
 
-# MY_EMAIL is set in .env and set by the dotenv zsh plugin
 echoemail:
 	echo ${MY_EMAIL}

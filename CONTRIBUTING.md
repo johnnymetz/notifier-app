@@ -110,9 +110,8 @@ heroku ps -a notifier-app-api
 heroku run -a notifier-app-api bash
 heroku run -a notifier-app-api python manage.py send_event_emails EMAIL
 
-# TODO: fix this
 # check production settings on heroku server
-./manage.py check --deploy --settings api.settings.production
+./manage.py check --deploy
 
 # psql
 heroku pg:psql

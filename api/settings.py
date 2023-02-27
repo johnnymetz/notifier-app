@@ -234,14 +234,14 @@ LOGGING = {
 }
 
 # https://www.willmcgugan.com/blog/tech/post/richer-django-logging/
-# if ENVIRONMENT_NAME == ENV_LOCAL:
-#     LOGGING["formatters"] = {"rich": {"datefmt": "[%X]"}}
-#     LOGGING["handlers"]["rich"] = {
-#         "class": "rich.logging.RichHandler",
-#         "formatter": "rich",
-#         "level": "DEBUG",
-#     }
-#     LOGGING["loggers"]["django"] = {"handlers": ["rich"]}
+if ENVIRONMENT_NAME == ENV_LOCAL:
+    LOGGING["formatters"] = {"rich": {"datefmt": "[%X]"}}
+    LOGGING["handlers"]["rich"] = {  # type: ignore
+        "class": "rich.logging.RichHandler",
+        "formatter": "rich",
+        "level": "DEBUG",
+    }
+    LOGGING["loggers"]["django"] = {"handlers": ["rich"]}  # type: ignore
 
 
 if TESTING:
