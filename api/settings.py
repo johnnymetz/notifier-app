@@ -55,7 +55,7 @@ if ENVIRONMENT_NAME and ENVIRONMENT_NAME not in ENV_NAMES:
 SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
-assert not DEBUG
+assert DEBUG
 
 if DEBUG and ENVIRONMENT_NAME == ENV_PRODUCTION:
     raise ImproperlyConfigured("DEBUG=True in production")
@@ -252,7 +252,9 @@ if TESTING:
 # Email
 EMAIL_BACKEND = (
     "django.core.mail.backends.console.EmailBackend"
-    if DEBUG
+    # In GitHub CI, settings are initialized with DEBUG=False (even though django_debug_mode=true),
+    # so check environment name instead of DEBUG
+    if ENVIRONMENT_NAME == ENV_LOCAL
     else "anymail.backends.sendgrid.EmailBackend"
 )
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
@@ -325,8 +327,12 @@ DJOSER = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20) if DEBUG else timedelta(hours=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(hours=1) if DEBUG else timedelta(weeks=1),
+    "ACCESS_TOKEN_LIFETIME": (
+        timedelta(minutes=20) if ENVIRONMENT_NAME == ENV_LOCAL else timedelta(hours=1)
+    ),
+    "REFRESH_TOKEN_LIFETIME": (
+        timedelta(hours=1) if ENVIRONMENT_NAME == ENV_LOCAL else timedelta(weeks=1)
+    ),
 }
 
 SENTRY_ENABLED = env("SENTRY_ENABLED") and not TESTING
