@@ -15,7 +15,7 @@ Set environment variables.
 cp sample.env .env
 ```
 
-Set zsh environment variables:
+Set required Makefile environment variables:
 
 ```
 export MY_EMAIL=<YOUR_EMAIL>
@@ -27,7 +27,7 @@ Start the app:
 docker compose up -d
 ```
 
-Seed the database. Ensure `MY_EMAIL` is set in your environment.
+Seed the database:
 
 ```
 make seeddb
