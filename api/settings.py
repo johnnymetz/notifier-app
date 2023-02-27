@@ -26,7 +26,7 @@ env = environ.Env(
     DATABASE_REQUIRE_SSL=(bool, True),
     DEBUG=(bool, False),
     DEFAULT_FROM_EMAIL=(str, "Notifier App <admin@example.com>"),
-    ENVIRONMENT_NAME=(str, ENV_PRODUCTION),
+    ENVIRONMENT_NAME=(str, None),
     FRONTEND_URL=(str, ""),
     ROLLBAR_ACCESS_TOKEN=(str, None),
     ROLLBAR_ENABLED=(bool, False),
@@ -48,7 +48,7 @@ TESTING = "pytest" in sys.modules
 
 ENVIRONMENT_NAME = env("ENVIRONMENT_NAME")
 
-if ENVIRONMENT_NAME not in ENV_NAMES:
+if ENVIRONMENT_NAME and ENVIRONMENT_NAME not in ENV_NAMES:
     raise ImproperlyConfigured(f"Invalid ENVIRONMENT_NAME: {ENVIRONMENT_NAME}")
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -196,7 +196,7 @@ STATIC_URL = "/staticfiles/"
 STATIC_ROOT = BASE_DIR / "static"
 
 # Security
-if not DEBUG:
+if ENVIRONMENT_NAME == ENV_PRODUCTION:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
@@ -287,7 +287,7 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "rollbar.contrib.django_rest_framework.post_exception_handler",
 }
 
-if not DEBUG:
+if ENVIRONMENT_NAME == ENV_PRODUCTION:
     REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
         "anon": "100/day",
         "user": "1000/day",
