@@ -9,6 +9,8 @@ on:
 jobs:
   python-tests:
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: 'DONOTUSEINPRODUCTION'
     steps:
       - uses: actions/checkout@v3
       - name: Build api image
