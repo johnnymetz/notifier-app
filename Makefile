@@ -1,5 +1,6 @@
-# Todo: Use DATABASE_NAME from .env file
+# Todo: Consolidate with .env
 DB_NAME=notifier
+HEROKU_APP=notifier-app-api
 
 .DEFAULT_GOAL = shell
 

@@ -22,6 +22,7 @@ services:
       - ./ipython_config.py:/root/.ipython/profile_me/ipython_config.py
       - /app/frontend
     environment:
+      - DJANGO_SETTINGS_MODULE=api.settings
       - DATABASE_URL=postgres://postgres:postgres@db:5432/notifier
     depends_on:
       - db

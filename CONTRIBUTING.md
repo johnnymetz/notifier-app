@@ -15,14 +15,11 @@ Set environment variables.
 cp sample.env .env
 ```
 
-Manually source the environment variables:
+Set zsh environment variables:
 
 ```
-source .env
+export MY_EMAIL=<YOUR_EMAIL>
 ```
-
-Or do it automatically by using a tool like the zsh
-[dotenv](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv) plugin.
 
 Start the app:
 
@@ -81,29 +78,6 @@ yup
 
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
 - Be sure to rebuild docker images, run pre-commit hooks, run unit tests and run cypress tests against all files after an upgrade.
-
-## New Relic
-
-Set the following environment variables:
-
-```
-NEW_RELIC_LICENSE_KEY=<YOUR_KEY>
-NEW_RELIC_CONFIG_FILE=newrelic.ini
-```
-
-## Development using email settings
-
-Use this if you want to send actual emails instead of logging them to the api container.
-
-```
-# set environment variables
-export DEFAULT_FROM_EMAIL="Notifier App <YOUR_EMAIL>"
-export SENDGRID_API_KEY=<YOUR_KEY>
-
-# spin up containers
-docker compose -f docker-compose.yaml -f docker-compose.email.yaml config
-docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
-```
 
 ## Run Cypress Tests
 
