@@ -10,6 +10,10 @@ from play.views import DEFAULT_TIMEOUT
 
 
 class TestThrowView:
+    @pytest.fixture(autouse=True)
+    def _configure(self, settings):
+        settings.CYPRESS_AUTH_SECRET = "secret"
+
     def test_no_auth_raises_401(self, client):
         response = client.post("/api/play/throw/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
@@ -20,6 +24,10 @@ class TestThrowView:
 
 
 class TestTimeoutView:
+    @pytest.fixture(autouse=True)
+    def _configure(self, settings):
+        settings.CYPRESS_AUTH_SECRET = "secret"
+
     def test_no_auth_raises_401(self, client):
         response = client.post("/api/play/timeout/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED

@@ -10,6 +10,7 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 
 @pytest.fixture(autouse=True)
 def _qa_creds(settings):
+    settings.CYPRESS_AUTH_SECRET = "secret"
     settings.CYPRESS_QA_USER_EMAIL1 = "qa1@email.com"
     settings.CYPRESS_QA_USER_EMAIL2 = "qa2@email.com"
     settings.CYPRESS_QA_USER_PASSWORD = TEST_PASSWORD
