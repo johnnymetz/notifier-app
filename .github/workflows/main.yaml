@@ -13,10 +13,16 @@ jobs:
       SECRET_KEY: 'DONOTUSEINPRODUCTION'
     steps:
       - uses: actions/checkout@v3
-      - name: Build api image
-        run: docker build . --tag notifier-api
-      - name: Run api tests
-        run: docker run notifier-api pytest
+      - name: Parse Python version
+        run: sed  s/python-// runtime.txt | head > .python-version
+      - uses: actions/setup-python@v4
+        with:
+          cache: pip
+      - name: Install Python Dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run Pytest
+        run: pytest --durations 10
 #  cypress-run:
 #    runs-on: ubuntu-latest
 #    steps:
