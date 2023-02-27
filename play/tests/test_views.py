@@ -24,7 +24,7 @@ class TestTimeoutView:
         response = client.post("/api/play/timeout/")
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_invalid_seconds_input_raises_401(self, client):
+    def test_invalid_seconds_input_raises_400(self, client):
         response = client.post(
             "/api/play/timeout/",
             {"auth": settings.CYPRESS_AUTH_SECRET, "seconds": "xxx"},

@@ -95,7 +95,7 @@ def test_get_events_upcoming_at_year_end(settings):
 
 @pytest.mark.django_db()
 def test_exceed_user_count_limit(settings):
-    assert settings.USER_COUNT_LIMIT
+    settings.USER_COUNT_LIMIT = 5
     for _ in range(settings.USER_COUNT_LIMIT):
         UserFactory()
     with pytest.raises(DataError, match="User count limit exceeded"):

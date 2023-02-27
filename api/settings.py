@@ -19,9 +19,9 @@ env = environ.Env(
     ALLOWED_HOSTS=(str, ""),
     CORS_ORIGIN_WHITELIST=(str, ""),
     CYPRESS_AUTH_SECRET=(str, None),
-    CYPRESS_QA_USER_PASSWORD=(str, None),
     CYPRESS_QA_USER_EMAIL1=(str, None),
     CYPRESS_QA_USER_EMAIL2=(str, None),
+    CYPRESS_QA_USER_PASSWORD=(str, None),
     DATABASE_URL=(str, "postgres://postgres:postgres@localhost:5434/postgres"),
     DATABASE_REQUIRE_SSL=(bool, True),
     DEBUG=(bool, False),
@@ -276,18 +276,24 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    # Used to have this disabled locally
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
     ],
-    "DEFAULT_THROTTLE_RATES": {} if DEBUG else {"anon": "100/day", "user": "1000/day"},
     # Only works with rest_framework.test.APIClient + rest_framework.test.APIRequestFactory
     # "TEST_REQUEST_DEFAULT_FORMAT": "json",
     # Includes parsed POST variables in exception
     "EXCEPTION_HANDLER": "rollbar.contrib.django_rest_framework.post_exception_handler",
 }
+
+if env == ENV_PRODUCTION:
+    REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = (
+        "rest_framework.permissions.IsAuthenticated",
+    )
+    REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+        "anon": "100/day",
+        "user": "1000/day",
+    }
 
 
 DJOSER = {
@@ -358,3 +364,5 @@ USER_COUNT_LIMIT = 100
 # Cypress
 CYPRESS_AUTH_SECRET = env("CYPRESS_AUTH_SECRET")
 CYPRESS_QA_USER_EMAIL1 = env("CYPRESS_QA_USER_EMAIL1")
+CYPRESS_QA_USER_EMAIL2 = env("CYPRESS_QA_USER_EMAIL2")
+CYPRESS_QA_USER_PASSWORD = env("CYPRESS_QA_USER_PASSWORD")
