@@ -55,6 +55,7 @@ if ENVIRONMENT_NAME and ENVIRONMENT_NAME not in ENV_NAMES:
 SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
+assert not DEBUG
 
 if DEBUG and ENVIRONMENT_NAME == ENV_PRODUCTION:
     raise ImproperlyConfigured("DEBUG=True in production")
@@ -162,9 +163,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = (
-    []
-    if DEBUG
-    else [
+    [
         {
             "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
         },
@@ -172,6 +171,8 @@ AUTH_PASSWORD_VALIDATORS = (
         {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
     ]
+    if ENVIRONMENT_NAME == ENV_PRODUCTION
+    else []
 )
 
 
