@@ -14,8 +14,6 @@ attrs==22.2.0
     # via
     #   flake8-bugbear
     #   pytest
-autopep8==2.0.0
-    # via django-silk
 backcall==0.2.0
     # via ipython
 black==23.1.0
@@ -63,7 +61,6 @@ django==4.1.7
     #   django-anymail
     #   django-cors-headers
     #   django-extensions
-    #   django-silk
     #   djangorestframework
     #   djangorestframework-simplejwt
     #   drf-yasg
@@ -74,8 +71,6 @@ django-cors-headers==3.14.0
 django-environ==0.9.0
     # via -r requirements.in
 django-extensions==3.2.1
-    # via -r requirements.in
-django-silk==5.0.3
     # via -r requirements.in
 django-templated-mail==1.1.1
     # via djoser
@@ -133,8 +128,6 @@ flake8-tuple==0.4.1
     # via -r requirements.in
 freezegun==1.2.2
     # via pytest-freezegun
-gprof2dot==2022.7.29
-    # via django-silk
 gunicorn==20.1.0
     # via -r requirements.in
 idna==3.4
@@ -209,7 +202,6 @@ pure-eval==0.2.2
     # via stack-data
 pycodestyle==2.9.1
     # via
-    #   autopep8
     #   flake8
     #   flake8-print
 pycparser==2.21
@@ -234,6 +226,7 @@ pytest==7.2.1
     #   pytest-freezegun
     #   pytest-instafail
     #   pytest-randomly
+    #   pytest-socket
     #   pytest-timeout
 pytest-cov==4.0.0
     # via -r requirements.in
@@ -244,6 +237,8 @@ pytest-freezegun==0.4.2
 pytest-instafail==0.4.2
     # via -r requirements.in
 pytest-randomly==3.12.0
+    # via -r requirements.in
+pytest-socket==0.6.0
     # via -r requirements.in
 pytest-timeout==2.1.0
     # via -r requirements.in
@@ -291,15 +286,11 @@ social-auth-app-django==4.0.0
 social-auth-core==4.3.0
     # via social-auth-app-django
 sqlparse==0.4.3
-    # via
-    #   django
-    #   django-silk
+    # via django
 stack-data==0.6.2
     # via ipython
 tokenize-rt==5.0.0
     # via pyupgrade
-tomli==2.0.1
-    # via autopep8
 traitlets==5.9.0
     # via
     #   ipython

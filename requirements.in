@@ -37,6 +37,7 @@ pytest-instafail
 pytest-randomly
 pytest-timeout
 pytest-freezegun
+pytest-socket
 factory-boy
 nplusone
 

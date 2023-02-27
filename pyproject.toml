@@ -37,6 +37,7 @@ django_debug_mode = true
 addopts= [
   "--verbose",
   "-ra",
+  "--disable-socket",
   "--doctest-modules",
   "--instafail",
   "--cov=.",
