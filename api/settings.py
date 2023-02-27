@@ -276,6 +276,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
@@ -286,10 +287,7 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "rollbar.contrib.django_rest_framework.post_exception_handler",
 }
 
-if env == ENV_PRODUCTION:
-    REST_FRAMEWORK["DEFAULT_THROTTLE_CLASSES"] = (
-        "rest_framework.permissions.IsAuthenticated",
-    )
+if not DEBUG:
     REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
         "anon": "100/day",
         "user": "1000/day",
