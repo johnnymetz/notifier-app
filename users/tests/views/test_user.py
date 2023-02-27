@@ -147,7 +147,7 @@ def test_reset_password(client, mailoutbox):
         "re_new_password": new_pw,
     }
     r = client.post(url, data=data)
-    assert r.status_code == status.HTTP_204_NO_CONTENT
+    assert r.status_code == status.HTTP_204_NO_CONTENT, r.json()
     assert len(mailoutbox) == 1
     u.refresh_from_db()
     assert u.check_password(new_pw)
