@@ -54,8 +54,9 @@ if ENVIRONMENT_NAME and ENVIRONMENT_NAME not in ENV_NAMES:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
+# In GitHub CI, settings are initialized with DEBUG=False (even though django_debug_mode=true),
+# so do NOT use DEBUG to conditionally set other settings
 DEBUG = env("DEBUG")
-assert DEBUG
 
 if DEBUG and ENVIRONMENT_NAME == ENV_PRODUCTION:
     raise ImproperlyConfigured("DEBUG=True in production")
@@ -252,8 +253,7 @@ if TESTING:
 # Email
 EMAIL_BACKEND = (
     "django.core.mail.backends.console.EmailBackend"
-    # In GitHub CI, settings are initialized with DEBUG=False (even though django_debug_mode=true),
-    # so check environment name instead of DEBUG
+    # See DEBUG for why we're using ENVIRONMENT_NAME instead of DEBUG
     if ENVIRONMENT_NAME == ENV_LOCAL
     else "anymail.backends.sendgrid.EmailBackend"
 )
