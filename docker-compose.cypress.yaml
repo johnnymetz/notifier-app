@@ -2,6 +2,8 @@ version: '3'
 services:
   api:
     command: bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
+    environment:
+      - ALLOWED_HOSTS=api
     # disable logging to reduce noise;
     # not working: https://github.com/docker/compose/issues/8578
     logging:
@@ -16,10 +18,11 @@ services:
     image: cypress/included:12.7.0
     volumes:
       - ./frontend/cypress:/cypress
-      - ./frontend/cypress.json:/cypress.json
+      - ./frontend/cypress.config.js:/cypress.config.js
     environment:
       - CYPRESS_BASE_URL=http://frontend-dev:3000
       - CYPRESS_SERVER_URL=http://api:8000/api
+      - CYPRESS_AUTH_SECRET
       - CYPRESS_QA_USER_EMAIL1
       - CYPRESS_QA_USER_EMAIL2
       - CYPRESS_QA_USER_PASSWORD

@@ -32,11 +32,12 @@ sections = ["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLD
 remove_redundant_aliases = true
 
 [tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "api.settings"
 django_debug_mode = true
 addopts= [
-  "--ds=api.settings.test",
   "--verbose",
   "-ra",
+  "--disable-socket",
   "--doctest-modules",
   "--instafail",
   "--cov=.",

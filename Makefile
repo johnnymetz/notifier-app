@@ -1,9 +1,10 @@
+# Todo: would be nice to consolidate with .env
 DB_NAME=notifier
-HEROKU_API_APP_NAME=notifier-app-api
+HEROKU_APP=notifier-app-api
 
 .DEFAULT_GOAL = shell
 
-setup:
+setup-precommit:
 	pre-commit install
 
 updateprecommit:
@@ -59,9 +60,6 @@ pipcompileupgrade:
 runscriptplayground:
 	docker compose run api ./manage.py runscript playground
 
-clear-silk:
-	docker compose run api ./manage.py silk_clear_request_log
-
 # FRONTEND
 
 open-localhost-3001:
@@ -89,13 +87,13 @@ host-cypress-run:
 # HEROKU
 
 heroku-shell:
-	heroku run -a ${HEROKU_API_APP_NAME} bash
+	heroku run -a ${HEROKU_APP} bash
 
 heroku-logs:
-	heroku logs -a ${HEROKU_API_APP_NAME} --tail
+	heroku logs -a ${HEROKU_APP} --tail
 
 get-user-count:
-	heroku run -a ${HEROKU_API_APP_NAME} bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
+	heroku run -a ${HEROKU_APP} bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
 
 # MISCELLANEOUS
 

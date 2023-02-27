@@ -22,16 +22,8 @@ services:
       - ./ipython_config.py:/root/.ipython/profile_me/ipython_config.py
       - /app/frontend
     environment:
-      - DJANGO_SETTINGS_MODULE=api.settings.local
-      - DB_HOST=db
-      - DB_NAME=notifier
-      - CYPRESS_QA_USER_EMAIL1
-      - CYPRESS_QA_USER_EMAIL2
-      - CYPRESS_QA_USER_PASSWORD
-      # - ROLLBAR_ENABLED=true
-      # - ROLLBAR_ACCESS_TOKEN
-      # - NEW_RELIC_LICENSE_KEY
-      # - NEW_RELIC_CONFIG_FILE
+      - DJANGO_SETTINGS_MODULE=api.settings
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/notifier
     depends_on:
       - db
 

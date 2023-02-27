@@ -2,25 +2,38 @@
 
 ## Basic Setup
 
+Initial setup (only needs to be done once):
+
 ```
-# initial setup (only needs to be done once)
 brew install pre-commit
 pre-commit install
-
-# set environment variables
-export MY_EMAIL=<YOUR_EMAIL>
-
-# development using local settings
-docker compose up -d
-docker container exec -it notifier-app_api_1 bash
-./manage.py migrate
-./manage.py createsuperuser
-./manage.py import_events EMAIL
-./manage.py export_events EMAIL
-./manage.py send_event_emails EMAIL
 ```
 
-Now visit http://localhost:3001/ and login with `<YOUR_EMAIL>` and `pw`.
+Set environment variables.
+
+```
+cp sample.env .env
+```
+
+Set required Makefile environment variables:
+
+```
+export MY_EMAIL=<YOUR_EMAIL>
+```
+
+Start the app:
+
+```
+docker compose up -d
+```
+
+Seed the database:
+
+```
+make seeddb
+```
+
+Now visit http://localhost:3001/ and login with `<MY_EMAIL>` and `pw`.
 
 ## Upgrade packages
 
@@ -66,29 +79,6 @@ yup
 - [Heroku Python Support](https://devcenter.heroku.com/articles/python-support#supported-runtimes)
 - Be sure to rebuild docker images, run pre-commit hooks, run unit tests and run cypress tests against all files after an upgrade.
 
-## New Relic
-
-Set the following environment variables:
-
-```
-NEW_RELIC_LICENSE_KEY=<YOUR_KEY>
-NEW_RELIC_CONFIG_FILE=newrelic.ini
-```
-
-## Development using email settings
-
-Use this if you want to send actual emails instead of logging them to the api container.
-
-```
-# set environment variables
-export DEFAULT_FROM_EMAIL="Notifier App <YOUR_EMAIL>"
-export SENDGRID_API_KEY=<YOUR_KEY>
-
-# spin up containers
-docker compose -f docker-compose.yaml -f docker-compose.email.yaml config
-docker compose -f docker-compose.yaml -f docker-compose.email.yaml up -d
-```
-
 ## Run Cypress Tests
 
 ```
@@ -121,7 +111,7 @@ heroku run -a notifier-app-api bash
 heroku run -a notifier-app-api python manage.py send_event_emails EMAIL
 
 # check production settings on heroku server
-./manage.py check --deploy --settings api.settings.production
+./manage.py check --deploy
 
 # psql
 heroku pg:psql

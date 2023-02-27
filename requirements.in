@@ -3,11 +3,11 @@
 #############################
 
 django
+django-environ
 django-extensions
 dj-database-url
 django-cors-headers
 django-anymail
-django-silk
 djangorestframework
 # https://github.com/jazzband/djangorestframework-simplejwt/issues/449
 djangorestframework-simplejwt==4.7.*
@@ -37,6 +37,7 @@ pytest-instafail
 pytest-randomly
 pytest-timeout
 pytest-freezegun
+pytest-socket
 factory-boy
 nplusone
 
