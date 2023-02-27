@@ -1,5 +1,4 @@
 import datetime
-import os
 from types import SimpleNamespace
 
 from django.conf import settings
@@ -18,22 +17,26 @@ class SeedQaUser(APIView):
     permission_classes = (IsCypress,)
 
     def _get_and_delete_qa_users(self):
-        qa_user_email1 = os.environ.get("CYPRESS_QA_USER_EMAIL1")
-        qa_user_email2 = os.environ.get("CYPRESS_QA_USER_EMAIL2")
-        qa_user_password = os.environ.get("CYPRESS_QA_USER_PASSWORD")
-
-        if not qa_user_email1 or not qa_user_email2 or not qa_user_password:
+        if (
+            not settings.CYPRESS_QA_USER_EMAIL1
+            or not settings.CYPRESS_QA_USER_EMAIL2
+            or not settings.CYPRESS_QA_USER_PASSWORD
+        ):
             return Response(
                 "Missing qa credentials", status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-        try:
-            User.objects.filter(email__in=[qa_user_email1, qa_user_email2]).delete()
-        except User.DoesNotExist:
-            pass
+        User.objects.filter(
+            email__in=[
+                settings.CYPRESS_QA_USER_EMAIL1,
+                settings.CYPRESS_QA_USER_EMAIL2,
+            ]
+        ).delete()
 
         return SimpleNamespace(
-            email1=qa_user_email1, email2=qa_user_email2, password=qa_user_password
+            email1=settings.CYPRESS_QA_USER_EMAIL1,
+            email2=settings.CYPRESS_QA_USER_EMAIL1,
+            password=settings.CYPRESS_QA_USER_PASSWORD,
         )
 
     def post(self, request, *args, **kwargs):

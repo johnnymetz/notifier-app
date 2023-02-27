@@ -2,25 +2,41 @@
 
 ## Basic Setup
 
+Initial setup (only needs to be done once):
+
 ```
-# initial setup (only needs to be done once)
 brew install pre-commit
 pre-commit install
-
-# set environment variables
-export MY_EMAIL=<YOUR_EMAIL>
-
-# development using local settings
-docker compose up -d
-docker container exec -it notifier-app_api_1 bash
-./manage.py migrate
-./manage.py createsuperuser
-./manage.py import_events EMAIL
-./manage.py export_events EMAIL
-./manage.py send_event_emails EMAIL
 ```
 
-Now visit http://localhost:3001/ and login with `<YOUR_EMAIL>` and `pw`.
+Set environment variables.
+
+```
+cp sample.env .env
+```
+
+Manually source the environment variables:
+
+```
+source .env
+```
+
+Or do it automatically by using a tool like the zsh
+[dotenv](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv) plugin.
+
+Start the app:
+
+```
+docker compose up -d
+```
+
+Seed the database. Ensure `MY_EMAIL` is set in your environment.
+
+```
+make seeddb
+```
+
+Now visit http://localhost:3001/ and login with `<MY_EMAIL>` and `pw`.
 
 ## Upgrade packages
 
@@ -120,6 +136,7 @@ heroku ps -a notifier-app-api
 heroku run -a notifier-app-api bash
 heroku run -a notifier-app-api python manage.py send_event_emails EMAIL
 
+# TODO: fix this
 # check production settings on heroku server
 ./manage.py check --deploy --settings api.settings.production
 

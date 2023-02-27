@@ -34,7 +34,7 @@ remove_redundant_aliases = true
 [tool.pytest.ini_options]
 django_debug_mode = true
 addopts= [
-  "--ds=api.settings.test",
+  "--ds=api.settings",
   "--verbose",
   "-ra",
   "--doctest-modules",

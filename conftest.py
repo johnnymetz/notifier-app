@@ -9,7 +9,7 @@ from users.tests.factories import TEST_PASSWORD, UserFactory
 
 @pytest.fixture(autouse=True)
 def _ensure_test_settings(settings):
-    assert settings.SETTINGS_MODULE == "api.settings.test", "Must use the test settings"
+    assert settings.TESTING, "Test run not detected"
 
 
 @pytest.fixture(autouse=True)

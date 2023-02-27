@@ -1,9 +1,9 @@
+# Todo: Use DATABASE_NAME from .env file
 DB_NAME=notifier
-HEROKU_API_APP_NAME=notifier-app-api
 
 .DEFAULT_GOAL = shell
 
-setup:
+setup-precommit:
 	pre-commit install
 
 updateprecommit:
@@ -59,9 +59,6 @@ pipcompileupgrade:
 runscriptplayground:
 	docker compose run api ./manage.py runscript playground
 
-clear-silk:
-	docker compose run api ./manage.py silk_clear_request_log
-
 # FRONTEND
 
 open-localhost-3001:
@@ -89,15 +86,16 @@ host-cypress-run:
 # HEROKU
 
 heroku-shell:
-	heroku run -a ${HEROKU_API_APP_NAME} bash
+	heroku run -a ${HEROKU_APP} bash
 
 heroku-logs:
-	heroku logs -a ${HEROKU_API_APP_NAME} --tail
+	heroku logs -a ${HEROKU_APP} --tail
 
 get-user-count:
-	heroku run -a ${HEROKU_API_APP_NAME} bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
+	heroku run -a ${HEROKU_APP} bash -c 'echo "User.objects.count()" | python manage.py shell_plus --plain'
 
 # MISCELLANEOUS
 
+# MY_EMAIL is set in .env and set by the dotenv zsh plugin
 echoemail:
 	echo ${MY_EMAIL}

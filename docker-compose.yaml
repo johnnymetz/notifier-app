@@ -7,7 +7,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=notifier
+      - POSTGRES_DB=${DATABASE_NAME}
 
   api:
     build: .
@@ -22,16 +22,8 @@ services:
       - ./ipython_config.py:/root/.ipython/profile_me/ipython_config.py
       - /app/frontend
     environment:
-      - DJANGO_SETTINGS_MODULE=api.settings.local
+      - DJANGO_SETTINGS_MODULE=api.settings
       - DB_HOST=db
-      - DB_NAME=notifier
-      - CYPRESS_QA_USER_EMAIL1
-      - CYPRESS_QA_USER_EMAIL2
-      - CYPRESS_QA_USER_PASSWORD
-      # - ROLLBAR_ENABLED=true
-      # - ROLLBAR_ACCESS_TOKEN
-      # - NEW_RELIC_LICENSE_KEY
-      # - NEW_RELIC_CONFIG_FILE
     depends_on:
       - db
 
