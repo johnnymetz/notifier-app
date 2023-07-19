@@ -52,7 +52,7 @@ defusedxml==0.7.1
     # via
     #   python3-openid
     #   social-auth-core
-dj-database-url==1.2.0
+dj-database-url==2.0.0
     # via -r requirements.in
 django==4.1.10
     # via
@@ -296,7 +296,9 @@ traitlets==5.9.0
     #   ipython
     #   matplotlib-inline
 typing-extensions==4.5.0
-    # via mypy
+    # via
+    #   dj-database-url
+    #   mypy
 uritemplate==4.1.1
     # via
     #   coreapi
