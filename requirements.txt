@@ -252,7 +252,7 @@ pytz==2022.7.1
     # via
     #   djangorestframework
     #   drf-yasg
-pyupgrade==3.3.1
+pyupgrade==3.9.0
     # via -r requirements.in
 pywatchman==1.4.1
     # via -r requirements.in
