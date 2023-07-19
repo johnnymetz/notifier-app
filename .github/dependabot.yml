@@ -1,8 +1,9 @@
 # https://github.com/johnnymetz/notifier-app/network/updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
 updates:
-  - package-ecosystem: pip-compile
+  - package-ecosystem: pip
     directory: /
     schedule:
       interval: monthly
