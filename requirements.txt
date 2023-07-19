@@ -309,7 +309,7 @@ wcwidth==0.2.6
     # via prompt-toolkit
 wheel==0.38.4
     # via pip-tools
-whitenoise==6.4.0
+whitenoise==6.5.0
     # via -r requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
