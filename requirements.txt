@@ -104,7 +104,7 @@ flake8==5.0.4
     #   flake8-spellcheck
     #   flake8-tuple
     #   pep8-naming
-flake8-broken-line==0.6.0
+flake8-broken-line==1.0.0
     # via -r requirements.in
 flake8-bugbear==23.2.13
     # via -r requirements.in
