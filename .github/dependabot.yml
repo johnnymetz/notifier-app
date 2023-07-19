@@ -2,13 +2,6 @@
 
 version: 2
 updates:
-  #  - package-ecosystem: npm
-  #    directory: /frontend
-  #    open-pull-requests-limit: 20
-  #    schedule:
-  #      interval: monthly
-  #    assignees:
-  #      - johnnymetz
   - package-ecosystem: pip-compile
     directory: /
     schedule:
