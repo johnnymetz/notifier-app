@@ -20,7 +20,7 @@ blinker==1.6.2
     # via nplusone
 build==0.10.0
     # via pip-tools
-certifi==2023.5.7
+certifi==2023.7.22
     # via
     #   requests
     #   sentry-sdk
