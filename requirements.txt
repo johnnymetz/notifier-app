@@ -81,7 +81,7 @@ djangorestframework-simplejwt==4.7.2
     #   djoser
 djoser==2.1.0
     # via -r requirements.in
-drf-yasg==1.21.6
+drf-yasg==1.21.7
     # via -r requirements.in
 executing==1.2.0
     # via stack-data
