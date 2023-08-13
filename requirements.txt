@@ -158,7 +158,7 @@ mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-newrelic==8.8.1
+newrelic==8.9.0
     # via -r requirements.in
 nplusone==1.0.0
     # via -r requirements.in
