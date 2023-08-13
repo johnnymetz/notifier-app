@@ -38,7 +38,7 @@ coreapi==2.3.3
     # via djoser
 coreschema==0.0.4
     # via coreapi
-coverage[toml]==7.2.7
+coverage[toml]==7.3.0
     # via pytest-cov
 cryptography==41.0.3
     # via social-auth-core
@@ -87,7 +87,7 @@ executing==1.2.0
     # via stack-data
 factory-boy==3.3.0
     # via -r requirements.in
-faker==19.1.0
+faker==19.3.0
     # via factory-boy
 flake8==6.1.0
     # via
@@ -136,7 +136,7 @@ isort==5.12.0
     # via -r requirements.in
 itypes==1.2.0
     # via coreapi
-jedi==0.18.2
+jedi==0.19.0
     # via ipython
 jinja2==3.1.2
     # via coreschema
@@ -150,13 +150,13 @@ mccabe==0.7.0
     # via flake8
 mdurl==0.1.2
     # via markdown-it-py
-mypy==1.4.1
+mypy==1.5.0
     # via -r requirements.in
 mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-newrelic==8.9.0
+newrelic==8.10.0
     # via -r requirements.in
 nplusone==1.0.0
     # via -r requirements.in
@@ -173,7 +173,7 @@ packaging==23.1
     #   pytest
 parso==0.8.3
     # via jedi
-pathspec==0.11.1
+pathspec==0.11.2
     # via black
 pep8-naming==0.13.3
     # via -r requirements.in
@@ -181,15 +181,15 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pip-tools==7.1.0
+pip-tools==7.3.0
     # via -r requirements.in
-platformdirs==3.9.1
+platformdirs==3.10.0
     # via black
 pluggy==1.2.0
     # via pytest
 prompt-toolkit==3.0.39
     # via ipython
-psycopg2==2.9.6
+psycopg2==2.9.7
     # via -r requirements.in
 ptyprocess==0.7.0
     # via pexpect
@@ -203,7 +203,7 @@ pycparser==2.21
     # via cffi
 pyflakes==3.1.0
     # via flake8
-pygments==2.15.1
+pygments==2.16.1
     # via
     #   ipython
     #   rich
@@ -297,14 +297,14 @@ uritemplate==4.1.1
     # via
     #   coreapi
     #   drf-yasg
-urllib3==2.0.3
+urllib3==2.0.4
     # via
     #   django-anymail
     #   requests
     #   sentry-sdk
 wcwidth==0.2.6
     # via prompt-toolkit
-wheel==0.40.0
+wheel==0.41.1
     # via pip-tools
 whitenoise==6.5.0
     # via -r requirements.in
