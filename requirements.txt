@@ -89,7 +89,7 @@ factory-boy==3.3.0
     # via -r requirements.in
 faker==19.1.0
     # via factory-boy
-flake8==6.0.0
+flake8==6.1.0
     # via
     #   -r requirements.in
     #   flake8-broken-line
@@ -197,13 +197,13 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.2
     # via stack-data
-pycodestyle==2.10.0
+pycodestyle==2.11.0
     # via
     #   flake8
     #   flake8-print
 pycparser==2.21
     # via cffi
-pyflakes==3.0.1
+pyflakes==3.1.0
     # via flake8
 pygments==2.15.1
     # via
