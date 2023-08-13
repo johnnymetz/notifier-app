@@ -75,7 +75,7 @@ djangorestframework==3.14.0
     #   -r requirements.in
     #   djangorestframework-simplejwt
     #   drf-yasg
-djangorestframework-simplejwt==4.7.2
+djangorestframework-simplejwt==4.8.0
     # via
     #   -r requirements.in
     #   djoser
