@@ -3,12 +3,13 @@ import datetime
 from django.db import DataError
 
 import pytest
+import time_machine
 
 from notifier.tests.factories import EventFactory
 from users.tests.factories import UserFactory
 
 
-@pytest.mark.freeze_time("2020-01-01")
+@time_machine.travel("2020-01-01")
 @pytest.mark.django_db()
 def test_get_events_today(settings):
     settings.TIME_ZONE = "UTC"
@@ -27,7 +28,7 @@ def test_get_events_today(settings):
     assert set(user.get_events_today()) == {event1, event2}
 
 
-@pytest.mark.freeze_time("2020-01-01")
+@time_machine.travel("2020-01-01")
 @pytest.mark.django_db()
 def test_get_events_upcoming_at_month_start(settings):
     settings.TIME_ZONE = "UTC"
@@ -53,7 +54,7 @@ def test_get_events_upcoming_at_month_start(settings):
     assert list(user.get_events_upcoming()) == [event1, event3, event2, event4]
 
 
-@pytest.mark.freeze_time("2020-01-30")
+@time_machine.travel("2020-01-30")
 @pytest.mark.django_db()
 def test_get_events_upcoming_at_month_end(settings):
     settings.TIME_ZONE = "UTC"
@@ -73,7 +74,7 @@ def test_get_events_upcoming_at_month_end(settings):
     assert list(user.get_events_upcoming()) == [event1, event3, event2, event4]
 
 
-@pytest.mark.freeze_time("2020-12-30")
+@time_machine.travel("2020-12-30")
 @pytest.mark.django_db()
 def test_get_events_upcoming_at_year_end(settings):
     settings.TIME_ZONE = "UTC"

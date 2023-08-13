@@ -10,6 +10,7 @@ from django.db import connection, reset_queries
 from django.utils import timezone
 
 import pytest
+import time_machine
 from nplusone.core.exceptions import NPlusOneError
 
 from notifier.models import Event
@@ -17,8 +18,8 @@ from notifier.tests.factories import EventFactory, UserFactory
 from users.models import User
 
 
-@pytest.mark.freeze_time("2020-01-01")
-def test_freeze_time_functionality():
+@time_machine.travel("2020-01-01", tick=False)
+def test_time_machine_functionality():
     # print(timezone.now())  # UTC time
     # print(timezone.localdate())  # Local date
     # print(timezone.localtime())  # Local datetime

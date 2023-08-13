@@ -4,13 +4,14 @@ from django.urls import reverse
 from django.utils import timezone
 
 import pytest
+import time_machine
 from rest_framework import status
 
 from users.tests.factories import TEST_PASSWORD, UserFactory
 
 
 @pytest.mark.django_db()
-def test_create_verify_refresh_jwt(client, freezer, settings):
+def test_create_verify_refresh_jwt(client, settings):
     u = UserFactory(password=TEST_PASSWORD, is_active=False)
 
     create_url = reverse("jwt-create")
@@ -36,18 +37,17 @@ def test_create_verify_refresh_jwt(client, freezer, settings):
     assert r.status_code == status.HTTP_401_UNAUTHORIZED
 
     # refresh jwt
-    now = timezone.now()
-    freezer.move_to(
-        now
+    with time_machine.travel(
+        timezone.now()
         + settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"]
         + datetime.timedelta(seconds=1)
-    )
-    r = client.post(verify_url, {"token": access_token})
-    assert r.status_code == status.HTTP_401_UNAUTHORIZED
-    refresh_url = reverse("jwt-refresh")
-    r = client.post(refresh_url, {"refresh": refresh_token})
-    assert r.status_code == status.HTTP_200_OK
-    assert r.data["access"] != access_token
+    ):
+        r = client.post(verify_url, {"token": access_token})
+        assert r.status_code == status.HTTP_401_UNAUTHORIZED
+        refresh_url = reverse("jwt-refresh")
+        r = client.post(refresh_url, {"refresh": refresh_token})
+        assert r.status_code == status.HTTP_200_OK
+        assert r.data["access"] != access_token
 
 
 @pytest.mark.django_db()

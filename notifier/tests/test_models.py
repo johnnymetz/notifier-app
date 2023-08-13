@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 import pytest
+import time_machine
 
 from notifier.exceptions import NotifierError
 from notifier.models import Event
@@ -27,7 +28,7 @@ def test_event_annual_date_display():
     assert event.annual_date_display == "02-02"
 
 
-@pytest.mark.freeze_time("2020-01-01")
+@time_machine.travel("2020-01-01")
 @pytest.mark.django_db()
 def test_event_age(settings):
     settings.TIME_ZONE = "UTC"

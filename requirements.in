@@ -36,9 +36,9 @@ pytest-django
 pytest-instafail
 pytest-randomly
 pytest-timeout
-pytest-freezegun
 pytest-socket
 factory-boy
+time-machine
 nplusone
 
 # add flake8 plugins to additional_dependencies in pre-commit hook

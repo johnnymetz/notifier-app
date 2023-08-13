@@ -1,13 +1,14 @@
 import datetime
 
 import pytest
+import time_machine
 
 from notifier.helpers import sort_events_by_yearless_date_starting_at_today
 from notifier.models import Event
 from notifier.tests.factories import EventFactory
 
 
-@pytest.mark.freeze_time("2020-06-01")
+@time_machine.travel("2020-06-01")
 @pytest.mark.django_db()
 def test_sort_events_by_yearless_date_starting_at_today(settings):
     settings.TIME_ZONE = "UTC"

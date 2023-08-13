@@ -16,9 +16,6 @@ Send yourself daily email notifications.
 ## Todo
 
 - Add holidays
-- Freezegun should be able to choose a timezone
-  so I don't need to set settings.TIME_ZONE = "UTC" in the first line of every test.
-  If no luck, try [time-machine](https://github.com/adamchainz/time-machine)
 - Upgrade djoser so activation email isn't sent on user update (e.g. subscribe on/off)
 - Try an XSS attack: [XSS Exploitation in Django Applications](https://tonybaloney.github.io/posts/xss-exploitation-in-django.html)
 
