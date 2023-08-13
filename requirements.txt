@@ -85,7 +85,7 @@ drf-yasg==1.21.7
     # via -r requirements.in
 executing==1.2.0
     # via stack-data
-factory-boy==3.2.1
+factory-boy==3.3.0
     # via -r requirements.in
 faker==19.1.0
     # via factory-boy
