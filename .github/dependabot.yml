@@ -3,20 +3,20 @@
 
 version: 2
 updates:
-  #  - package-ecosystem: npm
-  #    directory: /frontend
-  #    open-pull-requests-limit: 20
+  #    - package-ecosystem: npm
+  #      directory: /frontend
+  #      open-pull-requests-limit: 20
+  #      schedule:
+  #        interval: monthly
+  #      assignees:
+  #        - johnnymetz
+  #  - package-ecosystem: pip
+  #    directory: /
   #    schedule:
   #      interval: monthly
+  #    open-pull-requests-limit: 20
   #    assignees:
   #      - johnnymetz
-  - package-ecosystem: pip
-    directory: /
-    schedule:
-      interval: monthly
-    open-pull-requests-limit: 20
-    assignees:
-      - johnnymetz
   - package-ecosystem: github-actions
     directory: /
     schedule:
