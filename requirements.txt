@@ -124,7 +124,7 @@ flake8-tuple==0.4.1
     # via -r requirements.in
 freezegun==1.2.2
     # via pytest-freezegun
-gunicorn==21.1.0
+gunicorn==21.2.0
     # via -r requirements.in
 idna==3.4
     # via requests
