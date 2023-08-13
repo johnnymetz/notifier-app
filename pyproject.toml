@@ -50,6 +50,14 @@ addopts= [
 markers = [
   "skip_nplusone: mark test to not raise an error when an n+1 query is detected",
 ]
+filterwarnings = [
+    # Causes pytest to raise an exception if any warnings are emitted,
+    # besides those explicitly ignored below.
+#    "error",
+    # djoser uses coreapi which is deprecated
+    "ignore:pkg_resources is deprecated as an API:DeprecationWarning:pkg_resources",
+    "ignore:'cgi' is deprecated and slated for removal in Python 3.13:DeprecationWarning:coreapi",
+]
 # timeout for a single test; comment out when debugging
 timeout = 20
 

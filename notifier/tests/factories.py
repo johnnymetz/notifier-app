@@ -9,6 +9,7 @@ from users.tests.factories import UserFactory
 class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Event
+        skip_postgeneration_save = True
 
     user = factory.SubFactory(UserFactory)
     name = factory.Sequence(lambda n: f"Event{n + 1}")
