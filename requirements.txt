@@ -183,7 +183,7 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pip-tools==7.0.0
+pip-tools==7.1.0
     # via -r requirements.in
 platformdirs==3.9.1
     # via black
