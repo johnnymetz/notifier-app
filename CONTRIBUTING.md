@@ -66,6 +66,7 @@ npm list --depth 0
 
 # update frontend packages:
 npm install -g npm-check-updates
+npm update -g npm-check-updates
 ncu  # show all updates
 # SKIP:
 # - bootstrap: still on v4 (latest is v5)
