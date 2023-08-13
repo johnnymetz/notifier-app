@@ -249,7 +249,7 @@ pytz==2023.3
     # via
     #   djangorestframework
     #   drf-yasg
-pyupgrade==3.9.0
+pyupgrade==3.10.1
     # via -r requirements.in
 pywatchman==1.4.1
     # via -r requirements.in
@@ -286,7 +286,7 @@ sqlparse==0.4.4
     # via django
 stack-data==0.6.2
     # via ipython
-tokenize-rt==5.1.0
+tokenize-rt==5.2.0
     # via pyupgrade
 traitlets==5.9.0
     # via
