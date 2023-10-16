@@ -16,7 +16,7 @@ repos:
       - id: django-upgrade
         args: [--target-version, '4.2']
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.13.0
+    rev: v3.15.0
     hooks:
       - id: pyupgrade
         args: ['--py311-plus']
@@ -46,7 +46,7 @@ repos:
             'pep8-naming',
           ]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
+    rev: v1.6.0
     hooks:
       - id: mypy
         additional_dependencies: ['types-requests']
@@ -78,7 +78,7 @@ repos:
         types: [python]
         pass_filenames: false
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-ast # validate python
       - id: check-merge-conflict # validate no merge conflict strings
