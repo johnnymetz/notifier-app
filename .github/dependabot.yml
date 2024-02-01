@@ -10,13 +10,13 @@ updates:
   #        interval: monthly
   #      assignees:
   #        - johnnymetz
-  #  - package-ecosystem: pip
-  #    directory: /
-  #    schedule:
-  #      interval: monthly
-  #    open-pull-requests-limit: 20
-  #    assignees:
-  #      - johnnymetz
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 20
+    assignees:
+      - johnnymetz
   - package-ecosystem: github-actions
     directory: /
     schedule:
