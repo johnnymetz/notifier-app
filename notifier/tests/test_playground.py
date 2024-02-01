@@ -1,6 +1,7 @@
 """
 Some random tests for learning purposes.
 """
+
 import datetime
 import logging
 from unittest.mock import Mock, create_autospec

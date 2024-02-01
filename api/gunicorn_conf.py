@@ -9,6 +9,7 @@ Can verify config with: gunicorn api.wsgi:application --config python:api.gunico
 I tried putting this file in it's expected location (./gunicorn.conf.py)
 but it broke `make pytest`.
 """
+
 # import multiprocessing
 
 max_requests = 1000
