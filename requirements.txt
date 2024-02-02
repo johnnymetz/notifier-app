@@ -13,7 +13,7 @@ asttokens==2.2.1
     # via stack-data
 attrs==23.1.0
     # via flake8-bugbear
-black==23.7.0
+black==24.1.1
     # via -r requirements.in
 blinker==1.6.2
     # via nplusone
