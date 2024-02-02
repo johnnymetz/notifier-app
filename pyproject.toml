@@ -53,10 +53,12 @@ markers = [
 filterwarnings = [
     # Causes pytest to raise an exception if any warnings are emitted,
     # besides those explicitly ignored below.
-#    "error",
-    # djoser uses coreapi which is deprecated
-    "ignore:pkg_resources is deprecated as an API:DeprecationWarning:pkg_resources",
-    "ignore:'cgi' is deprecated and slated for removal in Python 3.13:DeprecationWarning:coreapi",
+    "error",
+    # Ignore deprecation warnings from third-party packages
+    "ignore:pkg_resources is deprecated as an API:DeprecationWarning",
+    "ignore:Deprecated call to `pkg_resources.declare_namespace\\(('zope')\\)`:DeprecationWarning",
+    "ignore:'cgi' is deprecated and slated for removal in Python 3.13:DeprecationWarning",
+    "ignore:The django.utils.timezone.utc alias is deprecated:django.utils.deprecation.RemovedInDjango50Warning:rest_framework_simplejwt",
 ]
 # timeout for a single test; comment out when debugging
 timeout = 20
