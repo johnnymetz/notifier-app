@@ -51,7 +51,7 @@ defusedxml==0.7.1
     #   social-auth-core
 dj-database-url==2.1.0
     # via -r requirements.in
-django==4.2.7
+django==5.0.1
     # via
     #   -r requirements.in
     #   dj-database-url
