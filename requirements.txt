@@ -265,7 +265,7 @@ rich==13.5.2
     # via -r requirements.in
 rollbar==0.16.3
     # via -r requirements.in
-sentry-sdk==1.29.2
+sentry-sdk==1.40.0
     # via -r requirements.in
 six==1.16.0
     # via
