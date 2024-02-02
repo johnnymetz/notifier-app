@@ -116,8 +116,7 @@ def test_update(client, mailoutbox, token_headers):
     r = client.patch(url, data=data, content_type="application/json", **token_headers)
     assert r.status_code == status.HTTP_200_OK
     assert r.data["is_subscribed"] is False
-    # TODO: this sends an ActivationEmail, which should be removed from djoser master
-    assert len(mailoutbox) == 1
+    assert len(mailoutbox) == 0
 
 
 @pytest.mark.django_db()
