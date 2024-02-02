@@ -62,7 +62,7 @@ django==4.2.7
     #   djangorestframework
     #   djangorestframework-simplejwt
     #   drf-yasg
-django-anymail==10.1
+django-anymail==10.2
     # via -r requirements.in
 django-cors-headers==4.2.0
     # via -r requirements.in
