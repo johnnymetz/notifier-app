@@ -13,8 +13,6 @@ asttokens==2.2.1
     # via stack-data
 attrs==23.1.0
     # via flake8-bugbear
-backcall==0.2.0
-    # via ipython
 black==23.7.0
     # via -r requirements.in
 blinker==1.6.2
@@ -133,7 +131,7 @@ inflection==0.5.1
     # via drf-yasg
 iniconfig==2.0.0
     # via pytest
-ipython==8.14.0
+ipython==8.21.0
     # via -r requirements.in
 isort==5.13.2
     # via -r requirements.in
@@ -182,15 +180,13 @@ pep8-naming==0.13.3
     # via -r requirements.in
 pexpect==4.8.0
     # via ipython
-pickleshare==0.7.5
-    # via ipython
 pip-tools==7.3.0
     # via -r requirements.in
 platformdirs==3.10.0
     # via black
 pluggy==1.2.0
     # via pytest
-prompt-toolkit==3.0.39
+prompt-toolkit==3.0.43
     # via ipython
 psycopg2==2.9.9
     # via -r requirements.in
