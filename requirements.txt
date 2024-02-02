@@ -184,7 +184,7 @@ pip-tools==7.3.0
     # via -r requirements.in
 platformdirs==3.10.0
     # via black
-pluggy==1.2.0
+pluggy==1.4.0
     # via pytest
 prompt-toolkit==3.0.43
     # via ipython
@@ -212,7 +212,7 @@ pyjwt==2.8.0
     #   social-auth-core
 pyproject-hooks==1.0.0
     # via build
-pytest==7.4.0
+pytest==8.0.0
     # via
     #   -r requirements.in
     #   pytest-cov
