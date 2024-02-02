@@ -227,7 +227,7 @@ pytest==7.4.0
     #   pytest-timeout
 pytest-cov==4.1.0
     # via -r requirements.in
-pytest-django==4.5.2
+pytest-django==4.8.0
     # via -r requirements.in
 pytest-instafail==0.5.0
     # via -r requirements.in
