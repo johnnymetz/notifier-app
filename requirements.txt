@@ -203,7 +203,7 @@ pyjwt==2.8.0
     #   social-auth-core
 pyproject-hooks==1.0.0
     # via build
-pytest==8.0.0
+pytest==8.0.2
     # via
     #   -r requirements.in
     #   pytest-cov
