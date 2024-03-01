@@ -35,7 +35,9 @@ coverage[toml]==7.4.1
     #   coverage
     #   pytest-cov
 cryptography==42.0.2
-    # via social-auth-core
+    # via
+    #   django-anymail
+    #   social-auth-core
 decorator==5.1.1
     # via ipython
 defusedxml==0.8.0rc2
@@ -232,7 +234,7 @@ pytz==2024.1
     # via
     #   djangorestframework
     #   drf-yasg
-pyupgrade==3.15.0
+pyupgrade==3.15.1
     # via -r requirements.in
 pywatchman==1.4.1
     # via -r requirements.in
