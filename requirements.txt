@@ -35,7 +35,9 @@ coverage[toml]==7.4.1
     #   coverage
     #   pytest-cov
 cryptography==42.0.2
-    # via social-auth-core
+    # via
+    #   django-anymail
+    #   social-auth-core
 decorator==5.1.1
     # via ipython
 defusedxml==0.8.0rc2
@@ -250,7 +252,7 @@ rich==13.7.0
     # via -r requirements.in
 rollbar==1.0.0
     # via -r requirements.in
-sentry-sdk==1.40.0
+sentry-sdk==1.40.6
     # via -r requirements.in
 six==1.16.0
     # via
