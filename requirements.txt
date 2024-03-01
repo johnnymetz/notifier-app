@@ -12,7 +12,7 @@ asttokens==2.4.1
     # via stack-data
 attrs==23.2.0
     # via flake8-bugbear
-black==24.1.1
+black==24.2.0
     # via -r requirements.in
 blinker==1.7.0
     # via nplusone
@@ -35,7 +35,9 @@ coverage[toml]==7.4.1
     #   coverage
     #   pytest-cov
 cryptography==42.0.2
-    # via social-auth-core
+    # via
+    #   django-anymail
+    #   social-auth-core
 decorator==5.1.1
     # via ipython
 defusedxml==0.8.0rc2
