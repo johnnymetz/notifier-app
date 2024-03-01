@@ -35,7 +35,9 @@ coverage[toml]==7.4.1
     #   coverage
     #   pytest-cov
 cryptography==42.0.2
-    # via social-auth-core
+    # via
+    #   django-anymail
+    #   social-auth-core
 decorator==5.1.1
     # via ipython
 defusedxml==0.8.0rc2
@@ -98,7 +100,7 @@ flake8==7.0.0
     #   pep8-naming
 flake8-broken-line==1.0.0
     # via -r requirements.in
-flake8-bugbear==24.1.17
+flake8-bugbear==24.2.6
     # via -r requirements.in
 flake8-builtins==2.2.0
     # via -r requirements.in
