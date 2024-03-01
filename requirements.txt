@@ -128,7 +128,7 @@ inflection==0.5.1
     # via drf-yasg
 iniconfig==2.0.0
     # via pytest
-ipython==8.21.0
+ipython==8.22.1
     # via -r requirements.in
 isort==5.13.2
     # via -r requirements.in
