@@ -35,7 +35,9 @@ coverage[toml]==7.4.1
     #   coverage
     #   pytest-cov
 cryptography==42.0.2
-    # via social-auth-core
+    # via
+    #   django-anymail
+    #   social-auth-core
 decorator==5.1.1
     # via ipython
 defusedxml==0.8.0rc2
@@ -169,7 +171,7 @@ pep8-naming==0.13.3
     # via -r requirements.in
 pexpect==4.9.0
     # via ipython
-pip-tools==7.3.0
+pip-tools==7.4.0
     # via -r requirements.in
 platformdirs==4.2.0
     # via black
@@ -200,7 +202,9 @@ pyjwt==2.8.0
     #   djangorestframework-simplejwt
     #   social-auth-core
 pyproject-hooks==1.0.0
-    # via build
+    # via
+    #   build
+    #   pip-tools
 pytest==8.0.0
     # via
     #   -r requirements.in
