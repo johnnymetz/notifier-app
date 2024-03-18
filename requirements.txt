@@ -31,11 +31,11 @@ click==8.1.7
     #   black
     #   pip-tools
 coverage==7.4.3
-    # via
-    #   coverage
-    #   pytest-cov
+    # via pytest-cov
 cryptography==42.0.5
-    # via social-auth-core
+    # via
+    #   django-anymail
+    #   social-auth-core
 decorator==5.1.1
     # via ipython
 defusedxml==0.8.0rc2
@@ -44,7 +44,7 @@ defusedxml==0.8.0rc2
     #   social-auth-core
 dj-database-url==2.1.0
     # via -r requirements.in
-django==5.0.2
+django==5.0.3
     # via
     #   -r requirements.in
     #   dj-database-url
